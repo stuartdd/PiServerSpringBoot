@@ -1,0 +1,32 @@
+{
+    "system" : {"server.port":"8080"},
+    "resources": {
+        "historyMaxLen": 20,
+        "root": "/home/pi/PiServer/web",
+        "users": {
+            "stuart": "/media/shares/stuart",
+            "shared": "/media/shares/shared"
+        },
+        "locations": {
+            "logs": "/logs",
+            "cache" : "/logs/cache",
+            "thumbnail": "/thumbnails",
+            "userData": "/home/pi/PiServer/web/userData",
+            "audio" : "/home/pi/PiServer/web/audio"
+        }
+    },
+
+    "functions": {
+        "echoScriptOutput": false,
+        "poleForTime" : 200000,
+        "commands": {
+            "ufs": ["userFileSizesJsonCached"],
+            "ds": ["diskStatus", "./diskStatus.sh"],
+            "log": ["rsyncLogs", "./listFiles.sh", "/logs", "log"],
+            "time": ["jsonTime"],
+            "vol" : ["extractVolume", "./setVolume.sh" ,"level"],
+            "getVol" : ["extractVolume", "./getVolume.sh"]
+        }
+    }
+}
+

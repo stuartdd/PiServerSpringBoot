@@ -1,0 +1,189 @@
+/* 
+    Created on : 04-Nov-2016, 23:17:11
+    Author     : stuart
+*/
+html { 
+    height:100%;
+    background: url(background.jpg);
+    background-repeat: repeat;
+
+}
+
+h1 {
+    color: black;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+button {
+    text-align: center;
+    font-size: 100%;
+    cursor: pointer;
+    padding: 1px 1px;
+}
+
+.TopFixed {
+    background-color:darkolivegreen;
+    filter:alpha(opacity=90);
+    opacity:0.9;
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 10000;
+}
+
+.Top {
+    position: absolute;
+    left: 0px;
+    top: 70px;
+}
+
+.UpdateSchedule {
+    text-align: center;
+    font-size: 100%;
+    height: 60px;
+}
+
+.MenuButton {
+    text-align: center;
+    font-size: 100%;
+    width: 95px;
+    height: 40px;
+}
+
+.MenuButtonWide {
+    text-align: center;
+    font-size: 100%;
+    width: 100%;
+    height: 40px;
+}
+
+.MenuButtonSmall {
+    font-size: 100%;
+    min-width: 30px;
+    height: 40px;
+    display: inline-block;	
+}
+
+.ButtonDisabled {
+    opacity: 0.55; 
+    cursor: not-allowed;
+    font-size: 100%;
+    min-width: 80px;
+    height: 40px;
+    display: inline-block;
+}
+
+.image-container {
+    display: flex;
+    align-content: center;
+}
+
+.LastNextButton {
+    height: 100%;
+    color: green;
+}
+
+.hgap {
+    width: 100%;
+    height: 5px;
+    display: inline-block;
+}
+
+.SectionName {
+    font-size: 25px;
+    color: black;
+    display: inline-block;
+}
+
+.SectionNameCenter {
+    font-size: 20px;
+    color: black;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+.UserName1 {
+    font-size: 50px;
+    color: green;
+    display: inline-block;
+}
+
+.UserName2 {
+    font-size: 50px;
+    color: brown;
+    display: inline-block;
+}
+
+.TableListActive {
+    display: inline-block;
+    background-color: greenyellow;
+}
+
+.TableListOn {
+    font-size: 20px;
+    display: inline-block;
+    background-color: lightcyan;
+}
+
+.TableListOff {
+    font-size: 20px;
+    display: inline-block;
+    background-color: lightblue;
+}
+
+.TableList1 {
+    font-size: 20px;
+    display: inline-block;
+    background-color: lightcyan;
+}
+
+.TableList2 {
+    font-size: 20px;
+    display: inline-block;
+}
+
+.scheduleTable {
+    font-size: 20px;
+}
+.scheduleSelect {
+    font-size: 23px;
+}
+.scheduleSelectDisabled {
+    font-size: 24px;
+}
+.scheduleButton {
+    font-size: 25px;
+}
+
+input {
+    font-size: 200%;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 3px;
+    border-style: solid;
+    background-color: #c3c3c3;
+}
+
+lable {
+    font-size: 150%;
+}
+
+p {
+    color: black;
+    font-family: verdana;
+    font-size: 20px;
+}
+
+#debug {
+    border-width: 1px;
+    border-style: solid;
+    font-family: courier;
+    font-size: 20px;
+}
+

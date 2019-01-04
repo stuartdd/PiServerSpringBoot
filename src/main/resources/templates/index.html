@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Top Box for %{user}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" src="/rest.js" ></script>
+        <script type="text/javascript">
+            userList = [%{userList}];
+            poleForTime = %{poleForTime};
+            historyMaxLen = %{historyMaxLen};
+
+            if (historyMaxLen < 2) {
+                historyMaxLen = 2;
+            }
+            currentDaySelect = -1;
+            currentUser = "%{user}";
+            iconSize = 80;
+            currentDisplay = "";
+            currentUserCaps = capital(currentUser);
+            currentThumbnailPath = "";
+            currentLogFileName = "";
+            imageData = "";
+
+            imageIsZoomed = false;
+            imagePathData = "";
+            imageIndex = 0;
+            imageIsHistoric = false;
+            linkHistory = [];
+            userData = {imagesPerRow: 2};
+            userData.imageHistory = ["base"];
+            displayMap = new Map();
+
+
+            function displayPage(name) {
+                var displayDataIn = {
+                    name: currentDisplay,
+                    X: window.scrollX || document.documentElement.scrollLeft,
+                    Y: window.scrollY || document.documentElement.scrollTop
+                };
+                displayMap.set(currentDisplay, displayDataIn);
+                document.getElementById('timeDisplay').hidden = false;
+                document.getElementById('thumbnails').hidden = true;
+                document.getElementById('detailsDiv').hidden = true;
+                document.getElementById('logDisplayDiv').hidden = true;
+                document.getElementById('thumbnailsImage').hidden = true;
+                document.getElementById('originalImage').hidden = true;
+                document.getElementById('originalImageZoom').hidden = true;
+                document.getElementById('selectUser').hidden = true;
+                document.getElementById('thumbnailsImageHistory').hidden = true;
+                document.getElementById('manageAudio').hidden = true;
+                document.getElementById(name).hidden = false;
+                currentDisplay = name;
+
+                if (displayMap.has(currentDisplay)) {
+                    var displayDataOut = displayMap.get(currentDisplay);
+                    window.scrollTo(displayDataOut.X, displayDataOut.Y);
+                } else {
+                    window.scrollTo(0, 0);
+                }
+            }
+
+
+            function displayDetailsPage() {
+                document.getElementById('logDisplayCode').innerHTML = "";
+                document.getElementById('shareSizeText').innerHTML = "User file sizes are loading. Please wait...";
+                serverGetData(setUserFileSizes, responseError, "server/ufs");
+                serverGetData(setDiskStatus, responseError, "server/ds");
+                serverGetData(setLogList, response404, "server/log");
+                displayMap.delete('detailsDiv');
+                displayPage('detailsDiv');
+            }
+
+ 
+            function selectUser(user) {
+                currentUser = user;
+                currentUserCaps = capital(currentUser);
+                loadUserData();
+                document.getElementById('userNameButton').innerHTML = "Hello " + currentUserCaps + ".";
+                document.getElementById('thumbnailHeading').innerHTML = "Loading data for " + currentUserCaps + " Please wait";
+                document.getElementById('thumbnailDirList').innerHTML = "No Image data has been created";
+                document.getElementById('thumbnailImageList').innerHTML = "No Images to display";
+                document.getElementById('timeDisplay').hidden = false;
+                serverGetData(setThumbnailList, responseError, "image/dir/" + currentUser);
+                displayMap.clear();
+                displayPage("thumbnails");
+            }
+
+            function displayLoadedFile(result) {
+                document.getElementById('logDisplayFile').innerHTML = "Close --> " + currentLogFileName;
+                document.getElementById('logDisplayCode').innerHTML = result;
+            }
+
+            function loadLogFile(file) {
+                currentLogFileName = file;
+                reLoadLogFile();
+            }
+
+            function reLoadLogFile() {
+                document.getElementById('logDisplayCode').innerHTML = "Please wait. Loading file: " + currentLogFileName;
+                serverGetData(displayLoadedFile, responseError, "read/logs/" + currentLogFileName);
+                displayMap.delete('logDisplayDiv');
+                displayPage('logDisplayDiv');
+            }
+
+            /**
+             * Display list of directories containing images.
+             * @param {type} result The data from the server
+             * @return {undefined}
+             */
+            function setThumbnailList(result) {
+                /** 
+                 * Keep the path data for later
+                 */
+                imagePathData = JSON.parse(result);
+                refreshThumbnailList();
+            }
+
+            function refreshThumbnailList() {
+                var htmlStr = "<table width=\"100%\" border=\"1\">";
+                for (var i = 0; i < imagePathData.length; i++) {
+                    var linkClass;
+                    if (linkHistory.indexOf("id" + i) >= 0) {
+                        linkClass = "TableList1";
+                    } else {
+                        linkClass = "TableList2";
+                    }
+                    var span = "<a title=\"" + imagePathData[i].encName + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData[i].name + "</a>";
+                    htmlStr += "<tr><td width=\"99%\" class=\"" + linkClass + "\">" + span + "</td></tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('thumbnailHeading').innerHTML = "Image directories for " + currentUserCaps;
+                document.getElementById('thumbnailDirList').innerHTML = htmlStr;
+            }
+
+            /**
+             * Display the thumbnails (as img tags)
+             * @param {type} result from the server
+             * @return {undefined}
+             */
+            function displayLoadedThumbnails(result) {
+                /** 
+                 * Keep the image data for later
+                 */
+                imageData = JSON.parse(result);
+                refreshLoadedThumbnails();
+            }
+
+            function refreshLoadedThumbnails() {
+                var htmlStr = "<table width=\"100%\" border=\"1\">";
+                var imagePos = 1;
+                var image = "";
+                var imageTableColWidth = Math.round(100 / userData.imagesPerRow);
+
+                for (var index = 0; index < imageData.length; index++) {
+                    image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData[index].name + "\" src=\"/image/file/" + currentUser + "/" + currentThumbnailPath + "/" + imageData[index].name + "\"></td>";
+                    if (imagePos < userData.imagesPerRow) {
+                        imagePos++;
+                    } else {
+                        htmlStr = htmlStr + "<tr>" + image + "</tr>";
+                        imagePos = 1;
+                        image = "";
+                    }
+                }
+                if (imagePos > 0) {
+                    htmlStr += "<tr>" + image + "</tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.length + "] Images for " + currentUserCaps + " from " + currentThumbnailPath;
+                document.getElementById('thumbnailImageList').innerHTML = htmlStr;
+                displayMap.delete('thumbnailsImage');
+                displayPage('thumbnailsImage');
+            }
+
+            function displayThumbnailsList() {
+                refreshThumbnailList();
+                displayPage('thumbnails');
+            }
+
+            function displayThumbnailsHistory() {
+                var htmlStr = "<table border=\"1\">";
+                for (var index = 0; index < userData.imageHistory.length; index++) {
+                    htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/image/file/" + userData.imageHistory[index] + "\"></td>";
+                    htmlStr = htmlStr + "<td>" + userData.imageHistory[index] + "</td></tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('thumbnailImgeHeadingHistory').innerHTML = " [" + userData.imageHistory.length + "] Previously viewed images for " + currentUserCaps;
+                document.getElementById('thumbnailImageListHistory').innerHTML = htmlStr;
+                displayMap.delete('thumbnailsImageHistory');
+                displayPage('thumbnailsImageHistory');
+            }
+
+            function loadThumbnails(entryId) {
+                linkHistory.push("id" + entryId);
+                currentThumbnailPath = imagePathData[entryId].encName;
+                document.getElementById('thumbnailImgeHeading').innerHTML = "Please wait. Loading Thumbnails " + currentThumbnailPath;
+                serverGetData(displayLoadedThumbnails, responseError, "image/list/" + currentUser + "/" + currentThumbnailPath);
+                displayMap.delete('thumbnailsImage');
+                displayPage('thumbnailsImage');
+            }
+
+
+            function setImagesPerRow(n) {
+                if ((n > 0) && (n < 10)) {
+                    userData.imagesPerRow = n;
+                    saveUserData();
+                    refreshLoadedThumbnails();
+                }
+            }
+
+            function displayNextImage(next) {
+                if (imageIsHistoric) {
+                    return;
+                }
+                var newIndex = imageIndex + next;
+                if ((newIndex >= 0) && (newIndex <= (imageData.length - 1))) {
+                    displayOriginal(newIndex, false);
+                }
+            }
+
+            function displayNextImageXY(event) {
+                if (imageIsZoomed) {
+                    imageIsZoomed = false;
+                    displayOriginal(imageIndex, imageIsHistoric);
+                    return;
+                }
+                var pos_x = event.offsetX ? (event.offsetX) : event.pageX - document.getElementById("pointer_div").offsetLeft;
+                var pos_y = event.offsetY ? (event.offsetY) : event.pageY - document.getElementById("pointer_div").offsetTop;
+
+                var width = document.getElementById('originalImageHtmlSrc').offsetWidth;
+                var height = document.getElementById('originalImageHtmlSrc').offsetHeight;
+                var wUnit = width / 4;
+                var hUnit = height / 4;
+                if (pos_x < wUnit) {
+                    if (imageIsHistoric) {
+                        displayPage("thumbnailsImageHistory");
+                    } else {
+                        displayNextImage(-1);
+                    }
+                } else {
+                    if (pos_x > (wUnit * 3)) {
+                        if (imageIsHistoric) {
+                            displayPage("thumbnailsImageHistory");
+                        } else {
+                            displayNextImage(+1);
+                        }
+                    } else {
+                        if ((pos_y < hUnit) || (pos_y > (hUnit * 3))) {
+                            if (imageIsHistoric) {
+                                displayPage("thumbnailsImageHistory");
+                            } else {
+                                displayPage("thumbnailsImage");
+                            }
+                        } else {
+                            imageIsZoomed = true;
+                            displayOriginal(imageIndex, imageIsHistoric);
+                        }
+                    }
+                }
+            }
+
+            function displayOriginal(index, historic) {
+
+                var imageName;
+                var fullName;
+                var tag;
+                if (historic) {
+                    imageName = userData.imageHistory[index];
+                    fullName = imageName;
+                    tag = "H:(" + index + ")";
+                } else {
+                    imageName = imageData[index].name;
+                    fullName = currentUser + "/" + currentThumbnailPath + "/" + imageName;
+                    tag = "C:(" + index + ")";
+                }
+                imageIndex = index;
+                imageIsHistoric = historic;
+
+                if (!historic) {
+                    var tempList = [fullName];
+                    for (i = 0; i < userData.imageHistory.length; i++) {
+                        if (userData.imageHistory[i] !== fullName) {
+                            tempList.push(userData.imageHistory[i]);
+                        }
+                    }
+                    userData.imageHistory = tempList.slice(0, historyMaxLen);
+                    saveUserData();
+                }
+
+                var widthAttr = "width=\"100%\"";
+                if (imageIsZoomed) {
+                    widthAttr = "";
+                }
+
+                var image = "<img " + widthAttr + " id=\"originalImageHtmlSrc\" title=\"" + tag + imageName + "\" src=\"/image/original/" + fullName + "\">";
+
+                if (imageIsZoomed) {
+                    document.getElementById('originalImageHtmlZoom').innerHTML = image;
+                    displayPage('originalImageZoom');
+                    document.getElementById('timeDisplay').hidden = true;
+
+                } else {
+                    document.getElementById('originalImageHtml').innerHTML = image;
+                    displayPage('originalImage');
+                }
+            }
+
+            function setLogList(result) {
+                var logs = JSON.parse(result);
+                var htmlStr = "<table width=\"100%\" border=\"1\">";
+                for (var i = 0; i < logs.length; i++) {
+                    span = "<a href=\"javascript:loadLogFile('" + logs[i].Text + "')\">" + logs[i].Text + "</a>";
+                    htmlStr += "<tr><td style=\"width:20%\">" + logs[i].Rc + "</td><td>" + span + "</td></tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('logList').innerHTML = htmlStr;
+            }
+
+            function setDiskStatus(result) {
+                var ds = JSON.parse(result);
+                var htmlStr = "<table width=\"100%\" border=\"1\">";
+                for (var i = 0; i < ds.length; i++) {
+                    htmlStr += "<tr ><td style=\"width:20%\">" + ds[i].Name + "</td><td>" + ds[i].State + "</td></tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('diskStatus').innerHTML = htmlStr;
+            }
+
+            function setUserFileSizes(result) {
+                document.getElementById('shareSizeText').innerHTML = "Total space used by each user";
+                var ufs = JSON.parse(result);
+                var htmlStr = "<table width=\"100%\" border=\"1\">";
+                for (var i = 0; i < ufs.length; i++) {
+                    htmlStr += "<tr><td style=\"width:20%\">" + ufs[i].Name + "</td><td>" + ufs[i].Size + "</td></tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('sizeDisplay').innerHTML = htmlStr;
+            }
+
+
+            function setTime(result) {
+                var time = JSON.parse(result).time;
+                document.getElementById('timeDisplay_date').innerHTML = time.mon + " " + time.dom + " " + time.year;
+                document.getElementById('timeDisplay_time').innerHTML = time.hour + ":" + time.min + ":" + time.sec;
+                displayAudioStats(time.audio);
+
+            }
+
+            function displayAudioStats(audioData) {
+                var parts = audioData.split(/,/);
+                document.getElementById('audioDuration').innerHTML = "";
+                document.getElementById('audioPlayed').innerHTML = "";
+                document.getElementById('audioPc').innerHTML = "";
+                document.getElementById('audioStatus').innerHTML = parts[0];
+                if (parts.length > 1) {
+                    document.getElementById('audioDuration').innerHTML = parts[1] + "s";
+                    if (parts.length > 2) {
+                        document.getElementById('audioPlayed').innerHTML = parts[2] + "s";
+                        if (parts.length > 3) {
+                            document.getElementById('audioPc').innerHTML = "%" + parts[3];
+                        }
+                    }
+                }
+            }
+
+            function responseError(message, code) {
+                console.log(message + " " + code);
+                if (message.charAt(0) === '{') {
+                    var err = JSON.parse(message);
+                    alert("Status:" + err.Status + " Msg:'" + err.Msg + "' Entity:'" + err.Entity + "'");
+                } else {
+                    alert("Status:" + code + ". Error Msg:'" + message + "'");
+                }
+            }
+
+            function response404(message, code) {
+                if (code === 404) {
+                    return;
+                }
+                responseError("No Data Found", code);
+            }
+
+            function displayUserSelect() {
+                displayPage("selectUser");
+                document.getElementById('timeDisplay').hidden = true;
+            }
+
+            function initTime() {
+                serverGetData(setTime, responseError, "server/time?noLog=true");
+                if (poleForTime > 0) {
+                    window.setTimeout(initTime, poleForTime);
+                }
+            }
+
+            function validUser() {
+                for (var i = 0; i < userList.length; i++) {
+                    if (currentUser === userList[i]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function initUserList() {
+                var htmlStr = "<table width=\"99%\">";
+                for (var i = 0; i < userList.length; i++) {
+                    var user = userList[i];
+                    var userCaps = capital(user);
+                    htmlStr += "<tr>" +
+                            "<td width=\"40%\"><img onclick=\"selectUser('" + user + "')\" src=\"/" + user + ".png\" alt=\"" + userCaps + "\" height=\"" + iconSize + "\" width=\"" + iconSize + "\"> </td>" +
+                            "<td width=\"40%\" class=\"UserName1\" onclick=\"selectUser('" + user + "')\">" + userCaps + "</td></tr>";
+                }
+                htmlStr += "</table>";
+                document.getElementById('userNameList').innerHTML = htmlStr;
+            }
+
+            function capital(name) {
+                if (name.length > 0) {
+                    return name[0].toUpperCase() + name.substring(1);
+                } else {
+                    return "";
+                }
+            }
+
+            function setUserData(result) {
+                userData = JSON.parse(result);
+                if (userData.imageHistory === undefined) {
+                    userData.imageHistory = [];
+                }
+            }
+
+            function saveUserData() {
+                serverPostData(userData, setUserData, responseError, "userdata/" + currentUser);
+            }
+
+            function loadUserData() {
+                serverGetData(setUserData, responseError, "userdata/" + currentUser);
+            }
+
+            window.onload = function () {
+                initUserList();
+                initTime();
+                serverGetData(respAudioStatus, responseError, "audio/status");
+                if (validUser()) {
+                    selectUser(currentUser);
+                } else {
+                    displayUserSelect();
+                }
+            };
+
+            function respAudioVolume(resp) {
+                console.log(resp);
+            }
+
+            function respAudioStatus(result) {
+                var status = JSON.parse(result);
+                displayAudioStats(status.audio);
+            }
+
+            function setAudioVolume(level) {
+                var actual = 0;
+                if (level === 0) {
+                    actual = 0;
+                } else {
+                    if (level === 9) {
+                        actual = 100;
+                    } else {
+                        actual = 70 + (((100 - 70) / 10) * level);
+                    }
+                }
+                serverGetData(respAudioVolume, responseError, "audio/setVol?level=" + actual);
+            }
+
+            function setAudioPauseStop(action) {
+                serverGetData(respAudioStatus, responseError, "audio/" + action);
+            }
+
+            function displayAudioPage() {
+                serverGetData(respAudioStatus, responseError, "audio/status");
+                displayPage('manageAudio');
+            }
+
+            function playAudioFile(file) {
+                serverGetData(respAudioStatus, responseError, "play/file/" + file);
+            }
+        </script>
+    </head>
+    <body >
+        <div id="mainFrame" >
+            <div class="TopFixed" id="timeDisplay">
+                <button class="MenuButton" onclick="displayDetailsPage()">Status</button>
+                <button class="MenuButton" onclick="displayThumbnailsList()">Pictures</button>
+                <button class="MenuButton" onclick="displayThumbnailsHistory()">History</button>
+                <button class="MenuButton" onclick="displayAudioPage()">Audio</button>               
+                <span class="SectionName" id="userNameButton"></span>
+                <table width="100%" border="1">
+                    <tr>
+                        <td>Date</td>
+                        <td id="timeDisplay_date"></td>
+                        <td>Time</td>
+                        <td id="timeDisplay_time"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="Top" id="manageAudio">
+                <table width="100%">
+                    <tr>
+                        <td colspan="10"><span class="SectionName">Set Volume Level:</span></td>
+                    </tr>
+                    <tr>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(0)">OFF</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(1)">1</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(2)">2</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(3)">3</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(4)">4</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(5)">5</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(6)">6</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(7)">7</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(8)">8</button></td>
+                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(9)">FULL</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="10"><hr></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><span id="audioStatus" class="SectionName">Pause and Stop audio playback</span></td>
+                        <td colspan="2"><span id="audioDuration" class="SectionName"></span></td>
+                        <td colspan="2"><span id="audioPlayed" class="SectionName"></span></td>
+                        <td colspan="2"><span id="audioPc" class="SectionName"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <span class="SectionName">Pause:&nbsp;</span>
+                            <button class="MenuButtonSmall" onclick="setAudioPauseStop('pause')">(ON/OFF)</button>
+                            <span class="SectionName">&nbsp;Playback:&nbsp;</span>
+                            <button class="MenuButtonSmall" onclick="setAudioPauseStop('stop')">STOP</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="10"><hr></td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <span class="SectionName">Play some stuff!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('Chime.mp3')">Chime</button>
+                        </td>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('Bell.mp3')">Bell</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('Dog.mp3')">Dog</button>
+                        </td>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('Nature.mp3')">Nature</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('Seagulls.mp3')">Seagulls</button>
+                        </td>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('train.ogg')">Train</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <button class="MenuButton" onclick="playAudioFile('BackDoorOpened.mp3')">BackDoorOpened</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="originalImage">
+                <div onclick="displayNextImageXY(event)" id="originalImageHtml" style="position:absolute; top:80px; left:8px; width:98%; height:100%;"> </div>
+            </div>
+
+            <div id="originalImageZoom">
+                <div onclick="displayNextImageXY(event)" id="originalImageHtmlZoom" style="position:absolute; top:8px; left:8px"> </div>
+            </div>
+
+            <div class="Top" id="thumbnailsImageHistory">
+                <span class="SectionName" id="thumbnailImgeHeadingHistory"></span>
+                <div id="thumbnailImageListHistory">IMG</div>
+                <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
+            </div>
+
+            <div class="Top" id="thumbnailsImage">
+                <span class="SectionName">Number Of Columns:</span>
+                <button class="MenuButton" onclick="setImagesPerRow(userData.imagesPerRow - 1)">&#8595; Less</button>
+                <button class="MenuButton" onclick="setImagesPerRow(userData.imagesPerRow + 1)">&#8593; More</button><br>
+                <span class="SectionName" id="thumbnailImgeHeading"></span>
+                <div id="thumbnailImageList">IMG</div>
+                <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
+            </div>
+
+            <div class="Top" id="thumbnails">
+                <span class="SectionName" id="thumbnailHeading"></span>
+                <div id="thumbnailDirList">DIR</div>
+            </div>
+
+            <div class="Top" id="selectUser">
+                <span class="UserName2">Who are you?</span>
+                <div id="userNameList"></div>
+            </div>
+
+            <div class="Top" id="detailsDiv">
+                <H4 id="shareSizeText">Share sizes</H4>
+                <div id="sizeDisplay"></div>
+                <H4>Disk Idle status</H4>
+                <div id="diskStatus"></div> 
+                <H4>RSync Logs (Latest First)</H4>
+                <div id="logList"></div>
+            </div> 
+            
+            <div class="Top" id="logDisplayDiv">
+                <button id="logDisplayFile" onclick="displayPage('detailsDiv')">Back</button>
+                <button onclick="reLoadLogFile()">ReLoad</button><br>
+                <code id="logDisplayCode">Hello world</code>
+            </div>
+         </div>
+    </body>
+</html>
