@@ -15,6 +15,7 @@
 
 # Gradle
 .gradle
+build/
 
 # Package Files #
 *.jar
