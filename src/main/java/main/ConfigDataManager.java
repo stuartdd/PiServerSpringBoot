@@ -16,12 +16,13 @@
  */
 package main;
 
-import config.Config;
 import config.ConfigData;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import org.joda.time.DateTime;
+import tools.JsonUtils;
+
 
 /**
  *
@@ -39,9 +40,9 @@ public class ConfigDataManager {
     public static void init(String[] args) {
         if (configData == null) {
             if (args.length > 0) {
-                configData = (ConfigData) Config.configFromJsonFile(ConfigData.class, new File(args[0]));
+                configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File(args[0]));
             } else {
-                configData = (ConfigData) Config.configFromJsonFile(ConfigData.class, new File("configWebApp.json"));
+                configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File("configWebApp.json"));
             }
         }
         parameters = new HashMap<>();
