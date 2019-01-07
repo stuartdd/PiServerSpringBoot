@@ -28,20 +28,36 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 public class ControllerBase {
 
+    /**
+     * Required for when a request method throws an exception.
+     *
+     * @param resp The response. So we can return an error message.
+     * @param ex The exception that was thrown.
+     */
     @ExceptionHandler(Exception.class)
     public void handleError(HttpServletResponse resp, Exception ex) {
         String message;
         String warning;
         if (ex instanceof ServerRestException) {
+            /*
+            If it is a ServerRestException then it contains all the data we need.
+             */
             ServerRestException sre = (ServerRestException) ex;
             resp.setStatus(sre.getStatus());
             warning = sre.getWarning();
             message = "{\"Status\":" + sre.getStatus() + ", \"Msg\":\"" + warning + "\", \"Entity\":\"" + sre.getMessage() + "\"}";
         } else {
+            /*
+            If it is NOT a ServerRestException then we do the best we can!.
+             */
             resp.setStatus(500);
             warning = "Unknown Server Error";
             message = "{\"Status\":500, \"Msg\":\"" + ex.getMessage() + "\", \"Entity\":\"Unknown\"}";
         }
+        /*
+        Define the headers for the error.
+        Write the response and return.
+        */
         resp.setHeader("Content-Type", "application/json;charset=UTF-8");
         resp.setHeader("Warning", warning);
         resp.setContentLength(message.length());

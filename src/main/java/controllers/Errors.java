@@ -29,10 +29,19 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  *
  * @author stuart
+ * 
+ * This is required by Spring and is the default handler for when a mapping is not found.
+ * 
  */
 @RestController("error")
 public class Errors extends ControllerBase {
 
+    /**
+     * This is required by Spring. The error response is defined by handleError in ControllerBase.
+     * @param req So we can find the cause
+     * @param resp So we can delegate to handleError
+     * @param ex We also pass this to handleError
+     */
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public void error(HttpServletRequest req, HttpServletResponse resp, Exception ex) {
         RequestAttributes requestAttributes = new ServletRequestAttributes(req);
