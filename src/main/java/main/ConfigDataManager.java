@@ -23,7 +23,6 @@ import java.util.Map;
 import org.joda.time.DateTime;
 import tools.JsonUtils;
 
-
 /**
  *
  * @author stuart
@@ -42,9 +41,42 @@ public class ConfigDataManager {
             if (args.length > 0) {
                 configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File(args[0]));
             } else {
-                configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File("configWebApp.json"));
+                configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File("configTestData.json"));
             }
         }
+
+        if ((configData.getResources() == null) || (configData.getResources().getUsers() == null) || (configData.getResources().getUsers().size() == 0)) {
+            throw new ConfigDataException("User data 'resources-->users' not found or is empty");
+        }
+
+        if (configData.isValidateLocations()) {
+            for (Map.Entry<String, String> loc : configData.getResources().getUsers().entrySet()) {
+                File f = new File(loc.getValue());
+                f = new File(f.getAbsolutePath());
+                if (!f.exists()) {
+                    throw new ConfigDataException("User '" + loc.getKey() + "'. Path '" + loc.getValue() + "' does not exist");
+                }
+            }
+        }
+        
+        if ((configData.getResources().getLocations() == null) || (configData.getResources().getLocations().size() == 0)) {
+            throw new ConfigDataException("Location data 'resources-->locations' not found or is empty");
+        }
+
+        if (configData.isValidateLocations()) {
+            for (Map.Entry<String, String> loc : configData.getResources().getLocations().entrySet()) {
+                File f = new File(loc.getValue());
+                f = new File(f.getAbsolutePath());
+                if (!f.exists()) {
+                    throw new ConfigDataException("Location '" + loc.getKey() + "=" + loc.getValue() + " does not exist");
+                }
+            }
+        }
+
+        if ((configData.getFunctions() == null) || (configData.getFunctions().getCommands() == null) || (configData.getFunctions().getCommands().size() == 0)) {
+            throw new ConfigDataException("Config data 'functions-->commands' not found or is empty");
+        }
+
         parameters = new HashMap<>();
         for (Map.Entry<String, String> es : configData.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
@@ -66,6 +98,18 @@ public class ConfigDataManager {
     public static Map<String, String> getUsers() {
         return configData.getResources().getUsers();
     }
+    
+    public static boolean userExists(String user) {
+        return configData.getResources().getUsers().containsKey(user);
+    }
+
+    public static String getLocation(String locationName) {
+        String loc = configData.getResources().getLocations().get(locationName);
+        if (loc == null) {
+            return "<undefined-location>";
+        }
+        return loc;
+    }
 
     public static Map<String, String> getProperties(Map<String, String> localParameters) {
         Map<String, String> map = new HashMap<>();
@@ -73,7 +117,7 @@ public class ConfigDataManager {
         map.putAll(localParameters);
         return map;
     }
-    
+
     public static String formattedTimeSatmp() {
         DateTime now = DateTime.now();
         return now.toString(configData.getFormatTimeStamp());

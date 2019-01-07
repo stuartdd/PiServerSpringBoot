@@ -18,6 +18,8 @@ public class ConfigData {
     private Functions functions;
     private String formatTimeStamp;
     private Map<String, String> system;
+    private boolean allowServerStopCtrl = true;
+    private boolean validateLocations = true;
 
     public Resources getResources() {
         return resources;
@@ -44,11 +46,30 @@ public class ConfigData {
     }
 
     public String getFormatTimeStamp() {
+        if (formatTimeStamp == null) {
+            return "dd-MM-yyyy'T'HH:mm:ss.SZ";
+        }
         return formatTimeStamp;
     }
 
     public void setFormatTimeStamp(String formatTimeStamp) {
         this.formatTimeStamp = formatTimeStamp;
+    }
+
+    public boolean isAllowServerStopCtrl() {
+        return allowServerStopCtrl;
+    }
+
+    public void setAllowServerStopCtrl(boolean allowServerStopCtrl) {
+        this.allowServerStopCtrl = allowServerStopCtrl;
+    }
+
+    public boolean isValidateLocations() {
+        return validateLocations;
+    }
+
+    public void setValidateLocations(boolean validateLocations) {
+        this.validateLocations = validateLocations;
     }
 
 }

@@ -16,16 +16,14 @@
  */
 package controllers;
 
-import exceptions.ServerRestException;
-import java.util.ArrayList;
-import java.util.List;
-import main.ConfigDataManager;
-import org.springframework.http.HttpStatus;
+import java.util.Map;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import services.UserDataService;
 
 /**
  *
@@ -34,22 +32,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("users")
 public class Users extends ControllerBase {
 
-    @RequestMapping(value = "/users/{user}", method = RequestMethod.GET)
-    public String user(@PathVariable String user) {
-        String location = ConfigDataManager.getUsers().get(user);
-        if (location == null) {
-            throw new ServerRestException(user, HttpStatus.NOT_FOUND, "User Not Found");
-        }
-        return "{\"location\":\""+ConfigDataManager.getUsers().get(user)+"\"}";
+    @RequestMapping(value = "/userdata/{user}", method = RequestMethod.GET)
+    public @ResponseBody
+    String userData(@PathVariable String user, @RequestParam Map<String, String> queryParameters) {
+        return UserDataService.getUserData(user);
     }
-    
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public @ResponseBody List<String> getUsers() {
-        List<String> users = new ArrayList<>();
-        for (String keys:ConfigDataManager.getUsers().keySet()) {
-            users.add(keys);
-        }
-        return users;
-    }
-
 }

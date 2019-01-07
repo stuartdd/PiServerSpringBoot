@@ -47,22 +47,22 @@ public class TestUsers {
     private MockMvc mvc;
 
     @Test
-    public void getUser() throws Exception {
-        mvc.perform(get("/users/stuart"))
+    public void getUserData() throws Exception {
+        mvc.perform(get("/userdata/stuart"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"location\":\"/media/shares/stuart\"}"));
+                .andExpect(content().string("{\"imagesPerRow\":2,\"imageHistory\":[\"stuart/PixelPhoneSync/2018_12_27_13_48_08_IMG_20181227_134807.jpg.jpg\",\"stuart/Archive/pics/2017_01_02_19_22_28_015_Mum8.jpg.jpg\"]}"));
+    }
+    
+    @Test
+    public void getNonUserData() throws Exception {
+        mvc.perform(get("/userdata/nonuser"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("{\"imagesPerRow\":2,\"imageHistory\":[]}"));
     }
 
     @Test
-    public void userList() throws Exception {
-        mvc.perform(get("/users"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("[\"stuart\",\"shared\"]"));
-    }
-
-    @Test
-    public void getUserNotFound() throws Exception {
-        mvc.perform(get("/users/tony"))
+    public void getUserDataNotFound() throws Exception {
+        mvc.perform(get("/userdata/tony"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"Status\":404, \"Msg\":\"User Not Found\", \"Entity\":\"tony\"}"));
     }

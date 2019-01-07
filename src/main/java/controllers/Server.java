@@ -16,17 +16,15 @@
  */
 package controllers;
 
+import exceptions.ServerRestException;
 import services.ServerService;
 import services.ShutDownService;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
-import main.ThreadPool;
+import main.ConfigDataManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ExitCodeGenerator;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,14 +47,16 @@ public class Server extends ControllerBase {
 
     @RequestMapping(value = "server/stop", method = RequestMethod.GET)
     public String stop(HttpServletRequest req, @RequestParam Map<String, String> queryParameters) {
-        return ShutDownService.shutDownLater(appContext, 1, 2, "SHUTTING DOWN");
+        if (ConfigDataManager.getConfigData().isAllowServerStopCtrl()) {
+            return ShutDownService.shutDownLater(appContext, 1, 2, "SHUTTING DOWN");
+        } else {
+            throw new ServerRestException("Stop command is disabled",HttpStatus.FORBIDDEN,"Forbidden");
+        } 
     }
 
     @RequestMapping(value = "server/restart", method = RequestMethod.GET)
     public String restart(HttpServletRequest req, @RequestParam Map<String, String> queryParameters) {
         return ShutDownService.shutDownLater(appContext, 2, 2, "RESTARTING");
     }
-
-    
 
 }

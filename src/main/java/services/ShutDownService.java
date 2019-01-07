@@ -17,25 +17,28 @@
 package services;
 
 import controllers.Server;
+import java.io.File;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.ConfigDataManager;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import tools.FileUtils;
 
 /**
  *
  * @author stuart
  */
 public class ShutDownService {
-    
+
     public static String shutDownLater(ApplicationContext ac, int rc, long delay, String log) {
         ShutDown shutDown = new ShutDown(ac, rc, delay, log);
         shutDown.start();
         return shutDown.getMessage();
     }
-    
+
     private static class ShutDown extends Thread {
 
         private final ApplicationContext appContext;
@@ -51,17 +54,18 @@ public class ShutDownService {
         }
 
         public String getMessage() {
-            return "{\"Status\":\"OK\", \"Msg\":\""+log+"\", \"Entity\":\"CODE:"+rc+" DELAY:"+delay+" Seconds\"}";
+            return "{\"Status\":\"OK\", \"Msg\":\"" + log + "\", \"Entity\":\"CODE:" + rc + " DELAY:" + delay + " Seconds\"}";
         }
-        
+
         @Override
         public void run() {
             try {
-                sleep(delay*1000);
+                sleep(delay * 1000);
             } catch (InterruptedException ex) {
-                
+
             }
             Logger.getLogger(Server.class.getName()).log(Level.WARNING, getMessage());
+            setExitFlag(rc);
             SpringApplication.exit(appContext, new ExitCodeGenerator() {
                 @Override
                 public int getExitCode() {
@@ -69,6 +73,12 @@ public class ShutDownService {
                 }
             });
         }
+    }
 
-    }    
+    public static void setExitFlag(int n) {
+        String fileName = ConfigDataManager.getLocation("cache") + File.separator + "RC_DATA.txt";
+        FileUtils.writeFileOverwrite("" + n, new File(fileName));
+        Logger.getLogger(Server.class.getName()).log(Level.WARNING, "EXIT FLAG "+fileName+" SET:"+n);
+    }
+
 }
