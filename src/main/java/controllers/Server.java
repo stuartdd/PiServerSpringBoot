@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author stuart
  */
 @RestController("server")
-public class Server extends ControllerBase {
+public class Server extends ControllerErrorHandlerBase {
 
     @Autowired
     private ApplicationContext appContext;

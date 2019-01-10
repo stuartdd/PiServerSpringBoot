@@ -18,10 +18,10 @@ import services.FunctionService;
  * @author stuart
  */
 @RestController("scripts")
-public class Script extends ControllerBase {
-    @RequestMapping(value = "func/{script}", method = RequestMethod.GET)
-    public String script(@PathVariable String script, @RequestParam Map<String, String> queryParameters) {
-        return FunctionService.func(script, queryParameters);
+public class Script extends ControllerErrorHandlerBase {
+    @RequestMapping(value = "func/{id}", method = RequestMethod.GET)
+    public String script(@PathVariable String id, @RequestParam Map<String, String> queryParameters) {
+        return FunctionService.func(id, queryParameters);
     }
     
 }

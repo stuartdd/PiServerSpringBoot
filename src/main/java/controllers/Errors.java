@@ -34,7 +34,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * 
  */
 @RestController("error")
-public class Errors extends ControllerBase {
+public class Errors extends ControllerErrorHandlerBase {
 
     /**
      * This is required by Spring. The error response is defined by handleError in ControllerBase.

@@ -37,34 +37,38 @@ public class TestScripts {
     }
 
     @Test
-    public void getFuncUfs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/func/ufs"))
+    public void getFuncTestTree() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/func/testtree"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
-        System.out.println(s);
+        assertTrue(s.contains("src/main/java/exceptions"));
     }
 
     @Test
     public void getFuncNotFound() throws Exception {
-        try {
-            mvc.perform(get("/func/xxx"))
-                    .andExpect(status().isFailedDependency());
-        } catch (NestedServletException ex) {
-            assertTrue(ex.getCause().getMessage().contains("is not defined"));
-            return;
-        }
-        fail("Should not get here!");
+        MvcResult s = mvc.perform(get("/func/xxx"))
+                .andExpect(status().isFailedDependency()).andReturn();
+        assertTrue(s.getResponse().getContentAsString().contains("Function 'xxx' is not defined"));
+    }
+
+    @Test
+    public void getFuncNotImplemented() throws Exception {
+        MvcResult s = mvc.perform(get("/func/notImplemented"))
+                .andExpect(status().isFailedDependency()).andReturn();
+        assertTrue(s.getResponse().getContentAsString().contains("Method 'notImplemented' is not implemented"));
     }
     
     @Test
-    public void getFuncNotImplemented() throws Exception {
-        try {
-            mvc.perform(get("/func/notImplemented"))
-                    .andExpect(status().isFailedDependency());
-        } catch (NestedServletException ex) {
-            assertTrue(ex.getCause().getMessage().contains("is not implemented"));
-            return;
-        }
-        fail("Should not get here!");
+    public void getScriptNotFound() throws Exception {
+        MvcResult s = mvc.perform(get("/func/notScript"))
+                .andExpect(status().isFailedDependency()).andReturn();
+        assertTrue(s.getResponse().getContentAsString().contains("File notScript.sh not found at location 'scripts'"));
+    }
+    
+    @Test
+    public void getScriptMinRC() throws Exception {
+        MvcResult s = mvc.perform(get("/func/minRcError"))
+                .andExpect(status().isFailedDependency()).andReturn();
+        assertTrue(s.getResponse().getContentAsString().contains("returned code 1. Min value is 0"));
     }
 }

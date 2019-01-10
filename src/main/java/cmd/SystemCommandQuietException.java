@@ -12,15 +12,20 @@ import org.springframework.http.HttpStatus;
  *
  * @author stuar
  */
-public class SystemCommandException extends ServerRestException {
+public class SystemCommandQuietException extends ServerRestException {
 
-    public SystemCommandException(String message) {
+    public SystemCommandQuietException(String message) {
         super(message, HttpStatus.FAILED_DEPENDENCY, "Failed Dependency");
 
     }
 
-    public SystemCommandException(String message, Throwable cause) {
+    public SystemCommandQuietException(String message, Throwable cause) {
         super(message, HttpStatus.FAILED_DEPENDENCY, "Failed Dependency", cause);
+    }
+
+    @Override
+    public boolean fullLog() {
+        return false;
     }
 
 }

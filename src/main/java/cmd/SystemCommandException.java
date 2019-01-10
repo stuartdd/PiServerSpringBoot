@@ -23,4 +23,9 @@ public class SystemCommandException extends ServerRestException {
         super(message, HttpStatus.FAILED_DEPENDENCY, "Failed Dependency", cause);
     }
 
+    @Override
+    public boolean fullLog() {
+        return true;
+    }
+
 }

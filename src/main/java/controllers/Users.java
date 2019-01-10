@@ -30,7 +30,7 @@ import services.UserDataService;
  * @author stuart
  */
 @RestController("users")
-public class Users extends ControllerBase {
+public class Users extends ControllerErrorHandlerBase {
 
     @RequestMapping(value = "/userdata/{user}", method = RequestMethod.GET)
     public @ResponseBody

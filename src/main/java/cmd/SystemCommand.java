@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import main.ConfigDataManager;
 import tools.StringUtils;
@@ -22,34 +23,41 @@ public class SystemCommand {
     private final StringBuilder errorStream = new StringBuilder();
     private final StringBuilder outputStream = new StringBuilder();
     private int exitValue;
+    private List<String> commands;
 
-    public int run(List<String> command, String path, boolean echoScriptOutput) {
-        if (command == null) {
+    public int run(List<String> commandIn, String path) {
+        boolean echoScriptOutput = ConfigDataManager.getConfigData().getFunctions().isEchoScriptOutput();
+        if (commandIn == null) {
             throw new SystemCommandException("Failed command : (NULL)");
         }
-        if (command.isEmpty()) {
+        if (commandIn.isEmpty()) {
             throw new SystemCommandException("Failed command : (EMPTY)");
         }
-
+        commands = commandIn;
         ProcessBuilder builder;
         if (isWindows) {
-            command.add(0, "/c");
-            command.add(0, "cmd.exe");
+            commands.add(0, "/c");
+            commands.add(0, "cmd.exe");
             if (echoScriptOutput) {
-                logger.info("CMD:WINDOWS:" + StringUtils.listToString(command, " "));
+                logger.info("CMD:WINDOWS:" + StringUtils.listToString(commands, " "));
             }
-            builder = new ProcessBuilder(command);
+            builder = new ProcessBuilder(commands);
         } else {
-            if (echoScriptOutput) {
-                logger.info("CMD:UNIX: " + StringUtils.listToString(command, " "));
+            List<String> l = new ArrayList<>();
+            for (String s:commands) {
+                if (l.size() == 0) {
+                    l.add(ConfigDataManager.getConfigData().getFunctions().getLinuxScriprPrefix()+s);
+                } else {
+                    l.add(s);
+                }
             }
-            builder = new ProcessBuilder(command);
+            commands = l;
+            if (echoScriptOutput) {
+                logger.info("CMD:UNIX: " + StringUtils.listToString(commands, " "));
+            }
+            builder = new ProcessBuilder(commands);
         }
 
-//        Map<String, String> env = builder.environment();
-//        env.put("VAR1", "myValue");
-//        env.remove("OTHERVAR");
-//        env.put("VAR2", env.get("VAR1") + "suffix");
         if (path == null) {
             builder.directory(new File(ConfigDataManager.getLocation("scripts")));
         } else {
@@ -63,7 +71,7 @@ public class SystemCommand {
         try {
             p = builder.start();
         } catch (IOException ex) {
-            throw new SystemCommandException("Failed (EX) command :" + command + " --> " + builder.directory().getAbsolutePath(), ex);
+            throw new SystemCommandException("Failed (EX) command :" + commands, ex);
         }
 
         try {
@@ -72,7 +80,7 @@ public class SystemCommand {
             String line;
             while ((line = bufferedReaderOut.readLine()) != null) {
                 if (echoScriptOutput) {
-                    logger.info("CMD:OUT:" + command + " --> " + line);
+                    logger.info("CMD:OUT:" + commands + " --> " + line);
                 }
                 outputStream.append(line).append(NL);
             }
@@ -81,12 +89,12 @@ public class SystemCommand {
 
             while ((line = bufferedReaderErr.readLine()) != null) {
                 if (echoScriptOutput) {
-                    logger.info("CMD:ERR:" + command + " --> " + line);
+                    logger.info("CMD:ERR:" + commands + " --> " + line);
                 }
                 errorStream.append(line).append(NL);
             }
         } catch (IOException ex) {
-            throw new SystemCommandException("Failed (IO) command :" + command, ex);
+            throw new SystemCommandException("Failed (IO) command :" + commands, ex);
         }
 
         try {
@@ -115,6 +123,10 @@ public class SystemCommand {
 
     public boolean isIsWindows() {
         return isWindows;
+    }
+
+    public List<String> getCommands() {
+        return commands;
     }
 
 }

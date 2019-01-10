@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author stuart
  */
 @RestController("audio")
-public class Audio extends ControllerBase {
+public class Audio extends ControllerErrorHandlerBase {
     @RequestMapping(value = "audio/status", method = RequestMethod.GET)
     public String time(@RequestParam Map<String, String> queryParameters) {
             return AudioService.audioStatus("STOPPED");

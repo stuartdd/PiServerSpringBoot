@@ -33,7 +33,7 @@ import tools.Template;
  * @author stuart
  */
 @RestController("templates")
-public class Templates extends ControllerBase {
+public class Templates extends ControllerErrorHandlerBase {
 
     @RequestMapping(value = "static/{template}", method = RequestMethod.GET)
     public String template(@PathVariable String template, @RequestParam Map<String, String> queryParameters) {

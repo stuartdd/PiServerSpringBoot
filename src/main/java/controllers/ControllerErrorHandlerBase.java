@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  *
  * @author stuart
  */
-public class ControllerBase {
+public class ControllerErrorHandlerBase {
 
-    private static final Logger logger = LogManager.getLogger("ControllerBase");
+    private static final Logger logger = LogManager.getLogger("ControllerErrorHandlerBase");
 
     /**
      * Required for when a request method throws an exception.
@@ -39,16 +39,20 @@ public class ControllerBase {
      * @param ex The exception that was thrown.
      */
     @ExceptionHandler(Exception.class)
-    public void handleError(HttpServletResponse resp, Exception ex) {
+    public void handleError(HttpServletResponse resp, Exception root) {
         String message;
         String warning;
         int status;
         boolean fullLog = true;
-        if (ex instanceof ServerRestException) {
+        Throwable cause = root.getCause();
+        if (cause == null) {
+            cause = root;
+        }
+        if (cause instanceof ServerRestException) {
             /*
             If it is a ServerRestException then it contains all the data we need.
              */
-            ServerRestException sre = (ServerRestException) ex;
+            ServerRestException sre = (ServerRestException) cause;
 
             warning = sre.getWarning();
             status = sre.getStatus();
@@ -62,12 +66,12 @@ public class ControllerBase {
             status = 500;
             resp.setStatus(status);
             warning = "Unknown Server Error";
-            message = "{\"Status\":" + status + ", \"Msg\":\"" + ex.getMessage() + "\", \"Entity\":\"Unknown\"}";
+            message = "{\"Status\":" + status + ", \"Msg\":\"" + cause.getMessage() + "\", \"Entity\":\"Unknown\"}";
         }
         if (fullLog) {
-            logger.error(ex.getCause()==null?ex.getMessage():ex.getCause().getMessage(), ex);
+            logger.error(message + " CAUSE: " +cause.getMessage(), root);
         } else {
-            logger.error(message + " --> " + (ex.getCause()==null?"":ex.getCause().getMessage()));
+            logger.error(message + " CAUSE: " + cause.getMessage());
         }
         /*
         Define the headers for the error.

@@ -5,9 +5,7 @@
  */
 package config;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,11 +16,12 @@ public class Functions {
 
     private boolean echoScriptOutput;
     private long poleForTime = 2000;
+    private String linuxScriprPrefix = "";
     private Map<String, Map<String, String>> commands = new HashMap<>();
 
     public Map<String, String> getCommandsForFunction(String funString) {
         Map<String, String> l = commands.get(funString);
-        return (l == null ? null : Collections.unmodifiableMap(l));
+        return (l == null ? null : l);
     }
 
     public Map<String, Map<String, String>> getCommands() {
@@ -49,4 +48,13 @@ public class Functions {
         this.poleForTime = poleForTime;
     }
 
+    public String getLinuxScriprPrefix() {
+        return linuxScriprPrefix;
+    }
+
+    public void setLinuxScriprPrefix(String linuxScriprPrefix) {
+        this.linuxScriprPrefix = linuxScriprPrefix;
+    }
+
+    
 }
