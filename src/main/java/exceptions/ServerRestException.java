@@ -32,6 +32,12 @@ public class ServerRestException extends RuntimeException {
         this.status = status;
         this.warning = warning;
     }
+    
+    public ServerRestException(String message, HttpStatus status, String warning, Throwable cause) {
+        super(message, cause);
+        this.status = status;
+        this.warning = warning;
+    }
 
     public int getStatus() {
         return status.value();
@@ -41,5 +47,8 @@ public class ServerRestException extends RuntimeException {
         return warning;
     }
         
+    public boolean fullLog() {
+        return true;
+    }
 
 }

@@ -16,6 +16,7 @@
  */
 package main;
 
+import exceptions.ConfigDataException;
 import config.ConfigData;
 import java.io.File;
 import java.util.HashMap;
@@ -63,6 +64,18 @@ public class ConfigDataManager {
             throw new ConfigDataException("Location data 'resources-->locations' not found or is empty");
         }
 
+        if (configData.getResources().getLocations().get("scripts") == null) {
+            throw new ConfigDataException("Location 'scripts' is undefined");
+        }
+        
+        if (configData.getResources().getLocations().get("cache") == null) {
+            throw new ConfigDataException("Location 'cache' is undefined");
+        }
+        
+        if (configData.getResources().getLocations().get("userData") == null) {
+            throw new ConfigDataException("Location 'userData' is undefined");
+        }
+        
         if (configData.isValidateLocations()) {
             for (Map.Entry<String, String> loc : configData.getResources().getLocations().entrySet()) {
                 File f = new File(loc.getValue());
@@ -122,5 +135,6 @@ public class ConfigDataManager {
         DateTime now = DateTime.now();
         return now.toString(configData.getFormatTimeStamp());
     }
+    
 
 }

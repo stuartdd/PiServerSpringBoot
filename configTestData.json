@@ -14,6 +14,7 @@
         "locations": {
             "logs": "/logs",
             "cache" : "/logs/cache",
+            "scripts" : "~/scripts",
             "thumbnail": "/thumbnails",
             "userData": "src/test/resources/userData",
             "audio" : "/home/pi/PiServer/web/audio"
@@ -21,15 +22,15 @@
     },
 
     "functions": {
-        "echoScriptOutput": false,
+        "echoScriptOutput": true,
         "poleForTime" : 200000,
         "commands": {
-            "ufs": ["userFileSizesJsonCached"],
-            "ds": ["diskStatus", "./diskStatus.sh"],
-            "log": ["rsyncLogs", "./listFiles.sh", "/logs", "log"],
-            "time": ["jsonTime"],
-            "vol" : ["extractVolume", "./setVolume.sh" ,"level"],
-            "getVol" : ["extractVolume", "./getVolume.sh"]
+            "notImplemented" : {"func":"notImplemented"},
+            "ufs": {"func":"readFileFromLocation", "location":"cache", "file":"userFileSizes.log"},
+            "ds": {"func":"diskStatus", "dir":"./diskStatus.sh"},
+            "log": {"func":"rsyncLogs", "script":"./listFiles.sh", "dir":"/logs", "id":"log"},
+            "vol" : {"func":"extractVolume", "script":"./setVolume.sh" ,"$1":"level"},
+            "getVol" : {"func":"extractVolume", "script":"./getVolume.sh"}
         }
     }
 }

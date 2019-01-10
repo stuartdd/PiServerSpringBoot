@@ -20,6 +20,8 @@ import exceptions.ServerRestException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @author stuart
  */
 public class ControllerBase {
+
+    private static final Logger logger = LogManager.getLogger("ControllerBase");
 
     /**
      * Required for when a request method throws an exception.
@@ -38,26 +42,37 @@ public class ControllerBase {
     public void handleError(HttpServletResponse resp, Exception ex) {
         String message;
         String warning;
+        int status;
+        boolean fullLog = true;
         if (ex instanceof ServerRestException) {
             /*
             If it is a ServerRestException then it contains all the data we need.
              */
             ServerRestException sre = (ServerRestException) ex;
-            resp.setStatus(sre.getStatus());
+
             warning = sre.getWarning();
-            message = "{\"Status\":" + sre.getStatus() + ", \"Msg\":\"" + warning + "\", \"Entity\":\"" + sre.getMessage() + "\"}";
+            status = sre.getStatus();
+            resp.setStatus(status);
+            fullLog = sre.fullLog();
+            message = "{\"Status\":" + status + ", \"Msg\":\"" + warning + "\", \"Entity\":\"" + sre.getMessage() + "\"}";
         } else {
             /*
             If it is NOT a ServerRestException then we do the best we can!.
              */
-            resp.setStatus(500);
+            status = 500;
+            resp.setStatus(status);
             warning = "Unknown Server Error";
-            message = "{\"Status\":500, \"Msg\":\"" + ex.getMessage() + "\", \"Entity\":\"Unknown\"}";
+            message = "{\"Status\":" + status + ", \"Msg\":\"" + ex.getMessage() + "\", \"Entity\":\"Unknown\"}";
+        }
+        if (fullLog) {
+            logger.error(ex.getCause()==null?ex.getMessage():ex.getCause().getMessage(), ex);
+        } else {
+            logger.error(message + " --> " + (ex.getCause()==null?"":ex.getCause().getMessage()));
         }
         /*
         Define the headers for the error.
         Write the response and return.
-        */
+         */
         resp.setHeader("Content-Type", "application/json;charset=UTF-8");
         resp.setHeader("Warning", warning);
         resp.setContentLength(message.length());

@@ -28,11 +28,6 @@ package tools;
  */
 public class TemplateException extends RuntimeException {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 4901505388413951424L;
-
     public TemplateException(String message) {
         super(message);
     }

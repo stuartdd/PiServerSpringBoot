@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * @author stuar
@@ -19,7 +18,20 @@ public class Functions {
 
     private boolean echoScriptOutput;
     private long poleForTime = 2000;
-    private Map<String, List<String>> commands = new HashMap<>();
+    private Map<String, Map<String, String>> commands = new HashMap<>();
+
+    public Map<String, String> getCommandsForFunction(String funString) {
+        Map<String, String> l = commands.get(funString);
+        return (l == null ? null : Collections.unmodifiableMap(l));
+    }
+
+    public Map<String, Map<String, String>> getCommands() {
+        return commands;
+    }
+
+    public void setCommands(Map<String, Map<String, String>> commands) {
+        this.commands = commands;
+    }
 
     public boolean isEchoScriptOutput() {
         return echoScriptOutput;
@@ -27,19 +39,6 @@ public class Functions {
 
     public void setEchoScriptOutput(boolean echoScriptOutput) {
         this.echoScriptOutput = echoScriptOutput;
-    }
-
-    public Map<String, List<String>> getCommands() {
-        return Collections.unmodifiableMap(commands);
-    }
-
-    public List<String> getCommandsForFunction(String funString) {
-        List<String> l = commands.get(funString);
-        return (l == null ? null : Collections.unmodifiableList(l));
-    }
-
-    public void setCommands(Map<String, List<String>> commands) {
-        this.commands = commands;
     }
 
     public long getPoleForTime() {
