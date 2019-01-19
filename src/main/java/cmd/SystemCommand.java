@@ -19,7 +19,7 @@ public class SystemCommand {
 
     private static final Logger logger = LogManager.getLogger("SystemCommand");
     private static final String NL = System.getProperty("line.separator");
-    private final boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+    private static final boolean isWindows = resolveOS().equals("win");
     private final StringBuilder errorStream = new StringBuilder();
     private final StringBuilder outputStream = new StringBuilder();
     private int exitValue;
@@ -33,20 +33,21 @@ public class SystemCommand {
         if (commandIn.isEmpty()) {
             throw new SystemCommandException("Failed command : (EMPTY)");
         }
+        
         commands = commandIn;
         ProcessBuilder builder;
         if (isWindows) {
             commands.add(0, "/c");
             commands.add(0, "cmd.exe");
             if (echoScriptOutput) {
-                logger.info("CMD:WINDOWS:" + StringUtils.listToString(commands, " "));
+                logger.info("CMD:WINDOWS:" + StringUtils.listToString(commands, " ")+" path:"+path);
             }
             builder = new ProcessBuilder(commands);
         } else {
             List<String> l = new ArrayList<>();
-            for (String s:commands) {
+            for (String s : commands) {
                 if (l.size() == 0) {
-                    l.add(ConfigDataManager.getConfigData().getFunctions().getLinuxScriprPrefix()+s);
+                    l.add(ConfigDataManager.getConfigData().getFunctions().getLinuxScriprPrefix() + s);
                 } else {
                     l.add(s);
                 }
@@ -121,12 +122,22 @@ public class SystemCommand {
         return exitValue;
     }
 
-    public boolean isIsWindows() {
-        return isWindows;
-    }
-
     public List<String> getCommands() {
         return commands;
     }
 
+    public static String resolveOS() {
+        String OS = System.getProperty("os.name").toLowerCase();
+        if ((OS.contains("win"))) {
+            return "win";
+        } else if (OS.contains("mac")) {
+            return "mac";
+        } else if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
+            return "linux";
+        } else if (OS.contains("sunos")) {
+            return "solaris";
+        } else {
+            return "unknown";
+        }
+    }
 }

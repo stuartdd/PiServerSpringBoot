@@ -71,7 +71,13 @@ public class FunctionService {
         }
         Object[] script = validateScript(map, desc);
         SystemCommand sc = new SystemCommand();
-        sc.run((List<String>) script[1], (String) script[0]);
+        String osSubDir = ConfigDataManager.getConfigData().getFunctions().getOsSubDir().get(SystemCommand.resolveOS());
+        if ((osSubDir==null) || (osSubDir.trim().length()==0)) {
+            osSubDir = "";
+        } else {
+            osSubDir = File.separator + osSubDir;
+        }
+        sc.run((List<String>) script[1], (String) script[0] + osSubDir);
         int rc = sc.getExitValue();
         if (rc <= minRcValue) {
             return sc.getOutput();
