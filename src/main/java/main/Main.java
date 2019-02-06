@@ -19,6 +19,7 @@ package main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import services.FunctionService;
 import services.ShutDownService;
 
 @SpringBootApplication
@@ -30,6 +31,8 @@ public class Main {
      */
     public static void main(String[] args) {
         ConfigDataManager.init(args);
+        FunctionService.init(ConfigDataManager.getConfigData().getFunctions());
+        
         ShutDownService.setExitFlag(0);
         ThreadPool.init();
         SpringApplication.run(Main.class, args);

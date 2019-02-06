@@ -1,0 +1,5 @@
+
+C:\Users\stuar\git\PiServerSpringBoot\src\test\resources\scripts\win>echo off 
+{start}
+hi
+{end}

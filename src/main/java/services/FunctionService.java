@@ -7,25 +7,35 @@ package services;
 
 import cmd.SystemCommand;
 import cmd.SystemCommandQuietException;
+import config.Functions;
 import exceptions.ConfigDataException;
-import exceptions.ResourceNotFoundException;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import main.ConfigDataManager;
-import tools.FileUtils;
+import tools.Template;
 
 /**
  *
  * @author stuart
  */
 public class FunctionService {
-
+    private static Functions functions;
+    private static String osTemplate;
+    
+    public static void init(Functions configData) {
+        functions = configData;
+        osTemplate = configData.getOsTemplates().get(resolveOS());
+        if (osTemplate == null) {
+            throw new ServiceException("Operating System could not be derived. Got: "+resolveOS());
+        }
+    }
+    
     public static String func(String funcName, Map<String, String> queryParameters) {
-        Map<String, String> functionData = ConfigDataManager.getConfigData().getFunctions().getCommandsForFunction(funcName);
+
+        Map<String, String> functionData = functions.getCommandsForFunction(funcName);
         if ((functionData == null) || (functionData.size() < 1)) {
             throw new ConfigDataException("Function '" + funcName + "' is not defined");
         }
@@ -69,15 +79,9 @@ public class FunctionService {
                 throw new ConfigDataException(desc + " Invalid number in value 'minRC'");
             }
         }
-        Object[] script = validateScript(map, desc);
+        Object[] script = substituteAndSplit(map, desc);
         SystemCommand sc = new SystemCommand();
-        String osSubDir = ConfigDataManager.getConfigData().getFunctions().getOsSubDir().get(SystemCommand.resolveOS());
-        if ((osSubDir==null) || (osSubDir.trim().length()==0)) {
-            osSubDir = "";
-        } else {
-            osSubDir = File.separator + osSubDir;
-        }
-        sc.run((List<String>) script[1], (String) script[0] + osSubDir);
+        sc.run((List<String>) script[1], (String) script[0]);
         int rc = sc.getExitValue();
         if (rc <= minRcValue) {
             return sc.getOutput();
@@ -104,106 +108,43 @@ public class FunctionService {
         }
     }
 
-    public String readFileFromLocation(Map<String, String> map, String desc) {
-        try {
-            return FileUtils.loadFile(getFileFromMap(map, desc));
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException(desc + " File '" + map.get("file") + "' could not be read from location '" + map.get("location") + "'");
+    private Object[] substituteAndSplit(Map<String, String> map, String desc) {
+        for (Map.Entry<String, String> key:map.entrySet()) {
+            map.put(key.getKey(), Template.parse(key.getValue(), ConfigDataManager.getLocations(), true));
         }
+        for (Map.Entry<String, String> key:map.entrySet()) {
+            map.put(key.getKey(), Template.parse(key.getValue(), map, true));
+        }
+        for (Map.Entry<String, String> key:map.entrySet()) {
+            map.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), true));
+        }
+        String t1 = Template.parse(osTemplate, map, true);
+        t1 = Template.parse(t1, map, true);
+        String[] split = t1.split("\\|");
+        if (split.length < 2) {
+            throw new ConfigDataException(desc + " Invalid number arguments in osTemplates. Min is two. E.g. %{scripts}|%{script}");
+        }
+        List<String> l = new ArrayList<>();
+        for (int i=1; i<split.length; i++) {
+            l.add(split[i]);
+        }
+        Object[] res = new Object[2];
+        res[0] = split[0];
+        res[1] = l;
+        return res;
     }
-
     
-    private String getLocationFromMap(Map<String, String> map, String desc) {
-        String loc = validateNVP(map, "location", desc);
-        String location = ConfigDataManager.getLocation(loc);
-        if (loc == null) {
-            throw new ConfigDataException(desc + " 'location' value was not found");
+    private static String resolveOS() {
+        String OS = System.getProperty("os.name").toLowerCase();
+        if ((OS.contains("win"))) {
+            return "win";
+        } else if (OS.contains("mac")) {
+            return "mac";
+        } else if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
+            return "linux";
+        } else {
+            return "unknown";
         }
-        return location;
-    }
-
-    private String getFileNameFromMap(Map<String, String> map, String desc) {
-        return validateNVP(map, "file", desc);
-    }
-
-    public Object[] validateScript(Map<String, String> map, String desc) {
-        String scriptPath = ConfigDataManager.getLocation("scripts");
-        String script = validateNVP(map, "file", desc);
-        File f = new File(scriptPath + File.separator + script);
-        f = new File(f.getAbsolutePath());
-        if (f.exists()) {
-            List<String> commands = new ArrayList<>();
-            commands.add(f.getName());
-            String user = map.get("user");
-            if (user != null) {
-                addIfNotNull(commands, user);
-            }
-            String userPath = map.get("userpath");
-            if (userPath != null) {
-                addIfNotNull(commands, ConfigDataManager.getUsers().get(userPath));
-            }
-            String loc = map.get("loc");
-            if (loc != null) {
-                addIfNotNull(commands, ConfigDataManager.getLocation(loc));
-            }
-            for (int i = 0; i < 10; i++) {
-                String q = map.get("P" + i);
-                if (q != null) {
-                    addIfNotNull(commands, q);
-                }
-                String l = map.get("L" + i);
-                if (l != null) {
-                    addIfNotNull(commands, ConfigDataManager.getLocation(l));
-                }
-                String u = map.get("U" + i);
-                if (u != null) {
-                    addIfNotNull(commands, ConfigDataManager.getUsers().get(u));
-                }
-                String s = map.get("S" + i);
-                if (s != null) {
-                    addIfNotNull(commands, System.getProperty(s));
-                }
-            }
-            File p = f.getParentFile();
-            if (p == null) {
-                return new Object[]{null, commands};
-            }
-            return new Object[]{p.getAbsolutePath(), commands};
-        }
-        throw new ConfigDataException(desc + ". File " + script + " not found at location 'scripts'");
-    }
-
-    private File getFileFromMap(Map<String, String> map, String desc) {
-        String path = getLocationFromMap(map, desc);
-        String fil = getFileNameFromMap(map, desc);
-        File f = new File(path + File.separator + fil);
-        if (f.exists()) {
-            return f;
-        }
-        throw new ConfigDataException(desc + ". File " + fil + " not found at location '" + map.get("location") + "'");
-    }
-
-    private String validateNVP(Map<String, String> map, String name, String desc) {
-        String val = map.get(name);
-        if (val == null) {
-            throw new ConfigDataException(desc + "does not define '" + name + "'");
-        }
-        val = val.trim();
-        if (val.length() == 0) {
-            throw new ConfigDataException(desc + "defines an empty '" + name + "'");
-        }
-        return val;
-    }
-
-    private void addIfNotNull(List<String> l, String s) {
-        if (s == null) {
-            return;
-        }
-        s = s.trim();
-        if (s.length() == 0) {
-            return;
-        }
-        l.add(s);
     }
 
 }

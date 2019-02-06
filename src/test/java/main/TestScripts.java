@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.web.util.NestedServletException;
+import services.FunctionService;
 
 /**
  *
@@ -34,11 +34,12 @@ public class TestScripts {
     @BeforeClass
     public static void beforeClass() {
         ConfigDataManager.init(new String[]{"configTestData.json"});
+        FunctionService.init(ConfigDataManager.getConfigData().getFunctions());
     }
 
     @Test
     public void getFuncTestTree() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/func/testtree"))
+        MvcResult mvcResult = mvc.perform(get("/func/testtree?user=stuart"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
         assertTrue(s.contains("src/main/java/exceptions"));

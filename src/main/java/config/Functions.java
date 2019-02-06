@@ -16,8 +16,7 @@ public class Functions {
 
     private boolean echoScriptOutput;
     private long poleForTime = 2000;
-    private String linuxScriprPrefix = "";
-    private Map<String,String> osSubDir;
+    private Map<String,String> osTemplates;
     private Map<String, Map<String, String>> commands = new HashMap<>();
 
     public Map<String, String> getCommandsForFunction(String funString) {
@@ -49,21 +48,13 @@ public class Functions {
         this.poleForTime = poleForTime;
     }
 
-    public String getLinuxScriprPrefix() {
-        return linuxScriprPrefix;
+    public Map<String, String> getOsTemplates() {
+        return osTemplates;
     }
 
-    public void setLinuxScriprPrefix(String linuxScriprPrefix) {
-        this.linuxScriprPrefix = linuxScriprPrefix;
+    public void setOsTemplates(Map<String, String> osTemplates) {
+        this.osTemplates = osTemplates;
     }
 
-    public Map<String, String> getOsSubDir() {
-        return osSubDir;
-    }
-
-    public void setOsSubDir(Map<String, String> osSubDir) {
-        this.osSubDir = osSubDir;
-    }
-
-    
+     
 }

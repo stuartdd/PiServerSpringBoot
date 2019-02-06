@@ -1,8 +1,10 @@
 {
-    "system" : {"server.port":"8080"},
-    "allowServerStopCtrl":true,
-    "formatTimeStamp":"dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validateLocations":false,
+    "system": {
+        "server.port": "8080"
+    },
+    "allowServerStopCtrl": true,
+    "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
+    "validateLocations": false,
     "resources": {
         "historyMaxLen": 20,
         "root": "/home/pi/PiServer/web",
@@ -13,28 +15,68 @@
         },
         "locations": {
             "logs": "/logs",
-            "cache" : "/logs/cache",
-            "scripts" : "src/test/resources/scripts",
+            "cache": "/logs/cache",
+            "scripts": "scripts",
             "thumbnail": "/thumbnails",
+            "media" : "/media/shares/",
             "userData": "src/test/resources/userData",
-            "audio" : "/home/pi/PiServer/web/audio"
+            "audio": "/home/pi/PiServer/web/audio"
         }
     },
 
     "functions": {
         "echoScriptOutput": true,
-        "poleForTime" : 200000,
-        "linuxScriprPrefix" : "./",
-        "osSubDir" : {"win":"win"},
+        "poleForTime": 200000,
+        "osTemplates": {
+            "linux": "%{scripts}|./%{script}.sh %{P0} %{P1} %{P2} %{P3}", 
+            "win": "%{scripts}|cmd.exe|/c|%{script}.bat %{P0} %{P1} %{P2} %{P3}",
+            "mac": "%{scripts}|%{script}.sh %{P0} %{P1} %{P2} %{P3}",
+            "unknown": "unknown-OS"
+        },
         "commands": {
-            "notImplemented" : {"func":"notImplemented"},
-            "notScript": {"func":"scriptAll", "file":"notScript.sh", "P0":"", "P1":"../"},
-            "minRcError": {"func":"scriptBetween", "file":"getPathTree.sh", "P1":"--error", "minRC":0},
-            "ufs": {"func":"readFileFromLocation", "location":"cache", "file":"userFileSizes.log"},
-            "testtree": {"func":"scriptBetween", "file":"getPathTree.sh", "P0":"", "P1":"src/trst"},
-            "log": {"func":"rsyncLogs", "script":"./listFiles.sh", "dir":"/logs", "id":"log"},
-            "vol" : {"func":"extractVolume", "script":"./setVolume.sh" ,"$1":"level"},
-            "getVol" : {"func":"extractVolume", "script":"./getVolume.sh"}
+            "notImplemented": {
+                "func": "notImplemented"
+            },
+            "notScript": {
+                "func": "scriptAll",
+                "script": "notScript",
+                "P0": "",
+                "P1": "../"
+            },
+            "minRcError": {
+                "func": "scriptBetween",
+                "script": "getPathTree",
+                "P1": "--error",
+                "minRC": 0
+            },
+            "ufs": {
+                "func": "readFileFromLocation",
+                "location": "cache",
+                "file": "userFileSizes.log"
+            },
+            "testtree": {
+                "func": "scriptBetween",
+                "script": "getPathTree",
+                "P0": "%{media}%{user}",
+                "P1": "",
+                "P2": "",
+                "P3": ""
+            },
+            "log": {
+                "func": "rsyncLogs",
+                "script": "./listFiles",
+                "dir": "/logs",
+                "id": "log"
+            },
+            "vol": {
+                "func": "extractVolume",
+                "script": "./setVolume",
+                "$1": "level"
+            },
+            "getVol": {
+                "func": "extractVolume",
+                "script": "./getVolume"
+            }
         }
     }
 }

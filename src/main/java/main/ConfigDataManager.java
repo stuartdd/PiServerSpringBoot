@@ -105,7 +105,7 @@ public class ConfigDataManager {
         parameters.put("userList", sb.toString());
         parameters.put("poleForTime", "" + configData.getFunctions().getPoleForTime());
         parameters.put("historyMaxLen", "" + configData.getResources().getHistoryMaxLen());
-        parameters.put("user", "");
+        parameters.put("user", "");      
     }
 
     public static Map<String, String> getUsers() {
@@ -122,6 +122,10 @@ public class ConfigDataManager {
             return "<undefined-location>";
         }
         return loc;
+    }
+
+    public static Map<String, String> getLocations() {
+        return configData.getResources().getLocations();
     }
 
     public static Map<String, String> getProperties(Map<String, String> localParameters) {
