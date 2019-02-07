@@ -1,7 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2018 Stuiart Davies (stuartdd)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package services;
 
@@ -17,10 +28,6 @@ import java.util.Map;
 import main.ConfigDataManager;
 import tools.Template;
 
-/**
- *
- * @author stuart
- */
 public class FunctionService {
     private static Functions functions;
     private static String osTemplate;
@@ -118,8 +125,9 @@ public class FunctionService {
         for (Map.Entry<String, String> key:map.entrySet()) {
             map.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), true));
         }
-        String t1 = Template.parse(osTemplate, map, true);
+        String t1 = Template.parse(osTemplate, ConfigDataManager.getLocations(), true);
         t1 = Template.parse(t1, map, true);
+        t1 = Template.parse(t1, System.getProperties(), true);
         String[] split = t1.split("\\|");
         if (split.length < 2) {
             throw new ConfigDataException(desc + " Invalid number arguments in osTemplates. Min is two. E.g. %{scripts}|%{script}");

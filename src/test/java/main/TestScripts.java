@@ -38,11 +38,12 @@ public class TestScripts {
     }
 
     @Test
-    public void getFuncTestTree() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/func/testtree?user=stuart"))
+    public void getDirTest() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/func/testdir?user=stuart"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
-        assertTrue(s.contains("src/main/java/exceptions"));
+        assertTrue(s.contains("testDir.bat"));
+        assertTrue(s.contains("testDir.sh"));
     }
 
     @Test
@@ -63,13 +64,13 @@ public class TestScripts {
     public void getScriptNotFound() throws Exception {
         MvcResult s = mvc.perform(get("/func/notScript"))
                 .andExpect(status().isFailedDependency()).andReturn();
-        assertTrue(s.getResponse().getContentAsString().contains("File notScript.sh not found at location 'scripts'"));
+        assertTrue(s.getResponse().getContentAsString().contains("returned code 1"));
     }
     
     @Test
     public void getScriptMinRC() throws Exception {
         MvcResult s = mvc.perform(get("/func/minRcError"))
                 .andExpect(status().isFailedDependency()).andReturn();
-        assertTrue(s.getResponse().getContentAsString().contains("returned code 1. Min value is 0"));
+        assertTrue(s.getResponse().getContentAsString().contains("returned empty result"));
     }
 }
