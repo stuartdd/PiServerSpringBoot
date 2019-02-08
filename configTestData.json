@@ -45,19 +45,19 @@
             },
             "minRcError": {
                 "func": "scriptBetween",
-                "script": "notScript",
+                "script": "getPathTree",
                 "P1": "--error",
-                "minRC": 1
+                "minRC": 0
             },
             "ufs": {
                 "func": "readFileFromLocation",
                 "location": "cache",
                 "file": "userFileSizes.log"
             },
-            "testdir": {
+            "testtree": {
                 "func": "scriptBetween",
-                "script": "testDir",
-                "P0": "%{scripts}",
+                "script": "getPathTree",
+                "P0": "%{media}%{user}",
                 "P1": "",
                 "P2": "",
                 "P3": ""
