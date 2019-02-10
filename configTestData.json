@@ -18,9 +18,9 @@
             "cache": "/logs/cache",
             "scripts": "scripts",
             "thumbnail": "/thumbnails",
-            "media" : "/media/shares/",
+            "media": "/media/shares/",
             "userData": "src/test/resources/userData",
-            "audio": "/home/pi/PiServer/web/audio"
+            "audio": "src/main/resources/audio"
         }
     },
 
@@ -44,10 +44,13 @@
                 "P1": "../"
             },
             "minRcError": {
-                "func": "scriptBetween",
-                "script": "getPathTree",
-                "P1": "--error",
-                "minRC": 0
+                "func": "scriptAll",
+                "script": "returnCode",
+                "P0": "9",
+                "P1": "",
+                "P2": "",
+                "P3": "",
+                "minRC": 9
             },
             "ufs": {
                 "func": "readFileFromLocation",
@@ -56,8 +59,8 @@
             },
             "testtree": {
                 "func": "scriptBetween",
-                "script": "getPathTree",
-                "P0": "%{media}%{user}",
+                "script": "getDir",
+                "P0": "%{scripts}",
                 "P1": "",
                 "P2": "",
                 "P3": ""

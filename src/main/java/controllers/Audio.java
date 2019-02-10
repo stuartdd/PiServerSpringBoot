@@ -16,12 +16,16 @@
  */
 package controllers;
 
-import services.AudioService;
+import io.AudioStatus;
+
 import java.util.Map;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import services.AudioService;
 
 /**
  *
@@ -29,9 +33,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController("audio")
 public class Audio extends ControllerErrorHandlerBase {
+    
     @RequestMapping(value = "audio/status", method = RequestMethod.GET)
-    public String time(@RequestParam Map<String, String> queryParameters) {
-            return AudioService.audioStatus("STOPPED");
+    public @ResponseBody AudioStatus status(@RequestParam Map<String, String> queryParameters) {
+            return AudioService.queryStatus();
+    }
+    
+    @RequestMapping(value = "audio/stop", method = RequestMethod.GET)
+    public @ResponseBody AudioStatus stop(@RequestParam Map<String, String> queryParameters) {
+            return AudioService.stop();
+    }
+    
+    @RequestMapping(value = "audio/play/{file}", method = RequestMethod.GET)
+    public @ResponseBody AudioStatus play(@PathVariable String file, @RequestParam Map<String, String> queryParameters) {
+            return AudioService.play(file, queryParameters.get("vol"));
     }
 
 }

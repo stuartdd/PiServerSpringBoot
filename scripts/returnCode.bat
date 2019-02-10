@@ -4,6 +4,6 @@
 @echo Q2:%2 
 @echo Q3:%3
 @echo {start}
-dir %1
+exit %1
 @echo {end}
 

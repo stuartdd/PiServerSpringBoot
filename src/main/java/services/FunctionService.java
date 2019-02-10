@@ -119,7 +119,7 @@ public class FunctionService {
             map.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), true));
         }
         String t1 = Template.parse(osTemplate, map, true);
-        t1 = Template.parse(t1, map, true);
+        t1 = Template.parse(t1, ConfigDataManager.getLocations(), true);
         String[] split = t1.split("\\|");
         if (split.length < 2) {
             throw new ConfigDataException(desc + " Invalid number arguments in osTemplates. Min is two. E.g. %{scripts}|%{script}");

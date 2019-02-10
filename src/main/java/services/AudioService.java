@@ -16,40 +16,73 @@
  */
 package services;
 
+import exceptions.AudioSetupException;
+import io.AudioStatus;
+import java.io.File;
+import main.ConfigDataManager;
+import tools.AudioPlayerThread;
+
 /**
  *
  * @author stuart
  */
 public class AudioService {
 
-    public static String audioStatus(String message) {
-        return "{\"audio\":\"" + audioStatusString(message) + "\"}";
+    private static AudioPlayerThread audioThread = null;
+    private static String currentFileName = null;
+    private static int currentVolume = 50;
+
+    public static AudioStatus queryStatus() {
+        return buildAudioStatus("query");
     }
 
-    public static String audioStatusString(String message) {
-        if (message != null) {
-            return "STATUS:" + message;
+    public static AudioStatus play(String file, String vol) {
+        if (audioThread != null) {
+            audioThread.close();
+            audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, 1000);
         }
-        return "STATUS:" + message;
-//        if (audioBackgroundPlayer == null) {
-//            return "STOPPED";
-//        } else {
-//            double dur = audioBackgroundPlayer.getDuration() / 1000;
-//            double ply = audioBackgroundPlayer.getPlayed() / 1000;
-//            double pc;
-//            if (ply > 0) {
-//                pc = 100.0 / (dur / ply);
-//                if (pc > 100) {
-//                    pc = 100;
-//                }
-//            } else {
-//                pc = 0;
-//            }
-//            if (audioBackgroundPlayer.isPaused()) {
-//                return "Paused:" + audioBackgroundPlayer.getFileName() + ',' + Math.round(dur) + ',' + Math.round(ply) + ',' + df.format(pc);
-//            } else {
-//                return "Playing:" + audioBackgroundPlayer.getFileName() + ',' + Math.round(dur) + ',' + Math.round(ply) + ',' + df.format(pc);
-//            }
-//        }
+        audioThread = new AudioPlayerThread(ConfigDataManager.getLocation("audio") + File.separator + file, readVolume(vol));
+        audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STARTING, 1000);
+        audioThread.start();
+        audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.RUNNING, 1000);
+        audioThread.waitForRunning(1000);
+        currentFileName = file;
+        return buildAudioStatus("play");
     }
+
+    public static AudioStatus stop() {
+        if (audioThread != null) {
+            audioThread.close();
+            audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, 1000);
+        }
+        return buildAudioStatus("stop");
+    }
+
+    public static AudioStatus buildAudioStatus(String action) {
+        if ((audioThread == null || ((audioThread != null) && (!audioThread.isRunning())))) {
+            return new AudioStatus(action, "STOPPED", "Nothing is playing", currentVolume);
+        } else {
+            String state = "PLAYING";
+            if (audioThread.isPaused()) {
+                state = "PAUSED";
+            }
+            return new AudioStatus(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume());
+        }
+    }
+
+    private static int readVolume(String vol) {
+        if ((vol != null) && (vol.trim().length() != 0)) {
+            try {
+                int i = Integer.parseInt(vol);
+                if ((i < 0) || (i > 99)) {
+                    throw new AudioSetupException("Value for volume 'vol=" + vol + " must be from 0 to 99");
+                }
+                return i;
+            } catch (NumberFormatException nfe) {
+                throw new AudioSetupException("Value for volume 'vol=" + vol + " is not a number", nfe);
+            }
+        }
+        return currentVolume;
+    }
+
 }
