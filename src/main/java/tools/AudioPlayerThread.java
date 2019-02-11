@@ -35,7 +35,7 @@ import org.tritonus.share.sampled.file.TAudioFileFormat;
 public class AudioPlayerThread extends Thread {
 
     public enum ThreadStatus {
-        STARTING, RUNNING, STOPPED, ERROR
+        STARTING, RUNNING, PAUSED, STOPPED, ERROR
     };
 
     private static final double MICROS_PER_SEC = 1000000f;
@@ -184,6 +184,20 @@ public class AudioPlayerThread extends Thread {
         return getVolume();
     }
 
+    public void waitForStatusClear(ThreadStatus status, int timeOut) {
+        long timeToQuit = System.currentTimeMillis() + timeOut;
+        while (threadStatus.equals(status)) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+            }
+            if (timeToQuit < System.currentTimeMillis()) {
+                throw new AudioSetupException("AudioPlayerThread: Wait for status NOT " + status.name() + " timed out!");
+            }
+        }
+    }
+
     public void waitForStatus(ThreadStatus status, long timeOut) {
         long timeToQuit = System.currentTimeMillis() + timeOut;
         while (!threadStatus.equals(status)) {
@@ -222,7 +236,6 @@ public class AudioPlayerThread extends Thread {
 
     @Override
     public void run() {
-        waitOnPause();
         try {
             line.open(outFormat);
             control = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
@@ -237,15 +250,13 @@ public class AudioPlayerThread extends Thread {
             line.start();
             threadStatus = ThreadStatus.RUNNING;
             stream(AudioSystem.getAudioInputStream(outFormat, audioInputStream), line);
-            closeLine();
-            closeAudioInputStream();
-            threadStatus = ThreadStatus.STOPPED;
         } catch (Exception ex) {
             threadStatus = ThreadStatus.ERROR;
             throw new AudioSetupException(ex.getClass().getSimpleName() + ": Failed to play audio. Audio file:" + (file == null ? "?" : file.getName()) + ".", ex);
         } finally {
             closeLine();
             closeAudioInputStream();
+            threadStatus = ThreadStatus.STOPPED;
         }
     }
 
@@ -255,9 +266,21 @@ public class AudioPlayerThread extends Thread {
             if (close) {
                 return;
             }
-            waitOnPause();
+            blockStreamForPause();
             line.write(buffer, 0, n);
         }
+    }
+
+    void blockStreamForPause() {
+        while (isPaused()) {
+            threadStatus = ThreadStatus.PAUSED;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+            }
+        }
+        threadStatus = ThreadStatus.RUNNING;
     }
 
     private AudioFormat getOutFormat(AudioFormat inFormat) {
@@ -281,16 +304,6 @@ public class AudioPlayerThread extends Thread {
             line.drain();
             line.stop();
             line.close();
-        }
-    }
-
-    private void waitOnPause() {
-        while (isPaused()) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
-            }
         }
     }
 

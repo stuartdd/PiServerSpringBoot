@@ -33,20 +33,29 @@ import services.AudioService;
  */
 @RestController("audio")
 public class Audio extends ControllerErrorHandlerBase {
-    
+
     @RequestMapping(value = "audio/status", method = RequestMethod.GET)
-    public @ResponseBody AudioStatus status(@RequestParam Map<String, String> queryParameters) {
-            return AudioService.queryStatus();
+    public @ResponseBody
+    AudioStatus status(@RequestParam Map<String, String> queryParameters) {
+        return AudioService.queryStatus();
     }
-    
+
     @RequestMapping(value = "audio/stop", method = RequestMethod.GET)
-    public @ResponseBody AudioStatus stop(@RequestParam Map<String, String> queryParameters) {
-            return AudioService.stop();
+    public @ResponseBody
+    AudioStatus stop(@RequestParam Map<String, String> queryParameters) {
+        return AudioService.stop();
     }
-    
+
     @RequestMapping(value = "audio/play/{file}", method = RequestMethod.GET)
-    public @ResponseBody AudioStatus play(@PathVariable String file, @RequestParam Map<String, String> queryParameters) {
-            return AudioService.play(file, queryParameters.get("vol"));
+    public @ResponseBody
+    AudioStatus play(@PathVariable String file, @RequestParam Map<String, String> queryParameters) {
+        return AudioService.play(file, queryParameters.get("vol"));
+    }
+
+    @RequestMapping(value = "audio/pause/{flag}", method = RequestMethod.GET)
+    public @ResponseBody
+    AudioStatus pause(@PathVariable Boolean flag, @RequestParam Map<String, String> queryParameters) {
+        return AudioService.pause(flag);
     }
 
 }

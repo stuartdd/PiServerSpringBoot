@@ -41,13 +41,25 @@ public class AudioService {
             audioThread.close();
             audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, 1000);
         }
-        audioThread = new AudioPlayerThread(ConfigDataManager.getLocation("audio") + File.separator + file, readVolume(vol));
+        audioThread = new AudioPlayerThread(ConfigDataManager.getLocation("audio") + File.separator + file, readVolumeString(vol));
         audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STARTING, 1000);
         audioThread.start();
         audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.RUNNING, 1000);
         audioThread.waitForRunning(1000);
         currentFileName = file;
         return buildAudioStatus("play");
+    }
+
+    public static AudioStatus pause(Boolean paused) {
+        if (audioThread != null) {
+            audioThread.setPaused(paused);
+            if (paused) {
+                audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.PAUSED, 1000);
+            } else {
+                audioThread.waitForStatusClear(AudioPlayerThread.ThreadStatus.PAUSED, 1000);
+            }
+        }
+        return buildAudioStatus("pause");
     }
 
     public static AudioStatus stop() {
@@ -58,7 +70,7 @@ public class AudioService {
         return buildAudioStatus("stop");
     }
 
-    public static AudioStatus buildAudioStatus(String action) {
+    private static AudioStatus buildAudioStatus(String action) {
         if ((audioThread == null || ((audioThread != null) && (!audioThread.isRunning())))) {
             return new AudioStatus(action, "STOPPED", "Nothing is playing", currentVolume);
         } else {
@@ -70,7 +82,7 @@ public class AudioService {
         }
     }
 
-    private static int readVolume(String vol) {
+    private static int readVolumeString(String vol) {
         if ((vol != null) && (vol.trim().length() != 0)) {
             try {
                 int i = Integer.parseInt(vol);
