@@ -32,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import tools.OsUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
@@ -40,7 +41,7 @@ public class TestUsers {
 
     @BeforeClass
     public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData.json"});
+        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
     }
 
     @Autowired

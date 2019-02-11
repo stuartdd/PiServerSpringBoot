@@ -27,8 +27,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import tools.OsUtils;
 
 /**
  *
@@ -44,7 +44,7 @@ public class TestServer {
 
     @BeforeClass
     public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData.json"});
+        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
     }
 
     @Test

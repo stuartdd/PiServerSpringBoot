@@ -5,6 +5,7 @@
  */
 package services;
 
+import exceptions.ServiceException;
 import cmd.SystemCommand;
 import cmd.SystemCommandQuietException;
 import config.Functions;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import main.ConfigDataManager;
+import tools.OsUtils;
 import tools.Template;
 
 /**
@@ -27,9 +29,9 @@ public class FunctionService {
     
     public static void init(Functions configData) {
         functions = configData;
-        osTemplate = configData.getOsTemplates().get(resolveOS());
+        osTemplate = configData.getOsTemplates().get(OsUtils.resolveOS().name().toLowerCase());
         if (osTemplate == null) {
-            throw new ServiceException("Operating System could not be derived. Got: "+resolveOS());
+            throw new ServiceException("Operating System could not be derived. Got: "+OsUtils.resolveOS());
         }
     }
     
@@ -134,17 +136,5 @@ public class FunctionService {
         return res;
     }
     
-    private static String resolveOS() {
-        String OS = System.getProperty("os.name").toLowerCase();
-        if ((OS.contains("win"))) {
-            return "win";
-        } else if (OS.contains("mac")) {
-            return "mac";
-        } else if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
-            return "linux";
-        } else {
-            return "unknown";
-        }
-    }
 
 }

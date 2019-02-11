@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import services.FunctionService;
+import tools.OsUtils;
 
 /**
  *
@@ -33,7 +34,7 @@ public class TestScripts {
 
     @BeforeClass
     public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData.json"});
+        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
         FunctionService.init(ConfigDataManager.getConfigData().getFunctions());
     }
 
