@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 stuartdd
+ * Copyright (C) 2018 Stuiart Davies (stuartdd)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,9 @@
  */
 package main;
 
-/**
- *
- * @author stuart
- */
+import io.AudioStatus;
+import io.PathsIO;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,44 +27,60 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
+import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import tools.JsonUtils;
 import tools.OsUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class TestUsers {
+public class TestFileSystem {
+
+    @Autowired
+    private MockMvc mvc;
+
+    private static final String JSON = "{\"loc\":\"loc\",\"paths\":[\"P1\",\"P2\"]}";
 
     @BeforeClass
     public static void beforeClass() {
         ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
     }
 
-    @Autowired
-    private MockMvc mvc;
-
     @Test
-    public void getUserData() throws Exception {
-        mvc.perform(get("/userdata/stuart"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"imagesPerRow\":2,\"imageHistory\":[\"stuart/PixelPhoneSync/2018_12_27_13_48_08_IMG_20181227_134807.jpg.jpg\",\"stuart/Archive/pics/2017_01_02_19_22_28_015_Mum8.jpg.jpg\"]}"));
+    public void testInOrder() throws Exception {
+        testPathIoJsonLoad();
+        testGetPathsSrc();
+        testGetPathsUserNotFound();
+        testGetPathsLocNotFound();
+    }
+
+    public void testPathIoJsonLoad() {
+        PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, JSON);
+        assertEquals("loc", paths.getLoc());
+        assertEquals(2, paths.getPaths().size());
+        assertEquals("P1", paths.getPaths().get(0));
+        assertEquals("P2", paths.getPaths().get(1));
+    }
+
+    private void testGetPathsSrc() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/paths/user/test/loc/java")).andExpect(status().isOk()).andReturn();
+        String resp = mvcResult.getResponse().getContentAsString();
+        PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
+        System.out.println(paths);
     }
     
-    @Test
-    public void getNonUserData() throws Exception {
-        mvc.perform(get("/userdata/nonuser"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"imagesPerRow\":2,\"imageHistory\":[]}"));
-    }
-
-    @Test
-    public void getUserDataNotFound() throws Exception {
-        mvc.perform(get("/userdata/tony"))
+    private void testGetPathsUserNotFound() throws Exception {
+        mvc.perform(get("/paths/user/tony/loc/fred"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"tony\"}"));
     }
-
+    
+    private void testGetPathsLocNotFound() throws Exception {
+        mvc.perform(get("/paths/user/stuart/loc/fred"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"fred\"}"));
+    }
 }

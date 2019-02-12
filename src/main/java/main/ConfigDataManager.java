@@ -18,10 +18,13 @@ package main;
 
 import exceptions.ConfigDataException;
 import config.ConfigData;
+import exceptions.ResourceNotFoundException;
+import exceptions.ServerRestException;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import org.joda.time.DateTime;
+import org.springframework.http.HttpStatus;
 import tools.JsonUtils;
 
 /**
@@ -115,6 +118,15 @@ public class ConfigDataManager {
     public static boolean userExists(String user) {
         return configData.getResources().getUsers().containsKey(user);
     }
+    
+    public static String testUserAndGet(String user) {
+        String path = getUsers().get(user);
+        if (path == null) {
+            throw new ResourceNotFoundException(user);
+        }
+        return path;
+    }
+
 
     public static String getLocation(String locationName) {
         String loc = configData.getResources().getLocations().get(locationName);

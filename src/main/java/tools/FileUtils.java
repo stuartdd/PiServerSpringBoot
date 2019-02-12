@@ -6,6 +6,7 @@
 package tools;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +32,19 @@ import java.util.zip.ZipFile;
  */
 public class FileUtils {
 
+    public static List<String> tree(File f) {
+        File[] flist = f.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.isDirectory();
+            }
+        });
+        List<String> res = new ArrayList<>();
+        for (File fil:flist) {
+            res.add(fil.getAbsolutePath());
+        }
+        return res;
+    }
     /**
      * Recursive directory crawler
      *

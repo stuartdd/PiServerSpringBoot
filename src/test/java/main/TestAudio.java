@@ -29,7 +29,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import services.FunctionService;
 import tools.JsonUtils;
 import tools.OsUtils;
 
@@ -62,33 +61,25 @@ public class TestAudio {
     }
 
     public void playWithPauseTrackProgress() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/audio/play/dog.mp3?vol=75"))
-                .andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/audio/play/dog.mp3?vol=75")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
-        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                 resp);
+        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, resp);
         assertEquals("play", audioStatus.getAction());
         assertEquals("dog.mp3", audioStatus.getMessage());
         assertEquals("PLAYING", audioStatus.getStatus());
         Thread.sleep(1000);
 
-        mvcResult = mvc.perform(get("/audio/pause/true"))
-                .andExpect(status().isOk()).andReturn();
+        mvcResult = mvc.perform(get("/audio/pause/true")).andExpect(status().isOk()).andReturn();
         resp = mvcResult.getResponse().getContentAsString();
-        audioStatus
-                = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                         resp);
+        audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, resp);
         assertEquals("pause", audioStatus.getAction());
         assertEquals("dog.mp3", audioStatus.getMessage());
         assertEquals("PAUSED", audioStatus.getStatus());
         Thread.sleep(1000);
 
-        mvcResult = mvc.perform(get("/audio/pause/false"))
-                .andExpect(status().isOk()).andReturn();
+        mvcResult = mvc.perform(get("/audio/pause/false")).andExpect(status().isOk()).andReturn();
         resp = mvcResult.getResponse().getContentAsString();
-        audioStatus
-                = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                         resp);
+        audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, resp);
         assertEquals("pause", audioStatus.getAction());
         assertEquals("dog.mp3", audioStatus.getMessage());
         assertEquals("PLAYING", audioStatus.getStatus());
@@ -98,7 +89,7 @@ public class TestAudio {
 
     public void testAudioStatusJsonLoad() {
         AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                 JSON);
+                JSON);
         assertEquals("query", audioStatus.getAction());
         assertEquals("PLAYING", audioStatus.getStatus());
         assertEquals("dog.mp3", audioStatus.getMessage());
@@ -107,10 +98,8 @@ public class TestAudio {
     }
 
     public void stop() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/audio/stop"))
-                .andExpect(status().isOk()).andReturn();
-        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                 mvcResult.getResponse().getContentAsString());
+        MvcResult mvcResult = mvc.perform(get("/audio/stop")).andExpect(status().isOk()).andReturn();
+        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, mvcResult.getResponse().getContentAsString());
         assertEquals("stop", audioStatus.getAction());
         assertEquals("STOPPED", audioStatus.getStatus());
         assertEquals(0.0, audioStatus.getDuration(), 0.0);
@@ -118,12 +107,10 @@ public class TestAudio {
     }
 
     public void playWithVolumeTrackProgress() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/audio/play/dog.mp3?vol=40"))
-                .andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/audio/play/dog.mp3?vol=40")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         System.out.println(resp);
-        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                 resp);
+        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, resp);
         assertEquals("play", audioStatus.getAction());
         assertEquals("dog.mp3", audioStatus.getMessage());
         assertEquals("PLAYING", audioStatus.getStatus());
@@ -131,12 +118,9 @@ public class TestAudio {
         assertTrue(audioStatus.getDuration() > 0);
         Thread.sleep(1000);
 
-        mvcResult = mvc.perform(get("/audio/status"))
-                .andExpect(status().isOk()).andReturn();
+        mvcResult = mvc.perform(get("/audio/status")).andExpect(status().isOk()).andReturn();
         resp = mvcResult.getResponse().getContentAsString();
-        audioStatus
-                = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                         resp);
+        audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, resp);
         assertTrue(audioStatus.getDuration() > 0);
         double pos = audioStatus.getPosition();
         assertTrue(pos > 0);
@@ -149,9 +133,7 @@ public class TestAudio {
         mvcResult = mvc.perform(get("/audio/status"))
                 .andExpect(status().isOk()).andReturn();
         resp = mvcResult.getResponse().getContentAsString();
-        audioStatus
-                = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                         resp);
+        audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, resp);
         assertTrue(audioStatus.getDuration() > 0);
         assertTrue(audioStatus.getPosition() > pos);
         assertEquals("query", audioStatus.getAction());
@@ -164,10 +146,8 @@ public class TestAudio {
 
     @Test
     public void getStatusWhenNotStarted() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/audio/status"))
-                .andExpect(status().isOk()).andReturn();
-        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class,
-                 mvcResult.getResponse().getContentAsString());
+        MvcResult mvcResult = mvc.perform(get("/audio/status")).andExpect(status().isOk()).andReturn();
+        AudioStatus audioStatus = (AudioStatus) JsonUtils.beanFromJson(AudioStatus.class, mvcResult.getResponse().getContentAsString());
         assertEquals("query", audioStatus.getAction());
         assertEquals("STOPPED", audioStatus.getStatus());
         assertEquals(0.0, audioStatus.getDuration(), 0.0);

@@ -16,30 +16,36 @@
  */
 package services;
 
-import exceptions.ServerRestException;
+import exceptions.ResourceNotFoundException;
+import io.PathsIO;
 import java.io.File;
-import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import main.ConfigDataManager;
-import org.springframework.http.HttpStatus;
 import tools.FileUtils;
 
 /**
  *
  * @author stuart
  */
-public class UserDataService {
+public class FileService {
 
-    public static String getUserData(String user) {
-        ConfigDataManager.testUserAndGet(user);
-        File f = new File(ConfigDataManager.getLocation("userData") + File.separator + user + ".json");
-        if (f.exists()) {
-            try {
-                return FileUtils.loadFile(f);
-            } catch (IOException ex) {
-                throw new ServerRestException("Could not read userData file", HttpStatus.NOT_FOUND, "Not Found");
-            }
+    public static PathsIO paths(String user, String loc, Map<String, String> queryParameters) {
+        String root = ConfigDataManager.testUserAndGet(user);
+        root = root + File.separator + loc;
+        File f = new File((new File(root)).getAbsolutePath());
+        if (!f.exists()) {
+            throw new ResourceNotFoundException(loc);
         }
-        return FileUtils.getResource("/userDataTemplate", UserDataService.class);
+        int prefix = f.getAbsolutePath().length()+1;
+        List<String> files = FileUtils.tree(f);
+        PathsIO resp = new PathsIO(loc);
+        for (String fil:files) {
+            resp.addPath(fil.substring(prefix));
+        }
+        return resp;
     }
 
 }

@@ -11,7 +11,8 @@
         "users": {
             "stuart": "/media/shares/stuart",
             "nonuser": "/media/shares/nonuser",
-            "shared": "/media/shares/shared"
+            "shared": "/media/shares/shared",
+            "test": "src/main"
         },
         "locations": {
             "logs": "/logs",
