@@ -12,7 +12,7 @@
             "stuart": "/media/shares/stuart",
             "nonuser": "/media/shares/nonuser",
             "shared": "/media/shares/shared",
-            "test": "src/main"
+            "test": "."
         },
         "locations": {
             "logs": "/logs",

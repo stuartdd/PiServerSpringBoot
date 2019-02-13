@@ -33,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import tools.JsonUtils;
 import tools.OsUtils;
+import tools.StringUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
@@ -66,10 +67,10 @@ public class TestFileSystem {
     }
 
     private void testGetPathsSrc() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/paths/user/test/loc/java")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/paths/user/test/loc/src")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
-        System.out.println(paths);
+        System.out.println(StringUtils.listToString(paths.getPaths(), "\n"));
     }
     
     private void testGetPathsUserNotFound() throws Exception {

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Used by FileUtils to filter the files returned from recursive directory scans
- * 
+ *
  * @author - Stuart Davies
  */
 public class FileExtFilter implements FileFilter {
@@ -20,6 +20,13 @@ public class FileExtFilter implements FileFilter {
     private final List<String> ext;
 
     public FileExtFilter(List<String> in) {
+        ext = new ArrayList<>();
+        for (String e : in) {
+            ext.add(e.toLowerCase());
+        }
+    }
+
+    public FileExtFilter(String[] in) {
         ext = new ArrayList<>();
         for (String e : in) {
             ext.add(e.toLowerCase());

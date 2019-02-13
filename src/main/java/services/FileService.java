@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import main.ConfigDataManager;
+import tools.FileExtFilter;
 import tools.FileUtils;
 
 /**
@@ -39,13 +40,12 @@ public class FileService {
         if (!f.exists()) {
             throw new ResourceNotFoundException(loc);
         }
-        int prefix = f.getAbsolutePath().length()+1;
-        List<String> files = FileUtils.tree(f);
+        int prefix = f.getAbsolutePath().length();
+        List<String> files = new ArrayList<>();
+        FileUtils.tree(f, files, prefix, new FileExtFilter(new String[] {".java",".jpg"}));
         PathsIO resp = new PathsIO(loc);
-        for (String fil:files) {
-            resp.addPath(fil.substring(prefix));
-        }
+        resp.setPaths(files);
         return resp;
     }
 
-}
+ }

@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-
 /**
  * Utility to manage the file system
  *
@@ -32,19 +31,30 @@ import java.util.zip.ZipFile;
  */
 public class FileUtils {
 
-    public static List<String> tree(File f) {
-        File[] flist = f.listFiles(new FileFilter() {
+    public static void tree(File f, List<String> l, int pathLen, FileFilter filter) {
+        File[] fList = f.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return pathname.isDirectory();
             }
         });
-        List<String> res = new ArrayList<>();
-        for (File fil:flist) {
-            res.add(fil.getAbsolutePath());
+        if (fList.length == 0) {
+            if (filter != null) {
+                File[] count = f.listFiles(filter);
+                if (count.length != 0) {
+                    l.add(f.getAbsolutePath().substring(pathLen));
+                }
+            } else {
+                l.add(f.getAbsolutePath().substring(pathLen));
+            }
+            return;
         }
-        return res;
+        for (File fil : fList) {
+            tree(fil, l, pathLen, filter);
+        }
+        return;
     }
+
     /**
      * Recursive directory crawler
      *
@@ -102,7 +112,7 @@ public class FileUtils {
             byte[] hash = md.digest();
             checksum = new BigInteger(1, hash).toString(16); //don't use this, truncates leading zero
         } catch (IOException | NoSuchAlgorithmException ex) {
-            throw new FileUtilsException("MD5 in file ["+file.getAbsolutePath()+"] failed", ex);
+            throw new FileUtilsException("MD5 in file [" + file.getAbsolutePath() + "] failed", ex);
         }
         return checksum;
     }
@@ -125,13 +135,13 @@ public class FileUtils {
                 }
             }
         } catch (IOException ex) {
-            throw new FileUtilsException("Zip file ["+zFil.getAbsolutePath()+"] List failed", ex);
+            throw new FileUtilsException("Zip file [" + zFil.getAbsolutePath() + "] List failed", ex);
         } finally {
             if (zip != null) {
                 try {
                     zip.close();
                 } catch (IOException ex) {
-                    throw new FileUtilsException("Zip file ["+zFil.getAbsolutePath()+"] List failed to close", ex);
+                    throw new FileUtilsException("Zip file [" + zFil.getAbsolutePath() + "] List failed to close", ex);
                 }
             }
         }
@@ -140,8 +150,7 @@ public class FileUtils {
     /**
      * Read a file from the resource directory relative to a specific class.
      *
-     * @param fileName The name of the file. Use '/' to indicate the root of the
-     * package
+     * @param fileName The name of the file. Use '/' to indicate the root of the package
      * @param clazz The package this class is in will be the package searched.
      * @return The contents of the file
      */
@@ -224,6 +233,7 @@ public class FileUtils {
             }
         }
     }
+
     /**
      * Write a file and overwrite the existing file
      *
@@ -312,6 +322,7 @@ public class FileUtils {
 
     /**
      * Does the file with this name exist!
+     *
      * @param fileName The name of the file as a string
      * @return To exist or not to exist!
      */
@@ -324,7 +335,8 @@ public class FileUtils {
 
     /**
      * Does the file exist! (not a lot of point to this!)
-     * @param fileName The file 
+     *
+     * @param fileName The file
      * @return To exist or not to exist!
      */
     public static boolean exists(File f) {
@@ -332,11 +344,11 @@ public class FileUtils {
     }
 
     /**
-     * Create a file.
-     * If you create a file with a file name such as 'a.txt' then the file name returned is 'a.txt'.
-     * Doing this will always return the full path of the file
+     * Create a file. If you create a file with a file name such as 'a.txt' then the file name returned is 'a.txt'. Doing this will always return the
+     * full path of the file
+     *
      * @param fileName The file name as a string
-     * @return 
+     * @return
      */
     public static File newFile(String fileName) {
         File f = new File(fileName);
