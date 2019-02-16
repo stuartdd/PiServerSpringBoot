@@ -31,6 +31,7 @@ public class AudioService {
     private static AudioPlayerThread audioThread = null;
     private static String currentFileName = null;
     private static int currentVolume = 50;
+    private static final int WAIT_TIME = 5000;
 
     public static AudioStatus queryStatus() {
         return buildAudioStatus("query");
@@ -39,12 +40,12 @@ public class AudioService {
     public static AudioStatus play(String file, String vol) {
         if (audioThread != null) {
             audioThread.close();
-            audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, 1000);
+            audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, WAIT_TIME);
         }
         audioThread = new AudioPlayerThread(ConfigDataManager.getLocation("audio") + File.separator + file, readVolumeString(vol));
-        audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STARTING, 1000);
+        audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STARTING, WAIT_TIME);
         audioThread.start();
-        audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.RUNNING, 1000);
+        audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.RUNNING, WAIT_TIME);
         audioThread.waitForRunning(1000);
         currentFileName = file;
         return buildAudioStatus("play");
@@ -54,9 +55,9 @@ public class AudioService {
         if (audioThread != null) {
             audioThread.setPaused(paused);
             if (paused) {
-                audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.PAUSED, 1000);
+                audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.PAUSED, WAIT_TIME);
             } else {
-                audioThread.waitForStatusClear(AudioPlayerThread.ThreadStatus.PAUSED, 1000);
+                audioThread.waitForStatusClear(AudioPlayerThread.ThreadStatus.PAUSED, WAIT_TIME);
             }
         }
         return buildAudioStatus("pause");
@@ -65,7 +66,7 @@ public class AudioService {
     public static AudioStatus stop() {
         if (audioThread != null) {
             audioThread.close();
-            audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, 1000);
+            audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, WAIT_TIME);
         }
         return buildAudioStatus("stop");
     }
