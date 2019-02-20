@@ -16,9 +16,9 @@
  */
 package main;
 
-import io.AudioStatus;
 import io.PathsIO;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,15 +70,20 @@ public class TestFileSystem {
         MvcResult mvcResult = mvc.perform(get("/paths/user/test/loc/src")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
-        System.out.println(StringUtils.listToString(paths.getPaths(), "\n"));
+        String str = StringUtils.listToString(paths.getPaths(), "|");
+        System.out.println(str);
+        assertTrue(str.contains("/main/java/main|"));
+        assertTrue(str.contains("/main/java/services|"));
+        assertTrue(str.contains("/main/resources/static|"));
+        assertTrue(str.contains("/test/java/main"));
     }
-    
+
     private void testGetPathsUserNotFound() throws Exception {
         mvc.perform(get("/paths/user/tony/loc/fred"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"tony\"}"));
     }
-    
+
     private void testGetPathsLocNotFound() throws Exception {
         mvc.perform(get("/paths/user/stuart/loc/fred"))
                 .andExpect(status().isNotFound())
