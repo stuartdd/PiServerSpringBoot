@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import main.ConfigDataManager;
+import tools.FileUtils;
 import tools.OsUtils;
 import tools.Template;
 
@@ -82,6 +83,9 @@ public class FunctionService {
             }
         }
         Object[] script = substituteAndSplit(map, desc);
+        if (!FileUtils.exists((String)script[0])) {
+            throw new ConfigDataException(desc + " Path to scripts does not exist'");
+        }
         SystemCommand sc = new SystemCommand();
         sc.run((List<String>) script[1], (String) script[0]);
         int rc = sc.getExitValue();

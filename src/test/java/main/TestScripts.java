@@ -71,6 +71,6 @@ public class TestScripts {
     public void getScriptMinRC() throws Exception {
         MvcResult s = mvc.perform(get("/func/minRcError"))
                 .andExpect(status().isOk()).andReturn();
-        assertTrue(s.getResponse().getContentAsString().contains("Q0:returnCode.bat"));
+         assertEquals(200, s.getResponse().getStatus());
     }
 }

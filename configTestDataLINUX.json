@@ -11,7 +11,8 @@
         "users": {
             "stuart": "/media/shares/stuart",
             "nonuser": "/media/shares/nonuser",
-            "shared": "/media/shares/shared"
+            "shared": "/media/shares/shared",
+            "test": "."
         },
         "locations": {
             "logs": "/logs",
@@ -28,7 +29,7 @@
         "echoScriptOutput": true,
         "poleForTime": 200000,
         "osTemplates": {
-            "linux": "%{scripts}|./%{script}.sh %{P0} %{P1} %{P2} %{P3}", 
+            "linux": "%{scripts}|./%{script}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
             "win": "%{scripts}|cmd.exe|/c|%{script}.bat %{P0} %{P1} %{P2} %{P3}",
             "mac": "%{scripts}|%{script}.sh %{P0} %{P1} %{P2} %{P3}",
             "unknown": "unknown-OS"
