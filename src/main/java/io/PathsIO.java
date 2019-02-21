@@ -26,14 +26,24 @@ import java.util.List;
 public class PathsIO {
 
     private String loc;
+    private String user;
     private List<String> paths;
 
     public PathsIO() {
     }
 
-    public PathsIO(String loc) {
+    public PathsIO(String user, String loc) {
         this.loc = loc;
+        this.user = user;
         this.paths = new ArrayList<>();
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getLoc() {

@@ -10,9 +10,7 @@
         "root": "/home/pi/PiServer/web",
         "users": {
             "stuart": {"images":".data/stuart"},
-            "nonuser": {"images":"/media/shares/nonuser"},
-            "shared": {"images":"/media/shares/shared"},
-            "test": {"src":"src"}
+            "shared": {"images":".data/shared"}
         },
         "locations": {
             "logs": "/logs",

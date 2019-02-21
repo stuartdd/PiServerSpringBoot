@@ -53,6 +53,7 @@ public class TestAudio {
     }
 
     @Test
+    @Ignore
     public void testInOrder() throws Exception {
         testAudioStatusJsonLoad();
         getStatusWhenNotStarted();

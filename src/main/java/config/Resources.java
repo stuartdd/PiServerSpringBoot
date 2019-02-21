@@ -26,7 +26,7 @@ public class Resources {
     private String scriptFiles;
     private int historyMaxLen = 5;
 
-    private Map<String, String> users = new HashMap<>();
+    private Map<String, Map<String, String>> users = new HashMap<>();
     private Map<String, String> locations = new HashMap<>();
 
     @JsonIgnore
@@ -71,12 +71,11 @@ public class Resources {
         this.historyMaxLen = historyMaxLen;
     }
 
-    
-    public Map<String, String> getUsers() {
-        return Collections.unmodifiableMap(users);
+    public Map<String, Map<String, String>> getUsers() {
+        return users;
     }
 
-    public void setUsers(Map<String, String> users) {
+    public void setUsers(Map<String, Map<String, String>> users) {
         this.users = users;
     }
 

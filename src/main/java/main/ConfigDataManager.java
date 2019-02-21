@@ -54,15 +54,19 @@ public class ConfigDataManager {
         }
 
         if (configData.isValidateLocations()) {
-            for (Map.Entry<String, String> loc : configData.getResources().getUsers().entrySet()) {
-                File f = new File(loc.getValue());
-                f = new File(f.getAbsolutePath());
-                if (!f.exists()) {
-                    throw new ConfigDataException("User '" + loc.getKey() + "'. Path '" + loc.getValue() + "' does not exist");
+            for (Map.Entry<String, Map<String, String>> usr : configData.getResources().getUsers().entrySet()) {
+                if (usr.getValue() != null) {
+                    for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
+                        File f = new File(loc.getValue());
+                        f = new File(f.getAbsolutePath());
+                        if (!f.exists()) {
+                            throw new ConfigDataException("User '" + loc.getKey() + "'. Path '" + loc.getValue() + "' does not exist");
+                        }
+                    }
                 }
             }
         }
-        
+
         if ((configData.getResources().getLocations() == null) || (configData.getResources().getLocations().size() == 0)) {
             throw new ConfigDataException("Location data 'resources-->locations' not found or is empty");
         }
@@ -70,15 +74,15 @@ public class ConfigDataManager {
         if (configData.getResources().getLocations().get("scripts") == null) {
             throw new ConfigDataException("Location 'scripts' is undefined");
         }
-        
+
         if (configData.getResources().getLocations().get("cache") == null) {
             throw new ConfigDataException("Location 'cache' is undefined");
         }
-        
+
         if (configData.getResources().getLocations().get("userData") == null) {
             throw new ConfigDataException("Location 'userData' is undefined");
         }
-        
+
         if (configData.isValidateLocations()) {
             for (Map.Entry<String, String> loc : configData.getResources().getLocations().entrySet()) {
                 File f = new File(loc.getValue());
@@ -108,36 +112,45 @@ public class ConfigDataManager {
         parameters.put("userList", sb.toString());
         parameters.put("poleForTime", "" + configData.getFunctions().getPoleForTime());
         parameters.put("historyMaxLen", "" + configData.getResources().getHistoryMaxLen());
-        parameters.put("user", "");      
+        parameters.put("user", "");
     }
 
-    public static Map<String, String> getUsers() {
+    public static Map<String, Map<String, String>> getUsers() {
         return configData.getResources().getUsers();
     }
-    
+
     public static boolean userExists(String user) {
         return configData.getResources().getUsers().containsKey(user);
     }
-    
-    public static String testUserAndGet(String user) {
-        String path = getUsers().get(user);
-        if (path == null) {
-            throw new ResourceNotFoundException(user);
-        }
-        return path;
-    }
 
-
-    public static String getLocation(String locationName) {
-        String loc = configData.getResources().getLocations().get(locationName);
+    public static Map<String, String> getUser(String user) {
+        Map<String, String> loc = getUsers().get(user);
         if (loc == null) {
-            return "<undefined-location>";
+            throw new ResourceNotFoundException(user);
         }
         return loc;
     }
 
+    public static String getUserLocation(String user, String locationName) {
+        Map<String, String> loc = getUser(user);
+        String path = loc.get(locationName);
+        if (path == null) {
+            throw new ResourceNotFoundException(user + "." + locationName);
+        }
+        return path;
+    }
+
     public static Map<String, String> getLocations() {
         return configData.getResources().getLocations();
+    }
+
+    public static String getLocation(String loc) {
+        String path = configData.getResources().getLocations().get(loc);
+        if (path == null) {
+            throw new ResourceNotFoundException(loc);
+        }
+        return path;
+       
     }
 
     public static Map<String, String> getProperties(Map<String, String> localParameters) {
@@ -151,6 +164,5 @@ public class ConfigDataManager {
         DateTime now = DateTime.now();
         return now.toString(configData.getFormatTimeStamp());
     }
-    
 
 }

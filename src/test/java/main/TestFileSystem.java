@@ -13,6 +13,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-PcmdLineArgs=${cmd-line-args}
+-PjvmLineArgs=${jvm-line-args}
  */
 package main;
 
@@ -52,10 +54,11 @@ public class TestFileSystem {
 
     @Test
     public void testInOrder() throws Exception {
-        testPathIoJsonLoad();
-        testGetPathsSrc();
-        testGetPathsUserNotFound();
-        testGetPathsLocNotFound();
+        testImages();
+//        testPathIoJsonLoad();
+//        testGetPathsSrc();
+//        testGetPathsUserNotFound();
+//        testGetPathsLocNotFound();
     }
 
     public void testPathIoJsonLoad() {
@@ -64,6 +67,14 @@ public class TestFileSystem {
         assertEquals(2, paths.getPaths().size());
         assertEquals("P1", paths.getPaths().get(0));
         assertEquals("P2", paths.getPaths().get(1));
+    }
+
+    private void testImages() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/paths/user/stuart/loc/images")).andExpect(status().isOk()).andReturn();
+        String resp = mvcResult.getResponse().getContentAsString();
+        PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
+        String str = StringUtils.listToString(paths.getPaths(), "|");
+        System.out.println(str);
     }
 
     private void testGetPathsSrc() throws Exception {
@@ -87,6 +98,6 @@ public class TestFileSystem {
     private void testGetPathsLocNotFound() throws Exception {
         mvc.perform(get("/paths/user/stuart/loc/fred"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"fred\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"stuart.fred\"}"));
     }
 }

@@ -33,8 +33,7 @@ import tools.FileUtils;
 public class FileService {
 
     public static PathsIO paths(String user, String loc, Map<String, String> queryParameters) {
-        String root = ConfigDataManager.testUserAndGet(user);
-        root = root + File.separator + loc;
+        String root = ConfigDataManager.getUserLocation(user, loc);
         File f = new File((new File(root)).getAbsolutePath());
         if (!f.exists()) {
             throw new ResourceNotFoundException(loc);
@@ -42,7 +41,7 @@ public class FileService {
         int prefix = f.getAbsolutePath().length();
         List<String> files = new ArrayList<>();
         FileUtils.tree(f, files, prefix, new FileExtFilter(new String[] {".java",".jpg"}));
-        PathsIO resp = new PathsIO(loc);
+        PathsIO resp = new PathsIO(user, loc);
         resp.setPaths(files);
         return resp;
     }

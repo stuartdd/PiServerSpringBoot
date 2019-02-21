@@ -24,7 +24,7 @@ while [[ $RC -eq 2 ]]
 do
     LOGFILE=$LOGS/sb_`date +%Y_%m_%d_%H_%M_%S`.log
     echo "LOG FILE:"$LOGFILE
-    java -jar $EXE_JAR configWebApp.json 2> $LOGFILE
+    java -jar $EXE_JAR configDataLINUX.json 2> $LOGFILE
     if [[ $? -eq 1 ]]
     then
         cat $LOGFILE

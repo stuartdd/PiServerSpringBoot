@@ -81,7 +81,7 @@
                 document.getElementById('thumbnailDirList').innerHTML = "No Image data has been created";
                 document.getElementById('thumbnailImageList').innerHTML = "No Images to display";
                 document.getElementById('timeDisplay').hidden = false;
-                serverGetData(setThumbnailList, responseError, "image/dir/" + currentUser);
+                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/images");
                 displayMap.clear();
                 displayPage("thumbnails");
             }

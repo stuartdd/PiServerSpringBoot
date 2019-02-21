@@ -30,7 +30,7 @@ import tools.FileUtils;
 public class UserDataService {
 
     public static String getUserData(String user) {
-        ConfigDataManager.testUserAndGet(user);
+        ConfigDataManager.getUser(user);
         File f = new File(ConfigDataManager.getLocation("userData") + File.separator + user + ".json");
         if (f.exists()) {
             try {
