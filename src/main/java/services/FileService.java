@@ -40,10 +40,12 @@ public class FileService {
         }
         int prefix = f.getAbsolutePath().length();
         List<String> files = new ArrayList<>();
-        FileUtils.tree(f, files, prefix, new FileExtFilter(new String[] {".java",".jpg"}));
+        FileUtils.tree(f, files, prefix, new FileExtFilter(new String[]{".java", ".jpg"}));
         PathsIO resp = new PathsIO(user, loc);
-        resp.setPaths(files);
+        for (String s : files) {
+            resp.addPath(s);
+        }
         return resp;
     }
 
- }
+}

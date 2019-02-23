@@ -118,14 +118,14 @@
 
             function refreshThumbnailList() {
                 var htmlStr = "<table width=\"100%\" border=\"1\">";
-                for (var i = 0; i < imagePathData.length; i++) {
+                for (var i = 0; i < imagePathData.paths.length; i++) {
                     var linkClass;
                     if (linkHistory.indexOf("id" + i) >= 0) {
                         linkClass = "TableList1";
                     } else {
                         linkClass = "TableList2";
                     }
-                    var span = "<a title=\"" + imagePathData[i].encName + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData[i].name + "</a>";
+                    var span = "<a title=\"" + imagePathData.paths[i].encName + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData.paths[i].name + "</a>";
                     htmlStr += "<tr><td width=\"99%\" class=\"" + linkClass + "\">" + span + "</td></tr>";
                 }
                 htmlStr += "</table>";

@@ -18,6 +18,7 @@ package io;
 
 import java.util.ArrayList;
 import java.util.List;
+import tools.EncodeDecode;
 
 /**
  *
@@ -27,7 +28,7 @@ public class PathsIO {
 
     private String loc;
     private String user;
-    private List<String> paths;
+    private List<EncName> paths;
 
     public PathsIO() {
     }
@@ -54,16 +55,17 @@ public class PathsIO {
         this.loc = loc;
     }
 
-    public List<String> getPaths() {
+    public List<EncName> getPaths() {
         return paths;
     }
 
-    public void setPaths(List<String> paths) {
+    public void setPaths(List<EncName> paths) {
         this.paths = paths;
     }
-    
-    public void addPath(String path) {
-        paths.add(path);
+
+     
+    public void addPath(String name) {
+        paths.add(new EncName(name, EncodeDecode.encode(name)));
     }
 
     @Override

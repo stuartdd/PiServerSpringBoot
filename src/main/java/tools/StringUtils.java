@@ -5,6 +5,7 @@
  */
 package tools;
 
+import exceptions.BadDataException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,8 @@ import java.util.List;
  * @author stuart
  */
 public class StringUtils {
-    
-  public static String listToString(List list, String delim) {
+
+    public static String listToString(List list, String delim) {
         StringBuilder sb = new StringBuilder();
         int mark = 0;
         for (Object s : list) {
@@ -72,5 +73,54 @@ public class StringUtils {
             list.add(sb.toString());
         }
         return list.toArray(new String[list.size()]);
+    }
+
+    public static String readStartToEnd(String resp) {
+        if (resp.length() > 13) {
+            int st = resp.indexOf("{start}");
+            if (st < 0) {
+                st = 0;
+            } else {
+                st = st + 7;
+            }
+            int en = resp.indexOf("{end}");
+            if (en < 0) {
+                en = resp.length();
+            }
+            return resp.substring(st, en).trim();
+        } else {
+            return resp;
+        }
+    }
+
+    public static String toJson(String ufs, String[] names, int[] positions, String dev, String context) {
+        if (names.length != positions.length) {
+            throw new BadDataException("Invalid conversion to JSON:" + context);
+        }
+        StringBuilder sb = new StringBuilder();
+        int mark1 = 0;
+        int mark2 = 0;
+        sb.append('[');
+        String[] s = ufs.split("\n");
+        for (String l : s) {
+            String[] p = l.split(dev);
+            sb.append('{');
+            for (int i = 0; i < names.length; i++) {
+                String name = names[i];
+                int pos = positions[i];
+                if ((pos >= 0) && (pos < p.length)) {
+                    sb.append("\"").append(name.trim()).append("\":\"").append(p[pos].trim()).append("\"");
+                    mark2 = sb.length();
+                    sb.append(',');
+                }
+            }
+            sb.setLength(mark2);
+            sb.append('}');
+            mark1 = sb.length();
+            sb.append(',');
+        }
+        sb.setLength(mark1);
+        sb.append(']');
+        return sb.toString();
     }
 }

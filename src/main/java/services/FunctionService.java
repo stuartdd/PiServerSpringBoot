@@ -18,6 +18,7 @@ import java.util.Map;
 import main.ConfigDataManager;
 import tools.FileUtils;
 import tools.OsUtils;
+import tools.StringUtils;
 import tools.Template;
 
 /**
@@ -96,22 +97,7 @@ public class FunctionService {
     }
 
     public String scriptBetween(Map<String, String> map, String desc) {
-        String resp = scriptAll(map, desc);
-        if (resp.length() > 13) {
-            int st = resp.indexOf("{start}");
-            if (st < 0) {
-                st = 0;
-            } else {
-                st = st + 7;
-            }
-            int en = resp.indexOf("{end}");
-            if (en < 0) {
-                en = resp.length();
-            }
-            return resp.substring(st, en).trim();
-        } else {
-            return resp;
-        }
+        return StringUtils.readStartToEnd(scriptAll(map, desc));
     }
 
     private Object[] substituteAndSplit(Map<String, String> map, String desc) {

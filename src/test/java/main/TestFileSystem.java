@@ -45,7 +45,17 @@ public class TestFileSystem {
     @Autowired
     private MockMvc mvc;
 
-    private static final String JSON = "{\"loc\":\"loc\",\"paths\":[\"P1\",\"P2\"]}";
+    private static final String JSON = "{\n"
+            + "	\"loc\": \"images\",\n"
+            + "	\"user\": \"stuart\",\n"
+            + "	\"paths\": [{\n"
+            + "		\"name\": \"/200609 Pics-01/200707A0\",\n"
+            + "		\"encName\": \"/200609%20Pics%2D01/200707A0\"\n"
+            + "	}, {\n"
+            + "		\"name\": \"/200608\",\n"
+            + "		\"encName\": \"/200608\"\n"
+            + "	}]\n"
+            + "}";
 
     @BeforeClass
     public static void beforeClass() {
@@ -55,18 +65,19 @@ public class TestFileSystem {
     @Test
     public void testInOrder() throws Exception {
         testImages();
-//        testPathIoJsonLoad();
-//        testGetPathsSrc();
-//        testGetPathsUserNotFound();
-//        testGetPathsLocNotFound();
+        testPathIoJsonLoad();
+        testGetPathsSrc();
+        testGetPathsUserNotFound();
+        testGetPathsLocNotFound();
     }
 
     public void testPathIoJsonLoad() {
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, JSON);
-        assertEquals("loc", paths.getLoc());
+        assertEquals("images", paths.getLoc());
+        assertEquals("stuart", paths.getUser());
         assertEquals(2, paths.getPaths().size());
-        assertEquals("P1", paths.getPaths().get(0));
-        assertEquals("P2", paths.getPaths().get(1));
+        assertEquals("/200609%20Pics%2D01/200707A0", paths.getPaths().get(0).getEncName());
+        assertEquals("/200609 Pics-01/200707A0", paths.getPaths().get(0).getName());
     }
 
     private void testImages() throws Exception {
@@ -74,6 +85,7 @@ public class TestFileSystem {
         String resp = mvcResult.getResponse().getContentAsString();
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
         String str = StringUtils.listToString(paths.getPaths(), "|");
+        assertEquals(2, paths.getPaths().size());
         System.out.println(str);
     }
 

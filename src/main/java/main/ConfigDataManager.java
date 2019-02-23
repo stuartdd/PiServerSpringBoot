@@ -19,13 +19,14 @@ package main;
 import exceptions.ConfigDataException;
 import config.ConfigData;
 import exceptions.ResourceNotFoundException;
-import exceptions.ServerRestException;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.joda.time.DateTime;
-import org.springframework.http.HttpStatus;
+import tools.FileUtils;
 import tools.JsonUtils;
+import tools.StringUtils;
 
 /**
  *
@@ -150,7 +151,7 @@ public class ConfigDataManager {
             throw new ResourceNotFoundException(loc);
         }
         return path;
-       
+
     }
 
     public static Map<String, String> getProperties(Map<String, String> localParameters) {
@@ -165,4 +166,20 @@ public class ConfigDataManager {
         return now.toString(configData.getFormatTimeStamp());
     }
 
+    public static String readCacheStartToEnd(String fileName, String resourceName) {
+        return StringUtils.readStartToEnd(readCache(fileName, resourceName));
+    }
+
+    public static String readCache(String fileName, String resourceName) {
+        String path = ConfigDataManager.getLocation("cache");
+        File f = new File(path + File.separator + fileName);
+        if (!f.exists()) {
+            throw new ResourceNotFoundException(resourceName);
+        }
+        try {
+            return FileUtils.loadFile(f);
+        } catch (IOException ex) {
+            throw new ResourceNotFoundException(resourceName);
+        }
+    }
 }

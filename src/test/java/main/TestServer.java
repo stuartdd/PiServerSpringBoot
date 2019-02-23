@@ -56,5 +56,13 @@ public class TestServer {
         Assert.assertTrue(s.contains("\"timestamp\""));
         Assert.assertTrue(s.contains("\"millis\""));
     }
+    
+   @Test
+    public void getUFS() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/server/ufs"))
+                .andExpect(status().isOk()).andReturn();
+        String s = mvcResult.getResponse().getContentAsString();
+        System.out.println(s);
+    }
 
 }

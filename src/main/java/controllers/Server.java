@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tools.StringUtils;
 
 /**
  *
@@ -40,12 +41,12 @@ public class Server extends ControllerErrorHandlerBase {
     @Autowired
     private ApplicationContext appContext;
 
-    @RequestMapping(value = "server/time", method = RequestMethod.GET)
+    @RequestMapping(value = "server/time", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String time(@RequestParam Map<String, String> queryParameters) {
         return ServerService.jsonTime();
     }
 
-    @RequestMapping(value = "server/stop", method = RequestMethod.GET)
+    @RequestMapping(value = "server/stop", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String stop(HttpServletRequest req, @RequestParam Map<String, String> queryParameters) {
         if (ConfigDataManager.getConfigData().isAllowServerStopCtrl()) {
             return ShutDownService.shutDownLater(appContext, 1, 2, "SHUTTING DOWN");
@@ -54,9 +55,15 @@ public class Server extends ControllerErrorHandlerBase {
         } 
     }
 
-    @RequestMapping(value = "server/restart", method = RequestMethod.GET)
+    @RequestMapping(value = "server/restart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String restart(HttpServletRequest req, @RequestParam Map<String, String> queryParameters) {
         return ShutDownService.shutDownLater(appContext, 2, 2, "RESTARTING");
+    }
+    
+    @RequestMapping(value = "server/ufs", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String ufs(@RequestParam Map<String, String> queryParameters) {
+        String ufs = ConfigDataManager.readCacheStartToEnd("userFileSizes.log", "ufs");
+        return StringUtils.toJson(ufs, new String[] {"Size","Name"}, new int[] {0,4}, "/", "UFS");
     }
 
 }
