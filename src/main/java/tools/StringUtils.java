@@ -152,4 +152,16 @@ public class StringUtils {
         sb.append(']');
         return sb.toString();
     }
+    
+    public static String replaceAll(String s, char c1, char c2) {
+        StringBuilder sb = new StringBuilder();
+        for (char c:s.toCharArray()) {
+            if (c == c1) {
+                sb.append(c2);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }
