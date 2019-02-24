@@ -1,0 +1,12 @@
+Q0:./diskStatus.sh
+Q1:
+Q2:
+Q3:
+{start}
+
+/dev/sda:
+ drive state is:  active/idle
+
+/dev/sdb:
+ drive state is:  active/idle
+{end}

@@ -97,62 +97,48 @@ public class StringUtils {
         if (names.length != positions.length) {
             throw new BadDataException("Invalid conversion to JSON:" + context);
         }
-        StringBuilder sb = new StringBuilder();
-        int tokenOnLine = 0;
         Scanner sc = new Scanner(in);
-        sc.skipSpace();
-
+        sc.skipSpace();        
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        int mark01 = 0;
+        int mark02 = 0;        
+        int tokenOnLine = 0;
+        boolean firstToken = true;       
+        
         while (sc.hasNext()) {
             String tok = sc.nextToken(delimeters);
             if (tok.length() > 0) {
+                if (firstToken) {
+                    sb.append('{');
+                    firstToken = false;
+                }
                 tokenOnLine++;
+                
                 for (int i = 0; i < positions.length; i++) {
                     if (positions[i] == tokenOnLine) {
-                        sb.append(tok).append('|');
-                    }
-                }
-                if (tokenOnLine == count) {
-                    sb.append(tok).append('^');
-                    tokenOnLine = 0;
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-    public static String toJson(String in, String[] names, int[] positions, String dev, String context) {
-        if (names.length != positions.length) {
-            throw new BadDataException("Invalid conversion to JSON:" + context);
-        }
-        StringBuilder sb = new StringBuilder();
-        int mark1 = 0;
-        int mark2 = 0;
-        sb.append('[');
-        String[] s = in.split("\n");
-        for (String l : s) {
-            if (l.trim().length() > 0) {
-                String[] p = l.split(dev);
-                sb.append('{');
-                for (int i = 0; i < names.length; i++) {
-                    String name = names[i];
-                    int pos = positions[i];
-                    if ((pos >= 0) && (pos < p.length)) {
-                        sb.append("\"").append(name.trim()).append("\":\"").append(p[pos].trim()).append("\"");
-                        mark2 = sb.length();
+                        sb.append("\"").append(names[i]).append("\":\"").append(tok).append("\"");
+                        mark01 = sb.length();
                         sb.append(',');
+                        break;
                     }
                 }
-                sb.setLength(mark2);
-                sb.append('}');
-                mark1 = sb.length();
-                sb.append(',');
+                
+                if (tokenOnLine == count) {
+                    sb.setLength(mark01);
+                    sb.append('}');
+                    mark02 = sb.length();
+                    sb.append(',');
+                    tokenOnLine = 0;
+                    firstToken = true;
+                }
             }
         }
-        sb.setLength(mark1);
+        sb.setLength(mark02);
         sb.append(']');
         return sb.toString();
     }
-    
+   
     public static String replaceAll(String s, char c1, char c2) {
         StringBuilder sb = new StringBuilder();
         for (char c:s.toCharArray()) {

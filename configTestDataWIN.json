@@ -16,7 +16,7 @@
         },
         "locations": {
             "logs": "/logs",
-            "cache": ".data/cache",
+            "cache": "data/cache",
             "scripts": "scripts",
             "thumbnail": "/thumbnails",
             "media": "/media/shares/",

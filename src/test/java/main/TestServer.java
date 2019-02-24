@@ -72,10 +72,8 @@ public class TestServer {
         MvcResult mvcResult = mvc.perform(get("/server/ds"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
-        Assert.assertTrue(s.contains("\"Name\":\"shared\""));
-        Assert.assertTrue(s.contains("\"Name\":\"stuart\""));
-        Assert.assertTrue(s.contains("\"Name\":\"julie\""));
-        Assert.assertTrue(s.contains("\"Name\":\"huw\""));
+        Assert.assertTrue(s.contains("\"Name\":\"/dev/sda\",\"State\":\"active/idle\""));
+        Assert.assertTrue(s.contains("\"Name\":\"/dev/sdb\",\"State\":\"active/idle\""));
     }
 
 }
