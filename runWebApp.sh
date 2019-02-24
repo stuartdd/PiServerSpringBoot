@@ -1,7 +1,7 @@
 #!/bin/bash
 RC=2
 LOGS=/logs
-RC_FILE=$LOGS/cache/RC_DATA.txt
+RC_FILE=data/cache/RC_DATA.txt
 JAR_NAME=PiServerSpringBoot-1.0.jar
 
 if [[ -e $JAR_NAME ]] 
