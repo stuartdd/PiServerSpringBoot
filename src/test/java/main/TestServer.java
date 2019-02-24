@@ -62,7 +62,20 @@ public class TestServer {
         MvcResult mvcResult = mvc.perform(get("/server/ufs"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
-        System.out.println(s);
+        Assert.assertTrue(s.contains("\"Name\":\"shared\""));
+        Assert.assertTrue(s.contains("\"Name\":\"stuart\""));
+        Assert.assertTrue(s.contains("\"Name\":\"julie\""));
+        Assert.assertTrue(s.contains("\"Name\":\"huw\""));
+    }
+   @Test
+    public void getDS() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/server/ds"))
+                .andExpect(status().isOk()).andReturn();
+        String s = mvcResult.getResponse().getContentAsString();
+        Assert.assertTrue(s.contains("\"Name\":\"shared\""));
+        Assert.assertTrue(s.contains("\"Name\":\"stuart\""));
+        Assert.assertTrue(s.contains("\"Name\":\"julie\""));
+        Assert.assertTrue(s.contains("\"Name\":\"huw\""));
     }
 
 }

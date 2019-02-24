@@ -93,7 +93,34 @@ public class StringUtils {
         }
     }
 
-    public static String toJson(String ufs, String[] names, int[] positions, String dev, String context) {
+    public static String toJson(String in, String[] names, int[] positions, int count, String delimeters, String context) {
+        if (names.length != positions.length) {
+            throw new BadDataException("Invalid conversion to JSON:" + context);
+        }
+        StringBuilder sb = new StringBuilder();
+        int tokenOnLine = 0;
+        Scanner sc = new Scanner(in);
+        sc.skipSpace();
+
+        while (sc.hasNext()) {
+            String tok = sc.nextToken(delimeters);
+            if (tok.length() > 0) {
+                tokenOnLine++;
+                for (int i = 0; i < positions.length; i++) {
+                    if (positions[i] == tokenOnLine) {
+                        sb.append(tok).append('|');
+                    }
+                }
+                if (tokenOnLine == count) {
+                    sb.append(tok).append('^');
+                    tokenOnLine = 0;
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String toJson(String in, String[] names, int[] positions, String dev, String context) {
         if (names.length != positions.length) {
             throw new BadDataException("Invalid conversion to JSON:" + context);
         }
@@ -101,23 +128,25 @@ public class StringUtils {
         int mark1 = 0;
         int mark2 = 0;
         sb.append('[');
-        String[] s = ufs.split("\n");
+        String[] s = in.split("\n");
         for (String l : s) {
-            String[] p = l.split(dev);
-            sb.append('{');
-            for (int i = 0; i < names.length; i++) {
-                String name = names[i];
-                int pos = positions[i];
-                if ((pos >= 0) && (pos < p.length)) {
-                    sb.append("\"").append(name.trim()).append("\":\"").append(p[pos].trim()).append("\"");
-                    mark2 = sb.length();
-                    sb.append(',');
+            if (l.trim().length() > 0) {
+                String[] p = l.split(dev);
+                sb.append('{');
+                for (int i = 0; i < names.length; i++) {
+                    String name = names[i];
+                    int pos = positions[i];
+                    if ((pos >= 0) && (pos < p.length)) {
+                        sb.append("\"").append(name.trim()).append("\":\"").append(p[pos].trim()).append("\"");
+                        mark2 = sb.length();
+                        sb.append(',');
+                    }
                 }
+                sb.setLength(mark2);
+                sb.append('}');
+                mark1 = sb.length();
+                sb.append(',');
             }
-            sb.setLength(mark2);
-            sb.append('}');
-            mark1 = sb.length();
-            sb.append(',');
         }
         sb.setLength(mark1);
         sb.append(']');
