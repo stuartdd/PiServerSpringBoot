@@ -78,7 +78,7 @@ public class TestFileSystem {
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, fileList.getFiles().size());
-        assertEquals(1183, fileList.getFiles().get(0).getSize());
+        assertEquals(1102, fileList.getFiles().get(0).getSize());
         assertEquals("testLog 001.log", fileList.getFiles().get(0).getName().getName());
         assertEquals("testLog%20001.log", fileList.getFiles().get(0).getName().getEncName());
     }
