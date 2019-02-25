@@ -132,13 +132,27 @@ public class ConfigDataManager {
         return loc;
     }
 
-    public static String getUserLocation(String user, String locationName) {
-        Map<String, String> loc = getUser(user);
-        String path = loc.get(locationName);
-        if (path == null) {
-            throw new ResourceNotFoundException(user + "." + locationName);
+    public static File getLocation(String user, String locationName, String dir) {
+        String loc;
+        if (user == null) {
+            loc = getLocation(locationName);
+        } else {
+            Map<String, String> map = getUser(user);
+            loc = map.get(locationName);
+            if (loc == null) {
+                throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (dir == null ? "" : "." + dir));
+            }
         }
-        return path;
+        File f;
+        if (dir == null) {
+            f = new File((new File(loc)).getAbsolutePath());
+        } else {
+            f = new File((new File(loc + File.separator + dir)).getAbsolutePath());
+        }
+        if (f.exists()) {
+            return f;
+        }
+        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (dir == null ? "" : "." + dir));
     }
 
     public static Map<String, String> getLocations() {

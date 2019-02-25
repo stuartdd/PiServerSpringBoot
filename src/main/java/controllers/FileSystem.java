@@ -16,6 +16,7 @@
  */
 package controllers;
 
+import io.FileListIo;
 import io.PathsIO;
 import java.util.Map;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +25,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
+import tools.FileExtFilter;
 
 @RestController("paths")
 public class FileSystem extends ControllerErrorHandlerBase {
 
-    @RequestMapping(value = "/paths/user/{user}/loc/{loc}", method = RequestMethod.GET)
+    @RequestMapping(value = "/paths/user/{user}/loc/{loc}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public PathsIO paths(@PathVariable String user, @PathVariable String loc, @RequestParam Map<String, String> queryParameters) {
-        return FileService.paths(user, loc, queryParameters);
+        return FileService.paths(user, loc);
+    }
+    
+    @RequestMapping(value = "/logs", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public FileListIo logs(@RequestParam Map<String, String> queryParameters) {
+        return FileService.userFiles(null, "logs", null, new FileExtFilter(new String[] {"log"}));
+    }
+    
+    @RequestMapping(value = "/logs/file/{file}", method = RequestMethod.GET, produces = "text/plain; charset=UTF-8")
+    public FileListIo paths(@PathVariable String file, @RequestParam Map<String, String> queryParameters) {
+        return FileService.userFiles(null, "logs", null, new FileExtFilter(new String[] {"log"}));
     }
 }

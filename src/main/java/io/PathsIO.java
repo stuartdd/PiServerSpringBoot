@@ -28,7 +28,7 @@ public class PathsIO {
 
     private String loc;
     private String user;
-    private List<EncName> paths;
+    private List<EncNameIo> paths;
 
     public PathsIO() {
     }
@@ -55,17 +55,17 @@ public class PathsIO {
         this.loc = loc;
     }
 
-    public List<EncName> getPaths() {
+    public List<EncNameIo> getPaths() {
         return paths;
     }
 
-    public void setPaths(List<EncName> paths) {
+    public void setPaths(List<EncNameIo> paths) {
         this.paths = paths;
     }
 
      
     public void addPath(String name) {
-        paths.add(new EncName(name, EncodeDecode.encode(name)));
+        paths.add(new EncNameIo(name, EncodeDecode.encode(name)));
     }
 
     @Override

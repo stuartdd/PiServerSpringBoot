@@ -13,7 +13,7 @@
             "shared": {"images":"data/shared"}
         },
         "locations": {
-            "logs": "/logs",
+            "logs": "data/logs",
             "cache": "data/cache",
             "scripts": "scripts",
             "thumbnail": "/thumbnails",

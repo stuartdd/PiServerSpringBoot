@@ -17,12 +17,17 @@
 package services;
 
 import exceptions.ResourceNotFoundException;
+import io.EncNameIo;
+import io.FileListIo;
+import io.FileSpecIo;
 import io.PathsIO;
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import main.ConfigDataManager;
+import tools.EncodeDecode;
 import tools.FileExtFilter;
 import tools.FileUtils;
 
@@ -32,20 +37,28 @@ import tools.FileUtils;
  */
 public class FileService {
 
-    public static PathsIO paths(String user, String loc, Map<String, String> queryParameters) {
-        String root = ConfigDataManager.getUserLocation(user, loc);
-        File f = new File((new File(root)).getAbsolutePath());
-        if (!f.exists()) {
-            throw new ResourceNotFoundException(loc);
-        }
-        int prefix = f.getAbsolutePath().length();
+    public static PathsIO paths(String user, String loc) {
+        File root = ConfigDataManager.getLocation(user, loc, null);
+        int prefix = root.getAbsolutePath().length();
         List<String> files = new ArrayList<>();
-        FileUtils.tree(f, files, prefix, new FileExtFilter(new String[]{".java", ".jpg"}));
+        FileUtils.tree(root, files, prefix, new FileExtFilter(new String[]{".java", ".jpg"}));
         PathsIO resp = new PathsIO(user, loc);
         for (String s : files) {
             resp.addPath(s);
         }
         return resp;
+    }
+
+    public static FileListIo userFiles(String user, String loc, String dir, FileFilter filter) {
+        File root = ConfigDataManager.getLocation(user, loc, dir);
+        FileListIo fileListOut = new FileListIo(user, loc, dir);
+        File[] fileList = root.listFiles(filter);
+        for (File f : fileList) {
+            if (f.isFile()) {
+                fileListOut.addFileSpec(new FileSpecIo(f.length(), new EncNameIo(f.getName(), EncodeDecode.encode(f.getName()))));
+            }
+        }
+        return fileListOut;
     }
 
 }

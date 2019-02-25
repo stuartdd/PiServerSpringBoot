@@ -66,7 +66,7 @@
                 document.getElementById('shareSizeText').innerHTML = "User file sizes are loading. Please wait...";
                 serverGetData(setUserFileSizes, responseError, "server/ufs");
                 serverGetData(setDiskStatus, responseError, "server/ds");
-                serverGetData(setLogList, response404, "server/log");
+                serverGetData(setLogList, response404, "logs");
                 displayMap.delete('detailsDiv');
                 displayPage('detailsDiv');
             }
@@ -98,7 +98,7 @@
 
             function reLoadLogFile() {
                 document.getElementById('logDisplayCode').innerHTML = "Please wait. Loading file: " + currentLogFileName;
-                serverGetData(displayLoadedFile, responseError, "read/logs/" + currentLogFileName);
+                serverGetData(displayLoadedFile, responseError, "logs/file/" + currentLogFileName);
                 displayMap.delete('logDisplayDiv');
                 displayPage('logDisplayDiv');
             }
@@ -308,9 +308,9 @@
             function setLogList(result) {
                 var logs = JSON.parse(result);
                 var htmlStr = "<table width=\"100%\" border=\"1\">";
-                for (var i = 0; i < logs.length; i++) {
-                    span = "<a href=\"javascript:loadLogFile('" + logs[i].Text + "')\">" + logs[i].Text + "</a>";
-                    htmlStr += "<tr><td style=\"width:20%\">" + logs[i].Rc + "</td><td>" + span + "</td></tr>";
+                for (var i = 0; i < logs.files.length; i++) {
+                    span = "<a href=\"javascript:loadLogFile('" + logs.files[i].name.encName + "')\">" + logs.files[i].name.name + "</a>";
+                    htmlStr += "<tr><td style=\"width:20%\">" + logs.files[i].size + "</td><td>" + span + "</td></tr>";
                 }
                 htmlStr += "</table>";
                 document.getElementById('logList').innerHTML = htmlStr;

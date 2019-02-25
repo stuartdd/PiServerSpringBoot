@@ -10,14 +10,14 @@ package io;
  *
  * @author stuart
  */
-public class EncName {
+public class EncNameIo {
     private String name;
     private String encName;
 
-    public EncName() {
+    public EncNameIo() {
     }
 
-    public EncName(String name, String encName) {
+    public EncNameIo(String name, String encName) {
         this.name = name;
         this.encName = encName;
     }

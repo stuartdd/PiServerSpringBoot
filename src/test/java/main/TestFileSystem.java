@@ -18,6 +18,7 @@
  */
 package main;
 
+import io.FileListIo;
 import io.PathsIO;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -64,11 +65,22 @@ public class TestFileSystem {
 
     @Test
     public void testInOrder() throws Exception {
+        testLogs();
         testImages();
         testPathIoJsonLoad();
         testGetPathsSrc();
         testGetPathsUserNotFound();
         testGetPathsLocNotFound();
+    }
+
+    private void testLogs() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/logs")).andExpect(status().isOk()).andReturn();
+        String resp = mvcResult.getResponse().getContentAsString();
+        FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
+        assertEquals(2, fileList.getFiles().size());
+        assertEquals(1183, fileList.getFiles().get(0).getSize());
+        assertEquals("testLog 001.log", fileList.getFiles().get(0).getName().getName());
+        assertEquals("testLog%20001.log", fileList.getFiles().get(0).getName().getEncName());
     }
 
     public void testPathIoJsonLoad() {
