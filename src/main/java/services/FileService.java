@@ -60,5 +60,10 @@ public class FileService {
         }
         return fileListOut;
     }
+    
+    public static String userFilesRead(String user, String loc, String dir, String file) {
+        File root = ConfigDataManager.getLocation(user, loc, dir);
+        return FileUtils.loadFile(new File(root.getAbsolutePath()+File.separator+file));
+    }
 
 }

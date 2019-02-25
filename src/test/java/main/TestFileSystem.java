@@ -65,6 +65,7 @@ public class TestFileSystem {
 
     @Test
     public void testInOrder() throws Exception {
+        testReadLogs();
         testLogs();
         testImages();
         testPathIoJsonLoad();
@@ -72,6 +73,16 @@ public class TestFileSystem {
         testGetPathsUserNotFound();
         testGetPathsLocNotFound();
     }
+    private void testReadLogs() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/logs/file/testLog%20001.log")).andExpect(status().isOk()).andReturn();
+        String resp = mvcResult.getResponse().getContentAsString();
+        FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
+        assertEquals(2, fileList.getFiles().size());
+        assertEquals(1102, fileList.getFiles().get(0).getSize());
+        assertEquals("testLog 001.log", fileList.getFiles().get(0).getName().getName());
+        assertEquals("testLog%20001.log", fileList.getFiles().get(0).getName().getEncName());
+    }
+
 
     private void testLogs() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/logs")).andExpect(status().isOk()).andReturn();
