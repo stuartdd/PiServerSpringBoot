@@ -100,6 +100,12 @@ button {
     display: inline-block;
 }
 
+.SectionNameGreen {
+    font-size: 25px;
+    color: green;
+    display: inline-block;
+}
+
 .SectionNameCenter {
     font-size: 20px;
     color: black;

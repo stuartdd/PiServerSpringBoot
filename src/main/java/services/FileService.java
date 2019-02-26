@@ -23,9 +23,12 @@ import io.FileSpecIo;
 import io.PathsIO;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.ConfigDataManager;
 import tools.EncodeDecode;
 import tools.FileExtFilter;
@@ -63,7 +66,11 @@ public class FileService {
     
     public static String userFilesRead(String user, String loc, String dir, String file) {
         File root = ConfigDataManager.getLocation(user, loc, dir);
-        return FileUtils.loadFile(new File(root.getAbsolutePath()+File.separator+file));
+        try {
+            return FileUtils.loadFile(new File(root.getAbsolutePath()+File.separator+EncodeDecode.decode(file)));
+        } catch (IOException ex) {
+            throw new ResourceNotFoundException("Failed to read log", ex);
+        }
     }
 
 }

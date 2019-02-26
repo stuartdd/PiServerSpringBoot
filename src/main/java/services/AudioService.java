@@ -37,6 +37,23 @@ public class AudioService {
         return buildAudioStatus("query");
     }
 
+    public static int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public static AudioStatus setCurrentVolume(String currentVolume) {
+        return setCurrentVolume(readVolumeString(currentVolume));
+    }
+
+    public static AudioStatus setCurrentVolume(int currentVolume) {
+        AudioService.currentVolume = currentVolume;
+        return buildAudioStatus("setVol");
+    }
+
+    public static AudioStatus play(String file) {
+        return play(file, String.valueOf(getCurrentVolume()));
+    }
+
     public static AudioStatus play(String file, String vol) {
         if (audioThread != null) {
             audioThread.close();
@@ -49,6 +66,13 @@ public class AudioService {
         audioThread.waitForRunning(1000);
         currentFileName = file;
         return buildAudioStatus("play");
+    }
+
+    public static AudioStatus pause() {
+        if (audioThread != null) {
+            return pause(!audioThread.isPaused());
+        }
+        return buildAudioStatus("pause");
     }
 
     public static AudioStatus pause(Boolean paused) {

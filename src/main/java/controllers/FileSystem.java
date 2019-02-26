@@ -40,7 +40,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         return FileService.userFiles(null, "logs", null, new FileExtFilter(new String[] {"log"}));
     }
     
-    @RequestMapping(value = "/logs/file/{fileName}", method = RequestMethod.GET, produces = "text/plain; charset=UTF-8")
+    @RequestMapping(value = "/logs/file/{fileName}", method = RequestMethod.GET, produces = "text/plain")
     public String paths(@PathVariable String fileName, @RequestParam Map<String, String> queryParameters) {
         return FileService.userFilesRead(null, "logs", null, fileName);
     }

@@ -21,7 +21,7 @@
             "thumbnail": "/thumbnails",
             "media": "/media/shares/",
             "userData": "src/test/resources/userData",
-            "audio": "src/main/resources/audio"
+            "audio": "audio"
         }
     },
 

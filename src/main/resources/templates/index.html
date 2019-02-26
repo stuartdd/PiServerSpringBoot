@@ -71,7 +71,7 @@
                 displayPage('detailsDiv');
             }
 
- 
+
             function selectUser(user) {
                 currentUser = user;
                 currentUserCaps = capital(currentUser);
@@ -342,25 +342,6 @@
                 var time = JSON.parse(result).time;
                 document.getElementById('timeDisplay_date').innerHTML = time.mon + " " + time.dom + " " + time.year;
                 document.getElementById('timeDisplay_time').innerHTML = time.hour + ":" + time.min + ":" + time.sec;
-                displayAudioStats(time.audio);
-
-            }
-
-            function displayAudioStats(audioData) {
-                var parts = audioData.split(/,/);
-                document.getElementById('audioDuration').innerHTML = "";
-                document.getElementById('audioPlayed').innerHTML = "";
-                document.getElementById('audioPc').innerHTML = "";
-                document.getElementById('audioStatus').innerHTML = parts[0];
-                if (parts.length > 1) {
-                    document.getElementById('audioDuration').innerHTML = parts[1] + "s";
-                    if (parts.length > 2) {
-                        document.getElementById('audioPlayed').innerHTML = parts[2] + "s";
-                        if (parts.length > 3) {
-                            document.getElementById('audioPc').innerHTML = "%" + parts[3];
-                        }
-                    }
-                }
             }
 
             function responseError(message, code) {
@@ -448,13 +429,19 @@
                 }
             };
 
-            function respAudioVolume(resp) {
-                console.log(resp);
-            }
-
             function respAudioStatus(result) {
                 var status = JSON.parse(result);
-                displayAudioStats(status.audio);
+                document.getElementById('audioVolume').innerHTML = "["+status.volume+"]";
+                if (status.status==="STOPPED") {
+                  document.getElementById('audioActive').hidden = true;                    
+                } else {
+                  document.getElementById('audioActive').hidden = false;
+                  document.getElementById('audioFileName').innerHTML = status.message;
+                  document.getElementById('audioState').innerHTML = status.status;
+                  document.getElementById('audioDuration').innerHTML = status.duration;
+                  document.getElementById('audioPlayed').innerHTML = status.position;
+                  window.setTimeout(refreshAudioState, 1000);                  
+                }
             }
 
             function setAudioVolume(level) {
@@ -463,12 +450,12 @@
                     actual = 0;
                 } else {
                     if (level === 9) {
-                        actual = 100;
+                        actual = 99;
                     } else {
                         actual = 70 + (((100 - 70) / 10) * level);
                     }
                 }
-                serverGetData(respAudioVolume, responseError, "audio/setVol?level=" + actual);
+                serverGetData(respAudioStatus, responseError, "audio/volume/" + actual);
             }
 
             function setAudioPauseStop(action) {
@@ -476,12 +463,16 @@
             }
 
             function displayAudioPage() {
-                serverGetData(respAudioStatus, responseError, "audio/status");
-                displayPage('manageAudio');
+                refreshAudioState();
+                displayPage("manageAudio");
             }
 
             function playAudioFile(file) {
-                serverGetData(respAudioStatus, responseError, "play/file/" + file);
+                serverGetData(respAudioStatus, responseError, "audio/play/" + file);
+            }
+            
+            function refreshAudioState() {
+                serverGetData(respAudioStatus, responseError, "audio/status");                
             }
         </script>
     </head>
@@ -504,10 +495,9 @@
             </div>
 
             <div class="Top" id="manageAudio">
+                <span class="SectionName">Set The Volume: </span>
+                <span class="SectionName" id="audioVolume"></span>
                 <table width="100%">
-                    <tr>
-                        <td colspan="10"><span class="SectionName">Set Volume Level:</span></td>
-                    </tr>
                     <tr>
                         <td><button class="MenuButtonSmall" onclick="setAudioVolume(0)">OFF</button></td>
                         <td><button class="MenuButtonSmall" onclick="setAudioVolume(1)">1</button></td>
@@ -520,15 +510,22 @@
                         <td><button class="MenuButtonSmall" onclick="setAudioVolume(8)">8</button></td>
                         <td><button class="MenuButtonSmall" onclick="setAudioVolume(9)">FULL</button></td>
                     </tr>
+                </table>
+                <div id="audioActive">
+                <hr>
+                <span class="SectionName">Playing:&nbsp;</span>
+                <span class="SectionNameGreen" id="audioFileName"></span>
+                <table width="100%" class="SectionName">
                     <tr>
-                        <td colspan="10"><hr></td>
+                        <td><span class="SectionNameGreen" id="audioState"></span></td>
+                        <td>&nbsp;Duration:&nbsp;</td>
+                        <td><span class="SectionNameGreen" id="audioDuration"></span></td>
+                        <td>Played:&nbsp;</td>
+                        <td><span class="SectionNameGreen" id="audioPlayed"></span></td>
                     </tr>
-                    <tr>
-                        <td colspan="4"><span id="audioStatus" class="SectionName">Pause and Stop audio playback</span></td>
-                        <td colspan="2"><span id="audioDuration" class="SectionName"></span></td>
-                        <td colspan="2"><span id="audioPlayed" class="SectionName"></span></td>
-                        <td colspan="2"><span id="audioPc" class="SectionName"></span></td>
-                    </tr>
+                </table>
+                <hr>
+                <table width="100%">
                     <tr>
                         <td colspan="10">
                             <span class="SectionName">Pause:&nbsp;</span>
@@ -537,9 +534,10 @@
                             <button class="MenuButtonSmall" onclick="setAudioPauseStop('stop')">STOP</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="10"><hr></td>
-                    </tr>
+                </table>
+                </div>
+                <hr>
+                <table width="100%">
                     <tr>
                         <td colspan="10">
                             <span class="SectionName">Play some stuff!</span>
@@ -618,12 +616,12 @@
                 <H4>RSync Logs (Latest First)</H4>
                 <div id="logList"></div>
             </div> 
-            
+
             <div class="Top" id="logDisplayDiv">
                 <button id="logDisplayFile" onclick="displayPage('detailsDiv')">Back</button>
                 <button onclick="reLoadLogFile()">ReLoad</button><br>
                 <code id="logDisplayCode">Hello world</code>
             </div>
-         </div>
+        </div>
     </body>
 </html>
