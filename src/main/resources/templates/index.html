@@ -10,6 +10,7 @@
             poleForTime = %{poleForTime};
             historyMaxLen = %{historyMaxLen};
 
+            volScale = [0, 68, 72, 76, 80, 84, 88, 92, 96, 99];
             if (historyMaxLen < 2) {
                 historyMaxLen = 2;
             }
@@ -431,7 +432,12 @@
 
             function respAudioStatus(result) {
                 var status = JSON.parse(result);
-                document.getElementById('audioVolume').innerHTML = "["+status.volume+"]";
+                for (var i = 0; i< volScale.length; i++) {
+                    document.getElementById('volB'+i).disabled = false;                    
+                }
+                var index = getVolumeScale(status.volume);
+                document.getElementById('volB'+ndex).disabled = true;                                    
+                document.getElementById('audioVolume').innerHTML = "["+index+"]";
                 if (status.status==="STOPPED") {
                   document.getElementById('audioActive').hidden = true;                    
                 } else {
@@ -444,18 +450,21 @@
                 }
             }
 
-            function setAudioVolume(level) {
-                var actual = 0;
-                if (level === 0) {
-                    actual = 0;
-                } else {
-                    if (level === 9) {
-                        actual = 99;
-                    } else {
-                        actual = 70 + (((100 - 70) / 10) * level);
+            function getVolumeScale(raw) {
+                var r = parseInt(raw, 10);
+                var i = volScale.length-1;
+                console.log(volScale[i] + "  [" + i + "] [" + r + "]");
+                while (volScale[i] > r) {
+                    i--;
+                    if (i < 0) {
+                        return 0;
                     }
                 }
-                serverGetData(respAudioStatus, responseError, "audio/volume/" + actual);
+                return i;
+            }
+            
+            function setAudioVolume(level) {
+                serverGetData(respAudioStatus, responseError, "audio/volume/" + volScale[level]);
             }
 
             function setAudioPauseStop(action) {
@@ -499,16 +508,16 @@
                 <span class="SectionName" id="audioVolume"></span>
                 <table width="100%">
                     <tr>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(0)">OFF</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(1)">1</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(2)">2</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(3)">3</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(4)">4</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(5)">5</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(6)">6</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(7)">7</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(8)">8</button></td>
-                        <td><button class="MenuButtonSmall" onclick="setAudioVolume(9)">FULL</button></td>
+                        <td><button class="MenuButtonSmall" id="volB0" onclick="setAudioVolume(0)">OFF</button></td>
+                        <td><button class="MenuButtonSmall" id="volB1" onclick="setAudioVolume(1)">1</button></td>
+                        <td><button class="MenuButtonSmall" id="volB2" onclick="setAudioVolume(2)">2</button></td>
+                        <td><button class="MenuButtonSmall" id="volB3" onclick="setAudioVolume(3)">3</button></td>
+                        <td><button class="MenuButtonSmall" id="volB4" onclick="setAudioVolume(4)">4</button></td>
+                        <td><button class="MenuButtonSmall" id="volB5" onclick="setAudioVolume(5)">5</button></td>
+                        <td><button class="MenuButtonSmall" id="volB6" onclick="setAudioVolume(6)">6</button></td>
+                        <td><button class="MenuButtonSmall" id="volB7" onclick="setAudioVolume(7)">7</button></td>
+                        <td><button class="MenuButtonSmall" id="volB8" onclick="setAudioVolume(8)">8</button></td>
+                        <td><button class="MenuButtonSmall" id="volB9" onclick="setAudioVolume(9)">FULL</button></td>
                     </tr>
                 </table>
                 <div id="audioActive">

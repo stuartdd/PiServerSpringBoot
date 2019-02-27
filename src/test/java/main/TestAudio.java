@@ -62,7 +62,7 @@ public class TestAudio {
         playWithVolumeTrackProgress();
     }
 
-    @Test
+    
     public void testAudioPlay() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/audio/play/BackDoorOpened.mp3?vol=75")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
