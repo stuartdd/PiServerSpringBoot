@@ -4,20 +4,19 @@
     },
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validateLocations": false,
+    "validateLocations": true,
     "resources": {
         "historyMaxLen": 20,
-        "root": "/home/pi/PiServer/web",
+        "root": "/home/pi/server",
         "users": {
-            "stuart": {"images":"data/stuart", "thumbnails":"data/stuart/tn"},
-            "shared": {"images":"data/shared", "thumbnails":"data/stuart/tn"}
+            "stuart": {"images":"/media/USBHDD1/shares/stuart", "thumbnails":"thumbnails/stuart"},
+            "shared": {"images":"/media/USBHDD1/shares/shared", "thumbnails":"thumbnails/shared"}
         },
         "locations": {
-            "logs": "data/logs",
-            "cache": "data/cache",
+            "logs": "logs",
+            "cache": "cache",
             "scripts": "scripts",
-            "media": "/media/shares/",
-            "userData": "src/test/resources/userData",
+            "userData": "cache",
             "audio": "audio"
         }
     },

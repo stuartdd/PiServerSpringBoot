@@ -1,20 +1,20 @@
-cd /home/pi/PiServerSpringBoot
+cd /home/pi/server
 lcd build/libs
 put PiServerSpringBoot-1.0.jar
 chmod 775 PiServerSpringBoot-1.0.jar
 
-cd /home/pi/PiServerSpringBoot
+cd /home/pi/server
 lcd ../../
-put configWebApp.json
-put runWebApp.sh
-chmod 775 runWebApp.sh
+put configDataPI.json
+put runWebAppPI.sh
+chmod 775 runWebAppPI.sh
 
-cd /home/pi/PiServerSpringBoot/scripts
+cd /home/pi/server/scripts
 lcd scripts
 mput *.*
 chmod 775 *.sh
 
-cd /home/pi/PiServerSpringBoot/audio
+cd /home/pi/server/audio
 lcd ../audio
 mput *.*
 

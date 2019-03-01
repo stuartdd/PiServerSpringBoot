@@ -17,7 +17,7 @@
 package services;
 
 import exceptions.AudioSetupException;
-import io.AudioStatus;
+import io.AudioStatusIO;
 import java.io.File;
 import main.ConfigDataManager;
 import tools.AudioPlayerThread;
@@ -30,10 +30,10 @@ public class AudioService {
 
     private static AudioPlayerThread audioThread = null;
     private static String currentFileName = null;
-    private static int currentVolume = 50;
+    private static int currentVolume = 99;
     private static final int WAIT_TIME = 5000;
 
-    public static AudioStatus queryStatus() {
+    public static AudioStatusIO queryStatus() {
         return buildAudioStatus("query");
     }
 
@@ -41,20 +41,20 @@ public class AudioService {
         return currentVolume;
     }
 
-    public static AudioStatus setCurrentVolume(String currentVolume) {
+    public static AudioStatusIO setCurrentVolume(String currentVolume) {
         return setCurrentVolume(readVolumeString(currentVolume));
     }
 
-    public static AudioStatus setCurrentVolume(int currentVolume) {
+    public static AudioStatusIO setCurrentVolume(int currentVolume) {
         AudioService.currentVolume = currentVolume;
         return buildAudioStatus("setVol");
     }
 
-    public static AudioStatus play(String file) {
+    public static AudioStatusIO play(String file) {
         return play(file, String.valueOf(getCurrentVolume()));
     }
 
-    public static AudioStatus play(String file, String vol) {
+    public static AudioStatusIO play(String file, String vol) {
         if (audioThread != null) {
             audioThread.close();
             audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, WAIT_TIME);
@@ -68,14 +68,14 @@ public class AudioService {
         return buildAudioStatus("play");
     }
 
-    public static AudioStatus pause() {
+    public static AudioStatusIO pause() {
         if (audioThread != null) {
             return pause(!audioThread.isPaused());
         }
         return buildAudioStatus("pause");
     }
 
-    public static AudioStatus pause(Boolean paused) {
+    public static AudioStatusIO pause(Boolean paused) {
         if (audioThread != null) {
             audioThread.setPaused(paused);
             if (paused) {
@@ -87,7 +87,7 @@ public class AudioService {
         return buildAudioStatus("pause");
     }
 
-    public static AudioStatus stop() {
+    public static AudioStatusIO stop() {
         if (audioThread != null) {
             audioThread.close();
             audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, WAIT_TIME);
@@ -95,15 +95,15 @@ public class AudioService {
         return buildAudioStatus("stop");
     }
 
-    private static AudioStatus buildAudioStatus(String action) {
+    private static AudioStatusIO buildAudioStatus(String action) {
         if ((audioThread == null || ((audioThread != null) && (!audioThread.isRunning())))) {
-            return new AudioStatus(action, "STOPPED", "Nothing is playing", currentVolume);
+            return new AudioStatusIO(action, "STOPPED", "Nothing is playing", currentVolume);
         } else {
             String state = "PLAYING";
             if (audioThread.isPaused()) {
                 state = "PAUSED";
             }
-            return new AudioStatus(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume());
+            return new AudioStatusIO(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume());
         }
     }
 

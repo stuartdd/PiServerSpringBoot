@@ -9,13 +9,14 @@
             userList = [%{userList}];
             poleForTime = %{poleForTime};
             historyMaxLen = %{historyMaxLen};
+            currentUser = "%{user}";
 
             volScale = [0, 68, 72, 76, 80, 84, 88, 92, 96, 99];
+            volScaleNames = ["MIN", "1", "2", "3", "4", "5", "6", "7", "8", "MAX"];
             if (historyMaxLen < 2) {
                 historyMaxLen = 2;
-            }
+            }"1"
             currentDaySelect = -1;
-            currentUser = "%{user}";
             iconSize = 80;
             currentDisplay = "";
             currentUserCaps = capital(currentUser);
@@ -82,7 +83,7 @@
                 document.getElementById('thumbnailDirList').innerHTML = "No Image data has been created";
                 document.getElementById('thumbnailImageList').innerHTML = "No Images to display";
                 document.getElementById('timeDisplay').hidden = false;
-                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/images");
+                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/thumbnails");
                 displayMap.clear();
                 displayPage("thumbnails");
             }
@@ -193,9 +194,9 @@
 
             function loadThumbnails(entryId) {
                 linkHistory.push("id" + entryId);
-                currentThumbnailPath = imagePathData[entryId].encName;
+                currentThumbnailPath = imagePathData.paths[entryId].encName;
                 document.getElementById('thumbnailImgeHeading').innerHTML = "Please wait. Loading Thumbnails " + currentThumbnailPath;
-                serverGetData(displayLoadedThumbnails, responseError, "image/list/" + currentUser + "/" + currentThumbnailPath);
+                serverGetData(displayLoadedThumbnails, responseError, "thumbnails/user/" + currentUser + "/path/" + currentThumbnailPath);
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
             }
@@ -436,8 +437,8 @@
                     document.getElementById('volB'+i).disabled = false;                    
                 }
                 var index = getVolumeScale(status.volume);
-                document.getElementById('volB'+ndex).disabled = true;                                    
-                document.getElementById('audioVolume').innerHTML = "["+index+"]";
+                document.getElementById('volB'+index).disabled = true;                                    
+                document.getElementById('audioVolume').innerHTML = "["+volScaleNames[index]+"]";
                 if (status.status==="STOPPED") {
                   document.getElementById('audioActive').hidden = true;                    
                 } else {
@@ -508,7 +509,7 @@
                 <span class="SectionName" id="audioVolume"></span>
                 <table width="100%">
                     <tr>
-                        <td><button class="MenuButtonSmall" id="volB0" onclick="setAudioVolume(0)">OFF</button></td>
+                        <td><button class="MenuButtonSmall" id="volB0" onclick="setAudioVolume(0)">MIN</button></td>
                         <td><button class="MenuButtonSmall" id="volB1" onclick="setAudioVolume(1)">1</button></td>
                         <td><button class="MenuButtonSmall" id="volB2" onclick="setAudioVolume(2)">2</button></td>
                         <td><button class="MenuButtonSmall" id="volB3" onclick="setAudioVolume(3)">3</button></td>
@@ -517,7 +518,7 @@
                         <td><button class="MenuButtonSmall" id="volB6" onclick="setAudioVolume(6)">6</button></td>
                         <td><button class="MenuButtonSmall" id="volB7" onclick="setAudioVolume(7)">7</button></td>
                         <td><button class="MenuButtonSmall" id="volB8" onclick="setAudioVolume(8)">8</button></td>
-                        <td><button class="MenuButtonSmall" id="volB9" onclick="setAudioVolume(9)">FULL</button></td>
+                        <td><button class="MenuButtonSmall" id="volB9" onclick="setAudioVolume(9)">MAX</button></td>
                     </tr>
                 </table>
                 <div id="audioActive">
@@ -546,39 +547,35 @@
                 </table>
                 </div>
                 <hr>
+                <span class="SectionName">Play&nbsp;</span>              
                 <table width="100%">
                     <tr>
-                        <td colspan="10">
-                            <span class="SectionName">Play some stuff!</span>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('Chime.mp3')">Chime</button>
+                        </td>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('Bell.mp3')">Bell</button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('Chime.mp3')">Chime</button>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('Dog.mp3')">Dog</button>
                         </td>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('Bell.mp3')">Bell</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('Dog.mp3')">Dog</button>
-                        </td>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('Nature.mp3')">Nature</button>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('Nature.mp3')">Nature</button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('Seagulls.mp3')">Seagulls</button>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('Seagulls.mp3')">Seagulls</button>
                         </td>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('train.ogg')">Train</button>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('train.ogg')">Train</button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5">
-                            <button class="MenuButton" onclick="playAudioFile('BackDoorOpened.mp3')">BackDoorOpened</button>
+                        <td>
+                            <button class="MenuButtonWide" onclick="playAudioFile('BackDoorOpened.mp3')">BackDoorOpened</button>
                         </td>
                     </tr>
                 </table>

@@ -16,7 +16,7 @@
  */
 package io;
 
-public class AudioStatus {
+public class AudioStatusIO {
 
     private String action;
     private String status;
@@ -25,15 +25,15 @@ public class AudioStatus {
     private double position;
     private int volume;
 
-    public AudioStatus() {
+    public AudioStatusIO() {
         this(null, null, null, 0.0, 0.0, 0);
     }
 
-    public AudioStatus(String action, String status, String message, int volume) {
+    public AudioStatusIO(String action, String status, String message, int volume) {
         this(action, status, message, 0.0, 0.0, volume);
     }
 
-    public AudioStatus(String action, String status, String message, double duration, double position, int volume) {
+    public AudioStatusIO(String action, String status, String message, double duration, double position, int volume) {
         this.action = action;
         this.status = status;
         this.message = message;
