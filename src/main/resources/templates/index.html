@@ -15,7 +15,8 @@
             volScaleNames = ["MIN", "1", "2", "3", "4", "5", "6", "7", "8", "MAX"];
             if (historyMaxLen < 2) {
                 historyMaxLen = 2;
-            }"1"
+            }
+            "1"
             currentDaySelect = -1;
             iconSize = 80;
             currentDisplay = "";
@@ -83,7 +84,7 @@
                 document.getElementById('thumbnailDirList').innerHTML = "No Image data has been created";
                 document.getElementById('thumbnailImageList').innerHTML = "No Images to display";
                 document.getElementById('timeDisplay').hidden = false;
-                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/thumbnails");
+                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/images");
                 displayMap.clear();
                 displayPage("thumbnails");
             }
@@ -154,8 +155,10 @@
                 var image = "";
                 var imageTableColWidth = Math.round(100 / userData.imagesPerRow);
 
-                for (var index = 0; index < imageData.length; index++) {
-                    image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData[index].name + "\" src=\"/image/file/" + currentUser + "/" + currentThumbnailPath + "/" + imageData[index].name + "\"></td>";
+                for (var index = 0; index < imageData.files.length; index++) {
+                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.path + "/name/";
+                    
+                    image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData.files[index].name.name + "\" src=\"" + path +  imageData.files[index].name.encName + "\"></td>";
                     if (imagePos < userData.imagesPerRow) {
                         imagePos++;
                     } else {
@@ -168,7 +171,7 @@
                     htmlStr += "<tr>" + image + "</tr>";
                 }
                 htmlStr += "</table>";
-                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.length + "] Images for " + currentUserCaps + " from " + currentThumbnailPath;
+                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.files.length + "] Images for " + imageData.user + " from " + imageData.path;
                 document.getElementById('thumbnailImageList').innerHTML = htmlStr;
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
@@ -196,7 +199,7 @@
                 linkHistory.push("id" + entryId);
                 currentThumbnailPath = imagePathData.paths[entryId].encName;
                 document.getElementById('thumbnailImgeHeading').innerHTML = "Please wait. Loading Thumbnails " + currentThumbnailPath;
-                serverGetData(displayLoadedThumbnails, responseError, "thumbnails/user/" + currentUser + "/path/" + currentThumbnailPath);
+                serverGetData(displayLoadedThumbnails, responseError, "files/user/" + currentUser + "/loc/images/path/" + currentThumbnailPath);
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
             }
@@ -271,8 +274,8 @@
                     fullName = imageName;
                     tag = "H:(" + index + ")";
                 } else {
-                    imageName = imageData[index].name;
-                    fullName = currentUser + "/" + currentThumbnailPath + "/" + imageName;
+                    imageName = imageData.files[index].name.name;
+                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path + "/name/" + imageName;
                     tag = "C:(" + index + ")";
                 }
                 imageIndex = index;
@@ -294,7 +297,7 @@
                     widthAttr = "";
                 }
 
-                var image = "<img " + widthAttr + " id=\"originalImageHtmlSrc\" title=\"" + tag + imageName + "\" src=\"/image/original/" + fullName + "\">";
+                var image = "<img " + widthAttr + " id=\"originalImageHtmlSrc\" title=\"" + imageName + "\" src=\"/files" + fullName + "\">";
 
                 if (imageIsZoomed) {
                     document.getElementById('originalImageHtmlZoom').innerHTML = image;
@@ -433,27 +436,27 @@
 
             function respAudioStatus(result) {
                 var status = JSON.parse(result);
-                for (var i = 0; i< volScale.length; i++) {
-                    document.getElementById('volB'+i).disabled = false;                    
+                for (var i = 0; i < volScale.length; i++) {
+                    document.getElementById('volB' + i).disabled = false;
                 }
                 var index = getVolumeScale(status.volume);
-                document.getElementById('volB'+index).disabled = true;                                    
-                document.getElementById('audioVolume').innerHTML = "["+volScaleNames[index]+"]";
-                if (status.status==="STOPPED") {
-                  document.getElementById('audioActive').hidden = true;                    
+                document.getElementById('volB' + index).disabled = true;
+                document.getElementById('audioVolume').innerHTML = "[" + volScaleNames[index] + "]";
+                if (status.status === "STOPPED") {
+                    document.getElementById('audioActive').hidden = true;
                 } else {
-                  document.getElementById('audioActive').hidden = false;
-                  document.getElementById('audioFileName').innerHTML = status.message;
-                  document.getElementById('audioState').innerHTML = status.status;
-                  document.getElementById('audioDuration').innerHTML = status.duration;
-                  document.getElementById('audioPlayed').innerHTML = status.position;
-                  window.setTimeout(refreshAudioState, 1000);                  
+                    document.getElementById('audioActive').hidden = false;
+                    document.getElementById('audioFileName').innerHTML = status.message;
+                    document.getElementById('audioState').innerHTML = status.status;
+                    document.getElementById('audioDuration').innerHTML = status.duration;
+                    document.getElementById('audioPlayed').innerHTML = status.position;
+                    window.setTimeout(refreshAudioState, 1000);
                 }
             }
 
             function getVolumeScale(raw) {
                 var r = parseInt(raw, 10);
-                var i = volScale.length-1;
+                var i = volScale.length - 1;
                 console.log(volScale[i] + "  [" + i + "] [" + r + "]");
                 while (volScale[i] > r) {
                     i--;
@@ -463,7 +466,7 @@
                 }
                 return i;
             }
-            
+
             function setAudioVolume(level) {
                 serverGetData(respAudioStatus, responseError, "audio/volume/" + volScale[level]);
             }
@@ -480,9 +483,9 @@
             function playAudioFile(file) {
                 serverGetData(respAudioStatus, responseError, "audio/play/" + file);
             }
-            
+
             function refreshAudioState() {
-                serverGetData(respAudioStatus, responseError, "audio/status");                
+                serverGetData(respAudioStatus, responseError, "audio/status");
             }
         </script>
     </head>
@@ -522,29 +525,29 @@
                     </tr>
                 </table>
                 <div id="audioActive">
-                <hr>
-                <span class="SectionName">Playing:&nbsp;</span>
-                <span class="SectionNameGreen" id="audioFileName"></span>
-                <table width="100%" class="SectionName">
-                    <tr>
-                        <td><span class="SectionNameGreen" id="audioState"></span></td>
-                        <td>&nbsp;Duration:&nbsp;</td>
-                        <td><span class="SectionNameGreen" id="audioDuration"></span></td>
-                        <td>Played:&nbsp;</td>
-                        <td><span class="SectionNameGreen" id="audioPlayed"></span></td>
-                    </tr>
-                </table>
-                <hr>
-                <table width="100%">
-                    <tr>
-                        <td colspan="10">
-                            <span class="SectionName">Pause:&nbsp;</span>
-                            <button class="MenuButtonSmall" onclick="setAudioPauseStop('pause')">(ON/OFF)</button>
-                            <span class="SectionName">&nbsp;Playback:&nbsp;</span>
-                            <button class="MenuButtonSmall" onclick="setAudioPauseStop('stop')">STOP</button>
-                        </td>
-                    </tr>
-                </table>
+                    <hr>
+                    <span class="SectionName">Playing:&nbsp;</span>
+                    <span class="SectionNameGreen" id="audioFileName"></span>
+                    <table width="100%" class="SectionName">
+                        <tr>
+                            <td><span class="SectionNameGreen" id="audioState"></span></td>
+                            <td>&nbsp;Duration:&nbsp;</td>
+                            <td><span class="SectionNameGreen" id="audioDuration"></span></td>
+                            <td>Played:&nbsp;</td>
+                            <td><span class="SectionNameGreen" id="audioPlayed"></span></td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <table width="100%">
+                        <tr>
+                            <td colspan="10">
+                                <span class="SectionName">Pause:&nbsp;</span>
+                                <button class="MenuButtonSmall" onclick="setAudioPauseStop('pause')">(ON/OFF)</button>
+                                <span class="SectionName">&nbsp;Playback:&nbsp;</span>
+                                <button class="MenuButtonSmall" onclick="setAudioPauseStop('stop')">STOP</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <hr>
                 <span class="SectionName">Play&nbsp;</span>              

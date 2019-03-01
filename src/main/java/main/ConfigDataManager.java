@@ -132,7 +132,24 @@ public class ConfigDataManager {
         return loc;
     }
 
+    public static String getLocation(String locationName) {
+        String path = configData.getResources().getLocations().get(locationName);
+        if (path == null) {
+            throw new ResourceNotFoundException(locationName);
+        }
+        return path;
+
+    }
+
+    public static File getLocation(String user, String locationName) {
+        return getLocation(user, locationName, null);
+    }
+
     public static File getLocation(String user, String locationName, String dir) {
+        return getLocation(user, locationName, dir, null);
+    }
+
+    public static File getLocation(String user, String locationName, String dir, String name) {
         String loc;
         if (user == null) {
             loc = getLocation(locationName);
@@ -147,25 +164,20 @@ public class ConfigDataManager {
         if (dir == null) {
             f = new File((new File(loc)).getAbsolutePath());
         } else {
-            f = new File((new File(loc + File.separator + dir)).getAbsolutePath());
+            if (name == null) {
+                f = new File((new File(loc + File.separator + dir)).getAbsolutePath());
+            } else {
+                f = new File((new File(loc + File.separator + dir + File.separator + name)).getAbsolutePath());
+            }
         }
         if (f.exists()) {
             return f;
         }
-        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (dir == null ? "" : "." + dir));
+        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (dir == null ? "" : "." + dir) + (name == null ? "" : "." + name));
     }
 
     public static Map<String, String> getLocations() {
         return configData.getResources().getLocations();
-    }
-
-    public static String getLocation(String loc) {
-        String path = configData.getResources().getLocations().get(loc);
-        if (path == null) {
-            throw new ResourceNotFoundException(loc);
-        }
-        return path;
-
     }
 
     public static Map<String, String> getProperties(Map<String, String> localParameters) {

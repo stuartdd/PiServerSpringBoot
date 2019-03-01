@@ -9,8 +9,8 @@
         "historyMaxLen": 20,
         "root": "/home/pi/PiServer/web",
         "users": {
-            "stuart": {"images":"data/stuart", "thumbnails":"data/stuart/tn"},
-            "shared": {"images":"data/shared", "thumbnails":"data/stuart/tn"}
+            "stuart": {"images":"data/stuart","original":"data/stuart"},
+            "shared": {"images":"data/shared","original":"data/stuart"}
         },
         "locations": {
             "logs": "data/logs",

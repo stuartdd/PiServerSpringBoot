@@ -15,16 +15,16 @@ import java.util.List;
 public class FileListIo {
     private String user;
     private String loc;
-    private String dir;
+    private String path;
     private List<FileSpecIo> files = new ArrayList<>();
 
     public FileListIo() {
     }
 
-    public FileListIo(String user, String loc, String dir) {
+    public FileListIo(String user, String loc, String path) {
         this.user = user;
         this.loc = loc;
-        this.dir = dir;
+        this.path = path;
     }
 
     public String getUser() {
@@ -43,12 +43,12 @@ public class FileListIo {
         this.loc = loc;
     }
 
-    public String getDir() {
-        return dir;
+    public String getPath() {
+        return path;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public List<FileSpecIo> getFiles() {

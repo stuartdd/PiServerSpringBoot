@@ -8,13 +8,44 @@ package tools;
 import exceptions.BadDataException;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.springframework.http.MediaType;
 
 /**
  *
  * @author stuart
  */
 public class StringUtils {
+
+    private static Map<String, String> map = new HashMap();
+
+    static {
+        map.put("jpg", "image/jpeg");
+        map.put("gif", "image/gif");
+        map.put("png", "image/png");
+        map.put("tiff", "image/tiff");
+        map.put("js", "text/javascript");
+        map.put("json", "application/json; charset=UTF-8");
+        map.put("xml", "application/xml; charset=UTF-8");
+        map.put("css", "text/css");
+        map.put("html", "text/html");
+        map.put("log", "text/plain");
+        map.put("txt", "text/plain");
+    }
+
+    public static String getMediaTypeFroFile(String fileName) {
+        int pos = fileName.lastIndexOf('.');
+        if (pos > 0) {
+            String ext = fileName.substring(pos+1);
+            String mt = map.get(ext.toLowerCase());
+            if (mt != null) {
+                return mt;
+            }
+        }
+        return map.get("txt");
+    }
 
     public static String listToString(List list, String delim) {
         StringBuilder sb = new StringBuilder();
@@ -98,14 +129,14 @@ public class StringUtils {
             throw new BadDataException("Invalid conversion to JSON:" + context);
         }
         Scanner sc = new Scanner(in);
-        sc.skipSpace();        
+        sc.skipSpace();
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         int mark01 = 0;
-        int mark02 = 0;        
+        int mark02 = 0;
         int tokenOnLine = 0;
-        boolean firstToken = true;       
-        
+        boolean firstToken = true;
+
         while (sc.hasNext()) {
             String tok = sc.nextToken(delimeters);
             if (tok.length() > 0) {
@@ -114,7 +145,7 @@ public class StringUtils {
                     firstToken = false;
                 }
                 tokenOnLine++;
-                
+
                 for (int i = 0; i < positions.length; i++) {
                     if (positions[i] == tokenOnLine) {
                         sb.append("\"").append(names[i]).append("\":\"").append(tok).append("\"");
@@ -123,7 +154,7 @@ public class StringUtils {
                         break;
                     }
                 }
-                
+
                 if (tokenOnLine == count) {
                     sb.setLength(mark01);
                     sb.append('}');
@@ -138,10 +169,10 @@ public class StringUtils {
         sb.append(']');
         return sb.toString();
     }
-   
+
     public static String replaceAll(String s, char c1, char c2) {
         StringBuilder sb = new StringBuilder();
-        for (char c:s.toCharArray()) {
+        for (char c : s.toCharArray()) {
             if (c == c1) {
                 sb.append(c2);
             } else {

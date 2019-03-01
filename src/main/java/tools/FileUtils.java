@@ -150,7 +150,8 @@ public class FileUtils {
     /**
      * Read a file from the resource directory relative to a specific class.
      *
-     * @param fileName The name of the file. Use '/' to indicate the root of the package
+     * @param fileName The name of the file. Use '/' to indicate the root of the
+     * package
      * @param clazz The package this class is in will be the package searched.
      * @return The contents of the file
      */
@@ -168,6 +169,10 @@ public class FileUtils {
             throw new FileUtilsException("Failed to read resource file[" + fileName + "]", e);
         }
         return result.toString();
+    }
+
+    public static byte[] loadBinaryFile(File fil) throws IOException {
+        return Files.readAllBytes(fil.toPath());
     }
 
     /**
@@ -344,8 +349,9 @@ public class FileUtils {
     }
 
     /**
-     * Create a file. If you create a file with a file name such as 'a.txt' then the file name returned is 'a.txt'. Doing this will always return the
-     * full path of the file
+     * Create a file. If you create a file with a file name such as 'a.txt' then
+     * the file name returned is 'a.txt'. Doing this will always return the full
+     * path of the file
      *
      * @param fileName The file name as a string
      * @return

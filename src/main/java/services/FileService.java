@@ -49,6 +49,15 @@ public class FileService {
         return resp;
     }
 
+    public static byte[] userFiles(String user, String loc, String dir, String name) {
+        File root = ConfigDataManager.getLocation(user, loc, dir, name);
+        try {
+            return FileUtils.loadBinaryFile(root);
+        } catch (IOException ex) {
+            throw new ResourceNotFoundException("Failed to read file", ex);
+        }
+    }
+    
     public static FileListIo userFiles(String user, String loc, String dir) {
         return userFiles(user, loc, dir, (FileFilter) null);
     }

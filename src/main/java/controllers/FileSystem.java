@@ -16,9 +16,16 @@
  */
 package controllers;
 
+import exceptions.ServerRestException;
 import io.FileListIo;
 import io.PathsIO;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,18 +33,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
 import tools.FileExtFilter;
+import tools.StringUtils;
 
 @RestController("paths")
 public class FileSystem extends ControllerErrorHandlerBase {
+
+    @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}")
+    public HttpServletResponse file(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, HttpServletResponse response) {
+        byte[] bytes = FileService.userFiles(user, loc, path, name);
+
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+            bos.write(bytes, 0, bytes.length);
+            bos.flush();
+        } catch (IOException io) {
+            throw new ServerRestException("Failed to Stream response for file [" + name + "]", HttpStatus.FAILED_DEPENDENCY, name);
+        }
+        response.setContentType(StringUtils.getMediaTypeFroFile(name));
+        return response;
+    }
 
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public FileListIo files(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @RequestParam Map<String, String> queryParameters) {
         String filter = queryParameters.getOrDefault("ext", null);
         if ((filter == null) || (filter.isEmpty())) {
             return FileService.userFiles(user, loc, path);
-                        
+
         }
-        return FileService.userFiles(user, loc, path, filter.split("/,"));
+        return FileService.userFiles(user, loc, path, filter.split("\\,"));
     }
 
     @RequestMapping(value = "/paths/user/{user}/loc/{loc}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
