@@ -65,9 +65,9 @@ public class TestFileSystem {
 
     @Test
     public void testInOrder() throws Exception {
+        testFiles();
         testReadLogs();
         testLogs();
-        testImages();
         testPathIoJsonLoad();
         testGetPathsSrc();
         testGetPathsUserNotFound();
@@ -99,13 +99,15 @@ public class TestFileSystem {
         assertEquals("/200609 Pics-01/200707A0", paths.getPaths().get(0).getName());
     }
 
-    private void testImages() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/paths/user/stuart/loc/images")).andExpect(status().isOk()).andReturn();
+   
+    private void testFiles() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/Images 01?ext=jpg")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
-        PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
-        String str = StringUtils.listToString(paths.getPaths(), "|");
-        assertEquals(2, paths.getPaths().size());
-        System.out.println(str);
+        FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
+        assertEquals(2, files.getFiles().size());
+        assertEquals("stuart", files.getUser());
+        assertEquals("images", files.getLoc());
+        assertEquals("Images 01", files.getDir());
     }
 
     private void testGetPathsSrc() throws Exception {

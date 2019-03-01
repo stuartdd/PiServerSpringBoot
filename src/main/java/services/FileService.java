@@ -49,10 +49,26 @@ public class FileService {
         return resp;
     }
 
+    public static FileListIo userFiles(String user, String loc, String dir) {
+        return userFiles(user, loc, dir, (FileFilter) null);
+    }
+
+    public static FileListIo userFiles(String user, String loc, String dir, String[] filter) {
+        if ((filter == null) || (filter.length == 0)) {
+            return userFiles(user, loc, dir, (FileFilter) null);
+        }
+        return userFiles(user, loc, dir, new FileExtFilter(filter));
+    }
+
     public static FileListIo userFiles(String user, String loc, String dir, FileFilter filter) {
         File root = ConfigDataManager.getLocation(user, loc, dir);
         FileListIo fileListOut = new FileListIo(user, loc, dir);
-        File[] fileList = root.listFiles(filter);
+        File[] fileList = null;
+        if (filter == null) {
+            fileList = root.listFiles();
+        } else {
+            fileList = root.listFiles(filter);
+        }
         for (File f : fileList) {
             if (f.isFile()) {
                 fileListOut.addFileSpec(new FileSpecIo(f.length(), new EncNameIo(f.getName(), EncodeDecode.encode(f.getName()))));
@@ -60,11 +76,11 @@ public class FileService {
         }
         return fileListOut;
     }
-    
+
     public static String userFilesRead(String user, String loc, String dir, String file) {
         File root = ConfigDataManager.getLocation(user, loc, dir);
         try {
-            return FileUtils.loadFile(new File(root.getAbsolutePath()+File.separator+EncodeDecode.decode(file)));
+            return FileUtils.loadFile(new File(root.getAbsolutePath() + File.separator + EncodeDecode.decode(file)));
         } catch (IOException ex) {
             throw new ResourceNotFoundException("Failed to read log", ex);
         }

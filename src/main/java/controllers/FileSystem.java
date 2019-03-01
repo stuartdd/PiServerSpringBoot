@@ -30,16 +30,26 @@ import tools.FileExtFilter;
 @RestController("paths")
 public class FileSystem extends ControllerErrorHandlerBase {
 
+    @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public FileListIo files(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @RequestParam Map<String, String> queryParameters) {
+        String filter = queryParameters.getOrDefault("ext", null);
+        if ((filter == null) || (filter.isEmpty())) {
+            return FileService.userFiles(user, loc, path);
+                        
+        }
+        return FileService.userFiles(user, loc, path, filter.split("/,"));
+    }
+
     @RequestMapping(value = "/paths/user/{user}/loc/{loc}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public PathsIO paths(@PathVariable String user, @PathVariable String loc, @RequestParam Map<String, String> queryParameters) {
         return FileService.paths(user, loc);
     }
-    
+
     @RequestMapping(value = "/logs", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public FileListIo logs(@RequestParam Map<String, String> queryParameters) {
-        return FileService.userFiles(null, "logs", null, new FileExtFilter(new String[] {"log"}));
+        return FileService.userFiles(null, "logs", null, new FileExtFilter(new String[]{"log"}));
     }
-    
+
     @RequestMapping(value = "/logs/file/{fileName}", method = RequestMethod.GET, produces = "text/plain")
     public String paths(@PathVariable String fileName, @RequestParam Map<String, String> queryParameters) {
         return FileService.userFilesRead(null, "logs", null, fileName);
