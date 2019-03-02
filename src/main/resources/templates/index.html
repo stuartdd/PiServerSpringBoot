@@ -416,11 +416,11 @@
             }
 
             function saveUserData() {
-                serverPostData(userData, setUserData, responseError, "userdata/" + currentUser);
+                serverPostData(userData, setUserData, responseError, "/files/user/"+currentUser+"/loc/data/path/state/name/state.json");
             }
 
             function loadUserData() {
-                serverGetData(setUserData, responseError, "userdata/" + currentUser);
+                serverGetData(setUserData, responseError, "/files/user/"+currentUser+"/loc/data/path/state/name/state.json");
             }
 
             window.onload = function () {

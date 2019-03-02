@@ -24,9 +24,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,10 +41,16 @@ import tools.StringUtils;
 @RestController("paths")
 public class FileSystem extends ControllerErrorHandlerBase {
 
-    @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}")
+    @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.POST)
+    public ResponseEntity write(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestBody String body) {
+        FileService.saveFiles(user, loc, path, name, body);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET)
     public HttpServletResponse file(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, HttpServletResponse response) {
         byte[] bytes = FileService.userFiles(user, loc, path, name);
-
         try {
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
             bos.write(bytes, 0, bytes.length);

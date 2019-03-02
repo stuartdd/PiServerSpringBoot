@@ -17,6 +17,7 @@
 package services;
 
 import exceptions.ResourceNotFoundException;
+import exceptions.ServerRestException;
 import io.EncNameIo;
 import io.FileListIo;
 import io.FileSpecIo;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import main.ConfigDataManager;
+import org.springframework.http.HttpStatus;
 import tools.EncodeDecode;
 import tools.FileExtFilter;
 import tools.FileUtils;
@@ -49,6 +51,17 @@ public class FileService {
         return resp;
     }
 
+    public static void saveFiles(String user, String loc, String path, String name, String body) {
+        if ((name == null) || (name.isEmpty())) {
+            throw new ServerRestException("Name must be provided", HttpStatus.BAD_REQUEST, "BAD REQUEST");
+        }
+        if ((body == null) || (body.isEmpty())) {
+            throw new ServerRestException("Missing content. Nothing to save!", HttpStatus.BAD_REQUEST, "BAD REQUEST");
+        }
+        File root = ConfigDataManager.getLocation(user, loc, path);
+        FileUtils.writeFileOverwrite(body, new File(root.getAbsolutePath()+File.separator+name));
+    }
+
     public static byte[] userFiles(String user, String loc, String dir, String name) {
         File root = ConfigDataManager.getLocation(user, loc, dir, name);
         try {
@@ -57,7 +70,7 @@ public class FileService {
             throw new ResourceNotFoundException("Failed to read file", ex);
         }
     }
-    
+
     public static FileListIo userFiles(String user, String loc, String dir) {
         return userFiles(user, loc, dir, (FileFilter) null);
     }

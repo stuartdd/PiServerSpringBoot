@@ -81,7 +81,6 @@ public class TestFileSystem {
 
     private void testFileLoad() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/Images 01/name/015_Mum8.jpg")).andExpect(status().isOk()).andReturn();
-//        assertEquals("image/jpeg", mvcResult.getResponse().getContentType());
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
         assertEquals(240920, resp.length);
     }

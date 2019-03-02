@@ -9,8 +9,8 @@
         "historyMaxLen": 20,
         "root": "/home/pi/server",
         "users": {
-            "stuart": {"original":"/media/USBHDD1/shares/stuart", "images":"thumbnails/stuart"},
-            "shared": {"original":"/media/USBHDD1/shares/shared", "images":"thumbnails/shared"}
+            "stuart": {"original":"/media/USBHDD1/shares/stuart", "images":"thumbnails/stuart", "data":"data/stuart"},
+            "shared": {"original":"/media/USBHDD1/shares/shared", "images":"thumbnails/shared", "data":"data/shared"}
         },
         "locations": {
             "logs": "logs",
