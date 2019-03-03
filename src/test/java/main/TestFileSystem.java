@@ -84,19 +84,19 @@ public class TestFileSystem {
     private void testFileLoadJpgJpg() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
-        assertEquals(919244, resp.length);
+        assertEquals(919160, resp.length);
     }
     
     private void testFileLoadJpg() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
-        assertEquals(919244, resp.length);
+        assertEquals(919160, resp.length);
     }
 
     private void testFileLoadOriginal() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
-        assertEquals(919244, resp.length);
+        assertEquals(919160, resp.length);
     }
 
     private void testReadLogs() throws Exception {

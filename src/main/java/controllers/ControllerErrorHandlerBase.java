@@ -53,7 +53,6 @@ public class ControllerErrorHandlerBase {
             If it is a ServerRestException then it contains all the data we need.
              */
             ServerRestException sre = (ServerRestException) cause;
-
             warning = sre.getWarning();
             status = sre.getStatus();
             resp.setStatus(status);
@@ -69,7 +68,7 @@ public class ControllerErrorHandlerBase {
             message = "{\"Status\":" + status + ", \"Msg\":\"" + cause.getMessage() + "\", \"Entity\":\"Unknown\"}";
         }
         if (fullLog) {
-            logger.error(message + " CAUSE: " +cause.getMessage(), root);
+            logger.error("MESSAGE: " + message + "\nCAUSE MESSAGE: " + cause.getMessage() + "\nROOT EXCEPTION:", root);
         } else {
             logger.error(message + " CAUSE: " + cause.getMessage());
         }
