@@ -16,7 +16,6 @@
             if (historyMaxLen < 2) {
                 historyMaxLen = 2;
             }
-            "1"
             currentDaySelect = -1;
             iconSize = 80;
             currentDisplay = "";
@@ -185,8 +184,8 @@
             function displayThumbnailsHistory() {
                 var htmlStr = "<table border=\"1\">";
                 for (var index = 0; index < userData.imageHistory.length; index++) {
-                    htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/image/file/" + userData.imageHistory[index] + "\"></td>";
-                    htmlStr = htmlStr + "<td>" + userData.imageHistory[index] + "</td></tr>";
+                    htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/files/" + userData.imageHistory[index] + "\"></td>";
+                    htmlStr = htmlStr + "<td>" + userData.imageHistory[index].replace("images", "original") + "</td></tr>";
                 }
                 htmlStr += "</table>";
                 document.getElementById('thumbnailImgeHeadingHistory').innerHTML = " [" + userData.imageHistory.length + "] Previously viewed images for " + currentUserCaps;
@@ -282,9 +281,10 @@
                 imageIsHistoric = historic;
 
                 if (!historic) {
-                    var tempList = [fullName];
+                    tempName="user/" + imageData.user + "/loc/images/path/" + imageData.path + "/name/" + imageName;
+                    var tempList = [tempName];
                     for (i = 0; i < userData.imageHistory.length; i++) {
-                        if (userData.imageHistory[i] !== fullName) {
+                        if (userData.imageHistory[i] !== tempName) {
                             tempList.push(userData.imageHistory[i]);
                         }
                     }
@@ -297,7 +297,7 @@
                     widthAttr = "";
                 }
 
-                var image = "<img " + widthAttr + " id=\"originalImageHtmlSrc\" title=\"" + imageName + "\" src=\"/files" + fullName + "\">";
+                var image = "<img " + widthAttr + " id=\"originalImageHtmlSrc\" title=\"" + imageName + "\" src=\"/files/" + fullName + "\">";
 
                 if (imageIsZoomed) {
                     document.getElementById('originalImageHtmlZoom').innerHTML = image;

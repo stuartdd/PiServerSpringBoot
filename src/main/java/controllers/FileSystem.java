@@ -59,6 +59,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
             bos.write(bytes, 0, bytes.length);
             bos.flush();
+            bos.close();
         } catch (IOException io) {
             throw new ServerRestException("Failed to Stream response for file [" + name + "]", HttpStatus.FAILED_DEPENDENCY, name);
         }

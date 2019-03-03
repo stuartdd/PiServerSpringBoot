@@ -191,6 +191,9 @@ public class StringUtils {
         if (pos2 < 0) {
             tn = name;
         }
+        if (tn.length() > 25) {
+            return tn.substring(20);
+        }
         return  tn;
     }
 }

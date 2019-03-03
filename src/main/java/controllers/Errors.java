@@ -29,15 +29,18 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  *
  * @author stuart
- * 
- * This is required by Spring and is the default handler for when a mapping is not found.
- * 
+ *
+ * This is required by Spring and is the default handler for when a mapping is
+ * not found.
+ *
  */
 @RestController("error")
 public class Errors extends ControllerErrorHandlerBase {
 
     /**
-     * This is required by Spring. The error response is defined by handleError in ControllerBase.
+     * This is required by Spring. The error response is defined by handleError
+     * in ControllerBase.
+     *
      * @param req So we can find the cause
      * @param resp So we can delegate to handleError
      * @param ex We also pass this to handleError
@@ -45,7 +48,12 @@ public class Errors extends ControllerErrorHandlerBase {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public void error(HttpServletRequest req, HttpServletResponse resp, Exception ex) {
         RequestAttributes requestAttributes = new ServletRequestAttributes(req);
-        handleError(resp, new ServerRestException(requestAttributes.getAttribute("javax.servlet.forward.servlet_path", 0).toString(), HttpStatus.NOT_FOUND, "Item Not Found"));
+        Object attr = requestAttributes.getAttribute("javax.servlet.forward.servlet_path", 0);
+        if (attr == null) {
+            handleError(resp, ex);
+        } else {
+            handleError(resp, new ServerRestException(requestAttributes.getAttribute("javax.servlet.forward.servlet_path", 0).toString(), HttpStatus.NOT_FOUND, "Item Not Found"));
+        }
     }
 
 }

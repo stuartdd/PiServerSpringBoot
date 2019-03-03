@@ -11,6 +11,7 @@
         "users": {
             "stuart": {"images":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"images":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
+            "nonuser": {"images":"data/thumb/nonuser","original":"data/images/nonuser", "data":"data/nonuser"},
             "test": {"src":"src"}
         },
         "locations": {
