@@ -58,7 +58,7 @@ public class TestTemplates {
     public void getTemplatePass() throws Exception {
         mvc.perform(get("/static/newhtml.html"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("This is a template userList = [\"stuart\",\"nonuser\",\"shared\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
+                .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
     }
 
 }

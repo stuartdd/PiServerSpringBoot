@@ -49,7 +49,11 @@ public class FileSystem extends ControllerErrorHandlerBase {
     }
 
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET)
-    public HttpServletResponse file(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, HttpServletResponse response) {
+    public HttpServletResponse file(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, HttpServletResponse response, @RequestParam Map<String, String> queryParameters) {
+        String subStringExpression = queryParameters.get("substr");
+        if (subStringExpression != null) {
+            name = StringUtils.evaluateSubStr(subStringExpression, name);
+        }
         byte[] bytes = FileService.userFiles(user, loc, path, name);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());

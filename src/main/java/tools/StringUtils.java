@@ -38,7 +38,7 @@ public class StringUtils {
     public static String getMediaTypeFroFile(String fileName) {
         int pos = fileName.lastIndexOf('.');
         if (pos > 0) {
-            String ext = fileName.substring(pos+1);
+            String ext = fileName.substring(pos + 1);
             String mt = map.get(ext.toLowerCase());
             if (mt != null) {
                 return mt;
@@ -180,5 +180,24 @@ public class StringUtils {
             }
         }
         return sb.toString();
+    }
+
+    public static String evaluateSubStr(String subStringExpression, String name) {
+        String[] params = subStringExpression.split("\\,");
+        int[] intParams = new int[params.length];
+        for (int i =0; i< params.length; i++) {
+            try {
+                intParams[i] = Integer.parseInt(params[i]);                
+            } catch (NumberFormatException ex) {
+                throw new BadDataException("Query parameter: substr=" + subStringExpression + " cannot be converted to integer list. '" + params[i] + "' is invalid");
+            }
+        }
+        if (intParams.length > 0) {
+            name = name.substring(intParams[0]);
+        }
+        if (intParams.length > 1) {
+            name = name.substring(0, (name.length() - intParams[1]));
+        }
+        return name;
     }
 }
