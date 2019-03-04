@@ -15,9 +15,7 @@
         "locations": {
             "logs": "data/logs",
             "cache": "data/cache",
-            "scripts": "scripts",
-            "media": "/media/shares/",
-            "userData": "src/test/resources/userData",
+            "scripts": "data/scripts",
             "audio": "audio"
         }
     },
@@ -32,52 +30,6 @@
             "unknown": "unknown-OS"
         },
         "commands": {
-            "notImplemented": {
-                "func": "notImplemented"
-            },
-            "notScript": {
-                "func": "scriptAll",
-                "script": "notScript",
-                "P0": "",
-                "P1": "../"
-            },
-            "minRcError": {
-                "func": "scriptAll",
-                "script": "returnCode",
-                "P0": "9",
-                "P1": "",
-                "P2": "",
-                "P3": "",
-                "minRC": 9
-            },
-            "ufs": {
-                "func": "readFileFromLocation",
-                "location": "cache",
-                "file": "userFileSizes.log"
-            },
-            "testtree": {
-                "func": "scriptBetween",
-                "script": "getDir",
-                "P0": "%{scripts}",
-                "P1": "",
-                "P2": "",
-                "P3": ""
-            },
-            "log": {
-                "func": "rsyncLogs",
-                "script": "./listFiles",
-                "dir": "/logs",
-                "id": "log"
-            },
-            "vol": {
-                "func": "extractVolume",
-                "script": "./setVolume",
-                "$1": "level"
-            },
-            "getVol": {
-                "func": "extractVolume",
-                "script": "./getVolume"
-            }
         }
     }
 }

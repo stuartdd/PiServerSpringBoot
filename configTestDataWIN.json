@@ -17,11 +17,9 @@
         "locations": {
             "logs": "data/logs",
             "cache": "data/cache",
-            "scripts": "scripts",
+            "scripts": "data/scripts",
             "thumbnail": "/thumbnails",
-            "media": "/media/shares/",
-            "userData": "src/test/resources/userData",
-            "audio": "audio"
+            "audio": "src/main/resources/audio"
         }
     },
 

@@ -39,11 +39,10 @@ public class TestScripts {
     }
 
     @Test
-    public void getFuncTestTree() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/func/testtree?user=stuart"))
+    public void getDiskStatus() throws Exception {
+        MvcResult s = mvc.perform(get("/func/ds"))
                 .andExpect(status().isOk()).andReturn();
-        String s = mvcResult.getResponse().getContentAsString();
-        assertTrue(s.contains("getDir.bat"));
+        assertEquals("[{\"name\":\"/dev/sda:\",\"state\":\"active/idle\"},{\"name\":\"/dev/sdb:\",\"state\":\"active/idle\"}]", s.getResponse().getContentAsString());
     }
 
     @Test
@@ -59,18 +58,18 @@ public class TestScripts {
                 .andExpect(status().isFailedDependency()).andReturn();
         assertTrue(s.getResponse().getContentAsString().contains("Method 'notImplemented' is not implemented"));
     }
-    
+
     @Test
     public void getScriptNotFound() throws Exception {
         MvcResult s = mvc.perform(get("/func/notScript"))
                 .andExpect(status().isFailedDependency()).andReturn();
         assertTrue(s.getResponse().getContentAsString().contains("Failed Dependency"));
     }
-    
+
     @Test
     public void getScriptMinRC() throws Exception {
         MvcResult s = mvc.perform(get("/func/minRcError"))
                 .andExpect(status().isOk()).andReturn();
-         assertEquals(200, s.getResponse().getStatus());
+        assertEquals(200, s.getResponse().getStatus());
     }
 }

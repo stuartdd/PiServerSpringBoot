@@ -23,5 +23,4 @@ public class Script extends ControllerErrorHandlerBase {
     public String script(@PathVariable String id, @RequestParam Map<String, String> queryParameters) {
         return FunctionService.func(id, queryParameters);
     }
-    
 }

@@ -80,10 +80,6 @@ public class ConfigDataManager {
             throw new ConfigDataException("Location 'cache' is undefined");
         }
 
-        if (configData.getResources().getLocations().get("userData") == null) {
-            throw new ConfigDataException("Location 'userData' is undefined");
-        }
-
         if (configData.isValidateLocations()) {
             for (Map.Entry<String, String> loc : configData.getResources().getLocations().entrySet()) {
                 File f = new File(loc.getValue());

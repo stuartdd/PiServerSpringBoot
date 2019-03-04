@@ -56,8 +56,8 @@ public class TestServer {
         Assert.assertTrue(s.contains("\"timestamp\""));
         Assert.assertTrue(s.contains("\"millis\""));
     }
-    
-   @Test
+
+    @Test
     public void getUFS() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/server/ufs"))
                 .andExpect(status().isOk()).andReturn();
@@ -66,14 +66,6 @@ public class TestServer {
         Assert.assertTrue(s.contains("\"Name\":\"stuart\""));
         Assert.assertTrue(s.contains("\"Name\":\"julie\""));
         Assert.assertTrue(s.contains("\"Name\":\"huw\""));
-    }
-   @Test
-    public void getDS() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/server/ds"))
-                .andExpect(status().isOk()).andReturn();
-        String s = mvcResult.getResponse().getContentAsString();
-        Assert.assertTrue(s.contains("\"Name\":\"/dev/sda\",\"State\":\"active/idle\""));
-        Assert.assertTrue(s.contains("\"Name\":\"/dev/sdb\",\"State\":\"active/idle\""));
     }
 
 }

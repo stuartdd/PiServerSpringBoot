@@ -16,13 +16,9 @@
  */
 package controllers;
 
-import exceptions.ServerRestException;
 import io.FileListIo;
 import io.PathsIO;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -51,7 +47,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> file(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, HttpServletResponse response, @RequestParam Map<String, String> queryParameters) {
         String subStringExpression = queryParameters.get("thumbnail");
-        if (subStringExpression != null) {
+        if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
             name = StringUtils.parseThumbnailFileName(name);
         }
         byte[] bytes = FileService.userFiles(user, loc, path, name);
@@ -59,15 +55,6 @@ public class FileSystem extends ControllerErrorHandlerBase {
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
         return responseEntity;
-//        response.setContentType(StringUtils.getMediaTypeFroFile(name));
-//        try {
-//            ServletOutputStream bos = response.getOutputStream();
-//            bos.write(bytes, 0, bytes.length);
-//            bos.flush();
-//        } catch (IOException io) {
-//            throw new ServerRestException("Failed to Stream response for file [" + name + "]", HttpStatus.FAILED_DEPENDENCY, name);
-//        }
-//        return response;
     }
 
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")

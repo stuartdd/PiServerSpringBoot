@@ -80,6 +80,8 @@ public class TestFileSystem {
         testGetPathsUserNotFound();
         testGetPathsLocNotFound();
     }
+    
+    
 
     private void testFileLoadJpgJpg() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();

@@ -17,10 +17,8 @@
         "locations": {
             "logs": "data/logs",
             "cache": "data/cache",
-            "scripts": "scripts",
+            "scripts": "data/scripts",
             "thumbnail": "/thumbnails",
-            "media": "/media/shares/",
-            "userData": "src/test/resources/userData",
             "audio": "src/main/resources/audio"
         }
     },
@@ -35,7 +33,11 @@
             "unknown": "unknown-OS"
         },
         "commands": {
-            "notImplemented": {
+            "ds": {
+                "func": "scriptBetween",
+                "script": "diskStatus"
+             },
+             "notImplemented": {
                 "func": "notImplemented"
             },
             "notScript": {

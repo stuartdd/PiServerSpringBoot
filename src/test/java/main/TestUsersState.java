@@ -20,16 +20,21 @@ package main;
  *
  * @author stuart
  */
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import tools.OsUtils;
@@ -37,7 +42,7 @@ import tools.OsUtils;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class TestUsers {
+public class TestUsersState {
 
     @BeforeClass
     public static void beforeClass() {
@@ -47,25 +52,20 @@ public class TestUsers {
     @Autowired
     private MockMvc mvc;
 
-    @Test
-    public void getUserData() throws Exception {
-        mvc.perform(get("/userdata/stuart"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"imagesPerRow\":2,\"imageHistory\":[\"stuart/PixelPhoneSync/2018_12_27_13_48_08_IMG_20181227_134807.jpg.jpg\",\"stuart/Archive/pics/2017_01_02_19_22_28_015_Mum8.jpg.jpg\"]}"));
-    }
-    
-    @Test
-    public void getNonUserData() throws Exception {
-        mvc.perform(get("/userdata/nonuser"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("{\"imagesPerRow\":2,\"imageHistory\":[]}"));
-    }
+    private static String STATE = "{\"imagesPerRow\":2,\"imageHistory\":[\"user/stuart/loc/images/path/lg 001/name/2006_08_22_15_54_45_22082006011.jpg.JPG\"]}";
 
     @Test
-    public void getUserDataNotFound() throws Exception {
-        mvc.perform(get("/userdata/tony"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"tony\"}"));
+    public void getUserData() throws Exception {
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/data/path/state/name/state.json")).andExpect(status().isOk()).andReturn();
+        String resp = mvcResult.getResponse().getContentAsString();
+        assertTrue(resp.contains("\"imagesPerRow\":"));
+        assertTrue(resp.contains("\"imageHistory\":["));
+
+        mvc.perform(post("/files/user/stuart/loc/data/path/state/name/state.json").content(STATE).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
+        mvcResult = mvc.perform(get("/files/user/stuart/loc/data/path/state/name/state.json")).andExpect(status().isOk()).andReturn();
+        assertEquals(STATE, mvcResult.getResponse().getContentAsString());
+
+        mvc.perform(post("/files/user/stuart/loc/data/path/state/name/state.json").content(resp).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
     }
 
 }
