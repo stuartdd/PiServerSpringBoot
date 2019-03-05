@@ -147,9 +147,10 @@ public class Pipe {
             }
         }
         if (outFileName != null) {
-            writeFileForOut(sb.toString(), outFileName);
+            writeFileForOut(toJson(sb.toString(), names, linePos, lineLen, " "), outFileName);
+        } else {
+            System.out.println(toJson(sb.toString(), names, linePos, lineLen, " "));
         }
-        System.out.println(toJson(sb.toString(), names, linePos, lineLen, " "));
     }
 
     private static String[] readStrings(String csv, String context) {
@@ -175,20 +176,20 @@ public class Pipe {
         return ns;
     }
 
-    public static void writeFileForOut (String s, String fileName) {
-        File f = new File((new File(fileName)).getAbsolutePath()); 
+    public static void writeFileForOut(String s, String fileName) {
+        File f = new File((new File(fileName)).getAbsolutePath());
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(f);
             fos.write(s.getBytes());
         } catch (IOException ex) {
-            exitCode("Unable to write output file ["+f.getAbsolutePath()+"] :"+ex.getMessage());
+            exitCode("Unable to write output file [" + f.getAbsolutePath() + "] :" + ex.getMessage());
         } finally {
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException ex) {
-                    exitCode("Unable to close output file ["+f.getAbsolutePath()+"]:"+ex.getMessage());
+                    exitCode("Unable to close output file [" + f.getAbsolutePath() + "]:" + ex.getMessage());
                 }
             }
         }
@@ -228,7 +229,6 @@ public class Pipe {
                     firstToken = false;
                 }
                 tokenOnLine++;
-
                 for (int i = 0; i < positions.length; i++) {
                     if (positions[i] == tokenOnLine) {
                         sb.append("\"").append(names[i]).append("\":\"").append(tok).append("\"");
