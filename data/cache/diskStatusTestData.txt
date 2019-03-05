@@ -1,6 +1,0 @@
-ECHO is off.
-/dev/sda: 
- drive state is:  active/idle 
-
-/dev/sdb: 
- drive state is:  active/idle 

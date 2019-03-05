@@ -5,7 +5,9 @@
  */
 package main;
 
-import exceptions.BadDataException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -14,7 +16,7 @@ import java.io.InputStream;
  * @author stuart
  */
 public class Pipe {
-    
+
     private static final String USAGE = "USAGE:\n"
             + "  -n<names-csv> - list of comma separated names\n"
             + "  -p<pos-csv> - list of comma separated 'word in line' positions\n"
@@ -25,10 +27,12 @@ public class Pipe {
     private static String[] names = new String[]{};
     private static int[] linePos = new int[]{};
     private static int[] lineLen = new int[]{};
-    
+    private static File file;
+    private static String outFileName;
+
     /*
     Instance parameters
-    */
+     */
     private final char[] buffer;
     private final int max;
     private int pos;
@@ -102,6 +106,12 @@ public class Pipe {
 
     public static void main(String[] args) throws IOException {
         for (String a : args) {
+            if (a.startsWith("-in")) {
+                file = readFileForIn(a.substring(3), "-in");
+            }
+            if (a.startsWith("-ou")) {
+                outFileName = a.substring(3);
+            }
             if (a.startsWith("-n")) {
                 names = readStrings(a.substring(2), "-n");
             }
@@ -121,13 +131,23 @@ public class Pipe {
         if (linePos.length != names.length) {
             exitCode("-n and -p must be defined and have the same number of arguments");
         }
-        InputStream is = System.in;
+
+        InputStream is;
+        if (file == null) {
+            is = System.in;
+        } else {
+            is = new FileInputStream(file);
+        }
+
         StringBuilder sb = new StringBuilder();
         while (is.available() > 0) {
             int i = is.read();
             if (i > 0) {
-                sb.append((char)i);
+                sb.append((char) i);
             }
+        }
+        if (outFileName != null) {
+            writeFileForOut(sb.toString(), outFileName);
         }
         System.out.println(toJson(sb.toString(), names, linePos, lineLen, " "));
     }
@@ -155,6 +175,34 @@ public class Pipe {
         return ns;
     }
 
+    public static void writeFileForOut (String s, String fileName) {
+        File f = new File((new File(fileName)).getAbsolutePath()); 
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            fos.write(s.getBytes());
+        } catch (IOException ex) {
+            exitCode("Unable to write output file ["+f.getAbsolutePath()+"] :"+ex.getMessage());
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException ex) {
+                    exitCode("Unable to close output file ["+f.getAbsolutePath()+"]:"+ex.getMessage());
+                }
+            }
+        }
+    }
+
+    private static File readFileForIn(String fileName, String context) {
+        File f = new File((new File(fileName)).getAbsolutePath());
+        if (f.exists()) {
+            return f;
+        }
+        exitCode(context + " file does not exist");
+        return null;
+    }
+
     private static void exitCode(String m) {
         System.err.println(SEP + "\n" + m + SEP + "\n" + USAGE + SEP);
         System.exit(1);
@@ -169,7 +217,7 @@ public class Pipe {
         int mark02 = 0;
         int tokenOnLine = 0;
         int lineLengthPos = 0;
-        
+
         boolean firstToken = true;
 
         while (sc.hasNext()) {
@@ -198,7 +246,7 @@ public class Pipe {
                     tokenOnLine = 0;
                     firstToken = true;
                     lineLengthPos++;
-                    if (lineLengthPos>=lineLengths.length) {
+                    if (lineLengthPos >= lineLengths.length) {
                         lineLengthPos = 0;
                     }
                 }
