@@ -12,7 +12,7 @@ echo /dev/sdb: >> $TMPFILE
 echo  drive state is:  active/idle >> $TMPFILE
 
 echo {start}
-java -cp ../../build/classes/java/main/ main.Pipe -nname,state -p1,5 -l5 < $TMPFILE
+java -cp ../../build/classes/java/main/ main.JsonFormatterPipe -nname,state -p1,5 -l5 < $TMPFILE
 echo {end}
 
 rm $TMPFILE

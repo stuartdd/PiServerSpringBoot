@@ -14,6 +14,7 @@ repositories {
 }
 
 
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-dependencies:2.0.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.0.5.RELEASE'
@@ -33,3 +34,11 @@ bootJar {
     mainClassName = 'main.Main'
 }
 
+task copyEndpointLib(type: Copy) {
+        println 'copy JsonFormatterPipe class to scripts directories'
+        from 'build/classes/java/main/main'
+        into 'scripts'
+        include "JsonFormatter*.class"
+}
+
+build.dependsOn copyEndpointLib

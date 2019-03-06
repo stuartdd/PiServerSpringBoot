@@ -15,7 +15,7 @@ import java.io.InputStream;
  *
  * @author stuart
  */
-public class Pipe {
+public class JsonFormatterPipe {
 
     private static final String USAGE = "USAGE:\n"
             + "  -n<names-csv> - list of comma separated names\n"
@@ -43,7 +43,7 @@ public class Pipe {
     private final int max;
     private int pos;
 
-    public Pipe(final String input) {
+    public JsonFormatterPipe(final String input) {
         this.buffer = input.toCharArray();
         this.pos = 0;
         this.max = this.buffer.length;
@@ -210,7 +210,7 @@ public class Pipe {
     }
 
     private static String toJson(String in, String[] names, int[] positions, int[] lineLengths, int[] delimeters) {
-        Pipe sc = new Pipe(in);
+        JsonFormatterPipe sc = new JsonFormatterPipe(in);
         sc.skipSpace();
         StringBuilder sb = new StringBuilder();
         sb.append('[');
