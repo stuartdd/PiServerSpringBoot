@@ -62,8 +62,7 @@ public class Server extends ControllerErrorHandlerBase {
     
     @RequestMapping(value = "server/ufs", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String ufs(@RequestParam Map<String, String> queryParameters) {
-        String ufs = ConfigDataManager.readCacheStartToEnd("userFileSizes.out", "ufs");
-        return StringUtils.toJson(ufs, new String[] {"Size","Name"}, new int[] {1,5}, 5, "/ ", "UFS");
+        return ConfigDataManager.readCacheStartToEnd("userFileSizes.out", "ufs");
     }
     
 }

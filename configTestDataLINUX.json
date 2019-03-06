@@ -36,8 +36,8 @@
             "ds": {
                 "func": "scriptBetween",
                 "script": "diskStatus"
-             },
-             "notImplemented": {
+            },
+            "notImplemented": {
                 "func": "notImplemented"
             },
             "notScript": {

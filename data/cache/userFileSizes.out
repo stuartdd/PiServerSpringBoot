@@ -1,11 +1,1 @@
-Q0:./userFileSizes.sh
-Q1:
-Q2:
-Q3:
-{start}
-162215134       /media/USBHDD1/shares/shared
-35722111        /media/USBHDD1/shares/stuart
-36979282        /media/USBHDD1/shares/julie
-36854954        /media/USBHDD1/shares/owain
-10696354        /media/USBHDD1/shares/huw
-{end}
+[{"Size":"162215134","Name":"shared"},{"Size":"35722111","Name":"stuart"},{"Size":"36979282","Name":"julie"},{"Size":"36854954","Name":"owain"},{"Size":"10696354","Name":"huw"}]

@@ -5,6 +5,7 @@
  */
 package main;
 
+import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -44,7 +45,7 @@ public class TestScripts {
                 .andExpect(status().isOk()).andReturn();
         assertEquals("[{\"name\":\"/dev/sda:\",\"state\":\"active/idle\"},{\"name\":\"/dev/sdb:\",\"state\":\"active/idle\"}]", s.getResponse().getContentAsString());
     }
-
+   
     @Test
     public void getFuncNotFound() throws Exception {
         MvcResult s = mvc.perform(get("/func/xxx"))

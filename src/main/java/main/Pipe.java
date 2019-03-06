@@ -22,11 +22,17 @@ public class Pipe {
             + "  -p<pos-csv> - list of comma separated 'word in line' positions\n"
             + "  -l<line-len-csv> - list of comma separated 'line length' values\n"
             + "     eg. -l5,6 - Line 1 is 5 words long, Line 2 is 6, line 3 is 5 line 4 is 6 etc\n"
-            + "         -l8 - All lines are 8 words long";
+            + "         -l8 - All lines are 8 words long\n"
+            + "  -in<inFile> - Read the input stream from this file. Use System.in otherwise\n"
+            + "  -ou<outFile> - Write the output stream from this file. Use System.out otherwise\n"
+            + "  -de<delim-ascii-decimal-csv> - List of comma separated ascii codes to use as delimiters\n"
+            + "     eg. -de32,47 will split up the input using ' ' and '/'\n"
+            + "         default value is 32 ' '.";
     private static final String SEP = "\n----------------------------------------------------------------------------------------------------";
     private static String[] names = new String[]{};
     private static int[] linePos = new int[]{};
     private static int[] lineLen = new int[]{};
+    private static int[] delimeters = new int[]{32};
     private static File file;
     private static String outFileName;
 
@@ -70,16 +76,7 @@ public class Pipe {
         }
     }
 
-    public void skipToNext(final char c) {
-        while (hasNext()) {
-            if (next() == c) {
-                back();
-                return;
-            }
-        }
-    }
-
-    public String nextToken(String set) {
+    public String nextToken(int[] set) {
         StringBuilder sb = new StringBuilder();
         skipSpace();
         while (hasNext()) {
@@ -95,8 +92,8 @@ public class Pipe {
         return sb.toString().trim();
     }
 
-    public boolean isIn(char needle, String hayStack) {
-        for (char c : hayStack.toCharArray()) {
+    public boolean isIn(int needle, int[] hayStack) {
+        for (int c : hayStack) {
             if (needle == c) {
                 return true;
             }
@@ -111,6 +108,9 @@ public class Pipe {
             }
             if (a.startsWith("-ou")) {
                 outFileName = a.substring(3);
+            }
+            if (a.startsWith("-de")) {
+                delimeters = readInts(a.substring(3), "-de");
             }
             if (a.startsWith("-n")) {
                 names = readStrings(a.substring(2), "-n");
@@ -147,9 +147,9 @@ public class Pipe {
             }
         }
         if (outFileName != null) {
-            writeFileForOut(toJson(sb.toString(), names, linePos, lineLen, " "), outFileName);
+            writeFileForOut(toJson(sb.toString(), names, linePos, lineLen, delimeters), outFileName);
         } else {
-            System.out.println(toJson(sb.toString(), names, linePos, lineLen, " "));
+            System.out.println(toJson(sb.toString(), names, linePos, lineLen, delimeters));
         }
     }
 
@@ -209,7 +209,7 @@ public class Pipe {
         System.exit(1);
     }
 
-    private static String toJson(String in, String[] names, int[] positions, int[] lineLengths, String delimeters) {
+    private static String toJson(String in, String[] names, int[] positions, int[] lineLengths, int[] delimeters) {
         Pipe sc = new Pipe(in);
         sc.skipSpace();
         StringBuilder sb = new StringBuilder();
