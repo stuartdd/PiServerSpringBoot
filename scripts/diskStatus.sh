@@ -7,6 +7,6 @@ TMPFILE="$(mktemp)"
 sudo hdparm -C /dev/sda > $TMPFILE
 sudo hdparm -C /dev/sdb >> $TMPFILE
 echo {start}
-java -cp ../build/classes/java/main/ main.JsonFormatterPipe -nname,state -p1,5 -l5 < $TMPFILE
+java external.JsonFormatterPipe -nname,state -p1,5 -l5 < $TMPFILE
 echo {end}
 rm $TMPFILE

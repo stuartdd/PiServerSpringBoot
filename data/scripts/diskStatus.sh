@@ -6,13 +6,13 @@ echo Q3:$3
 TMPFILE="$(mktemp)"
 echo > tmp.txt
 echo /dev/sda: >> $TMPFILE
-echo  drive state is:  active/idle >> $TMPFILE
+echo  drive state is:  standby >> $TMPFILE
 echo  >> $TMPFILE
 echo /dev/sdb: >> $TMPFILE
 echo  drive state is:  active/idle >> $TMPFILE
 
 echo {start}
-java -cp ../../build/classes/java/main/ main.JsonFormatterPipe -nname,state -p1,5 -l5 < $TMPFILE
+java -cp ../../build/classes/java/main/ external.JsonFormatterPipe -nname,state -p1,5 -l5 < $TMPFILE
 echo {end}
 
 rm $TMPFILE

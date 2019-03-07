@@ -14,6 +14,11 @@ lcd scripts
 mput *.*
 chmod 775 *.sh
 
+cd /home/pi/server/scripts/external
+lcd scripts/external
+mput *.*
+chmod 775 *.sh
+
 cd /home/pi/server/audio
 lcd ../audio
 mput *.*

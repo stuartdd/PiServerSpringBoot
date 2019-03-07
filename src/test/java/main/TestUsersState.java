@@ -59,7 +59,7 @@ public class TestUsersState {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/data/path/state/name/state.json")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         assertTrue(resp.contains("\"imagesPerRow\":"));
-        assertTrue(resp.contains("\"imageHistory\":["));
+        assertTrue(resp.contains("\"imageHistory\":"));
 
         mvc.perform(post("/files/user/stuart/loc/data/path/state/name/state.json").content(STATE).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
         mvcResult = mvc.perform(get("/files/user/stuart/loc/data/path/state/name/state.json")).andExpect(status().isOk()).andReturn();

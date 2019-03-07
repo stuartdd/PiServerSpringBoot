@@ -43,7 +43,7 @@ public class TestScripts {
     public void getDiskStatus() throws Exception {
         MvcResult s = mvc.perform(get("/func/ds"))
                 .andExpect(status().isOk()).andReturn();
-        assertEquals("[{\"name\":\"/dev/sda:\",\"state\":\"active/idle\"},{\"name\":\"/dev/sdb:\",\"state\":\"active/idle\"}]", s.getResponse().getContentAsString());
+        assertEquals("[{\"name\":\"/dev/sda:\",\"state\":\"standby\"},{\"name\":\"/dev/sdb:\",\"state\":\"active/idle\"}]", s.getResponse().getContentAsString());
     }
    
     @Test

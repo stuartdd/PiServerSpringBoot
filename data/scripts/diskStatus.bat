@@ -7,11 +7,11 @@ set TMPFILE=%TEMP%\DiskStatus%RANDOM%.txt
 @echo %TMPFILE%
 @echo > %TMPFILE%
 @echo /dev/sda: >> %TMPFILE%
-@echo  drive state is:  active/idle >> %TMPFILE%
+@echo  drive state is:  standby >> %TMPFILE%
 @echo >> %TMPFILE%
 @echo /dev/sdb: >> %TMPFILE%
 @echo  drive state is:  active/idle >> %TMPFILE%
 @echo {start}
-java -cp ../../build/classes/java/main/ main.JsonFormatterPipe -nname,state -p4,8 -l8 < %TMPFILE%
+java -cp ../../build/classes/java/main/ external.JsonFormatterPipe -nname,state -p4,8 -l8 < %TMPFILE%
 @echo {end}
 del %TMPFILE%

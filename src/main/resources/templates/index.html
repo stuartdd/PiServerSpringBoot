@@ -156,8 +156,8 @@
 
                 for (var index = 0; index < imageData.files.length; index++) {
                     var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.path + "/name/";
-                    
-                    image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData.files[index].name.name + "\" src=\"" + path +  imageData.files[index].name.encName + "\"></td>";
+
+                    image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData.files[index].name.name + "\" src=\"" + path + imageData.files[index].name.encName + "\"></td>";
                     if (imagePos < userData.imagesPerRow) {
                         imagePos++;
                     } else {
@@ -183,15 +183,20 @@
 
             function displayThumbnailsHistory() {
                 var htmlStr = "<table border=\"1\">";
-                for (var index = 0; index < userData.imageHistory.length; index++) {
-                    htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/files/" + userData.imageHistory[index] + "\"></td>";
-                    htmlStr = htmlStr + "<td>" + userData.imageHistory[index].replace("images", "original") + "</td></tr>";
+                if ((userData.imageHistory === null) || (userData.imageHistory.length === 0)) {
+                    userData.imageHistory = [];
+                    alert("History Is Empty");
+                } else {
+                    for (var index = 0; index < userData.imageHistory.length; index++) {
+                        htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/files/" + userData.imageHistory[index] + "\"></td>";
+                        htmlStr = htmlStr + "<td>" + userData.imageHistory[index].replace("images", "original") + "</td></tr>";
+                    }
+                    htmlStr += "</table>";
+                    document.getElementById('thumbnailImgeHeadingHistory').innerHTML = " [" + userData.imageHistory.length + "] Previously viewed images for " + currentUserCaps;
+                    document.getElementById('thumbnailImageListHistory').innerHTML = htmlStr;
+                    displayMap.delete('thumbnailsImageHistory');
+                    displayPage('thumbnailsImageHistory');
                 }
-                htmlStr += "</table>";
-                document.getElementById('thumbnailImgeHeadingHistory').innerHTML = " [" + userData.imageHistory.length + "] Previously viewed images for " + currentUserCaps;
-                document.getElementById('thumbnailImageListHistory').innerHTML = htmlStr;
-                displayMap.delete('thumbnailsImageHistory');
-                displayPage('thumbnailsImageHistory');
             }
 
             function loadThumbnails(entryId) {
@@ -281,7 +286,7 @@
                 imageIsHistoric = historic;
 
                 if (!historic) {
-                    tempName="user/" + imageData.user + "/loc/images/path/" + imageData.path + "/name/" + imageName;
+                    tempName = "user/" + imageData.user + "/loc/images/path/" + imageData.path + "/name/" + imageName;
                     var tempList = [tempName];
                     for (i = 0; i < userData.imageHistory.length; i++) {
                         if (userData.imageHistory[i] !== tempName) {
@@ -291,7 +296,6 @@
                     userData.imageHistory = tempList.slice(0, historyMaxLen);
                     saveUserData();
                 }
-
                 var widthAttr = "width=\"100%\"";
                 if (imageIsZoomed) {
                     widthAttr = "";
@@ -325,7 +329,7 @@
                 var ds = JSON.parse(result);
                 var htmlStr = "<table width=\"100%\" border=\"1\">";
                 for (var i = 0; i < ds.length; i++) {
-                    htmlStr += "<tr ><td style=\"width:20%\">" + ds[i].Name + "</td><td>" + ds[i].State + "</td></tr>";
+                    htmlStr += "<tr ><td style=\"width:20%\">" + ds[i].name + "</td><td>" + ds[i].state + "</td></tr>";
                 }
                 htmlStr += "</table>";
                 document.getElementById('diskStatus').innerHTML = htmlStr;
@@ -416,11 +420,11 @@
             }
 
             function saveUserData() {
-                serverPostData(userData, setUserData, responseError, "/files/user/"+currentUser+"/loc/data/path/state/name/state.json");
+                serverPostData(userData, setUserData, responseError, "/files/user/" + currentUser + "/loc/data/path/state/name/state.json");
             }
 
             function loadUserData() {
-                serverGetData(setUserData, responseError, "/files/user/"+currentUser+"/loc/data/path/state/name/state.json");
+                serverGetData(setUserData, responseError, "/files/user/" + currentUser + "/loc/data/path/state/name/state.json");
             }
 
             window.onload = function () {
@@ -486,6 +490,24 @@
 
             function refreshAudioState() {
                 serverGetData(respAudioStatus, responseError, "audio/status");
+            }
+
+            function restartTheServerResponse(result) {
+                var status = JSON.parse(result);
+                alert("Status :" + status.Status + " Server is" + status.Msg + "\nThis may take a couple of seconds");
+            }
+            function restartTheServer() {
+                if (confirm('Are you sure you want to restart the server?')) {
+                    serverGetData(restartTheServerResponse, responseError, "server/restart");
+                }
+            }
+
+            function clearThumbnailsList() {
+                if (confirm('Are you sure you want to clear this list?')) {
+                    userData.imageHistory = [];
+                    saveUserData();
+                    refreshLoadedThumbnails();
+                }
             }
         </script>
     </head>
@@ -594,6 +616,7 @@
 
             <div class="Top" id="thumbnailsImageHistory">
                 <span class="SectionName" id="thumbnailImgeHeadingHistory"></span>
+                <button class="MenuButtonWide" onclick="clearThumbnailsList()">Clear This List</button>
                 <div id="thumbnailImageListHistory">IMG</div>
                 <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
             </div>
@@ -624,6 +647,9 @@
                 <div id="diskStatus"></div> 
                 <H4>RSync Logs (Latest First)</H4>
                 <div id="logList"></div>
+                <H4>Restart The Server</H4>
+                <button class="MenuButton" onclick="restartTheServer()">Restart</button>
+
             </div> 
 
             <div class="Top" id="logDisplayDiv">
