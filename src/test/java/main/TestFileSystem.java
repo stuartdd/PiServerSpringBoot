@@ -65,6 +65,8 @@ public class TestFileSystem {
 
     @Test
     public void testInOrder() throws Exception {
+        testLogs();
+        testReadLogs();
         testFileLoadJpg();
         testFileLoadJpgJpg();
         testFileLoadOriginal();
@@ -73,22 +75,18 @@ public class TestFileSystem {
         testFilesJpg();
         testFilesNoMatch();
         testFilesGif();
-        testReadLogs();
-        testLogs();
         testPathIoJsonLoad();
         testGetPathsSrc();
         testGetPathsUserNotFound();
         testGetPathsLocNotFound();
     }
-    
-    
 
     private void testFileLoadJpgJpg() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
         assertEquals(919160, resp.length);
     }
-    
+
     private void testFileLoadJpg() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
@@ -102,13 +100,13 @@ public class TestFileSystem {
     }
 
     private void testReadLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/logs/file/testLog 001.log")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/testLog 001.log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         assertTrue((resp.length() > 1100) && (resp.length() < 1110));
     }
 
     private void testLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/logs")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/loc/logs?ext=log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, fileList.getFiles().size());

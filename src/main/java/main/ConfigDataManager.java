@@ -116,10 +116,6 @@ public class ConfigDataManager {
         return configData.getResources().getUsers();
     }
 
-    public static boolean userExists(String user) {
-        return configData.getResources().getUsers().containsKey(user);
-    }
-
     public static Map<String, String> getUser(String user) {
         Map<String, String> loc = getUsers().get(user);
         if (loc == null) {
@@ -135,10 +131,6 @@ public class ConfigDataManager {
         }
         return path;
 
-    }
-
-    public static File getLocation(String user, String locationName) {
-        return getLocation(user, locationName, null);
     }
 
     public static File getLocation(String user, String locationName, String path) {
@@ -158,7 +150,12 @@ public class ConfigDataManager {
         }
         File f;
         if (path == null) {
-            f = new File((new File(loc)).getAbsolutePath());
+            if (name == null) {
+                f = new File((new File(loc)).getAbsolutePath());
+            } else {
+                f = new File((new File(loc + File.separator + name)).getAbsolutePath());
+            }
+
         } else {
             if (name == null) {
                 f = new File((new File(loc + File.separator + path)).getAbsolutePath());

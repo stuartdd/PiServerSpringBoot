@@ -68,7 +68,7 @@
                 document.getElementById('shareSizeText').innerHTML = "User file sizes are loading. Please wait...";
                 serverGetData(setUserFileSizes, responseError, "server/ufs");
                 serverGetData(setDiskStatus, responseError, "func/ds");
-                serverGetData(setLogList, response404, "logs");
+                serverGetData(setLogList, response404, "files/loc/logs?ext=log");
                 displayMap.delete('detailsDiv');
                 displayPage('detailsDiv');
             }
@@ -100,7 +100,7 @@
 
             function reLoadLogFile() {
                 document.getElementById('logDisplayCode').innerHTML = "Please wait. Loading file: " + currentLogFileName;
-                serverGetData(displayLoadedFile, responseError, "logs/file/" + currentLogFileName);
+                serverGetData(displayLoadedFile, responseError, "files/loc/logs/name/" + currentLogFileName);
                 displayMap.delete('logDisplayDiv');
                 displayPage('logDisplayDiv');
             }
@@ -185,7 +185,7 @@
                 var htmlStr = "<table border=\"1\">";
                 if ((userData.imageHistory === null) || (userData.imageHistory.length === 0)) {
                     userData.imageHistory = [];
-                    alert("History Is Empty");
+                    alert("History of previously viewed images is empty");
                 } else {
                     for (var index = 0; index < userData.imageHistory.length; index++) {
                         htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/files/" + userData.imageHistory[index] + "\"></td>";
@@ -222,7 +222,7 @@
                     return;
                 }
                 var newIndex = imageIndex + next;
-                if ((newIndex >= 0) && (newIndex <= (imageData.length - 1))) {
+                if ((newIndex >= 0) && (newIndex <= (imageData.files.length - 1))) {
                     displayOriginal(newIndex, false);
                 }
             }
@@ -413,6 +413,9 @@
             }
 
             function setUserData(result) {
+                if (result === "") {
+                    return;
+                }
                 userData = JSON.parse(result);
                 if (userData.imageHistory === undefined) {
                     userData.imageHistory = [];
