@@ -141,11 +141,11 @@ public class ConfigDataManager {
         return getLocation(user, locationName, null);
     }
 
-    public static File getLocation(String user, String locationName, String dir) {
-        return getLocation(user, locationName, dir, null);
+    public static File getLocation(String user, String locationName, String path) {
+        return getLocation(user, locationName, path, null);
     }
 
-    public static File getLocation(String user, String locationName, String dir, String name) {
+    public static File getLocation(String user, String locationName, String path, String name) {
         String loc;
         if (user == null) {
             loc = getLocation(locationName);
@@ -153,23 +153,23 @@ public class ConfigDataManager {
             Map<String, String> map = getUser(user);
             loc = map.get(locationName);
             if (loc == null) {
-                throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (dir == null ? "" : "." + dir));
+                throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path));
             }
         }
         File f;
-        if (dir == null) {
+        if (path == null) {
             f = new File((new File(loc)).getAbsolutePath());
         } else {
             if (name == null) {
-                f = new File((new File(loc + File.separator + dir)).getAbsolutePath());
+                f = new File((new File(loc + File.separator + path)).getAbsolutePath());
             } else {
-                f = new File((new File(loc + File.separator + dir + File.separator + name)).getAbsolutePath());
+                f = new File((new File(loc + File.separator + path + File.separator + name)).getAbsolutePath());
             }
         }
         if (f.exists()) {
             return f;
         }
-        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (dir == null ? "" : "." + dir) + (name == null ? "" : "." + name));
+        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name));
     }
 
     public static Map<String, String> getLocations() {
