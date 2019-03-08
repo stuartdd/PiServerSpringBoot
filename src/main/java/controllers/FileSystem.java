@@ -47,7 +47,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.POST)
     public ResponseEntity writeFile(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestBody String body) {
-        FileService.saveFiles(user, loc, path, name, body);
+        FileService.saveFile(user, loc, path, name, body);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
@@ -70,7 +70,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
             name = StringUtils.parseThumbnailFileName(name);
         }
-        byte[] bytes = FileService.userFiles(user, loc, path, name);
+        byte[] bytes = FileService.userReadFiles(user, loc, path, name);
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
         headers.add("Content-Type", StringUtils.getMediaTypeFroFile(name));
@@ -136,9 +136,9 @@ public class FileSystem extends ControllerErrorHandlerBase {
     public FileListIo listFilesBase(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @RequestParam Map<String, String> queryParameters) {
         String filter = queryParameters.getOrDefault("ext", null);
         if ((filter == null) || (filter.isEmpty())) {
-            return FileService.userFiles(user, loc, path);
+            return FileService.userListFiles(user, loc, path);
         }
-        return FileService.userFiles(user, loc, path, filter.split("\\,"));
+        return FileService.userListFiles(user, loc, path, filter.split("\\,"));
     }
     
     /**

@@ -180,7 +180,7 @@ public class ConfigDataManager {
         return map;
     }
 
-    public static String formattedTimeSatmp() {
+    public static String formattedTimeStamp() {
         DateTime now = DateTime.now();
         return now.toString(configData.getFormatTimeStamp());
     }

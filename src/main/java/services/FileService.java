@@ -51,7 +51,7 @@ public class FileService {
         return resp;
     }
 
-    public static void saveFiles(String user, String loc, String path, String name, String body) {
+    public static void saveFile(String user, String loc, String path, String name, String body) {
         if ((name == null) || (name.isEmpty())) {
             throw new ServerRestException("Name must be provided", HttpStatus.BAD_REQUEST, "BAD REQUEST");
         }
@@ -62,7 +62,7 @@ public class FileService {
         FileUtils.writeFileOverwrite(body, new File(root.getAbsolutePath()+File.separator+name));
     }
 
-    public static byte[] userFiles(String user, String loc, String dir, String name) {
+    public static byte[] userReadFiles(String user, String loc, String dir, String name) {
         File root = ConfigDataManager.getLocation(user, loc, dir, name);
         try {
             return FileUtils.loadBinaryFile(root);
@@ -71,18 +71,18 @@ public class FileService {
         }
     }
 
-    public static FileListIo userFiles(String user, String loc, String dir) {
-        return userFiles(user, loc, dir, (FileFilter) null);
+    public static FileListIo userListFiles(String user, String loc, String dir) {
+        return userListFiles(user, loc, dir, (FileFilter) null);
     }
 
-    public static FileListIo userFiles(String user, String loc, String dir, String[] filter) {
+    public static FileListIo userListFiles(String user, String loc, String dir, String[] filter) {
         if ((filter == null) || (filter.length == 0)) {
-            return userFiles(user, loc, dir, (FileFilter) null);
+            return userListFiles(user, loc, dir, (FileFilter) null);
         }
-        return userFiles(user, loc, dir, new FileExtFilter(filter));
+        return userListFiles(user, loc, dir, new FileExtFilter(filter));
     }
 
-    public static FileListIo userFiles(String user, String loc, String dir, FileFilter filter) {
+    private static FileListIo userListFiles(String user, String loc, String dir, FileFilter filter) {
         File root = ConfigDataManager.getLocation(user, loc, dir);
         FileListIo fileListOut = new FileListIo(user, loc, dir);
         File[] fileList = null;
@@ -97,15 +97,6 @@ public class FileService {
             }
         }
         return fileListOut;
-    }
-
-    public static String userFilesRead(String user, String loc, String dir, String file) {
-        File root = ConfigDataManager.getLocation(user, loc, dir);
-        try {
-            return FileUtils.loadFile(new File(root.getAbsolutePath() + File.separator + EncodeDecode.decode(file)));
-        } catch (IOException ex) {
-            throw new ResourceNotFoundException("Failed to read log", ex);
-        }
     }
 
 }

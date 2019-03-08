@@ -43,7 +43,7 @@ public class ServerService {
                 + "\"month\":" + dt.monthOfYear().get() + ", "
                 + "\"dom\":" + dt.dayOfMonth().get() + ", "
                 + "\"mon\":\"" + dt.monthOfYear().getAsText() + "\", "
-                + "\"timestamp\":\"" + ConfigDataManager.formattedTimeSatmp() + "\"}}";
+                + "\"timestamp\":\"" + ConfigDataManager.formattedTimeStamp() + "\"}}";
     } 
     
 
