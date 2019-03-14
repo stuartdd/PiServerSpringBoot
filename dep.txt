@@ -71,6 +71,17 @@ compile - Dependencies for source set 'main' (deprecated, use 'implementation ' 
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -138,6 +149,17 @@ compileClasspath - Compile classpath for source set 'main'.
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -208,6 +230,17 @@ default - Configuration for default artifacts.
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -278,6 +311,17 @@ runtime - Runtime dependencies for source set 'main' (deprecated, use 'runtimeOn
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -345,6 +389,17 @@ runtimeClasspath - Runtime classpath of source set 'main'.
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -418,6 +473,17 @@ testCompile - Dependencies for source set 'test' (deprecated, use 'testImplement
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -514,6 +580,17 @@ testCompileClasspath - Compile classpath for source set 'test'.
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -616,6 +693,17 @@ testRuntime - Runtime dependencies for source set 'test' (deprecated, use 'testR
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4
@@ -712,6 +800,17 @@ testRuntimeClasspath - Runtime classpath of source set 'test'.
 |         +--- org.springframework:spring-core:5.1.5.RELEASE (*)
 |         +--- org.springframework:spring-expression:5.1.5.RELEASE (*)
 |         \--- org.springframework:spring-web:5.1.5.RELEASE (*)
++--- org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE
+|    +--- org.apache.logging.log4j:log4j-slf4j-impl:2.11.2
+|    |    +--- org.slf4j:slf4j-api:1.7.25
+|    |    +--- org.apache.logging.log4j:log4j-api:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-core:2.11.2
+|    |         \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    +--- org.apache.logging.log4j:log4j-core:2.11.2 (*)
+|    +--- org.apache.logging.log4j:log4j-jul:2.11.2
+|    |    \--- org.apache.logging.log4j:log4j-api:2.11.2
+|    \--- org.slf4j:jul-to-slf4j:1.7.25
+|         \--- org.slf4j:slf4j-api:1.7.25
 +--- joda-time:joda-time:2.10.1
 +--- com.googlecode.soundlibs:tritonus-share:0.3.7.4
 +--- com.googlecode.soundlibs:mp3spi:1.9.5.4

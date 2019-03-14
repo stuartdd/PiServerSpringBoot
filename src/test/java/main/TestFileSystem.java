@@ -20,6 +20,7 @@ package main;
 
 import io.FileListIo;
 import io.PathsIO;
+import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
@@ -61,6 +62,15 @@ public class TestFileSystem {
     @BeforeClass
     public static void beforeClass() {
         ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
+        String lName = ConfigDataManager.getConfigData().getLogName().toLowerCase();
+        File f = new File(ConfigDataManager.getConfigData().getLogPath());
+        File[] l = f.listFiles();
+        for (File fil:l) {
+            String n = fil.getName();
+            if ((n.toLowerCase().contains(lName)) && (n.toLowerCase().endsWith(".log"))) {
+                fil.delete();
+            }
+        }
     }
 
     @Test
@@ -100,9 +110,9 @@ public class TestFileSystem {
     }
 
     private void testReadLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/testLog 001.log")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/PiServer.log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
-        assertTrue((resp.length() > 1100) && (resp.length() < 1110));
+        assertTrue(resp.length() > 100) ;
     }
 
     private void testLogs() throws Exception {
@@ -110,8 +120,8 @@ public class TestFileSystem {
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, fileList.getFiles().size());
-        assertEquals("testLog 001.log", fileList.getFiles().get(0).getName().getName());
-        assertEquals("testLog%20001.log", fileList.getFiles().get(0).getName().getEncName());
+        assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getName());
+        assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getEncName());
     }
 
     public void testPathIoJsonLoad() {
