@@ -47,7 +47,7 @@ public class TestFileSystem {
     private MockMvc mvc;
 
     private static final String JSON = "{\n"
-            + "	\"loc\": \"images\",\n"
+            + "	\"loc\": \"thumbs\",\n"
             + "	\"user\": \"stuart\",\n"
             + "	\"paths\": [{\n"
             + "		\"name\": \"/200609 Pics-01/200707A0\",\n"
@@ -65,20 +65,20 @@ public class TestFileSystem {
 
     @Test
     public void testInOrder() throws Exception {
+        testGetPathsUserNotFound();
+        testGetPathsLocNotFound();
+        testFilesAll();
         testLogs();
         testReadLogs();
         testFileLoadJpg();
         testFileLoadJpgJpg();
         testFileLoadOriginal();
-        testFilesAll();
         testFilesJpgGif();
         testFilesJpg();
         testFilesNoMatch();
         testFilesGif();
         testPathIoJsonLoad();
         testGetPathsSrc();
-        testGetPathsUserNotFound();
-        testGetPathsLocNotFound();
     }
 
     private void testFileLoadJpgJpg() throws Exception {
@@ -116,7 +116,7 @@ public class TestFileSystem {
 
     public void testPathIoJsonLoad() {
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, JSON);
-        assertEquals("images", paths.getLoc());
+        assertEquals("thumbs", paths.getLoc());
         assertEquals("stuart", paths.getUser());
         assertEquals(2, paths.getPaths().size());
         assertEquals("/200609%20Pics%2D01/200707A0", paths.getPaths().get(0).getEncName());
@@ -124,52 +124,52 @@ public class TestFileSystem {
     }
 
     private void testFilesJpg() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/lg 001?ext=jpg")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=jpg")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("images", files.getLoc());
+        assertEquals("thumbs", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
     private void testFilesJpgGif() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/lg 001?ext=jpg,gif")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=jpg,gif")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(4, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("images", files.getLoc());
+        assertEquals("thumbs", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
     private void testFilesGif() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/lg 001?ext=gif")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=gif")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("images", files.getLoc());
+        assertEquals("thumbs", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
     private void testFilesAll() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/lg 001")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(5, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("images", files.getLoc());
+        assertEquals("thumbs", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
     private void testFilesNoMatch() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/images/path/lg 001?ext=jxx")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=jxx")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(0, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("images", files.getLoc());
+        assertEquals("thumbs", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
@@ -178,7 +178,6 @@ public class TestFileSystem {
         String resp = mvcResult.getResponse().getContentAsString();
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
         String str = StringUtils.listToString(paths.getPaths(), "|");
-        System.out.println(str);
         str = StringUtils.replaceAll(str, '\\', '/');
         assertTrue(str.contains("/main/java/main|"));
         assertTrue(str.contains("/main/java/services|"));

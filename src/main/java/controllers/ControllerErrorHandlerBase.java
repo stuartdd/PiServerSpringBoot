@@ -16,12 +16,11 @@
  */
 package controllers;
 
+import config.LogProvider;
 import exceptions.ServerRestException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
@@ -29,9 +28,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @author stuart
  */
 public class ControllerErrorHandlerBase {
-
-    private static final Logger logger = LogManager.getLogger("ControllerErrorHandlerBase");
-
     /**
      * Required for when a request method throws an exception.
      *
@@ -68,9 +64,9 @@ public class ControllerErrorHandlerBase {
             message = "{\"Status\":" + status + ", \"Msg\":\"" + cause.getMessage() + "\", \"Entity\":\"Unknown\"}";
         }
         if (fullLog) {
-            logger.error("MESSAGE: " + message + "\nCAUSE MESSAGE: " + cause.getMessage() + "\nROOT EXCEPTION:", root);
+            LogProvider.logErr("MESSAGE: " + message + "\nCAUSE MESSAGE: " + cause.getMessage() + "\nROOT EXCEPTION:", root);
         } else {
-            logger.error(message + " CAUSE: " + cause.getMessage());
+            LogProvider.logErr(message + " CAUSE: " + cause.getMessage());
         }
         /*
         Define the headers for the error.

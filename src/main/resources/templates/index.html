@@ -83,7 +83,7 @@
                 document.getElementById('thumbnailDirList').innerHTML = "No Image data has been created";
                 document.getElementById('thumbnailImageList').innerHTML = "No Images to display";
                 document.getElementById('timeDisplay').hidden = false;
-                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/images");
+                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/thumbs");
                 displayMap.clear();
                 displayPage("thumbnails");
             }
@@ -203,7 +203,7 @@
                 linkHistory.push("id" + entryId);
                 currentThumbnailPath = imagePathData.paths[entryId].encName;
                 document.getElementById('thumbnailImgeHeading').innerHTML = "Please wait. Loading Thumbnails " + currentThumbnailPath;
-                serverGetData(displayLoadedThumbnails, responseError, "files/user/" + currentUser + "/loc/images/path/" + currentThumbnailPath);
+                serverGetData(displayLoadedThumbnails, responseError, "files/user/" + currentUser + "/loc/thumbs/path/" + currentThumbnailPath);
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
             }
@@ -286,7 +286,7 @@
                 imageIsHistoric = historic;
 
                 if (!historic) {
-                    tempName = "user/" + imageData.user + "/loc/images/path/" + imageData.path + "/name/" + imageName;
+                    tempName = "user/" + imageData.user + "/loc/thumbs/path/" + imageData.path + "/name/" + imageName;
                     var tempList = [tempName];
                     for (i = 0; i < userData.imageHistory.length; i++) {
                         if (userData.imageHistory[i] !== tempName) {

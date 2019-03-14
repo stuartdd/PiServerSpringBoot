@@ -5,7 +5,6 @@
  */
 package config;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +19,30 @@ public class ConfigData {
     private Map<String, String> system;
     private boolean allowServerStopCtrl = true;
     private boolean validateLocations = true;
+    private String logName;
+    private String logPath;
+    
+    public String getLogPath() {
+        return logPath;
+    }
+
+    public void setLogPath(String logPath) {
+        if (!System.getProperties().containsKey("logPath")) {
+            System.getProperties().put("logPath", logPath);
+        }
+        this.logPath = logPath;
+    }
+
+    public String getLogName() {
+        return logName;
+    }
+
+    public void setLogName(String logName) {
+        if (!System.getProperties().containsKey("logName")) {
+            System.getProperties().put("logName", logName);
+        }
+        this.logName = logName;
+    }
 
     public Resources getResources() {
         return resources;

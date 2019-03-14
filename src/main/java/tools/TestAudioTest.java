@@ -16,10 +16,8 @@
  */
 package tools;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import config.LogProvider;
 import javafx.scene.media.AudioClip;
-import tools.AudioPlayerThread;
 
 /**
  *
@@ -32,10 +30,10 @@ public class TestAudioTest {
         try {
             t.getAudioStatus();
         } catch (InterruptedException ex) {
-            Logger.getLogger(TestAudioTest.class.getName()).log(Level.SEVERE, null, ex);
+            LogProvider.logErr("", ex);
         }
     }
-    
+
     public void getAudioStatus() throws InterruptedException {
         AudioPlayerThread apt = new AudioPlayerThread("Caledonia.mp3", 50);
         long st = System.currentTimeMillis();
@@ -60,7 +58,7 @@ public class TestAudioTest {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TestAudioTest.class.getName()).log(Level.SEVERE, null, ex);
+            LogProvider.logErr("", ex);
         }
     }
 

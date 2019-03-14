@@ -16,11 +16,10 @@
  */
 package services;
 
+import config.LogProvider;
 import java.io.File;
 import static java.lang.Thread.sleep;
 import main.ConfigDataManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
@@ -31,8 +30,6 @@ import tools.FileUtils;
  * @author stuart
  */
 public class ShutDownService {
-
-    private static final Logger logger = LogManager.getLogger("ShutDownService");
 
     public static String shutDownLater(ApplicationContext ac, int rc, long delay, String log) {
         ShutDown shutDown = new ShutDown(ac, rc, delay, log);
@@ -65,7 +62,7 @@ public class ShutDownService {
             } catch (InterruptedException ex) {
 
             }
-            logger.info(getMessage());
+            LogProvider.log(getMessage());
             setExitFlag(rc);
             SpringApplication.exit(appContext, new ExitCodeGenerator() {
                 @Override
@@ -79,7 +76,7 @@ public class ShutDownService {
     public static void setExitFlag(int n) {
         String fileName = ConfigDataManager.getLocation("cache") + File.separator + "RC_DATA.txt";
         FileUtils.writeFileOverwrite("" + n, new File(fileName));
-        logger.info("EXIT FLAG " + fileName + " SET:" + n);
+        LogProvider.log("EXIT FLAG " + fileName + " SET:" + n);
     }
 
 }

@@ -1,15 +1,12 @@
 package cmd;
 
+import config.LogProvider;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import main.ConfigDataManager;
-import tools.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -17,7 +14,6 @@ import org.apache.logging.log4j.Logger;
  */
 public class SystemCommand {
 
-    private static final Logger logger = LogManager.getLogger("SystemCommand");
     private static final String NL = System.getProperty("line.separator");
     private final StringBuilder errorStream = new StringBuilder();
     private final StringBuilder outputStream = new StringBuilder();
@@ -42,14 +38,14 @@ public class SystemCommand {
             builder.directory(new File(path));
         }
         if (echoScriptOutput) {
-            logger.info("CMD:CURRENT_DIR: " + builder.directory().getAbsolutePath());
+            LogProvider.log("CMD:CURRENT_DIR: " + builder.directory().getAbsolutePath());
         }
 
         Process p;
         try {
             p = builder.start();
         } catch (IOException ex) {
-            throw new SystemCommandException("Failed (EX) command :" + commands, ex);
+            throw new SystemCommandException("Failed (IOException) command :" + commands, ex);
         }
 
         try {
@@ -58,7 +54,7 @@ public class SystemCommand {
             String line;
             while ((line = bufferedReaderOut.readLine()) != null) {
                 if (echoScriptOutput) {
-                    logger.info("CMD:OUT:" + commands + " --> " + line);
+                    LogProvider.log("CMD:OUT:" + commands + " --> " + line);
                 }
                 outputStream.append(line).append(NL);
             }
@@ -67,12 +63,12 @@ public class SystemCommand {
 
             while ((line = bufferedReaderErr.readLine()) != null) {
                 if (echoScriptOutput) {
-                    logger.info("CMD:ERR:" + commands + " --> " + line);
+                    LogProvider.logErr("CMD:ERR:" + commands + " --> " + line);
                 }
                 errorStream.append(line).append(NL);
             }
         } catch (IOException ex) {
-            throw new SystemCommandException("Failed (IO) command :" + commands, ex);
+            throw new SystemCommandException("Failed (IOException) command :" + commands, ex);
         }
 
         try {
@@ -82,7 +78,7 @@ public class SystemCommand {
         }
         exitValue = p.exitValue();
         if (echoScriptOutput) {
-            logger.info("CMD:EXIT: Code=" + exitValue);
+            LogProvider.log("CMD:EXIT: Code=" + exitValue);
         }
         return exitValue;
     }

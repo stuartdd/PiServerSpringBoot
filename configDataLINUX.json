@@ -2,6 +2,8 @@
     "system": {
         "server.port": "8080"
     },
+    "logPath": "/logs",
+    "logName": "PiServer",
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validateLocations": false,
@@ -9,8 +11,8 @@
         "historyMaxLen": 20,
         "root": "/home/pi/PiServer/web",
         "users": {
-            "stuart": {"images":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
-            "shared": {"images":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"}
+            "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
+            "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"}
         },
         "locations": {
             "logs": "data/logs",

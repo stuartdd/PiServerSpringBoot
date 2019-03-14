@@ -35,6 +35,7 @@ import tools.StringUtils;
 public class ConfigDataManager {
 
     private static ConfigData configData;
+    private static String configDataName;
     private static Map<String, String> parameters;
 
     public static ConfigData getConfigData() {
@@ -44,14 +45,16 @@ public class ConfigDataManager {
     public static void init(String[] args) {
         if (configData == null) {
             if (args.length > 0) {
-                configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File(args[0]));
+                configDataName = args[0];
             } else {
-                configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File("configTestData.json"));
+                configDataName = "configTestData.json";
             }
         }
+        String configErrorPrefix = "Config data file:" + configDataName + ": ";
+        configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File(configDataName));
 
         if ((configData.getResources() == null) || (configData.getResources().getUsers() == null) || (configData.getResources().getUsers().size() == 0)) {
-            throw new ConfigDataException("User data 'resources-->users' not found or is empty");
+            throw new ConfigDataException(configErrorPrefix + "User data 'resources-->users' not found or is empty");
         }
 
         if (configData.isValidateLocations()) {
@@ -61,7 +64,7 @@ public class ConfigDataManager {
                         File f = new File(loc.getValue());
                         f = new File(f.getAbsolutePath());
                         if (!f.exists()) {
-                            throw new ConfigDataException("User '" + loc.getKey() + "'. Path '" + loc.getValue() + "' does not exist");
+                            throw new ConfigDataException(configErrorPrefix + "User '" + loc.getKey() + "'. Path '" + loc.getValue() + "' does not exist");
                         }
                     }
                 }
@@ -69,15 +72,15 @@ public class ConfigDataManager {
         }
 
         if ((configData.getResources().getLocations() == null) || (configData.getResources().getLocations().size() == 0)) {
-            throw new ConfigDataException("Location data 'resources-->locations' not found or is empty");
+            throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
         }
 
         if (configData.getResources().getLocations().get("scripts") == null) {
-            throw new ConfigDataException("Location 'scripts' is undefined");
+            throw new ConfigDataException(configErrorPrefix + "Location 'scripts' is undefined");
         }
 
         if (configData.getResources().getLocations().get("cache") == null) {
-            throw new ConfigDataException("Location 'cache' is undefined");
+            throw new ConfigDataException(configErrorPrefix + "Location 'cache' is undefined");
         }
 
         if (configData.isValidateLocations()) {
@@ -85,20 +88,21 @@ public class ConfigDataManager {
                 File f = new File(loc.getValue());
                 f = new File(f.getAbsolutePath());
                 if (!f.exists()) {
-                    throw new ConfigDataException("Location '" + loc.getKey() + "=" + loc.getValue() + " does not exist");
+                    throw new ConfigDataException(configErrorPrefix + "Location '" + loc.getKey() + "=" + loc.getValue() + " does not exist");
                 }
             }
         }
 
         if ((configData.getFunctions() == null) || (configData.getFunctions().getCommands() == null) || (configData.getFunctions().getCommands().size() == 0)) {
-            throw new ConfigDataException("Config data 'functions-->commands' not found or is empty");
+            throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->commands' not found or is empty");
         }
 
         parameters = new HashMap<>();
         for (Map.Entry<String, String> es : configData.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
         }
-        StringBuffer sb = new StringBuffer();
+
+        StringBuilder sb = new StringBuilder();
         int mark = 0;
         for (String user : getUsers().keySet()) {
             sb.append('"').append(user).append('"');

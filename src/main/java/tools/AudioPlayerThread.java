@@ -16,12 +16,11 @@
  */
 package tools;
 
+import config.LogProvider;
 import exceptions.AudioSetupException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -190,7 +189,7 @@ public class AudioPlayerThread extends Thread {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+                LogProvider.logErr(this.getClass().getName() + " waitForStatusClear: Thread interupted");
             }
             if (timeToQuit < System.currentTimeMillis()) {
                 throw new AudioSetupException("AudioPlayerThread: Wait for status NOT " + status.name() + " timed out!");
@@ -204,7 +203,7 @@ public class AudioPlayerThread extends Thread {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+                LogProvider.logErr(this.getClass().getName() + " waitForStatus: Thread interupted");
             }
             if (timeToQuit < System.currentTimeMillis()) {
                 throw new AudioSetupException("AudioPlayerThread: Wait for status " + status.name() + " timed out!");
@@ -218,7 +217,7 @@ public class AudioPlayerThread extends Thread {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+                LogProvider.logErr(this.getClass().getName() + " waitForRunning: Thread interupted");
             }
             if (timeToQuit < System.currentTimeMillis()) {
                 throw new AudioSetupException("AudioPlayerThread: Wait for player to start running. Timed out!");
@@ -277,7 +276,7 @@ public class AudioPlayerThread extends Thread {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+                LogProvider.logErr(this.getClass().getName() + " blockStreamForPause: Thread interupted");
             }
         }
         threadStatus = ThreadStatus.RUNNING;
@@ -294,7 +293,7 @@ public class AudioPlayerThread extends Thread {
             try {
                 audioInputStream.close();
             } catch (IOException ex) {
-                Logger.getLogger(AudioPlayerThread.class.getName()).log(Level.INFO, null, ex);
+                LogProvider.logErr(this.getClass().getName() + " closeAudioInputStream: Close failed", ex);
             }
         }
     }
