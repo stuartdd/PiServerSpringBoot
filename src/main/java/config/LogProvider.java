@@ -5,21 +5,40 @@
  */
 package config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  *
  * @author 802996013
  */
 public class LogProvider {
+
+    private static Logger logger;
+    private static Logger loggerError;
+
+    private static void init() {
+        if (logger == null) {
+            logger = LogManager.getLogger("Server:");
+        }
+        if (loggerError == null) {
+            loggerError = LogManager.getLogger("ServerError:");
+        }
+    }
+
     public static void log(String s) {
-        System.out.println(s);
+        init();
+        logger.info(s);
     }
 
     public static void logErr(String s) {
-        System.out.println(s);
+        init();
+        logger.error(s);
+        loggerError.error(s);
     }
 
     public static void logErr(String s, Exception e) {
-        System.out.println(s);
-        e.printStackTrace();
+        init();
+        loggerError.error(s, e);
     }
 }

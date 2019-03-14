@@ -32,7 +32,7 @@ public class ControllerErrorHandlerBase {
      * Required for when a request method throws an exception.
      *
      * @param resp The response. So we can return an error message.
-     * @param ex The exception that was thrown.
+     * @param root The exception that was thrown.
      */
     @ExceptionHandler(Exception.class)
     public void handleError(HttpServletResponse resp, Exception root) {
@@ -64,7 +64,7 @@ public class ControllerErrorHandlerBase {
             message = "{\"Status\":" + status + ", \"Msg\":\"" + cause.getMessage() + "\", \"Entity\":\"Unknown\"}";
         }
         if (fullLog) {
-            LogProvider.logErr("MESSAGE: " + message + "\nCAUSE MESSAGE: " + cause.getMessage() + "\nROOT EXCEPTION:", root);
+            LogProvider.logErr(message + " EXCEPTION:", root);
         } else {
             LogProvider.logErr(message + " CAUSE: " + cause.getMessage());
         }

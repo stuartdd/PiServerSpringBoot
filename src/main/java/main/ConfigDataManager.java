@@ -114,6 +114,7 @@ public class ConfigDataManager {
         parameters.put("poleForTime", "" + configData.getFunctions().getPoleForTime());
         parameters.put("historyMaxLen", "" + configData.getResources().getHistoryMaxLen());
         parameters.put("user", "");
+        
     }
 
     public static Map<String, Map<String, String>> getUsers() {

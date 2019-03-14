@@ -33,7 +33,6 @@ public class Main {
     public static void main(String[] args) {
         ConfigDataManager.init(args);
         FunctionService.init(ConfigDataManager.getConfigData().getFunctions());
-        
         ShutDownService.setExitFlag(0);
         ThreadPool.init();
         SpringApplication.run(Main.class, args);
