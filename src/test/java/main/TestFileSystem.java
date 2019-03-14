@@ -134,32 +134,32 @@ public class TestFileSystem {
     }
 
     private void testFilesJpgGif() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=jpg,gif")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001?ext=jpg,gif")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(4, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("thumbs", files.getLoc());
+        assertEquals("original", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
     private void testFilesGif() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=gif")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001?ext=gif")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("thumbs", files.getLoc());
+        assertEquals("original", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 
     private void testFilesAll() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
-        assertEquals(5, files.getFiles().size());
+        assertEquals(4, files.getFiles().size());
         assertEquals("stuart", files.getUser());
-        assertEquals("thumbs", files.getLoc());
+        assertEquals("original", files.getLoc());
         assertEquals("lg 001", files.getPath());
     }
 

@@ -32,6 +32,10 @@
             "unknown": "unknown-OS"
         },
         "commands": {
+             "ds": {
+                "func": "scriptBetween",
+                "script": "diskStatus"
+            }
         }
     }
 }
