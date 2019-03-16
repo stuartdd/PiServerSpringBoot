@@ -17,6 +17,6 @@ sudo du -s /media/USBHDD1/shares/julie >> $TMPFILE
 sudo du -s /media/USBHDD1/shares/owain >> $TMPFILE
 sudo du -s /media/USBHDD1/shares/huw >> $TMPFILE
 echo {start}
-java -cp java external.JsonFormatterPipe -nSize,Name -p1,5 -l5 -de32,47 -ou$CACHE$/userFileSizes.out < $TMPFILE
+java external.JsonFormatterPipe -nSize,Name -p1,5 -l5 -de32,47 -ou$CACHE/userFileSizes.out < $TMPFILE
 echo {end}
 rm $TMPFILE

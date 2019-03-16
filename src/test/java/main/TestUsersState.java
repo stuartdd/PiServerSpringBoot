@@ -35,7 +35,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import tools.OsUtils;
 
@@ -56,16 +55,16 @@ public class TestUsersState {
 
     @Test
     public void getUserData() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/data/path/state/name/state.json")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/data/name/state.json")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         assertTrue(resp.contains("\"imagesPerRow\":"));
         assertTrue(resp.contains("\"imageHistory\":"));
 
-        mvc.perform(post("/files/user/stuart/loc/data/path/state/name/state.json").content(STATE).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
-        mvcResult = mvc.perform(get("/files/user/stuart/loc/data/path/state/name/state.json")).andExpect(status().isOk()).andReturn();
+        mvc.perform(post("/files/user/stuart/loc/data/name/state.json").content(STATE).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
+        mvcResult = mvc.perform(get("/files/user/stuart/loc/data/name/state.json")).andExpect(status().isOk()).andReturn();
         assertEquals(STATE, mvcResult.getResponse().getContentAsString());
 
-        mvc.perform(post("/files/user/stuart/loc/data/path/state/name/state.json").content(resp).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
+        mvc.perform(post("/files/user/stuart/loc/data/name/state.json").content(resp).contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
     }
 
 }

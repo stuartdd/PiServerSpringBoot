@@ -37,7 +37,7 @@
         <Logger name="ServerError:" level="trace" additivity="false">
             <AppenderRef ref="StdErrorFile"/>
         </Logger>
-        <Root level="trace">
+        <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

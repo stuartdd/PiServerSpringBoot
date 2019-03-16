@@ -1,21 +1,21 @@
-2019-03-14 21:03:38.237 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-14 21:03:38.251 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-03-14 21:03:38.569 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-14 21:03:38.573 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q0:./diskStatus.sh
-2019-03-14 21:03:38.573 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q1:%{P0}
-2019-03-14 21:03:38.573 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q2:%{P1}
-2019-03-14 21:03:38.573 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q3:%{P2}
-2019-03-14 21:03:38.573 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> {start}
-2019-03-14 21:03:38.618 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-03-14 21:03:38.620 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> {end}
-2019-03-14 21:03:38.620 INFO  Server: CMD:EXIT: Code=0
-2019-03-14 21:03:38.625 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-14 21:03:38.633 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-14 21:03:38.634 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
-2019-03-14 21:03:38.634 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
-2019-03-14 21:03:38.634 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
-2019-03-14 21:03:38.634 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
-2019-03-14 21:03:38.634 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
-2019-03-14 21:03:38.634 INFO  Server: CMD:EXIT: Code=9
-2019-03-14 21:03:38.640 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-03-14 21:03:38.645 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-16 17:31:07.387 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-16 17:31:07.409 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-16 17:31:07.712 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-16 17:31:07.716 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q0:./diskStatus.sh
+2019-03-16 17:31:07.716 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q1:%{P0}
+2019-03-16 17:31:07.716 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q2:%{P1}
+2019-03-16 17:31:07.716 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> Q3:%{P2}
+2019-03-16 17:31:07.716 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> {start}
+2019-03-16 17:31:07.773 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-16 17:31:07.774 INFO  Server: CMD:OUT:[./diskStatus.sh, %{P0}, %{P1}, %{P2}, %{P3}] --> {end}
+2019-03-16 17:31:07.775 INFO  Server: CMD:EXIT: Code=0
+2019-03-16 17:31:07.779 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-16 17:31:07.785 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-16 17:31:07.786 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
+2019-03-16 17:31:07.786 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
+2019-03-16 17:31:07.786 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
+2019-03-16 17:31:07.786 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
+2019-03-16 17:31:07.786 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
+2019-03-16 17:31:07.786 INFO  Server: CMD:EXIT: Code=9
+2019-03-16 17:31:07.789 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-16 17:31:07.792 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented

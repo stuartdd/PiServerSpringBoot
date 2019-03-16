@@ -51,6 +51,20 @@ public class FileSystem extends ControllerErrorHandlerBase {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
+    
+    /**
+     * Save some JSON text to the server
+     *
+     * @param user User name from resources.users
+     * @param loc location for resources.users.{location}
+     * @param name the name of the file
+     * @param body the JSON text to save!
+     * @return HttpStatus.CREATED
+     */
+    @RequestMapping(value = "/files/user/{user}/loc/{loc}/name/{name}", method = RequestMethod.POST)
+    public ResponseEntity writeFile(@PathVariable String user, @PathVariable String loc, @PathVariable String name, @RequestBody String body) {
+        return writeFile(user, loc, null, name, body);
+    }
 
     /**
      * Read ANY content from the server. If the thumbnail flag is true the the

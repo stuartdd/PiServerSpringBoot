@@ -15,12 +15,11 @@ mput *.*
 chmod 775 *.sh
 
 cd /home/pi/server/scripts/external
-lcd scripts/external
+lcd external
 mput *.*
-chmod 775 *.sh
 
 cd /home/pi/server/audio
-lcd ../audio
+lcd ../../audio
 mput *.*
 
 quit

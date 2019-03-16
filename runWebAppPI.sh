@@ -1,6 +1,5 @@
 #!/bin/bash
 RC=2
-LOGS=logs
 RC_FILE=cache/RC_DATA.txt
 JAR_NAME=PiServerSpringBoot-1.0.jar
 
@@ -22,13 +21,7 @@ echo 'RC FILE :'$RC_FILE
 RC=2
 while [[ $RC -eq 2 ]]
 do
-    LOGFILE=$LOGS/sb_`date +%Y_%m_%d_%H_%M_%S`.log
-    echo "LOG FILE:"$LOGFILE
-    java -jar $EXE_JAR configDataPI.json 2> $LOGFILE
-    if [[ $? -eq 1 ]]
-    then
-        cat $LOGFILE
-    fi
+    java -jar $EXE_JAR configDataPI.json
     RC=`cat $RC_FILE`
     echo 'RESPONSE FROM SERVER: '$RC
 done

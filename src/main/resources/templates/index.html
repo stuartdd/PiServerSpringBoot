@@ -423,11 +423,11 @@
             }
 
             function saveUserData() {
-                serverPostData(userData, setUserData, responseError, "/files/user/" + currentUser + "/loc/data/path/state/name/state.json");
+                serverPostData(userData, setUserData, responseError, "/files/user/" + currentUser + "/loc/data/name/state.json");
             }
 
             function loadUserData() {
-                serverGetData(setUserData, responseError, "/files/user/" + currentUser + "/loc/data/path/state/name/state.json");
+                serverGetData(setUserData, responseError, "/files/user/" + currentUser + "/loc/data/name/state.json");
             }
 
             window.onload = function () {
@@ -658,7 +658,7 @@
             <div class="Top" id="logDisplayDiv">
                 <button id="logDisplayFile" onclick="displayPage('detailsDiv')">Back</button>
                 <button onclick="reLoadLogFile()">ReLoad</button><br>
-                <code id="logDisplayCode">Hello world</code>
+                <pre id="logDisplayCode">Hello world</pre>
             </div>
         </div>
     </body>
