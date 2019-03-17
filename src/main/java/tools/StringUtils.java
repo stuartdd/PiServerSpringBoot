@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.http.MediaType;
 
 /**
  *
@@ -19,27 +18,27 @@ import org.springframework.http.MediaType;
  */
 public class StringUtils {
 
-    private static Map<String, String> map = new HashMap();
+    private static Map<String, MediaTypeInf> map = new HashMap();
 
     static {
-        map.put("jpg", "image/jpeg");
-        map.put("gif", "image/gif");
-        map.put("png", "image/png");
-        map.put("tiff", "image/tiff");
-        map.put("js", "text/javascript");
-        map.put("json", "application/json; charset=UTF-8");
-        map.put("xml", "application/xml; charset=UTF-8");
-        map.put("css", "text/css");
-        map.put("html", "text/html");
-        map.put("log", "text/plain");
-        map.put("txt", "text/plain");
+        map.put("jpg", new MediaTypeInf("image/jpeg"));
+        map.put("gif", new MediaTypeInf("image/gif"));
+        map.put("png", new MediaTypeInf("image/png"));
+        map.put("tiff", new MediaTypeInf("image/tiff"));
+        map.put("js", new MediaTypeInf("text/javascript"));
+        map.put("json", new MediaTypeInf("application/json; charset=UTF-8"));
+        map.put("xml", new MediaTypeInf("application/xml; charset=UTF-8"));
+        map.put("css", new MediaTypeInf("text/css"));
+        map.put("html", new MediaTypeInf("text/html"));
+        map.put("log", new MediaTypeInf("text/plain", true));
+        map.put("txt", new MediaTypeInf("text/plain", true));
     }
 
-    public static String getMediaTypeFroFile(String fileName) {
+    public static MediaTypeInf getMediaTypeFroFile(String fileName) {
         int pos = fileName.lastIndexOf('.');
         if (pos > 0) {
             String ext = fileName.substring(pos + 1);
-            String mt = map.get(ext.toLowerCase());
+            MediaTypeInf mt = map.get(ext.toLowerCase());
             if (mt != null) {
                 return mt;
             }
@@ -195,5 +194,17 @@ public class StringUtils {
             return tn.substring(20);
         }
         return  tn;
+    }
+
+    public static byte[] encodePlainText(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b: bytes) {
+            if (b == '<') {
+                sb.append("&lt;");
+            } else {
+                sb.append((char)b);
+            }
+        }
+        return sb.toString().getBytes();
     }
 }

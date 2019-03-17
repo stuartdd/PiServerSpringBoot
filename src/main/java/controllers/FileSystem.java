@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
+import tools.MediaTypeInf;
 import tools.StringUtils;
 
 @RestController("files")
@@ -87,7 +88,11 @@ public class FileSystem extends ControllerErrorHandlerBase {
         byte[] bytes = FileService.userReadFiles(user, loc, path, name);
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        headers.add("Content-Type", StringUtils.getMediaTypeFroFile(name));
+        MediaTypeInf mediaTypeInf = StringUtils.getMediaTypeFroFile(name);
+        if (mediaTypeInf.isPlainText()) {
+            bytes = StringUtils.encodePlainText(bytes);
+        }
+        headers.add("Content-Type", mediaTypeInf.getMediaType());
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
         return responseEntity;
     }
