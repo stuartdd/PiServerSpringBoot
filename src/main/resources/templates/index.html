@@ -89,7 +89,8 @@
             }
 
             function displayLoadedFile(result) {
-                document.getElementById('logDisplayFile').innerHTML = "Close --> " + currentLogFileName;
+                document.getElementById('logDisplayFile1').innerHTML = "Close --> " + currentLogFileName;
+                document.getElementById('logDisplayFile2').innerHTML = "Close --> " + currentLogFileName;
                 document.getElementById('logDisplayCode').innerHTML = result;
             }
 
@@ -656,9 +657,11 @@
             </div> 
 
             <div class="Top" id="logDisplayDiv">
-                <button id="logDisplayFile" onclick="displayPage('detailsDiv')">Back</button>
+                <button id="logDisplayFile1" onclick="displayPage('detailsDiv')">Back</button>
                 <button onclick="reLoadLogFile()">ReLoad</button><br>
                 <pre id="logDisplayCode">Hello world</pre>
+                <button id="logDisplayFile2" onclick="displayPage('detailsDiv')">Back</button>
+                <button onclick="reLoadLogFile()">ReLoad</button><br>
             </div>
         </div>
     </body>

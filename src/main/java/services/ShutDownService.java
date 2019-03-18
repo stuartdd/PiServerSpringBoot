@@ -57,12 +57,10 @@ public class ShutDownService {
 
         @Override
         public void run() {
-            try {
-                sleep(delay * 1000);
-            } catch (InterruptedException ex) {
-
-            }
+            sleeper(delay * 500);
             LogProvider.log(getMessage());
+            LogProvider.shutDown();
+            sleeper(delay * 500);
             setExitFlag(rc);
             SpringApplication.exit(appContext, new ExitCodeGenerator() {
                 @Override
@@ -77,6 +75,17 @@ public class ShutDownService {
         String fileName = ConfigDataManager.getLocation("cache") + File.separator + "RC_DATA.txt";
         FileUtils.writeFileOverwrite("" + n, new File(fileName));
         LogProvider.log("EXIT FLAG " + fileName + " SET:" + n);
+    }
+
+    private static void sleeper(long delay) {
+        long endTime = System.currentTimeMillis() + delay;
+        while (System.currentTimeMillis() < endTime) {
+            try {
+                sleep(100);
+            } catch (InterruptedException ex) {
+
+            }
+        }
     }
 
 }

@@ -41,4 +41,8 @@ public class LogProvider {
         init();
         loggerError.error(s, e);
     }
+
+    public static void shutDown() {
+        LogManager.shutdown();
+    }
 }
