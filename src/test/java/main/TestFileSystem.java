@@ -22,6 +22,7 @@ import io.FileListIo;
 import io.PathsIO;
 import java.io.File;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -65,10 +66,12 @@ public class TestFileSystem {
         String lName = ConfigDataManager.getConfigData().getLogName().toLowerCase();
         File f = new File(ConfigDataManager.getConfigData().getLogPath());
         File[] l = f.listFiles();
-        for (File fil:l) {
+        for (File fil : l) {
             String n = fil.getName();
-            if ((n.toLowerCase().contains(lName)) && (n.toLowerCase().endsWith(".log"))) {
-                fil.delete();
+            if (!n.contains("Test")) {
+                if ((n.toLowerCase().contains(lName)) && (n.toLowerCase().endsWith(".log"))) {
+                    fil.delete();
+                }
             }
         }
     }
@@ -110,16 +113,19 @@ public class TestFileSystem {
     }
 
     private void testReadLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/PiServer.log")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/PiServerTest.log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
-        assertTrue(resp.length() > 100) ;
+        assertTrue(resp.length() > 100);
+        assertTrue(resp.contains("ERROR Server: &lt;Dry-Run&gt; "));     
+        assertFalse(resp.contains("<"));
+        assertFalse(resp.contains(">"));
     }
 
     private void testLogs() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/files/loc/logs?ext=log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
-        assertEquals(2, fileList.getFiles().size());
+        assertEquals(3, fileList.getFiles().size());
         assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getName());
         assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getEncName());
     }

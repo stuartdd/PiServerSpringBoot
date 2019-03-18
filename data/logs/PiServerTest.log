@@ -1,0 +1,3 @@
+2019-03-18 13:55:19.397 ERROR Server: <Dry-Run> {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-18 13:55:19.428 ERROR Server: <Dry-Run> {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-18 13:55:19.475 ERROR Server: <Dry-Run> {"Status":404, "Msg":"Not Found", "Entity":"logs.PiServerTest.log"} CAUSE: logs.PiServerTest.log
