@@ -185,7 +185,7 @@ public class StringUtils {
         String tn = name.toLowerCase();
         int pos1 = tn.lastIndexOf('.');
         String ext = tn.substring(pos1);
-        tn = tn.substring(0,pos1);
+        tn = tn.substring(0, pos1);
         int pos2 = tn.lastIndexOf(ext);
         if (pos2 < 0) {
             tn = name;
@@ -193,16 +193,20 @@ public class StringUtils {
         if (tn.length() > 25) {
             return tn.substring(20);
         }
-        return  tn;
+        return tn;
     }
 
     public static byte[] encodePlainText(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
-        for (byte b: bytes) {
+        for (byte b : bytes) {
             if (b == '<') {
                 sb.append("&lt;");
             } else {
-                sb.append((char)b);
+                if (b == '>') {
+                    sb.append("&gt;");
+                } else {
+                    sb.append((char) b);
+                }
             }
         }
         return sb.toString().getBytes();
