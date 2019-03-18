@@ -128,6 +128,9 @@ import java.util.Properties;
  */
 public class Template {
 
+    public static enum URESOLVED_ACTION {
+        BLANK, IGNORE, SHOW
+    };
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
     private static final String RESOURCE_PREFIX = "classpath:";
@@ -228,6 +231,10 @@ public class Template {
         return parse(s, map, false);
     }
 
+    public static String parse(String s, Map map, boolean ignoreUnresolvedSubs) {
+        return parse(s, map, (ignoreUnresolvedSubs ? URESOLVED_ACTION.IGNORE : URESOLVED_ACTION.SHOW));
+    }
+
     /**
      * @param s The string to be parsed (containing %{?} tags)
      * @param map The map containing the name value pairs
@@ -235,7 +242,7 @@ public class Template {
      * as they are
      * @return The resultant text (without %{?} values)
      */
-    public static String parse(String s, Map map, boolean ignoreUnresolvedSubs) {
+    public static String parse(String s, Map map, URESOLVED_ACTION unresolvedSubs) {
         Template t = new Template();
         t.fragmentStr = s.getBytes(UTF_8);
         t.maxIndex = t.fragmentStr.length - 1;
@@ -244,7 +251,7 @@ public class Template {
         t.parent = null;
         t.loadViaUrl = false;
         t.cannotUseInclude = false;
-        return t.parse(map, ignoreUnresolvedSubs);
+        return t.parse(map, unresolvedSubs);
     }
 
     private static String[] split(char ch, String s) {
@@ -274,8 +281,12 @@ public class Template {
         return parseDual(data1, null, false);
     }
 
+    public String parse(Map data1, URESOLVED_ACTION unresolvedSubs) {
+        return parseDual(data1, null, unresolvedSubs);
+    }
+
     public String parse(Map data1, boolean ignoreUnresolvedSubs) {
-        return parseDual(data1, null, ignoreUnresolvedSubs);
+        return parseDual(data1, null, (ignoreUnresolvedSubs ? URESOLVED_ACTION.IGNORE : URESOLVED_ACTION.SHOW));
     }
 
     @Override
@@ -301,6 +312,10 @@ public class Template {
     }
 
     private String parseDual(Map data1, Map data2, boolean ignoreUnresolvedSubs) {
+        return parseDual(data1, data2, (ignoreUnresolvedSubs ? URESOLVED_ACTION.IGNORE : URESOLVED_ACTION.SHOW));
+    }
+
+    private String parseDual(Map data1, Map data2, URESOLVED_ACTION unresolvedSubs) {
         int pos = 0;
         byte c;
         StringBuilder sbx = new StringBuilder();
@@ -328,7 +343,7 @@ public class Template {
                             return sbx.toString();
                         } else {
                             pos = pos + var.length() + 1;
-                            String val = lookUpVar(var, data1, data2, ignoreUnresolvedSubs);
+                            String val = lookUpVar(var, data1, data2, unresolvedSubs);
                             if (appendToTemplate) {
                                 sbx.append(val);
                             }
@@ -364,7 +379,7 @@ public class Template {
         return sbx.toString();
     }
 
-    private String lookUpVar(String name, Map data1, Map data2, boolean ignoreUnresolvedSubs) {
+    private String lookUpVar(String name, Map data1, Map data2, URESOLVED_ACTION unresolvedSubs) {
         if (name == null || name.length() == 0) {
             return ERROR_PREFIX + "SUBSTITUTION VAR IS EMPTY" + ERROR_SUFFIX;
         }
@@ -378,11 +393,14 @@ public class Template {
                 String incName = name.substring(BUNDLE_VAR.length());
                 Object incNameValue = getSubVar(incName, data1, data2);
                 if (incNameValue == null) {
-                    if (ignoreUnresolvedSubs) {
-                        return ID_STRING + '{' + incName + '}';
-                    } else {
-                        return ERROR_PREFIX + "'" + INC_VAR + incName
-                                + SUB_NOT_FOUND + ERROR_SUFFIX;
+                    switch (unresolvedSubs) {
+                        case IGNORE:
+                            return ID_STRING + '{' + incName + '}';
+                        case BLANK:
+                            return "";
+                        default:
+                            return ERROR_PREFIX + "'" + INC_VAR + incName
+                                    + SUB_NOT_FOUND + ERROR_SUFFIX;
                     }
                 }
                 try {
@@ -435,7 +453,7 @@ public class Template {
                                     Template f = new Template(fileUrl,
                                             loadViaUrl, repeatTemplateName, this);
                                     sb.append(f.parseDual(data1,
-                                            (Map) listMember, ignoreUnresolvedSubs));
+                                            (Map) listMember, unresolvedSubs));
                                 } catch (TemplateException ex) {
                                     return ignoreException(ERROR_PREFIX + TEMPLATE_STR + ':'
                                             + repeatTemplateName + NOT_FOUND
@@ -473,7 +491,7 @@ public class Template {
                 try {
                     Template f = new Template(fileUrl, loadViaUrl, incName,
                             this);
-                    return f.parseDual(data1, data2, ignoreUnresolvedSubs);
+                    return f.parseDual(data1, data2, unresolvedSubs);
                 } catch (TemplateException ex) {
                     return ignoreException(ERROR_PREFIX + TEMPLATE_STR + ':' + incName + NOT_FOUND + ERROR_SUFFIX, ex);
                 }
@@ -490,17 +508,12 @@ public class Template {
                 String incName = name.substring(INC_VAR.length());
                 Object incNameValue = getSubVar(incName, data1, data2);
                 if (incNameValue == null) {
-                    if (ignoreUnresolvedSubs) {
-                        return ID_STRING + '{' + incName + '}';
-                    } else {
-                        return ERROR_PREFIX + "'" + INC_VAR + incName
-                                + SUB_NOT_FOUND + ERROR_SUFFIX;
-                    }
+                    return getUnresolvedValue(incName, unresolvedSubs);
                 }
                 try {
                     Template f = new Template(fileUrl, loadViaUrl,
                             incNameValue.toString(), this);
-                    return f.parseDual(data1, data2, ignoreUnresolvedSubs);
+                    return f.parseDual(data1, data2, unresolvedSubs);
                 } catch (TemplateException ex) {
                     return ignoreException(ERROR_PREFIX + TEMPLATE_STR + ':' + incNameValue + NOT_FOUND + ERROR_SUFFIX, ex);
                 }
@@ -556,12 +569,7 @@ public class Template {
                 }
                 Object var = getSubVar(vals[1], data1, data2);
                 if (var == null) {
-                    if (ignoreUnresolvedSubs) {
-                        return ID_STRING + '{' + vals[1] + '}';
-                    } else {
-                        return ERROR_PREFIX + "'" + INC_VAR + vals[1]
-                                + SUB_NOT_FOUND + ERROR_SUFFIX;
-                    }
+                    return getUnresolvedValue(vals[1], unresolvedSubs);
                 }
                 data1.put(vals[0], var);
             }
@@ -582,14 +590,21 @@ public class Template {
 
         Object var = getSubVar(name, data1, data2);
         if (var == null) {
-            if (ignoreUnresolvedSubs) {
-                return ID_STRING + '{' + name + '}';
-            } else {
-                return ERROR_PREFIX + "'" + INC_VAR + name
-                        + SUB_NOT_FOUND + ERROR_SUFFIX;
-            }
+            return getUnresolvedValue(name, unresolvedSubs);
         }
         return var.toString();
+    }
+
+    private String getUnresolvedValue(String name, URESOLVED_ACTION unresolvedSubs) {
+        switch (unresolvedSubs) {
+            case IGNORE:
+                return ID_STRING + '{' + name + '}';
+            case BLANK:
+                return "";
+            default:
+                return ERROR_PREFIX + "'" + INC_VAR + name
+                        + SUB_NOT_FOUND + ERROR_SUFFIX;
+        }
     }
 
     protected Object getBundleProperty(String name) {

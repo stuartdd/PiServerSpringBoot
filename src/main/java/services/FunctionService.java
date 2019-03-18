@@ -102,16 +102,17 @@ public class FunctionService {
 
     private Object[] substituteAndSplit(Map<String, String> map, String desc) {
         for (Map.Entry<String, String> key:map.entrySet()) {
-            map.put(key.getKey(), Template.parse(key.getValue(), ConfigDataManager.getLocations(), true));
+            map.put(key.getKey(), Template.parse(key.getValue(), ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.IGNORE));
         }
         for (Map.Entry<String, String> key:map.entrySet()) {
-            map.put(key.getKey(), Template.parse(key.getValue(), map, true));
+            map.put(key.getKey(), Template.parse(key.getValue(), map, Template.URESOLVED_ACTION.IGNORE));
         }
         for (Map.Entry<String, String> key:map.entrySet()) {
-            map.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), true));
+            map.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), Template.URESOLVED_ACTION.IGNORE));
         }
-        String t1 = Template.parse(osTemplate, map, true);
-        t1 = Template.parse(t1, ConfigDataManager.getLocations(), true);
+        String t1 = Template.parse(osTemplate, map, Template.URESOLVED_ACTION.IGNORE);
+        t1 = Template.parse(t1, ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.BLANK);
+        t1 = t1.trim();
         String[] split = t1.split("\\|");
         if (split.length < 2) {
             throw new ConfigDataException(desc + " Invalid number arguments in osTemplates. Min is two. E.g. %{scripts}|%{script}");

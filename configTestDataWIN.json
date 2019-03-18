@@ -37,7 +37,8 @@
         "commands": {
             "ds": {
                 "func": "scriptBetween",
-                "script": "diskStatus"
+                "script": "diskStatus",
+                "P0" : "%{cache}"
             },
             "notImplemented": {
                 "func": "notImplemented"

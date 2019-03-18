@@ -26,3 +26,101 @@
 2019-03-18 14:01:51.038 INFO  Server: CMD:EXIT: Code=9
 2019-03-18 14:01:51.054 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
 2019-03-18 14:01:51.054 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-18 16:38:10.514 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-18 16:38:10.529 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-18 16:38:10.700 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 16:38:10.736 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> Q0:diskStatus.bat
+2019-03-18 16:38:10.736 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> Q1:%{P0} 
+2019-03-18 16:38:10.737 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> Q2:%{P1} 
+2019-03-18 16:38:10.737 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> Q3:%{P2}
+2019-03-18 16:38:10.738 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus30799.txt
+2019-03-18 16:38:10.744 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> {start}
+2019-03-18 16:38:10.885 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-18 16:38:10.894 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat %{P0} %{P1} %{P2} %{P3}] --> {end}
+2019-03-18 16:38:10.897 INFO  Server: CMD:EXIT: Code=0
+2019-03-18 16:38:10.904 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 16:38:10.938 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../ %{P2} %{P3}] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-18 16:38:10.938 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../ %{P2} %{P3}] --> operable program or batch file.
+2019-03-18 16:38:10.938 INFO  Server: CMD:EXIT: Code=1
+2019-03-18 16:38:10.939 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-18 16:38:10.943 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 16:38:10.980 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9   ] --> Q0:returnCode.bat
+2019-03-18 16:38:10.981 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9   ] --> Q1:9 
+2019-03-18 16:38:10.981 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9   ] --> Q2: 
+2019-03-18 16:38:10.982 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9   ] --> Q3:
+2019-03-18 16:38:10.982 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9   ] --> {start}
+2019-03-18 16:38:10.985 INFO  Server: CMD:EXIT: Code=9
+2019-03-18 16:38:10.989 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-18 16:38:10.993 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-18 16:39:53.811 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-18 16:39:53.822 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-18 16:39:53.963 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:39:54.171 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript'  Path to scripts does not exist'"} CAUSE: Function 'notScript'  Path to scripts does not exist'
+2019-03-18 16:39:54.177 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'minRcError'  Path to scripts does not exist'"} CAUSE: Function 'minRcError'  Path to scripts does not exist'
+2019-03-18 16:39:54.383 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-18 16:39:54.390 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-18 16:40:47.903 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:43:19.607 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:43:30.359 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:45:00.826 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:47:41.267 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:50:10.995 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:51:36.051 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:52:26.985 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:53:05.925 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'ds'  Path to scripts does not exist'"} CAUSE: Function 'ds'  Path to scripts does not exist'
+2019-03-18 16:53:51.391 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 16:53:51.438 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q0:diskStatus.bat
+2019-03-18 16:53:51.439 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q1: 
+2019-03-18 16:53:51.439 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q2: 
+2019-03-18 16:53:51.440 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q3:
+2019-03-18 16:53:51.441 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus1104.txt
+2019-03-18 16:53:51.449 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> {start}
+2019-03-18 16:53:51.601 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-18 16:53:51.611 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> {end}
+2019-03-18 16:53:51.616 INFO  Server: CMD:EXIT: Code=0
+2019-03-18 16:55:04.519 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 16:55:04.565 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q0:diskStatus.bat
+2019-03-18 16:55:04.565 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q1: 
+2019-03-18 16:55:04.566 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q2: 
+2019-03-18 16:55:04.566 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> Q3:
+2019-03-18 16:55:04.567 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus1342.txt
+2019-03-18 16:55:04.575 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> {start}
+2019-03-18 16:55:04.718 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-18 16:55:04.727 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat] --> {end}
+2019-03-18 16:55:04.732 INFO  Server: CMD:EXIT: Code=0
+2019-03-18 16:58:32.184 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 16:58:32.226 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q0:diskStatus.bat
+2019-03-18 16:58:32.227 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q1:data/cache 
+2019-03-18 16:58:32.228 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q2: 
+2019-03-18 16:58:32.228 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q3:
+2019-03-18 16:58:32.229 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus2022.txt
+2019-03-18 16:58:32.236 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {start}
+2019-03-18 16:58:32.379 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-18 16:58:32.388 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {end}
+2019-03-18 16:58:32.392 INFO  Server: CMD:EXIT: Code=0
+2019-03-18 17:07:46.625 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-18 17:07:46.637 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-18 17:07:46.807 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 17:07:46.837 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q0:diskStatus.bat
+2019-03-18 17:07:46.838 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q1:data/cache 
+2019-03-18 17:07:46.838 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q2: 
+2019-03-18 17:07:46.838 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q3:
+2019-03-18 17:07:46.839 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus3831.txt
+2019-03-18 17:07:46.846 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {start}
+2019-03-18 17:07:46.987 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-18 17:07:46.997 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {end}
+2019-03-18 17:07:47.002 INFO  Server: CMD:EXIT: Code=0
+2019-03-18 17:07:47.007 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 17:07:47.044 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-18 17:07:47.044 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-18 17:07:47.045 INFO  Server: CMD:EXIT: Code=1
+2019-03-18 17:07:47.045 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-18 17:07:47.050 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-18 17:07:47.087 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-18 17:07:47.087 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-18 17:07:47.088 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-18 17:07:47.088 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-18 17:07:47.089 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-18 17:07:47.092 INFO  Server: CMD:EXIT: Code=9
+2019-03-18 17:07:47.096 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-18 17:07:47.100 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
