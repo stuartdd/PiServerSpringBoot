@@ -1,12 +1,12 @@
-2019-03-19 15:30:15.855 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-19 15:30:15.886 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-03-19 15:30:15.886 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-19 15:30:15.933 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-03-19 15:30:15.949 DEBUG Server: fileReadUserLocationBase: user: null loc:logs path:null encPath:null name:PiServerTest.log encName:UGlTZXJ2ZXJUZXN0LmxvZw==
-2019-03-19 15:30:15.964 DEBUG Server: fileReadUserLocationBase: user: stuart loc:original path:lg 001 encPath:bGcgMDAx name:2006_08_22_15_53_15_22082006010.jpg.jpg encName:MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn
-2019-03-19 15:30:15.996 DEBUG Server: fileReadUserLocationBase: user: stuart loc:original path:lg 001 encPath:bGcgMDAx name:2006_08_22_15_53_15_22082006010.jpg.jpg encName:MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn
-2019-03-19 15:30:15.996 DEBUG Server: fileReadUserLocationBase: user: stuart loc:original path:lg 001 encPath:bGcgMDAx name:2006_08_22_15_53_15_22082006010.jpg.jpg encName:MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn
-2019-03-19 15:30:16.011 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-19 15:30:16.027 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-19 15:30:16.027 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-19 15:30:16.027 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-19 16:03:17.548 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-19 16:03:17.579 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-19 16:03:17.579 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-19 16:03:22.314 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-19 16:03:22.329 DEBUG Server: fileReadUserLocationBase: user: null loc:logs path:null encPath:null name:PiServerTest.log encName:UGlTZXJ2ZXJUZXN0LmxvZw==
+2019-03-19 16:03:22.345 DEBUG Server: fileReadUserLocationBase: user: stuart loc:original path:lg 001 encPath:bGcgMDAx name:2006_08_22_15_53_15_22082006010.jpg.jpg encName:MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn
+2019-03-19 16:03:22.361 DEBUG Server: fileReadUserLocationBase: user: stuart loc:original path:lg 001 encPath:bGcgMDAx name:2006_08_22_15_53_15_22082006010.jpg.jpg encName:MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn
+2019-03-19 16:03:22.376 DEBUG Server: fileReadUserLocationBase: user: stuart loc:original path:lg 001 encPath:bGcgMDAx name:2006_08_22_15_53_15_22082006010.jpg.jpg encName:MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn
+2019-03-19 16:03:22.392 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-19 16:03:23.626 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-19 16:03:24.533 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-19 16:03:25.330 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx

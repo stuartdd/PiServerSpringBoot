@@ -114,6 +114,8 @@
             function setThumbnailList(result) {
                 /** 
                  * Keep the path data for later
+                 * 
+                 * ImagePathdata is a representation of io.PathsIO
                  */
                 imagePathData = JSON.parse(result);
                 refreshThumbnailList();
@@ -128,7 +130,7 @@
                     } else {
                         linkClass = "TableList2";
                     }
-                    var span = "<a title=\"" + imagePathData.paths[i].encName + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData.paths[i].name + "</a>";
+                    var span = "<a title=\"" + imagePathData.paths[i].name + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData.paths[i].name + "</a>";
                     htmlStr += "<tr><td width=\"99%\" class=\"" + linkClass + "\">" + span + "</td></tr>";
                 }
                 htmlStr += "</table>";
@@ -144,6 +146,8 @@
             function displayLoadedThumbnails(result) {
                 /** 
                  * Keep the image data for later
+                 * 
+                 * imageData is a representation of io.FileListIo
                  */
                 imageData = JSON.parse(result);
                 refreshLoadedThumbnails();
@@ -156,7 +160,7 @@
                 var imageTableColWidth = Math.round(100 / userData.imagesPerRow);
 
                 for (var index = 0; index < imageData.files.length; index++) {
-                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.encPath + "/name/";
+                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.path.encName + "/name/";
 
                     image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData.files[index].name.name + "\" src=\"" + path + imageData.files[index].name.encName + "\"></td>";
                     if (imagePos < userData.imagesPerRow) {
@@ -171,7 +175,7 @@
                     htmlStr += "<tr>" + image + "</tr>";
                 }
                 htmlStr += "</table>";
-                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.files.length + "] Images for " + imageData.user + " from " + imageData.path;
+                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.files.length + "] Images for " + imageData.user + " from " + imageData.path.name;
                 document.getElementById('thumbnailImageList').innerHTML = htmlStr;
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
@@ -280,14 +284,14 @@
                     tag = "H:(" + index + ")";
                 } else {
                     imageName = imageData.files[index].name.name;
-                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path + "/name/" + imageName + "?thumbnail=true";
+                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path.encName + "/name/" + imageName + "?thumbnail=true";
                     tag = "C:(" + index + ")";
                 }
                 imageIndex = index;
                 imageIsHistoric = historic;
 
                 if (!historic) {
-                    tempName = "user/" + imageData.user + "/loc/thumbs/path/" + imageData.path + "/name/" + imageName;
+                    tempName = "user/" + imageData.user + "/loc/thumbs/path/" + imageData.path.name + "/name/" + imageName;
                     var tempList = [tempName];
                     for (i = 0; i < userData.imageHistory.length; i++) {
                         if (userData.imageHistory[i] !== tempName) {

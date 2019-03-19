@@ -1,2 +1,2 @@
-2019-03-19 15:30:15.871 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-19 15:30:15.886 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-19 16:03:17.548 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-19 16:03:17.579 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
