@@ -21,15 +21,15 @@ public class StringUtils {
     private static Map<String, MediaTypeInf> map = new HashMap();
 
     static {
-        map.put("jpg", new MediaTypeInf("image/jpeg"));
-        map.put("gif", new MediaTypeInf("image/gif"));
-        map.put("png", new MediaTypeInf("image/png"));
-        map.put("tiff", new MediaTypeInf("image/tiff"));
-        map.put("js", new MediaTypeInf("text/javascript"));
-        map.put("json", new MediaTypeInf("application/json; charset=UTF-8"));
-        map.put("xml", new MediaTypeInf("application/xml; charset=UTF-8"));
-        map.put("css", new MediaTypeInf("text/css"));
-        map.put("html", new MediaTypeInf("text/html"));
+        map.put("jpg", new MediaTypeInf("image/jpeg", false));
+        map.put("gif", new MediaTypeInf("image/gif", false));
+        map.put("png", new MediaTypeInf("image/png", false));
+        map.put("tiff", new MediaTypeInf("image/tiff", false));
+        map.put("js", new MediaTypeInf("text/javascript", false));
+        map.put("json", new MediaTypeInf("application/json; charset=UTF-8", false));
+        map.put("xml", new MediaTypeInf("application/xml; charset=UTF-8", false));
+        map.put("css", new MediaTypeInf("text/css", false));
+        map.put("html", new MediaTypeInf("text/html", false));
         map.put("log", new MediaTypeInf("text/plain", true));
         map.put("txt", new MediaTypeInf("text/plain", true));
     }
@@ -43,7 +43,7 @@ public class StringUtils {
                 return mt;
             }
         }
-        return map.get("txt");
+        return null;
     }
 
     public static String listToString(List list, String delim) {

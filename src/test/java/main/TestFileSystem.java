@@ -36,6 +36,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import tools.EncodeDecode;
 import tools.JsonUtils;
 import tools.OsUtils;
 import tools.StringUtils;
@@ -95,28 +96,28 @@ public class TestFileSystem {
     }
 
     private void testFileLoadJpgJpg() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/" + EncodeDecode.encode("lg 001") + "/name/" + EncodeDecode.encode("2006_08_22_15_53_15_22082006010.jpg.jpg") + "?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
         assertEquals(919160, resp.length);
     }
 
     private void testFileLoadJpg() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/" + EncodeDecode.encode("lg 001") + "/name/" + EncodeDecode.encode("2006_08_22_15_53_15_22082006010.jpg.jpg") + "?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
         assertEquals(919160, resp.length);
     }
 
     private void testFileLoadOriginal() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001/name/2006_08_22_15_53_15_22082006010.jpg.jpg?thumbnail=true")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/" + EncodeDecode.encode("lg 001") + "/name/" + EncodeDecode.encode("2006_08_22_15_53_15_22082006010.jpg.jpg") + "?thumbnail=true")).andExpect(status().isOk()).andReturn();
         byte[] resp = mvcResult.getResponse().getContentAsByteArray();
         assertEquals(919160, resp.length);
     }
 
     private void testReadLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/PiServerTest.log")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/" + EncodeDecode.encode("PiServerTest.log"))).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         assertTrue(resp.length() > 100);
-        assertTrue(resp.contains("ERROR Server: &lt;Dry-Run&gt; "));     
+        assertTrue(resp.contains("ERROR Server: &lt;Dry-Run&gt; "));
         assertFalse(resp.contains("<"));
         assertFalse(resp.contains(">"));
     }
@@ -127,7 +128,7 @@ public class TestFileSystem {
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(3, fileList.getFiles().size());
         assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getName());
-        assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getEncName());
+        assertEquals("UGlTZXJ2ZXIubG9n", fileList.getFiles().get(0).getName().getEncName());
     }
 
     public void testPathIoJsonLoad() {
@@ -140,7 +141,7 @@ public class TestFileSystem {
     }
 
     private void testFilesJpg() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=jpg")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/" + EncodeDecode.encode("lg 001") + "?ext=jpg")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, files.getFiles().size());
@@ -150,7 +151,7 @@ public class TestFileSystem {
     }
 
     private void testFilesJpgGif() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001?ext=jpg,gif")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/" + EncodeDecode.encode("lg 001") + "?ext=jpg,gif")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(4, files.getFiles().size());
@@ -160,7 +161,7 @@ public class TestFileSystem {
     }
 
     private void testFilesGif() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001?ext=gif")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/" + EncodeDecode.encode("lg 001") + "?ext=gif")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(2, files.getFiles().size());
@@ -170,7 +171,7 @@ public class TestFileSystem {
     }
 
     private void testFilesAll() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/lg 001")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/original/path/" + EncodeDecode.encode("lg 001"))).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(4, files.getFiles().size());
@@ -180,7 +181,7 @@ public class TestFileSystem {
     }
 
     private void testFilesNoMatch() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/lg 001?ext=jxx")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/thumbs/path/" + EncodeDecode.encode("lg 001") + "?ext=jxx")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo files = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(0, files.getFiles().size());

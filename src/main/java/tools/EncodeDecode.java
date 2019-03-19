@@ -5,25 +5,41 @@
  */
 package tools;
 
+import java.nio.charset.Charset;
+import java.util.Base64;
+
 /**
  *
  * @author stuart
  */
 public class EncodeDecode {
-        private static char[] encodeChars = new char[]{'\'', '@', '%', '+', '-', '"'};
-    private static String[] encodeCodes = new String[]{"%27", "%40", "%25", "%2B", "%2D", "%22"};
+
+    private static final Charset CHARSET = Charset.forName("UTF-8");
+    private static final Base64.Encoder ENCODER = Base64.getEncoder();
+    private static final Base64.Decoder DECODER = Base64.getDecoder();
+    private static final char MARK = '#';
+    private static final char[] ENC_CHARS = new char[]{' ', '/', '\\', '\'', '@', '%', '+', '-', '"'};
+    private static final String[] ENC_HEX = new String[]{MARK + "20", MARK + "2F", MARK + "5C", MARK + "27", MARK + "40", MARK + "25", MARK + "2B", MARK + "2D", MARK + "22"};
 
     public static String encode(String s) {
+        return new String(ENCODER.encode(s.getBytes(CHARSET)));
+    }
+    
+    public static String decode(String s) {
+        return new String(DECODER.decode(s), CHARSET);
+    }
+    
+    public static String encodeOld(String s) {
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
             boolean notReplaced = true;
             if (c <= ' ') {
-                sb.append("%20");
+                sb.append(ENC_HEX[0]);
                 notReplaced = false;
             } else {
-                for (int i = 0; i < encodeChars.length; i++) {
-                    if (encodeChars[i] == c) {
-                        sb.append(encodeCodes[i]);
+                for (int i = 0; i < ENC_CHARS.length; i++) {
+                    if (ENC_CHARS[i] == c) {
+                        sb.append(ENC_HEX[i]);
                         notReplaced = false;
                         break;
                     }
@@ -38,12 +54,12 @@ public class EncodeDecode {
 
     private static int[] hexValues = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15};
 
-    public static String decode(String s) {
+    public static String decodeOld(String s) {
         StringBuilder sb = new StringBuilder();
         int state = 0;
         int val = 0;
         for (char c : s.toCharArray()) {
-            if (c == '%') {
+            if (c == MARK) {
                 state = 1;
             }
             switch (state) {

@@ -30,7 +30,7 @@
             imageIsHistoric = false;
             linkHistory = [];
             userData = {imagesPerRow: 2};
-            userData.imageHistory = ["base"];
+            userData.imageHistory = [];
             displayMap = new Map();
 
 
@@ -156,7 +156,7 @@
                 var imageTableColWidth = Math.round(100 / userData.imagesPerRow);
 
                 for (var index = 0; index < imageData.files.length; index++) {
-                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.path + "/name/";
+                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.encPath + "/name/";
 
                     image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData.files[index].name.name + "\" src=\"" + path + imageData.files[index].name.encName + "\"></td>";
                     if (imagePos < userData.imagesPerRow) {

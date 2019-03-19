@@ -16,6 +16,7 @@
  */
 package controllers;
 
+import config.LogProvider;
 import io.FileListIo;
 import io.PathsIO;
 import java.util.Map;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
+import tools.EncodeDecode;
 import tools.MediaTypeInf;
 import tools.StringUtils;
 
@@ -52,7 +54,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
-    
+
     /**
      * Save some JSON text to the server
      *
@@ -81,14 +83,34 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> fileReadUserLocationBase(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
+        MediaTypeInf mediaTypeInf = null;
+        String finalName = null;
+        if (name != null) {
+            mediaTypeInf = StringUtils.getMediaTypeFroFile(name);
+            if (mediaTypeInf == null) {
+                finalName = EncodeDecode.decode(name);
+                mediaTypeInf = StringUtils.getMediaTypeFroFile(finalName);
+
+            } else {
+                finalName = name;
+            }
+        }
+        if (mediaTypeInf == null) {
+            mediaTypeInf = StringUtils.getMediaTypeFroFile(".txt");
+        }
+        String finalPath = null;
+        if (path != null) {
+            finalPath = EncodeDecode.decode(path);
+        }
+        LogProvider.debug("fileReadUserLocationBase: user: " + user + " loc:" + loc + " path:" + finalPath + " encPath:" + path + " name:" + finalName + " encName:" + name);
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
-            name = StringUtils.parseThumbnailFileName(name);
+            finalName = StringUtils.parseThumbnailFileName(finalName);
         }
-        byte[] bytes = FileService.userReadFiles(user, loc, path, name);
+        byte[] bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        MediaTypeInf mediaTypeInf = StringUtils.getMediaTypeFroFile(name);
+
         if (mediaTypeInf.isPlainText()) {
             bytes = StringUtils.encodePlainText(bytes);
         }
@@ -96,7 +118,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
         return responseEntity;
     }
-    
+
     /**
      * Read ANY content from the server. If the thumbnail flag is true the the
      * name field is a thumbnail file name which needs to have the date prefix
@@ -111,7 +133,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> fileReadUserLocation(@PathVariable String user, @PathVariable String loc, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
-        return fileReadUserLocationBase(user, loc, (String)null, name, queryParameters);
+        return fileReadUserLocationBase(user, loc, (String) null, name, queryParameters);
     }
 
     /**
@@ -126,8 +148,9 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET, produces = "text/plain")
     public ResponseEntity<byte[]> fileReadLocation(@PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
-        return fileReadUserLocationBase((String)null, loc, path, name, queryParameters);
+        return fileReadUserLocationBase((String) null, loc, path, name, queryParameters);
     }
+
     /**
      * Read ANY content from the server. If the thumbnail flag is true the the
      * name field is a thumbnail file name which needs to have the date prefix
@@ -139,7 +162,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/loc/{loc}/name/{name}", method = RequestMethod.GET, produces = "text/plain")
     public ResponseEntity<byte[]> fileReadLocation(@PathVariable String loc, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
-        return fileReadUserLocationBase((String)null, loc, (String)null, name, queryParameters);
+        return fileReadUserLocationBase((String) null, loc, (String) null, name, queryParameters);
     }
 
     /**
@@ -153,13 +176,18 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public FileListIo listFilesBase(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @RequestParam Map<String, String> queryParameters) {
+        String finalPath = null;
+        if (path != null) {
+            finalPath = EncodeDecode.decode(path);
+        }
+        LogProvider.debug("listFilesBase: user:" + user + " loc: " + loc + " path:" + finalPath + " encPath:" + path);
         String filter = queryParameters.getOrDefault("ext", null);
         if ((filter == null) || (filter.isEmpty())) {
-            return FileService.userListFiles(user, loc, path);
+            return FileService.userListFiles(user, loc, finalPath);
         }
-        return FileService.userListFiles(user, loc, path, filter.split("\\,"));
+        return FileService.userListFiles(user, loc, finalPath, filter.split("\\,"));
     }
-    
+
     /**
      * List of files at a resources.{location}
      *
@@ -167,7 +195,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/loc/{loc}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public FileListIo listFiles(@PathVariable String loc, @RequestParam Map<String, String> queryParameters) {
-        return listFilesBase((String)null, loc, (String)null, queryParameters);
+        return listFilesBase((String) null, loc, (String) null, queryParameters);
     }
 
     /**

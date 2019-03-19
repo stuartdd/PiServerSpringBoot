@@ -30,6 +30,11 @@ public class LogProvider {
         init();
         logger.info(s);
     }
+    
+    public static void debug(String s) {
+        init();
+        logger.debug(s);
+    }
 
     public static void logErr(String s) {
         init();

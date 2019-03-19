@@ -29,18 +29,13 @@ public class MediaTypeInf {
         this.plainText = plainText;
     }
 
-    public MediaTypeInf(String mediaType) {
-        this.mediaType = mediaType;
-        this.plainText = false;
-    }
-
     public String getMediaType() {
         return mediaType;
     }
 
     public boolean isPlainText() {
         return plainText;
-    }
-    
+    }    
+     
     
 }

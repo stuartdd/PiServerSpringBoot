@@ -6,7 +6,7 @@
     "logName": "PiServer",
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validateLocations": true,
+    "validateLocations": false,
     "resources": {
         "historyMaxLen": 20,
         "root": "/home/pi/server",
@@ -26,8 +26,8 @@
     },
 
     "functions": {
-        "echoScriptOutput": true,
-        "poleForTime": 2000,
+        "echoScriptOutput": false,
+        "poleForTime": 999999999,
         "osTemplates": {
             "linux": "%{scripts}|./%{script}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
             "win": "%{scripts}|cmd.exe|/c|%{script}.bat %{P0} %{P1} %{P2} %{P3}",
