@@ -63,9 +63,10 @@ public class PathsIO {
         this.paths = paths;
     }
 
-     
     public void addPath(String name) {
-        paths.add(new EncNameIo(name, EncodeDecode.encode(name)));
+        if (name != null) {
+            paths.add(new EncNameIo(name));
+        }
     }
 
     @Override

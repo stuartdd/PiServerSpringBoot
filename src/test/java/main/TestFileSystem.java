@@ -147,7 +147,8 @@ public class TestFileSystem {
         assertEquals(2, files.getFiles().size());
         assertEquals("stuart", files.getUser());
         assertEquals("thumbs", files.getLoc());
-        assertEquals("lg 001", files.getPath());
+        assertEquals("lg 001", files.getPath().getName());
+        assertEquals(EncodeDecode.encode("lg 001"), files.getPath().getEncName());
     }
 
     private void testFilesJpgGif() throws Exception {
@@ -157,7 +158,8 @@ public class TestFileSystem {
         assertEquals(4, files.getFiles().size());
         assertEquals("stuart", files.getUser());
         assertEquals("original", files.getLoc());
-        assertEquals("lg 001", files.getPath());
+        assertEquals("lg 001", files.getPath().getName());
+        assertEquals(EncodeDecode.encode("lg 001"), files.getPath().getEncName());
     }
 
     private void testFilesGif() throws Exception {
@@ -167,7 +169,8 @@ public class TestFileSystem {
         assertEquals(2, files.getFiles().size());
         assertEquals("stuart", files.getUser());
         assertEquals("original", files.getLoc());
-        assertEquals("lg 001", files.getPath());
+        assertEquals("lg 001", files.getPath().getName());
+        assertEquals(EncodeDecode.encode("lg 001"), files.getPath().getEncName());
     }
 
     private void testFilesAll() throws Exception {
@@ -177,7 +180,8 @@ public class TestFileSystem {
         assertEquals(4, files.getFiles().size());
         assertEquals("stuart", files.getUser());
         assertEquals("original", files.getLoc());
-        assertEquals("lg 001", files.getPath());
+        assertEquals("lg 001", files.getPath().getName());
+        assertEquals(EncodeDecode.encode("lg 001"), files.getPath().getEncName());
     }
 
     private void testFilesNoMatch() throws Exception {
@@ -187,7 +191,8 @@ public class TestFileSystem {
         assertEquals(0, files.getFiles().size());
         assertEquals("stuart", files.getUser());
         assertEquals("thumbs", files.getLoc());
-        assertEquals("lg 001", files.getPath());
+        assertEquals("lg 001", files.getPath().getName());
+        assertEquals(EncodeDecode.encode("lg 001"), files.getPath().getEncName());
     }
 
     private void testGetPathsSrc() throws Exception {

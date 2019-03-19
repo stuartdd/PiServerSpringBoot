@@ -13,9 +13,10 @@ import java.util.List;
  * @author stuart
  */
 public class FileListIo {
+
     private String user;
     private String loc;
-    private String path;
+    private EncNameIo path;
     private List<FileSpecIo> files = new ArrayList<>();
 
     public FileListIo() {
@@ -24,7 +25,11 @@ public class FileListIo {
     public FileListIo(String user, String loc, String path) {
         this.user = user;
         this.loc = loc;
-        this.path = path;
+        if (path != null) {
+            this.path = new EncNameIo(path);
+        } else {
+            this.path = null;
+        }
     }
 
     public String getUser() {
@@ -43,11 +48,11 @@ public class FileListIo {
         this.loc = loc;
     }
 
-    public String getPath() {
+    public EncNameIo getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(EncNameIo path) {
         this.path = path;
     }
 
@@ -58,9 +63,9 @@ public class FileListIo {
     public void setFiles(List<FileSpecIo> files) {
         this.files = files;
     }
-    
+
     public void addFileSpec(FileSpecIo fileSpec) {
         files.add(fileSpec);
     }
-    
+
 }

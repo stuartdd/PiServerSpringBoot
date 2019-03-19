@@ -93,10 +93,9 @@ public class FileService {
         }
         for (File f : fileList) {
             if (f.isFile()) {
-                fileListOut.addFileSpec(new FileSpecIo(f.length(), new EncNameIo(f.getName(), EncodeDecode.encode(f.getName()))));
+                fileListOut.addFileSpec(new FileSpecIo(f.length(), new EncNameIo(f.getName())));
             }
         }
         return fileListOut;
     }
-
 }
