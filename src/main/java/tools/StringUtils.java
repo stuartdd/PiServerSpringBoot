@@ -182,18 +182,19 @@ public class StringUtils {
     }
 
     public static String parseThumbnailFileName(String name) {
-        String tn = name.toLowerCase();
-        int pos1 = tn.lastIndexOf('.');
-        String ext = tn.substring(pos1);
-        tn = tn.substring(0, pos1);
-        int pos2 = tn.lastIndexOf(ext);
-        if (pos2 < 0) {
-            tn = name;
+        
+        int pos1 = name.lastIndexOf('.');
+        if (pos1 < 0) {
+            /*
+            No '.' then not a Thumbnail name
+            */
+            return name;
         }
-        if (tn.length() > 25) {
-            return tn.substring(20);
+        name = name.substring(0, pos1);
+        if (name.length() > 25) {
+            return name.substring(20);
         }
-        return tn;
+        return name;
     }
 
     public static byte[] encodePlainText(byte[] bytes) {

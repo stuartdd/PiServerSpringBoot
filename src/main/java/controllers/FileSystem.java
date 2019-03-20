@@ -102,10 +102,11 @@ public class FileSystem extends ControllerErrorHandlerBase {
         if (path != null) {
             finalPath = EncodeDecode.decode(path);
         }
-        LogProvider.debug("fileReadUserLocationBase: user: " + user + " loc:" + loc + " path:" + finalPath + " encPath:" + path + " name:" + finalName + " encName:" + name);
+        LogProvider.debug("fileReadUserLocationBase: user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]");
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
             finalName = StringUtils.parseThumbnailFileName(finalName);
+            LogProvider.debug("fileReadUserLocationBase: finalName:[" + finalName + "]");
         }
         byte[] bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
         HttpHeaders headers = new HttpHeaders();

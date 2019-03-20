@@ -201,10 +201,10 @@ public class TestFileSystem {
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
         String str = StringUtils.listToString(paths.getPaths(), "|");
         str = StringUtils.replaceAll(str, '\\', '/');
-        assertTrue(str.contains("/main/java/main|"));
-        assertTrue(str.contains("/main/java/services|"));
-        assertTrue(str.contains("/main/resources/static|"));
-        assertTrue(str.contains("/test/java/main"));
+        assertTrue(str.contains("main/java/main|"));
+        assertTrue(str.contains("main/java/services|"));
+        assertTrue(str.contains("main/resources/static|"));
+        assertTrue(str.contains("test/java/main"));
     }
 
     private void testGetPathsUserNotFound() throws Exception {

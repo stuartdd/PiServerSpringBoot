@@ -171,6 +171,7 @@ public class ConfigDataManager {
         if (f.exists()) {
             return f;
         }
+        //shared.original.media/Photos/2004-10-22_HuwSchoolAssembly.imgp2446.jpg
         throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name));
     }
 

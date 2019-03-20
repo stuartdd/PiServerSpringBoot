@@ -20,11 +20,15 @@ public class EncNameIo {
     }
 
     public EncNameIo(String name) {
-        this.name = name;
         if (name == null) {
             this.encName = null;
         } else {
-            this.encName = EncodeDecode.encode(name);
+            if (name.startsWith("/")) {
+                this.name = name.substring(1);
+            } else {
+                this.name = name;
+            }
+            this.encName = EncodeDecode.encode(this.name);
         }
     }
 

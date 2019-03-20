@@ -193,8 +193,8 @@
                     alert("History of previously viewed images is empty");
                 } else {
                     for (var index = 0; index < userData.imageHistory.length; index++) {
-                        htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/files/" + userData.imageHistory[index] + "\"></td>";
-                        htmlStr = htmlStr + "<td>" + userData.imageHistory[index].replace("images", "original") + "</td></tr>";
+                        htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index].na + "\" src=\"/files/" + userData.imageHistory[index].id + "\"></td>";
+                        htmlStr = htmlStr + "<td>" + userData.imageHistory[index].pa + "/" + userData.imageHistory[index].na + "</td></tr>";
                     }
                     htmlStr += "</table>";
                     document.getElementById('thumbnailImgeHeadingHistory').innerHTML = " [" + userData.imageHistory.length + "] Previously viewed images for " + currentUserCaps;
@@ -279,19 +279,19 @@
                 var fullName;
                 var tag;
                 if (historic) {
-                    imageName = userData.imageHistory[index];
-                    fullName = imageName;
+                    imageName = userData.imageHistory[index].na;
+                    fullName = userData.imageHistory[index].id;
                     tag = "H:(" + index + ")";
                 } else {
                     imageName = imageData.files[index].name.name;
-                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path.encName + "/name/" + imageName + "?thumbnail=true";
+                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path.encName + "/name/" + imageData.files[index].name.encName + "?thumbnail=true";
                     tag = "C:(" + index + ")";
                 }
                 imageIndex = index;
                 imageIsHistoric = historic;
 
                 if (!historic) {
-                    tempName = "user/" + imageData.user + "/loc/thumbs/path/" + imageData.path.name + "/name/" + imageName;
+                    var tempName = {id: "user/" + imageData.user + "/loc/thumbs/path/" + imageData.path.encName + "/name/" + imageData.files[index].name.encName, pa:imageData.path.name, na:imageData.files[index].name.name};
                     var tempList = [tempName];
                     for (i = 0; i < userData.imageHistory.length; i++) {
                         if (userData.imageHistory[i] !== tempName) {
