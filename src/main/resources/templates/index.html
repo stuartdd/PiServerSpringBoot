@@ -21,6 +21,7 @@
             currentDisplay = "";
             currentUserCaps = capital(currentUser);
             currentThumbnailPath = "";
+            currentLogFileEncName = "";
             currentLogFileName = "";
             imageData = "";
 
@@ -94,14 +95,15 @@
                 document.getElementById('logDisplayCode').innerHTML = result;
             }
 
-            function loadLogFile(file) {
-                currentLogFileName = file;
+            function loadLogFile(encName, name) {
+                currentLogFileEncName = encName;
+                currentLogFileName = name;
                 reLoadLogFile();
             }
 
             function reLoadLogFile() {
                 document.getElementById('logDisplayCode').innerHTML = "Please wait. Loading file: " + currentLogFileName;
-                serverGetData(displayLoadedFile, responseError, "files/loc/logs/name/" + currentLogFileName);
+                serverGetData(displayLoadedFile, responseError, "files/loc/logs/name/" + currentLogFileEncName);
                 displayMap.delete('logDisplayDiv');
                 displayPage('logDisplayDiv');
             }
@@ -323,7 +325,7 @@
                 var logs = JSON.parse(result);
                 var htmlStr = "<table width=\"100%\" border=\"1\">";
                 for (var i = 0; i < logs.files.length; i++) {
-                    span = "<a href=\"javascript:loadLogFile('" + logs.files[i].name.encName + "')\">" + logs.files[i].name.name + "</a>";
+                    span = "<a href=\"javascript:loadLogFile('" + logs.files[i].name.encName + "','" + logs.files[i].name.name + "')\">" + logs.files[i].name.name + "</a>";
                     htmlStr += "<tr><td style=\"width:20%\">" + logs.files[i].size + "</td><td>" + span + "</td></tr>";
                 }
                 htmlStr += "</table>";
@@ -625,6 +627,7 @@
             <div class="Top" id="thumbnailsImageHistory">
                 <span class="SectionName" id="thumbnailImgeHeadingHistory"></span>
                 <button class="MenuButtonWide" onclick="clearThumbnailsList()">Clear This List</button>
+                <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
                 <div id="thumbnailImageListHistory">IMG</div>
                 <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
             </div>
@@ -634,6 +637,7 @@
                 <button class="MenuButton" onclick="setImagesPerRow(userData.imagesPerRow - 1)">&#8595; Less</button>
                 <button class="MenuButton" onclick="setImagesPerRow(userData.imagesPerRow + 1)">&#8593; More</button><br>
                 <span class="SectionName" id="thumbnailImgeHeading"></span>
+                <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
                 <div id="thumbnailImageList">IMG</div>
                 <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
             </div>

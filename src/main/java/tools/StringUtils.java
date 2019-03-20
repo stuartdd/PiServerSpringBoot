@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class StringUtils {
 
-    private static Map<String, MediaTypeInf> map = new HashMap();
+    private final static Map<String, MediaTypeInf> map = new HashMap();
 
     static {
         map.put("jpg", new MediaTypeInf("image/jpeg", false));
