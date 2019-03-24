@@ -1,6 +1,6 @@
-2019-03-23 23:06:36.075 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-23 23:06:36.088 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-03-23 23:06:36.343 ERROR ServerError: {"Status":404, "Msg":"Template Not Found", "Entity":"template1"} EXCEPTION:
+2019-03-24 20:35:38.733 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-24 20:35:38.746 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-24 20:35:38.994 ERROR ServerError: {"Status":404, "Msg":"Template Not Found", "Entity":"template1"} EXCEPTION:
 exceptions.ServerRestException: template1
 	at controllers.Templates.template(Templates.java:43) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]
@@ -92,7 +92,7 @@ exceptions.ServerRestException: template1
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_181]
 	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55) [gradle-base-services-4.0.jar:4.0]
 	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_181]
-2019-03-23 23:06:36.437 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Failed (IOException) command :[./notScript.sh, , ../]"} EXCEPTION:
+2019-03-24 20:35:39.076 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Failed (IOException) command :[./notScript.sh, , ../]"} EXCEPTION:
 exceptions.ConfigDataException: Function 'notScript'. Method 'scriptAll' failed with a SystemCommandException
 	at services.FunctionService.func(FunctionService.java:65) ~[main/:?]
 	at controllers.Script.script(Script.java:24) ~[main/:?]
@@ -217,5 +217,5 @@ Caused by: java.io.IOException: error=2, No such file or directory
 	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_181]
 	at services.FunctionService.func(FunctionService.java:63) ~[main/:?]
 	... 90 more
-2019-03-23 23:06:36.447 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-03-23 23:06:36.450 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-24 20:35:39.088 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-24 20:35:39.093 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented

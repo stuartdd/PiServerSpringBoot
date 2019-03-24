@@ -7,6 +7,22 @@
 # The flasher file should be this one!
 
 ##############################
+# Find logs directory and define a log file
+#
+SCRIPT_DIR="$(dirname "$0")"
+SERVER_DIR="$(dirname "$SCRIPT_DIR")"
+LOGFILE=$SERVER_DIR/logs/Flasher.`date +%Y-%m-%d`.log
+echo "$(date '+%F %T') : ------------------------------------------------------" >> $LOGFILE
+echo "$(date '+%F %T') : Starting Flasher Script : Logging to $LOGFILE" >> $LOGFILE
+
+##############################
+# Find scripts directory and start some scripts
+#
+echo "$(date '+%F %T') : Root path: $SERVER_DIR" >> $LOGFILE
+echo "$(date '+%F %T') : Starting Server ($SERVER_DIR/runWebAppPI.sh) in background" >> $LOGFILE
+sudo $SERVER_DIR/runWebAppPI.sh & 
+
+##############################
 # Define the Beeper pin
 #
 BEEP_PIN=9
@@ -52,13 +68,14 @@ echo "0" > $GPIO_BEEP_PIN/value
 ##############################
 # Loop forever (Well almost)
 #
+echo "$(date '+%F %T') : Entering main loop" >> $LOGFILE
 while true
 do
     #
-    # LED ON. 
+    # LED OFF. 
     # BEEP ON if we are counting up to shutdown
     #
-    echo "0" > $GPIO_FLASH_LED_PIN/value
+    echo "1" > $GPIO_FLASH_LED_PIN/value
     if [ $OFF_COUNT -gt 0 ];
     then
         echo "1" > $GPIO_BEEP_PIN/value
@@ -66,10 +83,10 @@ do
     sleep $DELAY
 
     #
-    # LED OFF.
+    # LED ON. So a failure leaves it ON.
     # BEEP OFF if we are counting up to shutdown
     #
-    echo "1" > $GPIO_FLASH_LED_PIN/value
+    echo "0" > $GPIO_FLASH_LED_PIN/value
     if [ $OFF_COUNT -gt 0 ];
     then
         echo "0" > $GPIO_BEEP_PIN/value
@@ -89,9 +106,14 @@ do
     then
         let OFF_COUNT+=1
         DELAY=0.4
+        echo "$(date '+%F %T') : OFF Switch activated COUNT:$OFF_COUNT" >> $LOGFILE
     else
-        let OFF_COUNT=0
-        DELAY=0.8
+        if [ $OFF_COUNT -gt 0 ];
+        then
+            echo "$(date '+%F %T') : OFF Switch released" >> $LOGFILE
+            let OFF_COUNT=0
+            DELAY=0.8
+        fi        
     fi
 
     # 
@@ -99,11 +121,12 @@ do
     #
     if [ $OFF_COUNT -gt 4 ];
     then
+        echo "$(date '+%F %T') : Starting Shutdown process!" >> $LOGFILE
         #
         # Park the hard disks!
         #
-	sudo hdparm -y /dev/sda
-	sudo hdparm -y /dev/sdb
+        echo "$(date '+%F %T') : $( sudo hdparm -y /dev/sda )" >> $LOGFILE
+        echo "$(date '+%F %T') : $( sudo hdparm -y /dev/sdb )" >> $LOGFILE
         #
         # Clear the pins
         #
@@ -114,7 +137,8 @@ do
         # Time to settle then OFF!
         #
         sleep 2
-	shutdown now
+        echo "$(date '+%F %T') : Shutting down NOW!" >> $LOGFILE
+	sudo shutdown now
 	exit 0
     fi
 done

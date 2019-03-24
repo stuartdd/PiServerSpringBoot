@@ -1,36 +1,36 @@
-2019-03-23 23:06:36.069 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-23 23:06:36.088 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-03-23 23:06:36.094 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-23 23:06:36.127 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-03-23 23:06:36.134 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-03-23 23:06:36.141 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-23 23:06:36.141 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-23 23:06:36.192 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-23 23:06:36.192 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-23 23:06:36.235 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-23 23:06:36.236 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-23 23:06:36.277 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-23 23:06:36.279 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-23 23:06:36.283 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-23 23:06:36.285 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-23 23:06:36.372 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-23 23:06:36.375 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q0:./diskStatus.sh
-2019-03-23 23:06:36.375 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q1:
-2019-03-23 23:06:36.375 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q2:
-2019-03-23 23:06:36.376 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q3:
-2019-03-23 23:06:36.376 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {start}
-2019-03-23 23:06:36.430 INFO  Server: CMD:OUT:[./diskStatus.sh] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-03-23 23:06:36.431 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {end}
-2019-03-23 23:06:36.432 INFO  Server: CMD:EXIT: Code=0
-2019-03-23 23:06:36.436 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-23 23:06:36.441 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-23 23:06:36.443 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
-2019-03-23 23:06:36.443 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
-2019-03-23 23:06:36.443 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
-2019-03-23 23:06:36.443 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
-2019-03-23 23:06:36.443 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
-2019-03-23 23:06:36.443 INFO  Server: CMD:EXIT: Code=9
-2019-03-23 23:06:36.446 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-03-23 23:06:36.450 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
-2019-03-23 23:06:36.458 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-03-23 23:06:36.466 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-24 20:35:38.727 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-24 20:35:38.746 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-24 20:35:38.752 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-24 20:35:38.784 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-24 20:35:38.789 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-24 20:35:38.795 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-24 20:35:38.796 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-24 20:35:38.844 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-24 20:35:38.844 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-24 20:35:38.887 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-24 20:35:38.887 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-24 20:35:38.929 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-24 20:35:38.931 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-24 20:35:38.934 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-24 20:35:38.936 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-24 20:35:39.021 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-24 20:35:39.024 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q0:./diskStatus.sh
+2019-03-24 20:35:39.024 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q1:
+2019-03-24 20:35:39.024 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q2:
+2019-03-24 20:35:39.024 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q3:
+2019-03-24 20:35:39.024 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {start}
+2019-03-24 20:35:39.068 INFO  Server: CMD:OUT:[./diskStatus.sh] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-24 20:35:39.070 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {end}
+2019-03-24 20:35:39.070 INFO  Server: CMD:EXIT: Code=0
+2019-03-24 20:35:39.075 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-24 20:35:39.082 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-24 20:35:39.083 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
+2019-03-24 20:35:39.083 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
+2019-03-24 20:35:39.083 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
+2019-03-24 20:35:39.084 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
+2019-03-24 20:35:39.084 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
+2019-03-24 20:35:39.084 INFO  Server: CMD:EXIT: Code=9
+2019-03-24 20:35:39.088 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-24 20:35:39.092 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-24 20:35:39.103 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-24 20:35:39.112 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
