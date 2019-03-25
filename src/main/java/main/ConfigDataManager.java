@@ -18,6 +18,7 @@ package main;
 
 import exceptions.ConfigDataException;
 import config.ConfigData;
+import config.Functions;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.io.IOException;
@@ -34,24 +35,72 @@ import tools.StringUtils;
  */
 public class ConfigDataManager {
 
+    private static final String FS = File.separator;
     private static ConfigData configData;
     private static String configDataName;
+    private static String rootPath;
     private static Map<String, String> parameters;
 
-    public static ConfigData getConfigData() {
-        return configData;
-    }
-
     public static void init(String[] args) {
+        String cache = null;
+        String port = null;
+        for (String arg : args) {
+            if (arg != null) {
+                String argLc = arg.toLowerCase();
+                if (argLc.startsWith("-cache=")) {
+                    cache = getArgValue(arg);
+                } else if (argLc.startsWith("-root=")) {
+                    rootPath = getArgValue(arg);
+                } else if (argLc.startsWith("-port=")) {
+                    port = getArgValue(arg);
+                } else {
+                    configDataName = arg;
+                }
+            }
+        }
+
         if (configData == null) {
-            if (args.length > 0) {
-                configDataName = args[0];
-            } else {
+            if (configDataName == null) {
                 configDataName = "configTestData.json";
             }
         }
+
         String configErrorPrefix = "Config data file:" + configDataName + ": ";
         configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File(configDataName));
+
+        if (cache != null) {
+            getLocations().put("cache", cache);
+        }
+
+        /*
+        Override root path is passed in as an arg
+        */
+        if (rootPath != null) {
+            configData.getResources().setRoot(rootPath);
+        }
+        /*
+        Validate root path. Null if locations are relative
+        */
+        rootPath = configData.getResources().getRoot();
+        if (rootPath != null) {
+            /*
+            If empty then it should be null.
+            */
+            if (rootPath.trim().length() == 0) {
+                rootPath = null;
+            } else {
+                /*
+                Check it is a root path. If not make it one.
+                */
+                if (!rootPath.startsWith(FS)) {
+                    rootPath = FS + rootPath;
+                }
+            }
+        }
+
+        if (port != null) {
+            configData.getSystem().put("server.port", port);
+        }
 
         if ((configData.getResources() == null) || (configData.getResources().getUsers() == null) || (configData.getResources().getUsers().size() == 0)) {
             throw new ConfigDataException(configErrorPrefix + "User data 'resources-->users' not found or is empty");
@@ -71,20 +120,20 @@ public class ConfigDataManager {
             }
         }
 
-        if ((configData.getResources().getLocations() == null) || (configData.getResources().getLocations().size() == 0)) {
+        if ((getLocations() == null) || (getLocations().size() == 0)) {
             throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
         }
 
-        if (configData.getResources().getLocations().get("scripts") == null) {
+        if (getLocations().get("scripts") == null) {
             throw new ConfigDataException(configErrorPrefix + "Location 'scripts' is undefined");
         }
 
-        if (configData.getResources().getLocations().get("cache") == null) {
+        if (getLocations().get("cache") == null) {
             throw new ConfigDataException(configErrorPrefix + "Location 'cache' is undefined");
         }
 
         if (configData.isValidateLocations()) {
-            for (Map.Entry<String, String> loc : configData.getResources().getLocations().entrySet()) {
+            for (Map.Entry<String, String> loc : getLocations().entrySet()) {
                 File f = new File(loc.getValue());
                 f = new File(f.getAbsolutePath());
                 if (!f.exists()) {
@@ -114,7 +163,7 @@ public class ConfigDataManager {
         parameters.put("poleForTime", "" + configData.getFunctions().getPoleForTime());
         parameters.put("historyMaxLen", "" + configData.getResources().getHistoryMaxLen());
         parameters.put("user", "");
-        
+
     }
 
     public static Map<String, Map<String, String>> getUsers() {
@@ -122,27 +171,37 @@ public class ConfigDataManager {
     }
 
     public static Map<String, String> getUser(String user) {
-        Map<String, String> loc = getUsers().get(user);
-        if (loc == null) {
+        Map<String, String> map = getUsers().get(user);
+        if (map == null) {
             throw new ResourceNotFoundException(user);
         }
-        return loc;
+        return map;
+    }
+
+    public static Map<String, String> getLocations() {
+        return configData.getResources().getLocations();
     }
 
     public static String getLocation(String locationName) {
-        String path = configData.getResources().getLocations().get(locationName);
-        if (path == null) {
+        String loc = getLocations().get(locationName);
+        if (loc == null) {
             throw new ResourceNotFoundException(locationName);
         }
-        return path;
-
+        return resolveLocation(loc);
     }
 
-    public static File getLocation(String user, String locationName, String path) {
-        return getLocation(user, locationName, path, null);
+    public static File getUserLocation(String user, String locationName, String path) {
+        return getUserLocation(user, locationName, path, null);
     }
 
-    public static File getLocation(String user, String locationName, String path, String name) {
+    private static String resolveLocation(String loc) {
+        if (loc.startsWith(FS)) {
+            return loc;
+        }
+        return (rootPath == null ? loc : rootPath + FS + loc);
+    }
+
+    public static File getUserLocation(String user, String locationName, String path, String name) {
         String loc;
         if (user == null) {
             loc = getLocation(locationName);
@@ -152,20 +211,21 @@ public class ConfigDataManager {
             if (loc == null) {
                 throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path));
             }
+            loc = resolveLocation(loc);
         }
         File f;
         if (path == null) {
             if (name == null) {
                 f = new File((new File(loc)).getAbsolutePath());
             } else {
-                f = new File((new File(loc + File.separator + name)).getAbsolutePath());
+                f = new File((new File(loc + FS + name)).getAbsolutePath());
             }
 
         } else {
             if (name == null) {
-                f = new File((new File(loc + File.separator + path)).getAbsolutePath());
+                f = new File((new File(loc + FS + path)).getAbsolutePath());
             } else {
-                f = new File((new File(loc + File.separator + path + File.separator + name)).getAbsolutePath());
+                f = new File((new File(loc + FS + path + FS + name)).getAbsolutePath());
             }
         }
         if (f.exists()) {
@@ -175,15 +235,31 @@ public class ConfigDataManager {
         throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name));
     }
 
-    public static Map<String, String> getLocations() {
-        return configData.getResources().getLocations();
-    }
-
     public static Map<String, String> getProperties(Map<String, String> localParameters) {
         Map<String, String> map = new HashMap<>();
         map.putAll(parameters);
         map.putAll(localParameters);
         return map;
+    }
+
+    public static boolean isEchoScriptOutput() {
+        return configData.getFunctions().isEchoScriptOutput();
+    }
+
+    public static boolean isAllowServerStopCtrl() {
+        return configData.isAllowServerStopCtrl();
+    }
+
+    public static Functions getFunctions() {
+        return configData.getFunctions();
+    }
+
+    public static String getLogName() {
+        return configData.getLogName();
+    }
+
+    public static String getLogPath() {
+        return configData.getLogPath();
     }
 
     public static String formattedTimeStamp() {
@@ -197,7 +273,7 @@ public class ConfigDataManager {
 
     public static String readCache(String fileName, String resourceName) {
         String path = ConfigDataManager.getLocation("cache");
-        File f = new File(path + File.separator + fileName);
+        File f = new File(path + FS + fileName);
         if (!f.exists()) {
             throw new ResourceNotFoundException(resourceName);
         }
@@ -206,5 +282,18 @@ public class ConfigDataManager {
         } catch (IOException ex) {
             throw new ResourceNotFoundException(resourceName);
         }
+    }
+
+    private static String getArgValue(String arg) {
+        int pos = arg.indexOf('=');
+        if (pos < 1) {
+            return null;
+        }
+        String val = arg.substring(pos + 1);
+        val = val.trim();
+        if (val.length() == 0) {
+            return null;
+        }
+        return val;
     }
 }

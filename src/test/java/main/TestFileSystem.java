@@ -64,8 +64,8 @@ public class TestFileSystem {
     @BeforeClass
     public static void beforeClass() {
         ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
-        String lName = ConfigDataManager.getConfigData().getLogName().toLowerCase();
-        File f = new File(ConfigDataManager.getConfigData().getLogPath());
+        String lName = ConfigDataManager.getLogName().toLowerCase();
+        File f = new File(ConfigDataManager.getLogPath());
         File[] l = f.listFiles();
         for (File fil : l) {
             String n = fil.getName();

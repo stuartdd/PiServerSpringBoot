@@ -9,7 +9,7 @@
     "validateLocations": false,
     "resources": {
         "historyMaxLen": 20,
-        "root": "/home/pi/PiServer/web",
+        "root": null,
         "users": {
             "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},

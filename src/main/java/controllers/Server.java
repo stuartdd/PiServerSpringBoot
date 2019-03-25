@@ -48,7 +48,7 @@ public class Server extends ControllerErrorHandlerBase {
 
     @RequestMapping(value = "server/stop", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String stop(HttpServletRequest req, @RequestParam Map<String, String> queryParameters) {
-        if (ConfigDataManager.getConfigData().isAllowServerStopCtrl()) {
+        if (ConfigDataManager.isAllowServerStopCtrl()) {
             return ShutDownService.shutDownLater(appContext, 1, 2, "SHUTTING DOWN");
         } else {
             throw new ServerRestException("Stop command is disabled",HttpStatus.FORBIDDEN,"Forbidden");

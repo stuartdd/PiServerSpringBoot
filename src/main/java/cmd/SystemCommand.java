@@ -21,7 +21,7 @@ public class SystemCommand {
     private List<String> commands;
 
     public int run(List<String> commandIn, String path) {
-        boolean echoScriptOutput = ConfigDataManager.getConfigData().getFunctions().isEchoScriptOutput();
+        boolean echoScriptOutput = ConfigDataManager.isEchoScriptOutput();
         if (commandIn == null) {
             throw new SystemCommandException("Failed command : (NULL)");
         }

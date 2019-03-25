@@ -35,7 +35,7 @@ public class TestScripts {
     @BeforeClass
     public static void beforeClass() {
         ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
-        FunctionService.init(ConfigDataManager.getConfigData().getFunctions());
+        FunctionService.init(ConfigDataManager.getFunctions());
     }
 
     @Test
