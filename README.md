@@ -111,7 +111,7 @@ However `/paths/user/foo/loc/unknown` will NOT be satisfied by the above config 
 
 For example `/files/user/{user}/loc/{loc}/path/{path}` defined as '/files/user/bar/loc/data/path/abc' will return all files for the path `cache/foo/abc`. If the user of loc are not found then Resource Not Found error for `bar.data` will be returned. If `abc` is not found in `cache/foo/abc` then Resource Not Found error for `bar.data.abc` will be retuned.
 
-Note ALL resource paths will be prefixed with the server root as defined by (for example) `"serverRoot": "/home/pi/server"`. So in the above example `cache/foo/abc` will actually be `/home/pi/server/cache/foo/abc`. If serverRoot is undefined then ALL paths are relative to the current path. If the path cannot be found then Resource Not Found error for `bar.data.abc` will be retuned.
+**Note:** ALL resource paths will be prefixed with the server root as defined by (for example) `"serverRoot": "/home/pi/server"`. So in the above example `cache/foo/abc` will actually be `/home/pi/server/cache/foo/abc`. If serverRoot is undefined then ALL paths are relative to the current path. If the path cannot be found then Resource Not Found error for `bar.data.abc` will be retuned.
 
 `historyMaxLen": 20` - Defines a history property that retains (in this case) 20 entries. This is curerntly used to display a history of all images viewed but need not be used for that purpose. 
 
@@ -119,5 +119,5 @@ Note ALL resource paths will be prefixed with the server root as defined by (for
 
 If serverRoot is empty or null then the file system path will need to be in the current directory. That will usually be the one you ran the server from.
 
-Note serverRoot can also be defined as an application argument: `-root=/home/pi/server`. This will override the `"serverRoot": "/home/pi/server"` definition. See section on command line arguments later.
+**Note:** serverRoot can also be defined as an application argument: `-root=/home/pi/server`. This will override the `"serverRoot": "/home/pi/server"` definition. See section on command line arguments later.
 
