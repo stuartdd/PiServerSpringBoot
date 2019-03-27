@@ -88,12 +88,13 @@ Detection of Images and binary data files can be configured.
 
 `"logPath": "logs", "logName": "PiServer"` - Are used to define the locations for the Log4j2 configuration XML file. They are copied to the System.properties when the configuration file is load so they can be substituted in to the log4j2.xml file at run time. 
 
-If -D was used to set these System proeprties on the command line these parameters will be ignored.
+If -D was used to set these properties via the command line then these parameters will be ignored.
 
-If these values are empty then the -D option will need to be used and the log4j2.xml substitutions will not take place. 
+If these System.properties are empty then the -D option will need to be used as the log4j2.xml substitutions will not take place an an erro will occur. Or you could just change the log4j2.xml file to hard code the values.
 
 The file is here: 
 `PiServerSpringBoot/src/main/resources/log4j2-spring.xml.`
 
-`'"allowServerStopCtrl": true'` enables the server to be stopped via a ReST call. `server/stop`
+`'"allowServerStopCtrl": true'` enables the server to be stopped via a ReST call. `server/stop`. See `controllers.Server` class.
 
+`"formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ"` format of the timestamp used in JSON response for the `server/time` ReST call. See `controllers.Server` class.
