@@ -85,5 +85,15 @@ Detection of Images and binary data files can be configured.
 ```
 ## Definitions
 `"system": {}` - This is a list of name value pairs. They are copied to the System.properties when the configuration file is loaded. They are equivilent to the -D Java command line option.
-`"logPath": "logs", "logName": "PiServer"` - Is used to define the locations for the Log4j2 configuration XML file. They are copied to the System.properties when the configuration file is load so they can be substituted in to the Log4j2.xml file at run time.
+
+`"logPath": "logs", "logName": "PiServer"` - Are used to define the locations for the Log4j2 configuration XML file. They are copied to the System.properties when the configuration file is load so they can be substituted in to the log4j2.xml file at run time. 
+
+If -D was used to set these System proeprties on the command line these parameters will be ignored.
+
+If these values are empty then the -D option will need to be used and the log4j2.xml substitutions will not take place. 
+
+The file is here: 
+`PiServerSpringBoot/src/main/resources/log4j2-spring.xml.`
+
+`'"allowServerStopCtrl": true'` enables the server to be stopped via a ReST call. `server/stop`
 
