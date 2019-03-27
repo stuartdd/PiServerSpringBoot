@@ -51,11 +51,8 @@ Detection of Images and binary data files can be configured.
         "historyMaxLen": 20,
         "serverRoot": "/home/pi/server",
         "users": {
-            "stuart": {"thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart"},
-            "julie": {"thumbs":"thumbnails/julie", "original":"/media/USBHDD1/shares/julie", "data":"cache/julie"},
-            "owain": {"thumbs":"thumbnails/owain", "original":"/media/USBHDD1/shares/owain", "data":"cache/owain"},
-            "huw": {"thumbs":"thumbnails/huw", "original":"/media/USBHDD1/shares/huw", "data":"cache/huw"},
-            "shared": {"thumbs":"thumbnails/shared", "original":"/media/USBHDD1/shares/shared", "data":"cache/shared"}
+            "foo": {"thumbs":"thumbnails/foo", "original":"/media/USBHDD1/shares/foo", "data":"cache/foo"},
+            "bar": {"thumbs":"thumbnails/bar", "original":"/media/USBHDD1/shares/bar", "data":"cache/bar"}
         },
         "locations": {
             "logs": "logs",
@@ -95,6 +92,32 @@ If these System.properties are empty then the -D option will need to be used as 
 The file is here: 
 `PiServerSpringBoot/src/main/resources/log4j2-spring.xml.`
 
-`'"allowServerStopCtrl": true'` enables the server to be stopped via a ReST call. `server/stop`. See `controllers.Server` class.
+`'"allowServerStopCtrl": true'` - Enables the server to be stopped via a ReST call. `server/stop`. See `controllers.Server` class.
 
-`"formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ"` format of the timestamp used in JSON response for the `server/time` ReST call. See `controllers.Server` class.
+`"formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ"` - Format of the timestamp used in JSON response for the `server/time` ReST call. See `controllers.Server` class.
+
+`"validateLocations": true` - If true then the locations defined in `resources.locations` and `resources.users` are checked before the application loads. If the paths cannot be found an exception is thrown and the application terminates with an error code.
+
+Turning this off is unwise unless your configuration is incomplete during development.
+
+### Resources:
+`resources` - defines group of paths that the application uses. The `controllers.FileSystem` class manages access to all file system resources via an id (location) or via a user and id (user.location).
+
+Using `"validateLocations": true` means these file system resources must exist (or the application would not run) however is a request is made for a location or user or user.location that is not defied a 404 will be returned. The File system resource is not displayed in the response. Only the user and or location is displayed.
+
+For example `/paths/user/{user}/loc/{loc}` will return a list of directories for 'user' at 'loc'. So `/paths/user/foo/loc/original` will be satisfied by the above config example and return all the directories at '/media/USBHDD1/shares/foo'
+
+However `/paths/user/foo/loc/unknown` will NOT be satisfied by the above config example and return a Resource Not Found error for `foo.unknown`.
+
+For example `/files/user/{user}/loc/{loc}/path/{path}` defined as '/files/user/bar/loc/data/path/abc' will return all files for the path `cache/foo/abc`. If the user of loc are not found then Resource Not Found error for `bar.data` will be returned. If `abc` is not found in `cache/foo/abc` then Resource Not Found error for `bar.data.abc` will be retuned.
+
+Note ALL resource paths will be prefixed with the server root as defined by (for example) `"serverRoot": "/home/pi/server"`. So in the above example `cache/foo/abc` will actually be `/home/pi/server/cache/foo/abc`. If serverRoot is undefined then ALL paths are relative to the current path. If the path cannot be found then Resource Not Found error for `bar.data.abc` will be retuned.
+
+`historyMaxLen": 20` - Defines a history property that retains (in this case) 20 entries. This is curerntly used to display a history of all images viewed but need not be used for that purpose. 
+
+`"serverRoot": "/home/pi/server"` - Prefixes ALL file system resources. In the above sample config the location `scripts` will return the path 'scripts'. This will actually be resolved to `/home/pi/server/scripts`. 
+
+If serverRoot is empty or null then the file system path will need to be in the current directory. That will usually be the one you ran the server from.
+
+Note serverRoot can also be defined as an application argument: `-root=/home/pi/server`. This will override the `"serverRoot": "/home/pi/server"` definition. See section on command line arguments later.
+
