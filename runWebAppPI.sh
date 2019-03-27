@@ -21,7 +21,7 @@ while [[ $RC -eq 2 ]]
 do
     echo "$(date '+%F %T') : RUN/RE-RUN " >> $LOGFILE
     echo "$(date '+%F %T') : ========================= " >> $LOGFILE
-    java -jar $JAR_NAME $CONFIG_NAME >> $LOGFILE
+    java -jar $JAR_NAME $CONFIG_NAME -cache=$SERVER_DIR/cache -root=$SERVER_DIR >> $LOGFILE
     RC=`cat $RC_FILE`
     echo "$(date '+%F %T') : ========================= " >> $LOGFILE
     echo "$(date '+%F %T') : END RC-$RC" >> $LOGFILE

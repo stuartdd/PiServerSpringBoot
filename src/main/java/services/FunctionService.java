@@ -29,9 +29,9 @@ public class FunctionService {
     private static Functions functions;
     private static String osTemplate;
     
-    public static void init(Functions configData) {
-        functions = configData;
-        osTemplate = configData.getOsTemplates().get(OsUtils.resolveOS().name().toLowerCase());
+    public static void init(Functions functionData) {
+        functions = functionData;
+        osTemplate = functionData.getOsTemplates().get(OsUtils.resolveOS().name().toLowerCase());
         if (osTemplate == null) {
             throw new ServiceException("Operating System could not be derived. Got: "+OsUtils.resolveOS());
         }

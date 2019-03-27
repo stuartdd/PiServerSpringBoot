@@ -21,7 +21,7 @@ public class Resources {
     @JsonIgnore
     private String fullStaticFiles;
 
-    private String root;
+    private String serverRoot;
     private String staticFiles;
     private String scriptFiles;
     private int historyMaxLen = 5;
@@ -39,12 +39,12 @@ public class Resources {
         return fullStaticFiles;
     }
 
-    public String getRoot() {
-        return root;
+    public String getServerRoot() {
+        return serverRoot;
     }
 
-    public void setRoot(String root) {
-        this.root = root;
+    public void setServerRoot(String serverRoot) {
+        this.serverRoot = serverRoot;
     }
 
     public String getStaticFiles() {

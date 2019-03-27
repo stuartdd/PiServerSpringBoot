@@ -40,7 +40,7 @@ public class FileService {
     private static final String FS = File.separator;
     
     public static PathsIO paths(String user, String loc) {
-        File root = ConfigDataManager.getUserLocation(user, loc, null);
+        File root = ConfigDataManager.getUserLocationFile(user, loc);
         int prefix = root.getAbsolutePath().length();
         List<String> files = new ArrayList<>();
         FileUtils.tree(root, files, prefix, new FileExtFilter(new String[]{".java", ".jpg"}));
@@ -58,12 +58,12 @@ public class FileService {
         if ((body == null) || (body.isEmpty())) {
             throw new ServerRestException("Missing content. Nothing to save!", HttpStatus.BAD_REQUEST, "BAD REQUEST");
         }
-        File root = ConfigDataManager.getUserLocation(user, loc, path);
+        File root = ConfigDataManager.getUserLocationFile(user, loc, path);
         FileUtils.writeFileOverwrite(body, new File(root.getAbsolutePath()+FS+name));
     }
 
     public static byte[] userReadFiles(String user, String loc, String dir, String name) {
-        File root = ConfigDataManager.getUserLocation(user, loc, dir, name);
+        File root = ConfigDataManager.getUserLocationFile(user, loc, dir, name);
         try {
             return FileUtils.loadBinaryFile(root);
         } catch (IOException ex) {
@@ -83,7 +83,7 @@ public class FileService {
     }
 
     private static FileListIo userListFiles(String user, String loc, String dir, FileFilter filter) {
-        File root = ConfigDataManager.getUserLocation(user, loc, dir);
+        File root = ConfigDataManager.getUserLocationFile(user, loc, dir);
         FileListIo fileListOut = new FileListIo(user, loc, dir);
         File[] fileList = null;
         if (filter == null) {

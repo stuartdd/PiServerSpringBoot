@@ -5,20 +5,21 @@
  */
 package config;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  *
  * @author stuar
  */
-public class ConfigData {
+public class ConfigDataImpl {
 
     private Resources resources;
     private Functions functions;
     private String formatTimeStamp;
     private Map<String, String> system;
     private boolean allowServerStopCtrl = true;
-    private boolean validateLocations = true;
+    private boolean validateLocations;
     private String logName;
     private String logPath;
     

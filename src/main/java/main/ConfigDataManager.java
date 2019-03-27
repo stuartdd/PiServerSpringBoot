@@ -17,8 +17,9 @@
 package main;
 
 import exceptions.ConfigDataException;
-import config.ConfigData;
+import config.ConfigDataImpl;
 import config.Functions;
+import config.LogProvider;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.io.IOException;
@@ -36,118 +37,129 @@ import tools.StringUtils;
 public class ConfigDataManager {
 
     private static final String FS = File.separator;
-    private static ConfigData configData;
     private static String configDataName;
-    private static String rootPath;
     private static Map<String, String> parameters;
+    /*
+    Do not give direct access to configDataImpl. It should always remain wrapped
+     */
+    private static ConfigDataImpl configDataImpl;
+    /*
+    These values can be overriden with app args so once setup should NOT be read from configDataImpl.
+     */
+    private static String serverRoot;
+    private static String cache;
 
     public static void init(String[] args) {
-        String cache = null;
-        String port = null;
+
         for (String arg : args) {
             if (arg != null) {
                 String argLc = arg.toLowerCase();
                 if (argLc.startsWith("-cache=")) {
                     cache = getArgValue(arg);
                 } else if (argLc.startsWith("-root=")) {
-                    rootPath = getArgValue(arg);
-                } else if (argLc.startsWith("-port=")) {
-                    port = getArgValue(arg);
+                    serverRoot = getArgValue(arg);
                 } else {
                     configDataName = arg;
                 }
             }
         }
 
-        if (configData == null) {
-            if (configDataName == null) {
-                configDataName = "configTestData.json";
-            }
+        if (configDataName == null) {
+            throw new ConfigDataException("Configuration data file name was not provided");
         }
 
         String configErrorPrefix = "Config data file:" + configDataName + ": ";
-        configData = (ConfigData) JsonUtils.beanFromJson(ConfigData.class, new File(configDataName));
+        configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
 
-        if (cache != null) {
-            getLocations().put("cache", cache);
+        if (configDataImpl.getResources() == null) {
+            throw new ConfigDataException(configErrorPrefix + "Resources data not found or is empty");
         }
 
-        /*
-        Override root path is passed in as an arg
-        */
-        if (rootPath != null) {
-            configData.getResources().setRoot(rootPath);
-        }
-        /*
-        Validate root path. Null if locations are relative
-        */
-        rootPath = configData.getResources().getRoot();
-        if (rootPath != null) {
-            /*
-            If empty then it should be null.
-            */
-            if (rootPath.trim().length() == 0) {
-                rootPath = null;
-            } else {
-                /*
-                Check it is a root path. If not make it one.
-                */
-                if (!rootPath.startsWith(FS)) {
-                    rootPath = FS + rootPath;
-                }
-            }
+        if ((configDataImpl.getResources().getLocations() == null) || (configDataImpl.getResources().getLocations().size() == 0)) {
+            throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
         }
 
-        if (port != null) {
-            configData.getSystem().put("server.port", port);
-        }
-
-        if ((configData.getResources() == null) || (configData.getResources().getUsers() == null) || (configData.getResources().getUsers().size() == 0)) {
+        if ((configDataImpl.getResources().getUsers() == null) || (configDataImpl.getResources().getUsers().size() == 0)) {
             throw new ConfigDataException(configErrorPrefix + "User data 'resources-->users' not found or is empty");
         }
 
-        if (configData.isValidateLocations()) {
-            for (Map.Entry<String, Map<String, String>> usr : configData.getResources().getUsers().entrySet()) {
-                if (usr.getValue() != null) {
-                    for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
-                        File f = new File(loc.getValue());
-                        f = new File(f.getAbsolutePath());
-                        if (!f.exists()) {
-                            throw new ConfigDataException(configErrorPrefix + "User '" + loc.getKey() + "'. Path '" + loc.getValue() + "' does not exist");
-                        }
-                    }
-                }
-            }
-        }
-
-        if ((getLocations() == null) || (getLocations().size() == 0)) {
-            throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
+        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getCommands() == null) || (configDataImpl.getFunctions().getCommands().size() == 0)) {
+            throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->commands' not found or is empty");
         }
 
         if (getLocations().get("scripts") == null) {
             throw new ConfigDataException(configErrorPrefix + "Location 'scripts' is undefined");
         }
 
-        if (getLocations().get("cache") == null) {
-            throw new ConfigDataException(configErrorPrefix + "Location 'cache' is undefined");
+        if (cache != null) {
+            LogProvider.debug("CACHE Path override provided:" + cache);
+        } else {
+            cache = getLocation("cache");
         }
 
-        if (configData.isValidateLocations()) {
-            for (Map.Entry<String, String> loc : getLocations().entrySet()) {
-                File f = new File(loc.getValue());
-                f = new File(f.getAbsolutePath());
-                if (!f.exists()) {
-                    throw new ConfigDataException(configErrorPrefix + "Location '" + loc.getKey() + "=" + loc.getValue() + " does not exist");
+        if (!FileUtils.exists(cache)) {
+            throw new ConfigDataException(configErrorPrefix + "Cache does not exist:: " + cache);
+        }
+
+        if (serverRoot != null) {
+            LogProvider.debug("SERVER ROOT override provided:" + serverRoot);
+        } else {
+            serverRoot = configDataImpl.getResources().getServerRoot();
+        }
+
+        /*
+        Validate root path. Null if locations are relative
+         */
+        if (serverRoot != null) {
+            /*
+            If empty then it should be null.
+             */
+            if (serverRoot.trim().length() == 0) {
+                serverRoot = null;
+            } else {
+                File sr = new File(serverRoot);
+                sr = new File(sr.getAbsolutePath());
+                if (!sr.exists()) {
+                    throw new ConfigDataException(configErrorPrefix + "ServerRoot does not exist: " + sr.getAbsolutePath());
+                }
+                /*
+                If it the current path
+                 */
+                if (serverRoot.equals(".")) {
+                    serverRoot = null;
+                } else {
+                    /*
+                    Check it is a root path. If not make it one.
+                     */
+                    if (!serverRoot.startsWith(FS)) {
+                        serverRoot = FS + serverRoot;
+                    }
                 }
             }
         }
 
-        if ((configData.getFunctions() == null) || (configData.getFunctions().getCommands() == null) || (configData.getFunctions().getCommands().size() == 0)) {
-            throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->commands' not found or is empty");
+        if (!configDataImpl.isValidateLocations()) {
+            try {
+                for (Map.Entry<String, Map<String, String>> usr : getUsers().entrySet()) {
+                    if (usr.getValue() != null) {
+                        for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
+                            getUserLocationFile(loc.getKey(), usr.getKey());
+                        }
+                    }
+                }
+
+                for (Map.Entry<String, String> loc : getLocations().entrySet()) {
+                    getLocationFile(loc.getKey());
+                }
+
+                FileUtils.exists(getLogPath());
+            } catch (Exception e) {
+                throw new ConfigDataException(configErrorPrefix + "File syatem reasource not found: " + e.getMessage(), e);
+            }
         }
 
         parameters = new HashMap<>();
-        for (Map.Entry<String, String> es : configData.getSystem().entrySet()) {
+        for (Map.Entry<String, String> es : configDataImpl.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
         }
 
@@ -160,14 +172,14 @@ public class ConfigDataManager {
         }
         sb.setLength(mark);
         parameters.put("userList", sb.toString());
-        parameters.put("poleForTime", "" + configData.getFunctions().getPoleForTime());
-        parameters.put("historyMaxLen", "" + configData.getResources().getHistoryMaxLen());
+        parameters.put("poleForTime", "" + configDataImpl.getFunctions().getPoleForTime());
+        parameters.put("historyMaxLen", "" + configDataImpl.getResources().getHistoryMaxLen());
         parameters.put("user", "");
 
     }
 
     public static Map<String, Map<String, String>> getUsers() {
-        return configData.getResources().getUsers();
+        return configDataImpl.getResources().getUsers();
     }
 
     public static Map<String, String> getUser(String user) {
@@ -179,7 +191,7 @@ public class ConfigDataManager {
     }
 
     public static Map<String, String> getLocations() {
-        return configData.getResources().getLocations();
+        return configDataImpl.getResources().getLocations();
     }
 
     public static String getLocation(String locationName) {
@@ -190,18 +202,30 @@ public class ConfigDataManager {
         return resolveLocation(loc);
     }
 
-    public static File getUserLocation(String user, String locationName, String path) {
-        return getUserLocation(user, locationName, path, null);
+    public static File getLocationFile(String locationName) {
+        File f = new File(getLocation(locationName));
+        if (f.exists()) {
+            return f;
+        }
+        throw new ResourceNotFoundException(locationName + (configDataImpl.isValidateLocations() ? " - ROOT: " + serverRoot + " PATH:" + f.getAbsolutePath() : ""));
+    }
+
+    public static File getUserLocationFile(String user, String locationName) {
+        return getUserLocationFile(user, locationName, null);
+    }
+
+    public static File getUserLocationFile(String user, String locationName, String path) {
+        return getUserLocationFile(user, locationName, path, null);
     }
 
     private static String resolveLocation(String loc) {
         if (loc.startsWith(FS)) {
             return loc;
         }
-        return (rootPath == null ? loc : rootPath + FS + loc);
+        return (serverRoot == null ? loc : serverRoot + FS + loc);
     }
 
-    public static File getUserLocation(String user, String locationName, String path, String name) {
+    public static File getUserLocationFile(String user, String locationName, String path, String name) {
         String loc;
         if (user == null) {
             loc = getLocation(locationName);
@@ -231,8 +255,7 @@ public class ConfigDataManager {
         if (f.exists()) {
             return f;
         }
-        //shared.original.media/Photos/2004-10-22_HuwSchoolAssembly.imgp2446.jpg
-        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name));
+        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name) + (configDataImpl.isValidateLocations() ? " - ROOT: " + serverRoot + " PATH:" + f.getAbsolutePath() : ""));
     }
 
     public static Map<String, String> getProperties(Map<String, String> localParameters) {
@@ -242,29 +265,33 @@ public class ConfigDataManager {
         return map;
     }
 
+    public static String getCache() {
+        return cache;
+    }
+
     public static boolean isEchoScriptOutput() {
-        return configData.getFunctions().isEchoScriptOutput();
+        return configDataImpl.getFunctions().isEchoScriptOutput();
     }
 
     public static boolean isAllowServerStopCtrl() {
-        return configData.isAllowServerStopCtrl();
+        return configDataImpl.isAllowServerStopCtrl();
     }
 
     public static Functions getFunctions() {
-        return configData.getFunctions();
+        return configDataImpl.getFunctions();
     }
 
     public static String getLogName() {
-        return configData.getLogName();
+        return configDataImpl.getLogName();
     }
 
     public static String getLogPath() {
-        return configData.getLogPath();
+        return configDataImpl.getLogPath();
     }
 
     public static String formattedTimeStamp() {
         DateTime now = DateTime.now();
-        return now.toString(configData.getFormatTimeStamp());
+        return now.toString(configDataImpl.getFormatTimeStamp());
     }
 
     public static String readCacheStartToEnd(String fileName, String resourceName) {
@@ -272,8 +299,7 @@ public class ConfigDataManager {
     }
 
     public static String readCache(String fileName, String resourceName) {
-        String path = ConfigDataManager.getLocation("cache");
-        File f = new File(path + FS + fileName);
+        File f = new File(cache + FS + fileName);
         if (!f.exists()) {
             throw new ResourceNotFoundException(resourceName);
         }

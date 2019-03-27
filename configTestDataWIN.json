@@ -1,15 +1,13 @@
 {
-    "system": {
-        "server.port": "8080"
-    },
+    "system": {},
     "logPath": "data/logs",
     "logName": "PiServer",
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validateLocations": false,
+    "validateLocations": true,
     "resources": {
         "historyMaxLen": 20,
-        "root": null,
+        "serverRoot": null,
         "users": {
             "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
