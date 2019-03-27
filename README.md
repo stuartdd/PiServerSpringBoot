@@ -103,13 +103,13 @@ Turning this off is unwise unless your configuration is incomplete during develo
 ### Resources:
 `resources` - defines group of paths that the application uses. The `controllers.FileSystem` class manages access to all file system resources via an id (location) or via a user and id (user.location).
 
-Using `"validateLocations": true` means these file system resources must exist (or the application would not run) however is a request is made for a location or user or user.location that is not defied a 404 will be returned. The File system resource is not displayed in the response. Only the user and or location is displayed.
+Using `"validateLocations": true` means these file system resources must exist (or the application would not run) however is a request is made for a location or user or user.location that is not defied a 404 will be returned. The File system resource (path) is not displayed in the response. Only the user and or location is displayed.
 
-For example `/paths/user/{user}/loc/{loc}` will return a list of directories for 'user' at 'loc'. So `/paths/user/foo/loc/original` will be satisfied by the above config example and return all the directories at '/media/USBHDD1/shares/foo'
+**Example 1** `/paths/user/{user}/loc/{loc}` will return a list of directories for 'user' at 'loc'. So `/paths/user/foo/loc/original` will be satisfied by the above config sample and return all the directories at `/media/USBHDD1/shares/foo`
 
 However `/paths/user/foo/loc/unknown` will NOT be satisfied by the above config example and return a Resource Not Found error for `foo.unknown`.
 
-For example `/files/user/{user}/loc/{loc}/path/{path}` defined as '/files/user/bar/loc/data/path/abc' will return all files for the path `cache/foo/abc`. If the user of loc are not found then Resource Not Found error for `bar.data` will be returned. If `abc` is not found in `cache/foo/abc` then Resource Not Found error for `bar.data.abc` will be retuned.
+**Example 2** if uri `/files/user/{user}/loc/{loc}/path/{path}` was sent as `/files/user/bar/loc/data/path/abc` it would return all files for the path `cache/foo/abc`. If the user or loc are not found then Resource Not Found error for `bar.data` will be returned. If `abc` is not found in `cache/foo/abc` then Resource Not Found error for `bar.data.abc` will be retuned.
 
 **Note:** ALL resource paths will be prefixed with the server root as defined by (for example) `"serverRoot": "/home/pi/server"`. So in the above example `cache/foo/abc` will actually be `/home/pi/server/cache/foo/abc`. If serverRoot is undefined then ALL paths are relative to the current path. If the path cannot be found then Resource Not Found error for `bar.data.abc` will be retuned.
 
