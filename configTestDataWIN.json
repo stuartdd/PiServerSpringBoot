@@ -7,7 +7,7 @@
     "validateLocations": true,
     "resources": {
         "historyMaxLen": 20,
-        "serverRoot": null,
+        "serverRoot": "",
         "users": {
             "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
@@ -20,7 +20,8 @@
             "scripts": "data/scripts",
             "thumbnail": "/thumbnails",
             "audio": "audio"
-        }
+        },
+        "alias" : {"ufs":"userFileSizes.out"}
     },
 
     "functions": {

@@ -59,7 +59,7 @@ public class TestServer {
 
     @Test
     public void getUFS() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/server/ufs"))
+        MvcResult mvcResult = mvc.perform(get("/files/loc/cache/name/ufs"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
         Assert.assertTrue(s.contains("\"Name\":\"shared\""));

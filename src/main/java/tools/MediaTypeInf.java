@@ -36,6 +36,12 @@ public class MediaTypeInf {
     public boolean isPlainText() {
         return plainText;
     }    
+
+    @Override
+    public String toString() {
+        return "MediaTypeInf{" + "mediaType=" + mediaType + ", plainText=" + plainText + '}';
+    }
      
+    
     
 }

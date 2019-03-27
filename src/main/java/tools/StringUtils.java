@@ -25,18 +25,21 @@ public class StringUtils {
         map.put("gif", new MediaTypeInf("image/gif", false));
         map.put("png", new MediaTypeInf("image/png", false));
         map.put("tiff", new MediaTypeInf("image/tiff", false));
-        map.put("js", new MediaTypeInf("text/javascript", false));
-        map.put("json", new MediaTypeInf("application/json; charset=UTF-8", false));
-        map.put("xml", new MediaTypeInf("application/xml; charset=UTF-8", false));
-        map.put("css", new MediaTypeInf("text/css", false));
-        map.put("html", new MediaTypeInf("text/html", false));
+        map.put("js", new MediaTypeInf("text/javascript", true));
+        map.put("json", new MediaTypeInf("application/json; charset=UTF-8", true));
+        map.put("xml", new MediaTypeInf("application/xml; charset=UTF-8", true));
+        map.put("css", new MediaTypeInf("text/css", true));
+        map.put("html", new MediaTypeInf("text/html", true));
         map.put("log", new MediaTypeInf("text/plain", true));
         map.put("txt", new MediaTypeInf("text/plain", true));
     }
 
-    public static MediaTypeInf getMediaTypeFroFile(String fileName) {
+    public static MediaTypeInf getMediaTypeForFile(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
         int pos = fileName.lastIndexOf('.');
-        if (pos > 0) {
+        if (pos >= 0) {
             String ext = fileName.substring(pos + 1);
             MediaTypeInf mt = map.get(ext.toLowerCase());
             if (mt != null) {

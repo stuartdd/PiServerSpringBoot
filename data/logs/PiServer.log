@@ -39,3 +39,581 @@
 2019-03-27 00:33:36.711 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
 2019-03-27 00:33:36.719 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
 2019-03-27 00:33:36.727 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-27 14:56:14.831 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:56:14.846 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 14:56:14.862 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 14:56:14.862 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:56:14.878 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 14:56:14.878 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 14:56:14.893 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 14:56:14.893 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 14:56:14.924 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 14:56:14.924 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 14:56:14.940 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 14:56:14.940 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 14:56:14.956 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:56:14.956 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:56:14.956 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:56:14.971 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:56:14.987 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:56:15.003 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 14:56:15.034 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 14:56:15.034 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 14:56:15.034 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 14:56:15.034 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 14:56:15.034 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus27008.txt
+2019-03-27 14:56:15.049 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 14:56:15.450 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 14:56:15.513 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 14:56:15.606 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 14:56:15.606 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 14:56:15.700 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 14:56:15.700 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 14:56:15.700 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 14:56:15.700 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 14:56:15.716 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 14:56:15.747 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 14:56:15.747 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 14:56:15.747 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 14:56:15.747 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 14:56:15.747 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 14:56:15.794 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 14:56:15.794 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 14:56:15.810 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 14:56:15.810 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:56:15.872 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"ufs"} CAUSE: ufs
+2019-03-27 14:56:16.060 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:56:16.109 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:56:16.114 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 14:56:16.153 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 14:58:16.002 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:58:16.018 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 14:58:16.018 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 14:58:16.033 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:58:16.033 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 14:58:16.049 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 14:58:16.049 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 14:58:16.049 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 14:58:16.080 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 14:58:16.080 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 14:58:16.096 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 14:58:16.096 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 14:58:16.111 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:58:16.111 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:58:16.111 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:58:16.111 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 14:58:16.143 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:58:16.143 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 14:58:16.190 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 14:58:16.190 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 14:58:16.190 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 14:58:16.190 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 14:58:16.190 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus27404.txt
+2019-03-27 14:58:16.190 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 14:58:16.328 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 14:58:16.375 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 14:58:16.454 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 14:58:16.454 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 14:58:16.532 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 14:58:16.532 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 14:58:16.532 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 14:58:16.532 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 14:58:16.532 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 14:58:16.563 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 14:58:16.563 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 14:58:16.563 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 14:58:16.563 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 14:58:16.563 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 14:58:16.610 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 14:58:16.610 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 14:58:16.625 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 14:58:16.625 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:58:16.672 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"ufs"} CAUSE: ufs
+2019-03-27 14:58:16.829 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:58:16.875 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 14:58:16.875 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 14:58:16.891 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 15:19:13.225 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:19:13.257 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 15:19:13.257 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 15:19:13.272 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:19:13.288 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 15:19:13.288 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 15:19:13.304 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:19:13.304 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:19:13.319 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:19:13.319 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:19:13.335 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:19:13.335 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:19:13.350 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:19:13.350 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:19:13.350 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:19:13.366 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:19:13.382 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:19:13.397 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:19:13.429 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 15:19:13.429 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 15:19:13.429 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 15:19:13.429 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 15:19:13.429 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus31508.txt
+2019-03-27 15:19:13.444 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 15:19:13.576 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 15:19:13.655 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 15:19:13.733 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 15:19:13.733 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:19:13.795 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 15:19:13.795 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 15:19:13.795 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 15:19:13.795 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 15:19:13.811 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:19:13.842 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 15:19:13.842 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 15:19:13.842 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 15:19:13.842 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 15:19:13.842 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 15:19:13.889 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 15:19:13.889 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 15:19:13.889 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 15:19:13.905 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:19:13.951 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"ufs"} CAUSE: ufs
+2019-03-27 15:19:14.139 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:19:14.170 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:19:14.170 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:22:01.400 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[null] encName:[ufs]
+2019-03-27 15:23:42.109 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[null] encName:[ufs]
+2019-03-27 15:25:01.789 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:25:36.520 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:27:21.011 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:28:39.981 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:28:39.997 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 15:28:40.012 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 15:28:40.012 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:28:40.028 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 15:28:40.028 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 15:28:40.044 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:28:40.044 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:28:40.059 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:28:40.059 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:28:40.075 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:28:40.075 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:28:40.091 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:28:40.091 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:28:40.106 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:28:40.106 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:28:40.122 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:28:40.137 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:28:40.169 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 15:28:40.169 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 15:28:40.169 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 15:28:40.169 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 15:28:40.169 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus592.txt
+2019-03-27 15:28:40.184 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 15:28:40.325 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 15:28:40.397 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 15:28:40.481 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 15:28:40.487 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:28:40.568 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 15:28:40.569 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 15:28:40.569 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 15:28:40.570 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 15:28:40.575 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:28:40.611 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 15:28:40.612 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 15:28:40.612 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 15:28:40.613 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 15:28:40.613 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 15:28:40.669 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 15:28:40.675 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 15:28:40.679 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 15:28:40.690 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:28:40.754 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:28:40.755 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 15:28:40.944 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:28:40.987 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:28:40.992 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:29:26.291 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:30:02.442 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:30:02.458 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 15:30:02.458 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 15:30:02.474 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:30:02.489 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 15:30:02.489 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 15:30:02.505 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:30:02.505 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:30:02.536 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:30:02.536 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:30:02.552 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:30:02.552 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:30:02.567 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:30:02.567 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:30:02.567 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:30:02.567 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:30:02.599 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:30:02.614 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:30:02.646 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 15:30:02.646 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 15:30:02.646 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 15:30:02.646 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 15:30:02.646 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus860.txt
+2019-03-27 15:30:02.661 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 15:30:02.772 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 15:30:02.819 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 15:30:02.897 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 15:30:02.897 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:30:02.975 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 15:30:02.975 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 15:30:02.975 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 15:30:02.975 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 15:30:02.990 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:30:03.022 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 15:30:03.022 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 15:30:03.022 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 15:30:03.022 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 15:30:03.022 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 15:30:03.053 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 15:30:03.069 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 15:30:03.069 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 15:30:03.084 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:30:03.131 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:30:03.131 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 15:30:03.287 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:30:03.334 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:30:03.350 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:31:12.824 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:31:12.839 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 15:31:12.839 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 15:31:12.855 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:31:12.855 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 15:31:12.871 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 15:31:12.871 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:31:12.871 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:31:12.902 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:31:12.902 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:31:12.917 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:31:12.917 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:31:12.933 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:31:12.933 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:31:12.933 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:31:12.933 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:31:12.964 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:31:12.980 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:31:13.011 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 15:31:13.011 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 15:31:13.011 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 15:31:13.011 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 15:31:13.011 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus1088.txt
+2019-03-27 15:31:13.011 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 15:31:13.148 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 15:31:13.211 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 15:31:13.289 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 15:31:13.289 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:31:13.367 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 15:31:13.367 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 15:31:13.382 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 15:31:13.382 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 15:31:13.382 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:31:13.414 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 15:31:13.414 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 15:31:13.414 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 15:31:13.414 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 15:31:13.414 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 15:31:13.461 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 15:31:13.461 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 15:31:13.461 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 15:31:13.476 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:31:13.523 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:31:13.523 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 15:31:13.664 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:31:13.711 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:31:13.726 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:32:20.971 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:34:30.954 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:34:30.970 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 15:34:30.985 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 15:34:30.985 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:34:31.001 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 15:34:31.001 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 15:34:31.017 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:34:31.017 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:34:31.048 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:34:31.048 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:34:31.063 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 15:34:31.063 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 15:34:31.079 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:34:31.079 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:34:31.079 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:34:31.079 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 15:34:31.110 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:34:31.126 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:34:31.157 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 15:34:31.157 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 15:34:31.157 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 15:34:31.157 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 15:34:31.157 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus1738.txt
+2019-03-27 15:34:31.173 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 15:34:31.302 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 15:34:31.348 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 15:34:31.427 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 15:34:31.427 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:34:31.520 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 15:34:31.520 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 15:34:31.520 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 15:34:31.520 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 15:34:31.520 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 15:34:31.552 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 15:34:31.552 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 15:34:31.552 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 15:34:31.552 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 15:34:31.552 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 15:34:31.598 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 15:34:31.614 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 15:34:31.614 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 15:34:31.630 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:34:31.677 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 15:34:31.677 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 15:34:31.817 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:34:31.880 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 15:34:31.880 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:35:50.236 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:37:38.670 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:39:25.519 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 15:40:33.504 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 16:38:22.151 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 16:39:17.399 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 16:41:22.232 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[null] encName:[state.json]
+2019-03-27 16:42:03.991 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:43:02.344 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:43:20.841 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:43:20.864 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 16:43:20.868 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 16:43:20.873 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:43:20.888 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 16:43:20.897 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 16:43:20.909 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:43:20.909 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:43:20.936 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:43:20.936 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:43:20.950 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:43:20.950 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:43:20.963 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:43:20.968 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:43:20.973 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:43:20.976 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:43:21.006 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:43:21.021 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:43:21.063 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 16:43:21.063 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 16:43:21.064 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 16:43:21.064 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 16:43:21.065 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus15225.txt
+2019-03-27 16:43:21.071 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 16:43:21.197 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 16:43:21.251 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 16:43:21.322 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 16:43:21.328 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:43:21.434 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 16:43:21.434 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 16:43:21.435 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 16:43:21.436 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 16:43:21.441 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:43:21.474 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 16:43:21.474 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 16:43:21.475 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 16:43:21.475 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 16:43:21.476 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 16:43:21.552 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 16:43:21.556 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 16:43:21.561 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 16:43:21.570 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:43:21.634 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 16:43:21.634 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 16:43:21.859 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:43:21.926 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:43:21.932 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:43:21.945 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:44:10.056 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 16:47:00.902 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:47:00.933 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 16:47:00.933 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 16:47:00.933 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:47:00.949 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 16:47:00.964 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 16:47:00.964 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:47:00.964 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:47:00.996 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:47:00.996 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:47:01.011 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:47:01.011 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:47:01.027 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:47:01.027 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:47:01.027 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:47:01.027 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:47:01.058 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:47:01.058 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:47:01.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 16:47:01.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 16:47:01.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 16:47:01.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 16:47:01.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus15943.txt
+2019-03-27 16:47:01.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 16:47:01.240 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 16:47:01.318 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 16:47:01.427 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 16:47:01.427 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:47:01.505 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 16:47:01.505 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 16:47:01.505 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 16:47:01.505 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 16:47:01.505 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:47:01.536 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 16:47:01.536 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 16:47:01.536 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 16:47:01.536 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 16:47:01.536 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 16:47:01.599 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 16:47:01.599 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 16:47:01.615 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 16:47:01.615 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:47:01.677 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 16:47:01.677 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 16:47:01.833 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:47:01.880 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:47:01.896 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:47:01.911 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:55:23.200 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:55:23.232 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 16:55:23.232 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 16:55:23.247 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:55:23.263 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 16:55:23.263 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 16:55:23.279 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:55:23.279 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:55:23.310 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:55:23.310 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:55:23.325 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:55:23.325 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:55:23.341 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:55:23.357 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:55:23.357 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:55:23.357 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:55:23.372 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:55:23.388 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:55:23.435 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q0:diskStatus.bat
+2019-03-27 16:55:23.435 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q1:cache 
+2019-03-27 16:55:23.435 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q2: 
+2019-03-27 16:55:23.435 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> Q3:
+2019-03-27 16:55:23.435 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus17583.txt
+2019-03-27 16:55:23.435 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {start}
+2019-03-27 16:55:23.549 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 16:55:23.658 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat cache] --> {end}
+2019-03-27 16:55:23.752 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 16:55:23.767 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:55:23.853 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 16:55:23.854 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 16:55:23.854 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 16:55:23.855 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 16:55:23.860 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:55:23.896 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 16:55:23.897 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 16:55:23.897 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 16:55:23.898 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 16:55:23.898 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 16:55:23.962 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 16:55:23.968 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 16:55:23.972 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 16:55:23.983 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:55:24.046 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 16:55:24.047 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out"} CAUSE: cache.userFileSizes.out - ROOT: null PATH:E:\Development\PiServerSpringBoot\cache\userFileSizes.out
+2019-03-27 16:55:24.250 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:55:24.291 DEBUG Server: CACHE Path override provided:cache
+2019-03-27 16:55:24.295 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:55:24.309 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:57:45.687 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-27 16:57:45.734 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 16:57:45.734 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 16:57:45.734 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:57:45.749 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 16:57:45.749 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 16:57:45.765 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:57:45.765 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:57:45.796 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:57:45.796 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:57:45.796 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:57:45.796 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:57:45.812 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:57:45.812 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:57:45.812 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:57:45.827 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:57:45.843 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-27 16:57:45.859 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:57:45.890 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q0:diskStatus.bat
+2019-03-27 16:57:45.890 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q1:data/cache 
+2019-03-27 16:57:45.890 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q2: 
+2019-03-27 16:57:45.890 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q3:
+2019-03-27 16:57:45.890 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus18047.txt
+2019-03-27 16:57:45.890 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {start}
+2019-03-27 16:57:46.026 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 16:57:46.105 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {end}
+2019-03-27 16:57:46.198 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 16:57:46.198 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:57:46.276 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 16:57:46.276 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 16:57:46.276 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 16:57:46.276 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 16:57:46.276 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:57:46.323 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 16:57:46.323 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 16:57:46.323 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 16:57:46.323 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 16:57:46.323 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 16:57:46.386 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 16:57:46.386 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 16:57:46.386 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 16:57:46.401 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-27 16:57:46.480 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 16:57:46.480 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-27 16:57:46.542 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-27 16:57:46.542 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:57:46.558 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:58:05.332 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-27 16:58:05.332 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-27 16:58:05.348 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:58:05.348 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-27 16:58:05.363 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-27 16:58:05.363 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:58:05.363 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:58:05.394 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:58:05.394 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:58:05.426 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-27 16:58:05.426 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-27 16:58:05.426 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:58:05.426 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:58:05.441 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:58:05.441 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-27 16:58:05.473 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:58:05.504 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q0:diskStatus.bat
+2019-03-27 16:58:05.504 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q1:data/cache 
+2019-03-27 16:58:05.504 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q2: 
+2019-03-27 16:58:05.504 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> Q3:
+2019-03-27 16:58:05.504 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> C:\Users\802996~1\AppData\Local\Temp\DiskStatus18112.txt
+2019-03-27 16:58:05.504 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {start}
+2019-03-27 16:58:05.623 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-27 16:58:05.685 INFO  Server: CMD:OUT:[cmd.exe, /c, diskStatus.bat data/cache] --> {end}
+2019-03-27 16:58:05.764 INFO  Server: CMD:EXIT: Code=0
+2019-03-27 16:58:05.779 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:58:05.873 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> 'notScript.bat' is not recognized as an internal or external command,
+2019-03-27 16:58:05.873 ERROR Server: CMD:ERR:[cmd.exe, /c, notScript.bat  ../] --> operable program or batch file.
+2019-03-27 16:58:05.873 INFO  Server: CMD:EXIT: Code=1
+2019-03-27 16:58:05.873 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-03-27 16:58:05.873 INFO  Server: CMD:CURRENT_DIR: E:\Development\PiServerSpringBoot\data\scripts
+2019-03-27 16:58:05.904 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q0:returnCode.bat
+2019-03-27 16:58:05.904 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q1:9 
+2019-03-27 16:58:05.904 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q2: 
+2019-03-27 16:58:05.904 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> Q3:
+2019-03-27 16:58:05.904 INFO  Server: CMD:OUT:[cmd.exe, /c, returnCode.bat 9] --> {start}
+2019-03-27 16:58:06.014 INFO  Server: CMD:EXIT: Code=9
+2019-03-27 16:58:06.014 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-27 16:58:06.014 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-27 16:58:06.076 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-03-27 16:58:06.139 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-27 16:58:06.154 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
