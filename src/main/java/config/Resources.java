@@ -6,6 +6,7 @@
 package config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,7 @@ public class Resources {
 
     private Map<String, Map<String, String>> users = new HashMap<>();
     private Map<String, String> locations = new HashMap<>();
+    private Map<String, String> alias = new HashMap<>();
 
     @JsonIgnore
     public String getFullScriptFiles() {
@@ -72,6 +74,9 @@ public class Resources {
     }
 
     public Map<String, Map<String, String>> getUsers() {
+        if (users == null) {
+            return new HashMap<>();
+        }
         return users;
     }
 
@@ -80,11 +85,25 @@ public class Resources {
     }
 
     public Map<String, String> getLocations() {
-        return Collections.unmodifiableMap(locations);
+        if (locations == null) {
+            return new HashMap<>();
+        }
+        return locations;
     }
 
     public void setLocations(Map<String, String> locations) {
         this.locations = locations;
+    }
+
+    public Map<String, String> getAlias() {
+        if (alias == null) {
+            return new HashMap<>();
+        }
+        return alias;
+    }
+
+    public void setAlias(Map<String, String> alias) {
+        this.alias = alias;
     }
 
 }

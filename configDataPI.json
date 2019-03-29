@@ -21,7 +21,8 @@
             "cache": "cache",
             "scripts": "scripts",
             "audio": "audio"
-        }
+        },
+        "alias" : {"ufs":"userFileSizes.out"}
     },
 
     "functions": {

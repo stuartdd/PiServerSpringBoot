@@ -18,7 +18,8 @@
             "cache": "data/cache",
             "scripts": "data/scripts",
             "audio": "audio"
-        }
+        },
+        "alias" : {"ufs":"userFileSizes.out"}
     },
 
     "functions": {

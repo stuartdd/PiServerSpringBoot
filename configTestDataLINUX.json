@@ -21,7 +21,8 @@
             "scripts": "data/scripts",
             "thumbnail": "/thumbnails",
             "audio": "audio"
-        }
+        },
+        "alias" : {"ufs":"userFileSizes.out"}
     },
 
     "functions": {

@@ -67,7 +67,7 @@
             function displayDetailsPage() {
                 document.getElementById('logDisplayCode').innerHTML = "";
                 document.getElementById('shareSizeText').innerHTML = "User file sizes are loading. Please wait...";
-                serverGetData(setUserFileSizes, responseError, "server/ufs");
+                serverGetData(setUserFileSizes, responseError, "files/loc/cache/name/ufs");
                 serverGetData(setDiskStatus, responseError, "func/ds");
                 serverGetData(setLogList, response404, "files/loc/logs?ext=log");
                 displayMap.delete('detailsDiv');

@@ -72,7 +72,7 @@ public class ShutDownService {
     }
 
     public static void setExitFlag(int n) {
-        String fileName = ConfigDataManager.getCache() + File.separator + "RC_DATA.txt";
+        String fileName = ConfigDataManager.getLocation("cache") + File.separator + "RC_DATA.txt";
         FileUtils.writeFileOverwrite("" + n, new File(fileName));
         LogProvider.log("EXIT FLAG " + fileName + " SET:" + n, 0);
     }

@@ -16,6 +16,7 @@
  */
 package controllers;
 
+import config.ConfigDataManager;
 import config.LogProvider;
 import io.FileListIo;
 import io.PathsIO;
@@ -86,17 +87,21 @@ public class FileSystem extends ControllerErrorHandlerBase {
         MediaTypeInf mediaTypeInf = null;
         String finalName = null;
         if (name != null) {
-            mediaTypeInf = StringUtils.getMediaTypeFroFile(name);
+            mediaTypeInf = StringUtils.getMediaTypeForFile(name);
             if (mediaTypeInf == null) {
                 finalName = EncodeDecode.decode(name);
-                mediaTypeInf = StringUtils.getMediaTypeFroFile(finalName);
-
-            } else {
+                mediaTypeInf = StringUtils.getMediaTypeForFile(finalName);
+            }
+            if (mediaTypeInf == null) {
+                finalName = ConfigDataManager.alias(name);
+                mediaTypeInf = StringUtils.getMediaTypeForFile(finalName);
+            }
+            if (finalName == null) {
                 finalName = name;
             }
         }
         if (mediaTypeInf == null) {
-            mediaTypeInf = StringUtils.getMediaTypeFroFile(".txt");
+            mediaTypeInf = StringUtils.getMediaTypeForFile(".txt");
         }
         String finalPath = null;
         if (path != null) {
@@ -158,7 +163,8 @@ public class FileSystem extends ControllerErrorHandlerBase {
      * removed and .jpg removed if there are two.
      *
      * @param loc The name from resources.locations
-     * @param fileName the name of the file
+     * @param name The name of the file to read
+     * @param queryParameters
      * @return the content of the log file.
      */
     @RequestMapping(value = "/files/loc/{loc}/name/{name}", method = RequestMethod.GET, produces = "text/plain")

@@ -47,7 +47,7 @@ public class ConfigDataManager {
     These values can be overriden with app args so once setup should NOT be read from configDataImpl.
      */
     private static String serverRoot;
-    private static String cache;
+    private static String cacheOverride;
 
     public static void init(String[] args) {
 
@@ -55,7 +55,7 @@ public class ConfigDataManager {
             if (arg != null) {
                 String argLc = arg.toLowerCase();
                 if (argLc.startsWith("-cache=")) {
-                    cache = getArgValue(arg);
+                    cacheOverride = getArgValue(arg);
                 } else if (argLc.startsWith("-root=")) {
                     serverRoot = getArgValue(arg);
                 } else {
@@ -91,15 +91,10 @@ public class ConfigDataManager {
             throw new ConfigDataException(configErrorPrefix + "Location 'scripts' is undefined");
         }
 
-        if (cache != null) {
-            LogProvider.log("CACHE Path override provided:" + cache, 0);
-        } else {
-            cache = getLocation("cache");
-        }
-
-        if (!FileUtils.exists(cache)) {
-            throw new ConfigDataException(configErrorPrefix + "Cache does not exist:: " + cache);
-        }
+        if (cacheOverride != null) {
+            LogProvider.log("CACHE Path override provided:" + cacheOverride, 1);
+            configDataImpl.getResources().getLocations().put("cache", cacheOverride);
+        } 
 
         if (serverRoot != null) {
             LogProvider.log("SERVER ROOT override provided:" + serverRoot, 0);
@@ -162,7 +157,8 @@ public class ConfigDataManager {
         for (Map.Entry<String, String> es : configDataImpl.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
         }
-
+        parameters.putAll(configDataImpl.getResources().getAlias());
+        
         StringBuilder sb = new StringBuilder();
         int mark = 0;
         for (String user : getUsers().keySet()) {
@@ -192,6 +188,10 @@ public class ConfigDataManager {
 
     public static Map<String, String> getLocations() {
         return configDataImpl.getResources().getLocations();
+    }
+
+    public static String alias(String name) {
+        return configDataImpl.getResources().getAlias().get(name);
     }
 
     public static String getLocation(String locationName) {
@@ -269,10 +269,6 @@ public class ConfigDataManager {
         return map;
     }
 
-    public static String getCache() {
-        return cache;
-    }
-
     public static boolean isEchoScriptOutput() {
         return configDataImpl.getFunctions().isEchoScriptOutput();
     }
@@ -303,7 +299,7 @@ public class ConfigDataManager {
     }
 
     public static String readCache(String fileName, String resourceName) {
-        File f = new File(cache + FS + fileName);
+        File f = new File(getLocation("cache") + FS + fileName);
         if (!f.exists()) {
             throw new ResourceNotFoundException(resourceName);
         }
@@ -326,4 +322,5 @@ public class ConfigDataManager {
         }
         return val;
     }
+
 }

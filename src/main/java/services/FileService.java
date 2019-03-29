@@ -73,11 +73,14 @@ public class FileService {
 
     public static byte[] userReadFiles(String user, String loc, String dir, String name) {
         File root = ConfigDataManager.getUserLocationFile(user, loc, dir, name);
-        try {
-            return FileUtils.loadBinaryFile(root);
-        } catch (IOException ex) {
-            throw new ResourceNotFoundException("Failed to read file", ex);
+        if (root.isFile()) {
+            try {
+                return FileUtils.loadBinaryFile(root);
+            } catch (IOException ex) {
+                throw new ResourceNotFoundException("Failed to read file", ex);
+            }
         }
+        throw new ResourceNotFoundException(user + "." + loc + "." + dir + "." + name + " is not a file!");
     }
 
     public static FileListIo userListFiles(String user, String loc, String dir) {
