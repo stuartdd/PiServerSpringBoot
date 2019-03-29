@@ -102,11 +102,11 @@ public class FileSystem extends ControllerErrorHandlerBase {
         if (path != null) {
             finalPath = EncodeDecode.decode(path);
         }
-        LogProvider.debug("fileReadUserLocationBase: user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]");
+        LogProvider.log("fileReadUserLocationBase: user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
             finalName = StringUtils.parseThumbnailFileName(finalName);
-            LogProvider.debug("fileReadUserLocationBase: finalName:[" + finalName + "]");
+            LogProvider.log("fileReadUserLocationBase: finalName:[" + finalName + "]", 2);
         }
         byte[] bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
         HttpHeaders headers = new HttpHeaders();
@@ -181,7 +181,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         if (path != null) {
             finalPath = EncodeDecode.decode(path);
         }
-        LogProvider.debug("listFilesBase: user:" + user + " loc: " + loc + " path:" + finalPath + " encPath:" + path);
+        LogProvider.log("listFilesBase: user:" + user + " loc: " + loc + " path:" + finalPath + " encPath:" + path, 1);
         String filter = queryParameters.getOrDefault("ext", null);
         if ((filter == null) || (filter.isEmpty())) {
             return FileService.userListFiles(user, loc, finalPath);

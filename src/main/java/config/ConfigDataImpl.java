@@ -22,6 +22,7 @@ public class ConfigDataImpl {
     private boolean validateLocations;
     private String logName;
     private String logPath;
+    private int logLevelBar = 1;
     
     public String getLogPath() {
         return logPath;
@@ -43,6 +44,14 @@ public class ConfigDataImpl {
             System.getProperties().put("logName", logName);
         }
         this.logName = logName;
+    }
+
+    public int getLogLevelBar() {
+        return logLevelBar;
+    }
+
+    public void setLogLevelBar(int logLevelBar) {
+        this.logLevelBar = logLevelBar;
     }
 
     public Resources getResources() {

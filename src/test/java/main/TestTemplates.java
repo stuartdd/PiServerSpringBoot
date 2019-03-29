@@ -20,6 +20,7 @@ package main;
  *
  * @author stuart
  */
+import config.ConfigDataManager;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

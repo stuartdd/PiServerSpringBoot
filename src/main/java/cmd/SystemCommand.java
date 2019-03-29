@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
 
 /**
  *
@@ -38,7 +38,7 @@ public class SystemCommand {
             builder.directory(new File(path));
         }
         if (echoScriptOutput) {
-            LogProvider.log("CMD:CURRENT_DIR: " + builder.directory().getAbsolutePath());
+            LogProvider.log("CMD:CURRENT_DIR: " + builder.directory().getAbsolutePath(), 1);
         }
 
         Process p;
@@ -54,7 +54,7 @@ public class SystemCommand {
             String line;
             while ((line = bufferedReaderOut.readLine()) != null) {
                 if (echoScriptOutput) {
-                    LogProvider.log("CMD:OUT:" + commands + " --> " + line);
+                    LogProvider.log("CMD:OUT:" + commands + " --> " + line, 0);
                 }
                 outputStream.append(line).append(NL);
             }
@@ -78,7 +78,7 @@ public class SystemCommand {
         }
         exitValue = p.exitValue();
         if (echoScriptOutput) {
-            LogProvider.log("CMD:EXIT: Code=" + exitValue);
+            LogProvider.log("CMD:EXIT: Code=" + exitValue, 0);
         }
         return exitValue;
     }

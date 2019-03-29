@@ -16,6 +16,7 @@
  */
 package main;
 
+import config.ConfigDataManager;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

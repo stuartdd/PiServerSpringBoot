@@ -21,7 +21,7 @@ import services.ServerService;
 import services.ShutDownService;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;

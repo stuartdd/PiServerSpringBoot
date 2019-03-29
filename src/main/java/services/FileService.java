@@ -27,7 +27,9 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
+import java.util.Arrays;
+import java.util.Comparator;
 import org.springframework.http.HttpStatus;
 import tools.FileExtFilter;
 import tools.FileUtils;
@@ -37,15 +39,22 @@ import tools.FileUtils;
  * @author stuart
  */
 public class FileService {
+
     private static final String FS = File.separator;
-    
+
     public static PathsIO paths(String user, String loc) {
         File root = ConfigDataManager.getUserLocationFile(user, loc);
         int prefix = root.getAbsolutePath().length();
-        List<String> files = new ArrayList<>();
-        FileUtils.tree(root, files, prefix, new FileExtFilter(new String[]{".java", ".jpg"}));
+        List<String> fileNames = new ArrayList<>();
+        FileUtils.tree(root, fileNames, prefix, new String[]{".java", ".jpg"});
         PathsIO resp = new PathsIO(user, loc);
-        for (String s : files) {
+        fileNames.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        for (String s : fileNames) {
             resp.addPath(s);
         }
         return resp;
@@ -59,7 +68,7 @@ public class FileService {
             throw new ServerRestException("Missing content. Nothing to save!", HttpStatus.BAD_REQUEST, "BAD REQUEST");
         }
         File root = ConfigDataManager.getUserLocationFile(user, loc, path);
-        FileUtils.writeFileOverwrite(body, new File(root.getAbsolutePath()+FS+name));
+        FileUtils.writeFileOverwrite(body, new File(root.getAbsolutePath() + FS + name));
     }
 
     public static byte[] userReadFiles(String user, String loc, String dir, String name) {
@@ -91,9 +100,11 @@ public class FileService {
         } else {
             fileList = root.listFiles(filter);
         }
-        for (File f : fileList) {
-            if (f.isFile()) {
-                fileListOut.addFileSpec(new FileSpecIo(f.length(), new EncNameIo(f.getName())));
+        Arrays.sort(fileList);
+        int p = 0;
+        for (int i = fileList.length - 1; i  >= 0; i--) {
+            if (fileList[i].isFile()) {
+                fileListOut.addFileSpec(new FileSpecIo(fileList[i].length(), new EncNameIo(fileList[i].getName())));
             }
         }
         return fileListOut;

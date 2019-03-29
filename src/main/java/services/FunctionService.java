@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
 import tools.FileUtils;
 import tools.OsUtils;
 import tools.StringUtils;

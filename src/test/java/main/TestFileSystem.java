@@ -18,6 +18,7 @@
  */
 package main;
 
+import config.ConfigDataManager;
 import io.FileListIo;
 import io.PathsIO;
 import java.io.File;
@@ -127,8 +128,8 @@ public class TestFileSystem {
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertEquals(3, fileList.getFiles().size());
-        assertEquals("PiServer.log", fileList.getFiles().get(0).getName().getName());
-        assertEquals("UGlTZXJ2ZXIubG9n", fileList.getFiles().get(0).getName().getEncName());
+        assertEquals("PiServerTest.log", fileList.getFiles().get(0).getName().getName());
+        assertEquals("UGlTZXJ2ZXJUZXN0LmxvZw==", fileList.getFiles().get(0).getName().getEncName());
     }
 
     public void testPathIoJsonLoad() {

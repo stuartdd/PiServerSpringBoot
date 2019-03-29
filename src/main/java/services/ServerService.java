@@ -17,7 +17,7 @@
 package services;
 
 import services.AudioService;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
 import org.joda.time.DateTime;
 
 /**

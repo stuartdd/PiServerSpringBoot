@@ -1,41 +1,41 @@
-2019-03-27 00:33:36.313 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-27 00:33:36.332 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-03-27 00:33:36.338 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-27 00:33:36.373 DEBUG Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-03-27 00:33:36.378 DEBUG Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-03-27 00:33:36.384 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-27 00:33:36.384 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-27 00:33:36.435 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-27 00:33:36.435 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-27 00:33:36.479 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-27 00:33:36.479 DEBUG Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-27 00:33:36.523 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-27 00:33:36.526 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-27 00:33:36.529 DEBUG Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-27 00:33:36.531 DEBUG Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-27 00:33:36.544 DEBUG Server: CACHE Path override provided:data/cache
-2019-03-27 00:33:36.589 DEBUG Server: CACHE Path override provided:data/cache
-2019-03-27 00:33:36.618 DEBUG Server: CACHE Path override provided:data/cache
-2019-03-27 00:33:36.623 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-27 00:33:36.627 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q0:./diskStatus.sh
-2019-03-27 00:33:36.627 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q1:
-2019-03-27 00:33:36.627 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q2:
-2019-03-27 00:33:36.627 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q3:
-2019-03-27 00:33:36.627 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {start}
-2019-03-27 00:33:36.683 INFO  Server: CMD:OUT:[./diskStatus.sh] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-03-27 00:33:36.684 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {end}
-2019-03-27 00:33:36.685 INFO  Server: CMD:EXIT: Code=0
-2019-03-27 00:33:36.689 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-27 00:33:36.695 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-27 00:33:36.696 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
-2019-03-27 00:33:36.696 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
-2019-03-27 00:33:36.696 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
-2019-03-27 00:33:36.696 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
-2019-03-27 00:33:36.696 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
-2019-03-27 00:33:36.696 INFO  Server: CMD:EXIT: Code=9
-2019-03-27 00:33:36.699 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-03-27 00:33:36.702 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
-2019-03-27 00:33:36.707 DEBUG Server: CACHE Path override provided:data/cache
-2019-03-27 00:33:36.711 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-03-27 00:33:36.719 DEBUG Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-03-27 00:33:36.727 DEBUG Server: CACHE Path override provided:data/cache
+2019-03-29 00:38:24.407 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-03-29 00:38:24.426 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-03-29 00:38:24.432 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-29 00:38:24.467 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-03-29 00:38:24.473 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-03-29 00:38:24.479 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-29 00:38:24.480 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-29 00:38:24.532 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-29 00:38:24.533 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-29 00:38:24.574 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-03-29 00:38:24.574 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-03-29 00:38:24.614 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-29 00:38:24.616 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-29 00:38:24.620 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-03-29 00:38:24.622 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-03-29 00:38:24.636 INFO  Server: CACHE Path override provided:data/cache
+2019-03-29 00:38:24.688 INFO  Server: CACHE Path override provided:data/cache
+2019-03-29 00:38:24.716 INFO  Server: CACHE Path override provided:data/cache
+2019-03-29 00:38:24.722 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-29 00:38:24.726 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q0:./diskStatus.sh
+2019-03-29 00:38:24.726 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q1:
+2019-03-29 00:38:24.726 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q2:
+2019-03-29 00:38:24.726 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q3:
+2019-03-29 00:38:24.726 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {start}
+2019-03-29 00:38:24.776 INFO  Server: CMD:OUT:[./diskStatus.sh] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-03-29 00:38:24.777 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {end}
+2019-03-29 00:38:24.778 INFO  Server: CMD:EXIT: Code=0
+2019-03-29 00:38:24.782 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-29 00:38:24.787 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-03-29 00:38:24.788 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
+2019-03-29 00:38:24.788 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
+2019-03-29 00:38:24.788 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
+2019-03-29 00:38:24.788 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
+2019-03-29 00:38:24.788 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
+2019-03-29 00:38:24.788 INFO  Server: CMD:EXIT: Code=9
+2019-03-29 00:38:24.791 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-03-29 00:38:24.794 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-03-29 00:38:24.800 INFO  Server: CACHE Path override provided:data/cache
+2019-03-29 00:38:24.803 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-29 00:38:24.811 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-03-29 00:38:24.818 INFO  Server: CACHE Path override provided:data/cache

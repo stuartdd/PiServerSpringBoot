@@ -93,6 +93,8 @@
                 document.getElementById('logDisplayFile1').innerHTML = "Close --> " + currentLogFileName;
                 document.getElementById('logDisplayFile2').innerHTML = "Close --> " + currentLogFileName;
                 document.getElementById('logDisplayCode').innerHTML = result;
+                var scrollingElement = (document.scrollingElement || document.body);
+                scrollingElement.scrollTop = scrollingElement.scrollHeight;
             }
 
             function loadLogFile(encName, name) {

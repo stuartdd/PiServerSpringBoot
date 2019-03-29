@@ -16,8 +16,10 @@ public class LogProvider {
 
     private static Logger logger;
     private static Logger loggerError;
+    private static int logLevelBar;
 
     private static void init() {
+        logLevelBar = ConfigDataManager.getLogLevelBar();
         if (logger == null) {
             logger = LogManager.getLogger("Server:");
         }
@@ -26,14 +28,15 @@ public class LogProvider {
         }
     }
 
-    public static void log(String s) {
+    public static void log(String s, int level) {
         init();
-        logger.info(s);
+        if (isUnderTheBar(level)) {
+            logger.info(s);
+        }
     }
-    
-    public static void debug(String s) {
-        init();
-        logger.debug(s);
+
+    private static boolean isUnderTheBar(int level) {
+        return (level < logLevelBar);
     }
 
     public static void logErr(String s) {

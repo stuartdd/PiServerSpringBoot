@@ -20,6 +20,7 @@ package main;
  *
  * @author stuart
  */
+import config.ConfigDataManager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;

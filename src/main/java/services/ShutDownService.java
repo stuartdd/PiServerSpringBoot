@@ -19,7 +19,7 @@ package services;
 import config.LogProvider;
 import java.io.File;
 import static java.lang.Thread.sleep;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
@@ -58,7 +58,7 @@ public class ShutDownService {
         @Override
         public void run() {
             sleeper(delay * 500);
-            LogProvider.log(getMessage());
+            LogProvider.log(getMessage(),0);
             LogProvider.shutDown();
             sleeper(delay * 500);
             setExitFlag(rc);
@@ -74,7 +74,7 @@ public class ShutDownService {
     public static void setExitFlag(int n) {
         String fileName = ConfigDataManager.getCache() + File.separator + "RC_DATA.txt";
         FileUtils.writeFileOverwrite("" + n, new File(fileName));
-        LogProvider.log("EXIT FLAG " + fileName + " SET:" + n);
+        LogProvider.log("EXIT FLAG " + fileName + " SET:" + n, 0);
     }
 
     private static void sleeper(long delay) {

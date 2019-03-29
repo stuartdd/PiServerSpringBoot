@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -31,28 +32,32 @@ import java.util.zip.ZipFile;
  */
 public class FileUtils {
 
-    public static void tree(File f, List<String> l, int pathLen, FileFilter filter) {
+    public static void tree(File f, List<String> l, int pathLen, final String[] extensions) {
         File[] fList = f.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return pathname.isDirectory();
             }
         });
-        if (fList.length == 0) {
-            if (filter != null) {
-                File[] count = f.listFiles(filter);
-                if (count.length != 0) {
-                    l.add(f.getAbsolutePath().substring(pathLen));
-                }
-            } else {
-                l.add(f.getAbsolutePath().substring(pathLen));
-            }
-            return;
-        }
         for (File fil : fList) {
-            tree(fil, l, pathLen, filter);
+            if (fil.isDirectory()) {
+                String[] count = fil.list(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        for (String ext : extensions) {
+                            if (name.toLowerCase().endsWith(ext)) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                if (count.length > 0) {
+                    l.add(fil.getAbsolutePath().substring(pathLen));
+                }
+                tree(fil, l, pathLen, extensions);
+            }
         }
-        return;
     }
 
     /**

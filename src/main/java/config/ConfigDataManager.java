@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package main;
+package config;
 
 import exceptions.ConfigDataException;
 import config.ConfigDataImpl;
@@ -92,7 +92,7 @@ public class ConfigDataManager {
         }
 
         if (cache != null) {
-            LogProvider.debug("CACHE Path override provided:" + cache);
+            LogProvider.log("CACHE Path override provided:" + cache, 0);
         } else {
             cache = getLocation("cache");
         }
@@ -102,7 +102,7 @@ public class ConfigDataManager {
         }
 
         if (serverRoot != null) {
-            LogProvider.debug("SERVER ROOT override provided:" + serverRoot);
+            LogProvider.log("SERVER ROOT override provided:" + serverRoot, 0);
         } else {
             serverRoot = configDataImpl.getResources().getServerRoot();
         }
@@ -200,6 +200,10 @@ public class ConfigDataManager {
             throw new ResourceNotFoundException(locationName);
         }
         return resolveLocation(loc);
+    }
+    
+    public static int getLogLevelBar() {
+        return configDataImpl.getLogLevelBar();
     }
 
     public static File getLocationFile(String locationName) {

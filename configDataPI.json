@@ -2,6 +2,7 @@
     "system": {},
     "logPath": "logs",
     "logName": "PiServer",
+    "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validateLocations": true,

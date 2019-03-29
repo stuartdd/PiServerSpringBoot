@@ -19,7 +19,7 @@ package services;
 import exceptions.AudioSetupException;
 import io.AudioStatusIO;
 import java.io.File;
-import main.ConfigDataManager;
+import config.ConfigDataManager;
 import tools.AudioPlayerThread;
 
 /**
