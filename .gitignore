@@ -13,6 +13,8 @@
 # Gradle
 .gradle
 build/
+.nb-gradle*
+.
 
 # Package Files #
 *.jar
@@ -28,3 +30,7 @@ hs_err_pid*
 
 # Test User Data
 .data/
+
+# IntelliJ
+*.iml
+.idea/
