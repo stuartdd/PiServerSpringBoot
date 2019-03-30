@@ -20,8 +20,6 @@ import exceptions.ConfigDataException;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.io.IOException;
-import java.security.AuthProvider;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import org.joda.time.DateTime;
@@ -152,11 +150,12 @@ public class ConfigDataManager {
             }
         }
 
-        parameters = new Properties();
+        /*
+        Copy all properties in the System section of the configuration file to the System properties.
+        */
         for (Map.Entry<String, String> es : configDataImpl.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
         }
-        parameters.putAll(configDataImpl.getResources().getAlias());
         
         StringBuilder sb = new StringBuilder();
         int mark = 0;
@@ -167,9 +166,11 @@ public class ConfigDataManager {
         }
         sb.setLength(mark);
 
+        parameters = new Properties();        
+        parameters.putAll(configDataImpl.getResources().getAlias());
         parameters.putAll(System.getProperties());
         parameters.put("userList", sb.toString());
-        parameters.put("user", "");
+        parameters.remove("user", "");
     }
 
     public static Map<String, Map<String, String>> getUsers() {
@@ -261,10 +262,10 @@ public class ConfigDataManager {
     }
 
     public static Properties getProperties(Map<String, String> localParameters) {
-        Properties map = new Properties();
-        map.putAll(parameters);
-        map.putAll(localParameters);
-        return map;
+        Properties p = new Properties();
+        p.putAll(parameters);
+        p.putAll(localParameters);
+        return p;
     }
 
     public static boolean isEchoScriptOutput() {

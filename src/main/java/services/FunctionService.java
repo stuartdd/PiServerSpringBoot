@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import config.ConfigDataManager;
+import java.util.HashMap;
 import tools.FileUtils;
 import tools.OsUtils;
 import tools.StringUtils;
@@ -100,17 +101,18 @@ public class FunctionService {
         return StringUtils.readStartToEnd(scriptAll(map, desc));
     }
 
-    private Object[] substituteAndSplit(Map<String, String> map, String desc) {
-        for (Map.Entry<String, String> key:map.entrySet()) {
-            map.put(key.getKey(), Template.parse(key.getValue(), ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.IGNORE));
+    private Object[] substituteAndSplit(Map<String, String> mapIn, String desc) {
+        Map<String,String> mapSub = new HashMap<>();
+        for (Map.Entry<String, String> key:mapIn.entrySet()) {
+            mapSub.put(key.getKey(), Template.parse(key.getValue(), ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.IGNORE));
         }
-        for (Map.Entry<String, String> key:map.entrySet()) {
-            map.put(key.getKey(), Template.parse(key.getValue(), map, Template.URESOLVED_ACTION.IGNORE));
+        for (Map.Entry<String, String> key:mapSub.entrySet()) {
+            mapSub.put(key.getKey(), Template.parse(key.getValue(), mapSub, Template.URESOLVED_ACTION.IGNORE));
         }
-        for (Map.Entry<String, String> key:map.entrySet()) {
-            map.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), Template.URESOLVED_ACTION.IGNORE));
+        for (Map.Entry<String, String> key:mapSub.entrySet()) {
+            mapSub.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), Template.URESOLVED_ACTION.IGNORE));
         }
-        String t1 = Template.parse(osTemplate, map, Template.URESOLVED_ACTION.IGNORE);
+        String t1 = Template.parse(osTemplate, mapSub, Template.URESOLVED_ACTION.IGNORE);
         t1 = Template.parse(t1, ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.BLANK);
         t1 = t1.trim();
         String[] split = t1.split("\\|");
