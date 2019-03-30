@@ -17,9 +17,6 @@
 package config;
 
 import exceptions.ConfigDataException;
-import config.ConfigDataImpl;
-import config.Functions;
-import config.LogProvider;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.io.IOException;
@@ -167,11 +164,12 @@ public class ConfigDataManager {
             sb.append(',');
         }
         sb.setLength(mark);
-        parameters.put("userList", sb.toString());
-        parameters.put("poleForTime", "" + configDataImpl.getFunctions().getPoleForTime());
-        parameters.put("historyMaxLen", "" + configDataImpl.getResources().getHistoryMaxLen());
-        parameters.put("user", "");
 
+        parameters.put("userList", sb.toString());
+        for (Map.Entry<Object, Object> ent:System.getProperties().entrySet()) {
+            parameters.put(ent.getKey().toString(), ent.getValue().toString());
+        }
+        parameters.put("user", "");
     }
 
     public static Map<String, Map<String, String>> getUsers() {

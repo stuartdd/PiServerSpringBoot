@@ -1,5 +1,8 @@
 {
-    "system": {},
+    "system": {
+        "poleForTime":5000,
+        "historyMaxLen":10 
+    },
     "logPath": "logs",
     "logName": "PiServer",
     "logLevelBar": 9,
@@ -7,7 +10,6 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validateLocations": true,
     "resources": {
-        "historyMaxLen": 20,
         "serverRoot": "/home/pi/server",
         "users": {
             "stuart": {"thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart"},

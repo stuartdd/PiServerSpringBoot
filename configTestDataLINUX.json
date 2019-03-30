@@ -1,5 +1,8 @@
 {
-    "system": {},
+    "system": {
+        "poleForTime":200000 ,
+        "historyMaxLen":20 
+    },
     "logPath": "data/logs",
     "logName": "PiServer",
     "logLevelBar": 9,
@@ -7,7 +10,6 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validateLocations": true,
     "resources": {
-        "historyMaxLen": 20,
         "serverRoot": "",
         "users": {
             "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},

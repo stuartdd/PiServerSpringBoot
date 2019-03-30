@@ -25,7 +25,6 @@ public class Resources {
     private String serverRoot;
     private String staticFiles;
     private String scriptFiles;
-    private int historyMaxLen = 5;
 
     private Map<String, Map<String, String>> users = new HashMap<>();
     private Map<String, String> locations = new HashMap<>();
@@ -63,14 +62,6 @@ public class Resources {
 
     public void setScriptFiles(String scriptFiles) {
         this.scriptFiles = scriptFiles;
-    }
-
-    public int getHistoryMaxLen() {
-        return historyMaxLen;
-    }
-
-    public void setHistoryMaxLen(int historyMaxLen) {
-        this.historyMaxLen = historyMaxLen;
     }
 
     public Map<String, Map<String, String>> getUsers() {
