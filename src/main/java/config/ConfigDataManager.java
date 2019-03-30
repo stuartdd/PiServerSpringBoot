@@ -20,8 +20,10 @@ import exceptions.ConfigDataException;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.io.IOException;
+import java.security.AuthProvider;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import org.joda.time.DateTime;
 import tools.FileUtils;
 import tools.JsonUtils;
@@ -35,7 +37,7 @@ public class ConfigDataManager {
 
     private static final String FS = File.separator;
     private static String configDataName;
-    private static Map<String, String> parameters;
+    private static Properties parameters;
     /*
     Do not give direct access to configDataImpl. It should always remain wrapped
      */
@@ -150,7 +152,7 @@ public class ConfigDataManager {
             }
         }
 
-        parameters = new HashMap<>();
+        parameters = new Properties();
         for (Map.Entry<String, String> es : configDataImpl.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
         }
@@ -165,10 +167,8 @@ public class ConfigDataManager {
         }
         sb.setLength(mark);
 
+        parameters.putAll(System.getProperties());
         parameters.put("userList", sb.toString());
-        for (Map.Entry<Object, Object> ent:System.getProperties().entrySet()) {
-            parameters.put(ent.getKey().toString(), ent.getValue().toString());
-        }
         parameters.put("user", "");
     }
 
@@ -260,8 +260,8 @@ public class ConfigDataManager {
         throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name) + (configDataImpl.isValidateLocations() ? " - ROOT: " + serverRoot + " PATH:" + f.getAbsolutePath() : ""));
     }
 
-    public static Map<String, String> getProperties(Map<String, String> localParameters) {
-        Map<String, String> map = new HashMap<>();
+    public static Properties getProperties(Map<String, String> localParameters) {
+        Properties map = new Properties();
         map.putAll(parameters);
         map.putAll(localParameters);
         return map;
