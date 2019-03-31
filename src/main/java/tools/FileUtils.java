@@ -175,6 +175,10 @@ public class FileUtils {
         }
         return result.toString();
     }
+    
+   public static boolean resourceExists(String fileName, Class clazz) {
+            return (clazz.getResourceAsStream(fileName) != null);
+    }
 
     public static byte[] loadBinaryFile(File fil) throws IOException {
         return Files.readAllBytes(fil.toPath());

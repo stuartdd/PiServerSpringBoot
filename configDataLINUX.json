@@ -10,7 +10,7 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validateLocations": true,
     "resources": {
-        "serverRoot": "/home/pi/PiServer/web",
+        "serverRoot": "",
         "users": {
             "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"}

@@ -19,6 +19,7 @@ package controllers;
 import exceptions.ServerRestException;
 import java.util.Map;
 import config.ConfigDataManager;
+import java.io.FileNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,14 @@ public class Templates extends ControllerErrorHandlerBase {
     @RequestMapping(value = "static/{template}", method = RequestMethod.GET)
     public String template(@PathVariable String template, @RequestParam Map<String, String> queryParameters) {
         try {
-            return Template.parse(FileUtils.getResource("/templates/" + template, this.getClass()), ConfigDataManager.getProperties(queryParameters));
+            if (FileUtils.resourceExists("/templates/" + template, this.getClass())) {
+                return Template.parse(FileUtils.getResource("/templates/" + template, this.getClass()), ConfigDataManager.getProperties(queryParameters));
+            } else {
+                if (FileUtils.resourceExists("/static/" + template, this.getClass())) {
+                    return Template.parse(FileUtils.getResource("/static/" + template, this.getClass()), ConfigDataManager.getProperties(queryParameters));
+                }
+            }
+            throw new FileNotFoundException(template);
         } catch (Exception ex) {
             throw new ServerRestException(template, HttpStatus.NOT_FOUND, "Template Not Found");
         }
