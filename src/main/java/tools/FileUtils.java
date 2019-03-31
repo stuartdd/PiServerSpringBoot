@@ -13,9 +13,11 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -175,13 +177,25 @@ public class FileUtils {
         }
         return result.toString();
     }
-    
-   public static boolean resourceExists(String fileName, Class clazz) {
-            return (clazz.getResourceAsStream(fileName) != null);
+
+    public static boolean resourceExists(String fileName, Class clazz) {
+        return (clazz.getResourceAsStream(fileName) != null);
     }
 
     public static byte[] loadBinaryFile(File fil) throws IOException {
         return Files.readAllBytes(fil.toPath());
+    }
+
+    public static byte[] loadBinaryFileResource(String fileName, Class clazz) {
+        InputStream is = clazz.getResourceAsStream(fileName);
+        if (is == null) {
+            throw new FileNotFoundUtilsException("Failed to find resource file[" + fileName + "]");
+        }
+        try {
+            return Files.readAllBytes(Paths.get(clazz.getClassLoader().getResource("/assets/myAsset.bin").toURI()));
+        } catch (URISyntaxException | IOException e) {
+            throw new FileUtilsException("Failed to read resource file[" + fileName + "]", e);
+        }
     }
 
     /**

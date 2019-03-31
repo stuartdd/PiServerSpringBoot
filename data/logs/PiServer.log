@@ -1,37 +1,37 @@
-2019-03-31 18:34:42.080 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-03-31 18:34:42.099 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-03-31 18:34:42.104 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-31 18:34:42.139 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-03-31 18:34:42.145 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-03-31 18:34:42.152 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-31 18:34:42.153 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-31 18:34:42.205 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-31 18:34:42.205 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-31 18:34:42.249 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-03-31 18:34:42.249 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-03-31 18:34:42.291 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-31 18:34:42.293 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-31 18:34:42.296 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-03-31 18:34:42.299 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-03-31 18:34:42.350 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
-2019-03-31 18:34:42.390 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-31 18:34:42.393 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q0:./diskStatus.sh
-2019-03-31 18:34:42.393 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q1:
-2019-03-31 18:34:42.393 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q2:
-2019-03-31 18:34:42.393 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q3:
-2019-03-31 18:34:42.394 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {start}
-2019-03-31 18:34:42.445 INFO  Server: CMD:OUT:[./diskStatus.sh] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-03-31 18:34:42.447 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {end}
-2019-03-31 18:34:42.448 INFO  Server: CMD:EXIT: Code=0
-2019-03-31 18:34:42.452 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-31 18:34:42.458 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-03-31 18:34:42.459 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
-2019-03-31 18:34:42.459 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
-2019-03-31 18:34:42.459 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
-2019-03-31 18:34:42.459 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
-2019-03-31 18:34:42.459 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
-2019-03-31 18:34:42.459 INFO  Server: CMD:EXIT: Code=9
-2019-03-31 18:34:42.463 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-03-31 18:34:42.466 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
-2019-03-31 18:34:42.475 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-03-31 18:34:42.483 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-01 00:00:36.696 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-04-01 00:00:36.716 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-04-01 00:00:36.722 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-01 00:00:36.757 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-01 00:00:36.763 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-04-01 00:00:36.771 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-01 00:00:36.772 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-01 00:00:36.826 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-01 00:00:36.827 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-01 00:00:36.875 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-01 00:00:36.875 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-01 00:00:36.922 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-01 00:00:36.924 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-01 00:00:36.927 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-01 00:00:36.930 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-01 00:00:36.983 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-04-01 00:00:37.022 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-01 00:00:37.026 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q0:./diskStatus.sh
+2019-04-01 00:00:37.026 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q1:
+2019-04-01 00:00:37.026 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q2:
+2019-04-01 00:00:37.026 INFO  Server: CMD:OUT:[./diskStatus.sh] --> Q3:
+2019-04-01 00:00:37.026 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {start}
+2019-04-01 00:00:37.071 INFO  Server: CMD:OUT:[./diskStatus.sh] --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-01 00:00:37.072 INFO  Server: CMD:OUT:[./diskStatus.sh] --> {end}
+2019-04-01 00:00:37.073 INFO  Server: CMD:EXIT: Code=0
+2019-04-01 00:00:37.078 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-01 00:00:37.085 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-01 00:00:37.086 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q0:./returnCode.sh
+2019-04-01 00:00:37.086 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q1:9
+2019-04-01 00:00:37.086 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q2:
+2019-04-01 00:00:37.086 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> Q3:
+2019-04-01 00:00:37.086 INFO  Server: CMD:OUT:[./returnCode.sh, 9] --> {start}
+2019-04-01 00:00:37.086 INFO  Server: CMD:EXIT: Code=9
+2019-04-01 00:00:37.090 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-04-01 00:00:37.092 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-04-01 00:00:37.101 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-01 00:00:37.108 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]

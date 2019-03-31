@@ -52,12 +52,19 @@ public class TestTemplates {
     public void getTemplateNotFound() throws Exception {
         mvc.perform(get("/static/template1"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Template Not Found\", \"Entity\":\"template1\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Static file read error\", \"Entity\":\"template1\"}"));
     }
     
     @Test
     public void getTemplatePass() throws Exception {
         mvc.perform(get("/static/newhtml.html"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
+    }
+    
+    @Test
+    public void getTemplateHtml() throws Exception {
+        mvc.perform(get("/static/index001.html"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
     }
