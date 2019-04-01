@@ -5,6 +5,7 @@
  */
 package tools;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -23,6 +24,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -194,9 +196,14 @@ public class FileUtils {
             throw new FileNotFoundUtilsException("Failed to find resource file[" + fileName + "]");
         }
         try {
-            Path path = Paths.get(new ClassPathResource(fileName).getURI());
-            Files.newByteChannel(path);
-            return Files.readAllBytes(path);
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int nRead;
+            byte[] data = new byte[4096];
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+            buffer.flush();
+            return buffer.toByteArray();
         } catch (IOException e) {
             throw new FileUtilsException("Failed to read resource file[" + fileName + "]", e);
         }
@@ -221,7 +228,7 @@ public class FileUtils {
      * @throws IOException If the file cannot be read
      */
     public static List<String> loadFileAsLines(File fil) throws IOException {
-            return Files.readAllLines(fil.toPath(),  StringUtils.DEFAULT_CHARSET);
+        return Files.readAllLines(fil.toPath(), StringUtils.DEFAULT_CHARSET);
     }
 
     /**

@@ -20,7 +20,6 @@ import exceptions.ServerRestException;
 import java.util.Map;
 import config.ConfigDataManager;
 import java.io.File;
-import java.nio.charset.Charset;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

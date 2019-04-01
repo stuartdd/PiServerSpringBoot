@@ -59,6 +59,14 @@ public class TestTemplates {
     }
 
     @Test
+    public void getStaticPng() throws Exception {
+        MvcResult res = mvc.perform(get("/static/julie.png"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsByteArray().length> 100);
+    }
+    
+    @Test
     public void getStaticIcon() throws Exception {
         MvcResult res = mvc.perform(get("/static/favicon.ico"))
                 .andExpect(status().isOk()).andReturn();
