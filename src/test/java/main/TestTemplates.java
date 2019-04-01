@@ -21,6 +21,8 @@ package main;
  * @author stuart
  */
 import config.ConfigDataManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +31,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -52,21 +55,86 @@ public class TestTemplates {
     public void getTemplateNotFound() throws Exception {
         mvc.perform(get("/static/template1"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Static file read error\", \"Entity\":\"template1\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Static file Not Found\", \"Entity\":\"template1\"}"));
     }
-    
+
     @Test
     public void getTemplatePass() throws Exception {
         mvc.perform(get("/static/newhtml.html"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
     }
-    
+
     @Test
     public void getTemplateHtml() throws Exception {
-        mvc.perform(get("/static/index001.html"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
+        MvcResult res = mvc.perform(get("/static/index001.html"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("text/html", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateJs() throws Exception {
+        MvcResult res = mvc.perform(get("/static/main.dart.js"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("text/javascript", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateCSS() throws Exception {
+        MvcResult res = mvc.perform(get("/static/styles.css"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("text/css", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateIcon() throws Exception {
+        MvcResult res = mvc.perform(get("/static/favicon.ico"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateFileIcomStatic() throws Exception {
+        MvcResult res = mvc.perform(get("/static/faviconStatic.ico"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateFileIcomTemplate() throws Exception {
+        MvcResult res = mvc.perform(get("/static/faviconTemplate.ico"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplatePng() throws Exception {
+        MvcResult res = mvc.perform(get("/static/test.png"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateSvg() throws Exception {
+        MvcResult res = mvc.perform(get("/static/639373.svg"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/svg+xml", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+
+    @Test
+    public void getTemplateJpg() throws Exception {
+        MvcResult res = mvc.perform(get("/static/background.jpg"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/jpeg", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
     }
 
 }

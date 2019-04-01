@@ -130,12 +130,12 @@ public class ConfigDataManager {
             }
         }
 
-        if (!configDataImpl.isValidateLocations()) {
+        if (configDataImpl.isValidateLocations()) {
             try {
                 for (Map.Entry<String, Map<String, String>> usr : getUsers().entrySet()) {
                     if (usr.getValue() != null) {
                         for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
-                            getUserLocationFile(loc.getKey(), usr.getKey());
+                            getUserLocationFile(usr.getKey(), loc.getKey());
                         }
                     }
                 }
@@ -146,7 +146,7 @@ public class ConfigDataManager {
 
                 FileUtils.exists(getLogPath());
             } catch (Exception e) {
-                throw new ConfigDataException(configErrorPrefix + "File syatem reasource not found: " + e.getMessage(), e);
+                throw new ConfigDataException(configErrorPrefix + "File system reasource not found: " + e.getMessage(), e);
             }
         }
 
@@ -228,6 +228,15 @@ public class ConfigDataManager {
         return (serverRoot == null ? loc : serverRoot + FS + loc);
     }
 
+    public static File getFileAtLocation(String location, String file) {
+        String loc = getLocations().get(location);
+        if (loc == null) {
+            return new File(file);
+        }
+        loc = resolveLocation(loc);
+        return new File(loc+File.separator+file);
+    }
+    
     public static File getUserLocationFile(String user, String locationName, String path, String name) {
         String loc;
         if (user == null) {
@@ -247,7 +256,6 @@ public class ConfigDataManager {
             } else {
                 f = new File((new File(loc + FS + name)).getAbsolutePath());
             }
-
         } else {
             if (name == null) {
                 f = new File((new File(loc + FS + path)).getAbsolutePath());

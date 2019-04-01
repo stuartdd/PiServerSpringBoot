@@ -19,7 +19,7 @@ package controllers;
 import exceptions.ServerRestException;
 import java.util.Map;
 import config.ConfigDataManager;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.nio.charset.Charset;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import services.FileService;
 import tools.FileUtils;
 import tools.MediaTypeInf;
 import tools.StringUtils;
@@ -46,26 +45,36 @@ public class Content extends ControllerErrorHandlerBase {
     @RequestMapping(value = "static/{name}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> content(@PathVariable String name, @RequestParam Map<String, String> queryParameters) {
         MediaTypeInf mediaTypeInf = StringUtils.getMediaTypeForFile(name);
+        if (mediaTypeInf == null) {
+            mediaTypeInf = StringUtils.getMediaTypeForFile(".txt");
+        }
         byte[] bytes;
         try {
-            if (FileUtils.resourceExists("/templates/" + name, this.getClass())) {
-                bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(Charset.forName("UTF-8"));
+            File f = ConfigDataManager.getFileAtLocation("templates", name);
+            if (f.exists()) {
+                bytes = FileUtils.loadBinaryFile(f);
             } else {
-                if (FileUtils.resourceExists("/static/" + name, this.getClass())) {
-                    bytes = FileUtils.loadBinaryFileResource("/static/" + name, this.getClass());
+                f = ConfigDataManager.getFileAtLocation("static", name);
+                if (f.exists()) {
+                    bytes = FileUtils.loadBinaryFile(f);
                 } else {
-                    throw new ServerRestException(name, HttpStatus.NOT_FOUND, "Static file Not Found");
+                    if (FileUtils.resourceExists("/templates/" + name, this.getClass())) {
+                        bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(Charset.forName("UTF-8"));
+                    } else {
+                        if (FileUtils.resourceExists("/static/" + name, this.getClass())) {
+                            bytes = FileUtils.loadBinaryFileResource("/static/" + name, this.getClass());
+                        } else {
+                            throw new ServerRestException(name, HttpStatus.NOT_FOUND, "Static file Not Found");
+                        }
+                    }
                 }
             }
         } catch (Exception ex) {
-            throw new ServerRestException(name, HttpStatus.NOT_FOUND, "Static file read error");
+            throw new ServerRestException(name, HttpStatus.NOT_FOUND, "Static file read error", ex);
         }
-        
+
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        if (mediaTypeInf.isPlainText()) {
-            bytes = StringUtils.encodePlainText(bytes);
-        }
         headers.add("Content-Type", mediaTypeInf.getMediaType());
         return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }

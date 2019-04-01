@@ -13,7 +13,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
+
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
@@ -26,6 +26,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * Utility to manage the file system
@@ -192,8 +193,8 @@ public class FileUtils {
             throw new FileNotFoundUtilsException("Failed to find resource file[" + fileName + "]");
         }
         try {
-            return Files.readAllBytes(Paths.get(clazz.getClassLoader().getResource("/assets/myAsset.bin").toURI()));
-        } catch (URISyntaxException | IOException e) {
+            return Files.readAllBytes(Paths.get(new ClassPathResource(fileName.substring(1)).getURI()));
+        } catch (IOException e) {
             throw new FileUtilsException("Failed to read resource file[" + fileName + "]", e);
         }
     }

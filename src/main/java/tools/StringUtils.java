@@ -24,8 +24,10 @@ public class StringUtils {
         map.put("jpg", new MediaTypeInf("image/jpeg", false));
         map.put("gif", new MediaTypeInf("image/gif", false));
         map.put("png", new MediaTypeInf("image/png", false));
+        map.put("ico", new MediaTypeInf("image/x-icon", false));
         map.put("tiff", new MediaTypeInf("image/tiff", false));
         map.put("js", new MediaTypeInf("text/javascript", true));
+        map.put("svg", new MediaTypeInf("image/svg+xml", true));
         map.put("json", new MediaTypeInf("application/json; charset=UTF-8", true));
         map.put("xml", new MediaTypeInf("application/xml; charset=UTF-8", true));
         map.put("css", new MediaTypeInf("text/css", true));

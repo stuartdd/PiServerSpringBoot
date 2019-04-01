@@ -21,8 +21,9 @@
             "logs": "data/logs",
             "cache": "data/cache",
             "scripts": "data/scripts",
-            "thumbnail": "/thumbnails",
-            "audio": "audio"
+            "audio": "audio",
+            "templates" : "data/templates",
+            "static" : "data/static"
         },
         "alias" : {"ufs":"userFileSizes.out"}
     },
