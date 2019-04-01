@@ -51,15 +51,15 @@ public class Content extends ControllerErrorHandlerBase {
         byte[] bytes;
         try {
             File f = ConfigDataManager.getFileAtLocation("templates", name);
-            if (f.exists()) {
-                bytes = FileUtils.loadBinaryFile(f);
+            if (f.exists() && mediaTypeInf.isPlainText()) {
+                bytes = Template.parse(FileUtils.loadFile(f), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
             } else {
                 f = ConfigDataManager.getFileAtLocation("static", name);
                 if (f.exists()) {
                     bytes = FileUtils.loadBinaryFile(f);
                 } else {
                     if (FileUtils.resourceExists("/templates/" + name, this.getClass())) {
-                        bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(Charset.forName("UTF-8"));
+                        bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
                     } else {
                         if (FileUtils.resourceExists("/static/" + name, this.getClass())) {
                             bytes = FileUtils.loadBinaryFileResource("/static/" + name, this.getClass());

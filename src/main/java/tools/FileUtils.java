@@ -17,6 +17,7 @@ import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
@@ -193,7 +194,9 @@ public class FileUtils {
             throw new FileNotFoundUtilsException("Failed to find resource file[" + fileName + "]");
         }
         try {
-            return Files.readAllBytes(Paths.get(new ClassPathResource(fileName.substring(1)).getURI()));
+            Path path = Paths.get(new ClassPathResource(fileName).getURI());
+            Files.newByteChannel(path);
+            return Files.readAllBytes(path);
         } catch (IOException e) {
             throw new FileUtilsException("Failed to read resource file[" + fileName + "]", e);
         }
@@ -218,14 +221,7 @@ public class FileUtils {
      * @throws IOException If the file cannot be read
      */
     public static List<String> loadFileAsLines(File fil) throws IOException {
-        try {
-            return Files.readAllLines(fil.toPath(), Charset.forName("Cp1252"));
-        } catch (MalformedInputException ex) {
-            /**
-             * Ignore ex and default to to UTF-8
-             */
-            return Files.readAllLines(fil.toPath(), Charset.forName("UTF-8"));
-        }
+            return Files.readAllLines(fil.toPath(),  StringUtils.DEFAULT_CHARSET);
     }
 
     /**

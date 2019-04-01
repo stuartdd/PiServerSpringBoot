@@ -7,6 +7,7 @@ package tools;
 
 import exceptions.BadDataException;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class StringUtils {
 
     private final static Map<String, MediaTypeInf> map = new HashMap();
-
+    public static Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
     static {
         map.put("jpg", new MediaTypeInf("image/jpeg", false));
         map.put("gif", new MediaTypeInf("image/gif", false));

@@ -1,0 +1,5 @@
+html { 
+    height:%{height}%;
+    background: url(background.jpg);
+    background-repeat: repeat;
+}

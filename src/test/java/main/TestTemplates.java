@@ -59,6 +59,14 @@ public class TestTemplates {
     }
 
     @Test
+    public void getStaticIcon() throws Exception {
+        MvcResult res = mvc.perform(get("/static/favicon.ico"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsByteArray().length> 100);
+    }
+
+    @Test
     public void getTemplatePass() throws Exception {
         mvc.perform(get("/static/newhtml.html"))
                 .andExpect(status().isOk())
@@ -90,27 +98,27 @@ public class TestTemplates {
     }
 
     @Test
-    public void getTemplateIcon() throws Exception {
-        MvcResult res = mvc.perform(get("/static/favicon.ico"))
-                .andExpect(status().isOk()).andReturn();
-        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
-    }
-
-    @Test
     public void getTemplateFileIcomStatic() throws Exception {
-        MvcResult res = mvc.perform(get("/static/faviconStatic.ico"))
+        MvcResult res = mvc.perform(get("/static/styleStatic.css"))
                 .andExpect(status().isOk()).andReturn();
-        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
+        assertEquals("text/css", res.getResponse().getHeader("Content-Type"));
+        String resp = res.getResponse().getContentAsString();
+        /*
+        Ensure it is NOT templated
+        */
+        assertTrue(resp.contains("height:%{height}%"));
     }
 
     @Test
-    public void getTemplateFileIcomTemplate() throws Exception {
-        MvcResult res = mvc.perform(get("/static/faviconTemplate.ico"))
+    public void getTemplateFileCssTemplate() throws Exception {
+        MvcResult res = mvc.perform(get("/static/styleTemplate.css?height=999"))
                 .andExpect(status().isOk()).andReturn();
-        assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
+        assertEquals("text/css", res.getResponse().getHeader("Content-Type"));
+        String resp = res.getResponse().getContentAsString();
+        /*
+        Ensure it is templated
+        */
+        assertTrue(resp.contains("height:999%"));
     }
 
     @Test
