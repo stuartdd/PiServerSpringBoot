@@ -170,7 +170,7 @@ public class ConfigDataManager {
         parameters.putAll(configDataImpl.getResources().getAlias());
         parameters.putAll(System.getProperties());
         parameters.put("userList", sb.toString());
-        parameters.remove("user", "");
+        parameters.put("user", "");
     }
 
     public static Map<String, Map<String, String>> getUsers() {

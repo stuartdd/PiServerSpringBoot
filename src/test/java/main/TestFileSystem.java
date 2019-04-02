@@ -204,8 +204,8 @@ public class TestFileSystem {
         str = StringUtils.replaceAll(str, '\\', '/');
         assertTrue(str.contains("main/java/main|"));
         assertTrue(str.contains("main/java/services|"));
-        assertTrue(str.contains("main/resources/static|"));
-        assertTrue(str.contains("test/java/main"));
+        assertTrue(str.contains("test/java/main|"));
+        assertTrue(str.contains("test/resources/templates"));
     }
 
     private void testGetPathsUserNotFound() throws Exception {

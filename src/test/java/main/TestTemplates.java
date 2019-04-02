@@ -60,10 +60,18 @@ public class TestTemplates {
 
     @Test
     public void getStaticPng() throws Exception {
-        MvcResult res = mvc.perform(get("/static/julie.png"))
+        MvcResult res = mvc.perform(get("/static/static.png"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsByteArray().length > 100);
+    }
+    
+    @Test
+    public void getStaticSvg() throws Exception {
+        MvcResult res = mvc.perform(get("/static/static.svg"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("image/svg+xml", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 20);
     }
 
     @Test
@@ -75,8 +83,8 @@ public class TestTemplates {
     }
 
     @Test
-    public void getTemplatePass() throws Exception {
-        mvc.perform(get("/static/newhtml.html"))
+    public void getTemplateHtml() throws Exception {
+        mvc.perform(get("/static/template.html"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
     }
@@ -110,14 +118,7 @@ public class TestTemplates {
         assertTrue(res.getResponse().getContentAsString().contains("index001-templates"));
     }
 
-    @Test
-    public void getTemplateJs() throws Exception {
-        MvcResult res = mvc.perform(get("/static/main.dart.js"))
-                .andExpect(status().isOk()).andReturn();
-        assertEquals("text/javascript", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
-    }
-
+ 
     /**
      * <pre>
      * There are two styles.css files. One in the resources directory
@@ -173,28 +174,34 @@ public class TestTemplates {
         assertTrue(resp.contains("height:999%"));
     }
 
+   @Test
+    public void getTemplateJs() throws Exception {
+        MvcResult res = mvc.perform(get("/static/template.js"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("text/javascript", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 100);
+    }
+    
     @Test
     public void getTemplatePng() throws Exception {
-        MvcResult res = mvc.perform(get("/static/test.png"))
-                .andExpect(status().isOk()).andReturn();
-        assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
+        MvcResult res = mvc.perform(get("/static/template.png"))
+                .andExpect(status().is4xxClientError()).andReturn();
+        assertTrue(res.getResponse().getContentAsString().contains("Cannot template binary"));
     }
 
     @Test
     public void getTemplateSvg() throws Exception {
-        MvcResult res = mvc.perform(get("/static/639373.svg"))
+        MvcResult res = mvc.perform(get("/static/template.svg"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("image/svg+xml", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
+        assertTrue(res.getResponse().getContentAsString().length() > 20);
     }
 
     @Test
     public void getTemplateJpg() throws Exception {
-        MvcResult res = mvc.perform(get("/static/background.jpg"))
-                .andExpect(status().isOk()).andReturn();
-        assertEquals("image/jpeg", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsString().length() > 100);
+        MvcResult res = mvc.perform(get("/static/template.jpg"))
+                .andExpect(status().is4xxClientError()).andReturn();
+        assertTrue(res.getResponse().getContentAsString().contains("Cannot template binary"));
     }
 
 }

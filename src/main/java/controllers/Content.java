@@ -51,14 +51,22 @@ public class Content extends ControllerErrorHandlerBase {
         try {
             File f = ConfigDataManager.getFileAtLocation("templates", name);
             if (f.exists() && mediaTypeInf.isPlainText()) {
-                bytes = Template.parse(FileUtils.loadFile(f), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
+                if (mediaTypeInf.isPlainText()) {
+                    bytes = Template.parse(FileUtils.loadFile(f), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
+                } else {
+                    throw new ServerRestException(name, HttpStatus.BAD_REQUEST, "Cannot template binary files types " + mediaTypeInf.getMediaType());
+                }
             } else {
                 f = ConfigDataManager.getFileAtLocation("static", name);
                 if (f.exists()) {
                     bytes = FileUtils.loadBinaryFile(f);
                 } else {
                     if (FileUtils.resourceExists("/templates/" + name, this.getClass())) {
-                        bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
+                        if (mediaTypeInf.isPlainText()) {
+                            bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
+                        } else {
+                            throw new ServerRestException(name, HttpStatus.BAD_REQUEST, "Cannot template binary resource types " + mediaTypeInf.getMediaType());
+                        }
                     } else {
                         if (FileUtils.resourceExists("/static/" + name, this.getClass())) {
                             bytes = FileUtils.loadBinaryFileResource("/static/" + name, this.getClass());

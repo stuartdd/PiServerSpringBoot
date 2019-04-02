@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Top Box for %{user}</title>
+        <title>Top Box</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/styles.css">
-        <script type="text/javascript" src="/rest.js" ></script>
+        <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="rest.js" ></script>
         <script type="text/javascript">
             userList = [%{userList}];
             poleForTime = %{poleForTime};
@@ -21,6 +21,7 @@
             currentDisplay = "";
             currentUserCaps = capital(currentUser);
             currentThumbnailPath = "";
+            currentLogFileEncName = "";
             currentLogFileName = "";
             imageData = "";
 
@@ -30,7 +31,7 @@
             imageIsHistoric = false;
             linkHistory = [];
             userData = {imagesPerRow: 2};
-            userData.imageHistory = ["base"];
+            userData.imageHistory = [];
             displayMap = new Map();
 
 
@@ -66,9 +67,9 @@
             function displayDetailsPage() {
                 document.getElementById('logDisplayCode').innerHTML = "";
                 document.getElementById('shareSizeText').innerHTML = "User file sizes are loading. Please wait...";
-                serverGetData(setUserFileSizes, responseError, "server/ufs");
+                serverGetData(setUserFileSizes, responseError, "files/loc/cache/name/ufs");
                 serverGetData(setDiskStatus, responseError, "func/ds");
-                serverGetData(setLogList, response404, "logs");
+                serverGetData(setLogList, response404, "files/loc/logs?ext=log");
                 displayMap.delete('detailsDiv');
                 displayPage('detailsDiv');
             }
@@ -83,24 +84,28 @@
                 document.getElementById('thumbnailDirList').innerHTML = "No Image data has been created";
                 document.getElementById('thumbnailImageList').innerHTML = "No Images to display";
                 document.getElementById('timeDisplay').hidden = false;
-                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/images");
+                serverGetData(setThumbnailList, responseError, "paths/user/" + currentUser + "/loc/thumbs");
                 displayMap.clear();
                 displayPage("thumbnails");
             }
 
             function displayLoadedFile(result) {
-                document.getElementById('logDisplayFile').innerHTML = "Close --> " + currentLogFileName;
+                document.getElementById('logDisplayFile1').innerHTML = "Close --> " + currentLogFileName;
+                document.getElementById('logDisplayFile2').innerHTML = "Close --> " + currentLogFileName;
                 document.getElementById('logDisplayCode').innerHTML = result;
+                var scrollingElement = (document.scrollingElement || document.body);
+                scrollingElement.scrollTop = scrollingElement.scrollHeight;
             }
 
-            function loadLogFile(file) {
-                currentLogFileName = file;
+            function loadLogFile(encName, name) {
+                currentLogFileEncName = encName;
+                currentLogFileName = name;
                 reLoadLogFile();
             }
 
             function reLoadLogFile() {
                 document.getElementById('logDisplayCode').innerHTML = "Please wait. Loading file: " + currentLogFileName;
-                serverGetData(displayLoadedFile, responseError, "logs/file/" + currentLogFileName);
+                serverGetData(displayLoadedFile, responseError, "files/loc/logs/name/" + currentLogFileEncName);
                 displayMap.delete('logDisplayDiv');
                 displayPage('logDisplayDiv');
             }
@@ -113,6 +118,8 @@
             function setThumbnailList(result) {
                 /** 
                  * Keep the path data for later
+                 * 
+                 * ImagePathdata is a representation of io.PathsIO
                  */
                 imagePathData = JSON.parse(result);
                 refreshThumbnailList();
@@ -127,7 +134,7 @@
                     } else {
                         linkClass = "TableList2";
                     }
-                    var span = "<a title=\"" + imagePathData.paths[i].encName + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData.paths[i].name + "</a>";
+                    var span = "<a title=\"" + imagePathData.paths[i].name + "\" href=\"javascript:loadThumbnails('" + i + "')\">" + imagePathData.paths[i].name + "</a>";
                     htmlStr += "<tr><td width=\"99%\" class=\"" + linkClass + "\">" + span + "</td></tr>";
                 }
                 htmlStr += "</table>";
@@ -143,6 +150,8 @@
             function displayLoadedThumbnails(result) {
                 /** 
                  * Keep the image data for later
+                 * 
+                 * imageData is a representation of io.FileListIo
                  */
                 imageData = JSON.parse(result);
                 refreshLoadedThumbnails();
@@ -155,7 +164,7 @@
                 var imageTableColWidth = Math.round(100 / userData.imagesPerRow);
 
                 for (var index = 0; index < imageData.files.length; index++) {
-                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.path + "/name/";
+                    var path = "/files/user/" + imageData.user + "/loc/" + imageData.loc + "/path/" + imageData.path.encName + "/name/";
 
                     image = image + "<td width=\"" + imageTableColWidth + "%\"><img onclick=\"displayOriginal(" + index + ", false)\" title=\"" + imageData.files[index].name.name + "\" src=\"" + path + imageData.files[index].name.encName + "\"></td>";
                     if (imagePos < userData.imagesPerRow) {
@@ -170,7 +179,7 @@
                     htmlStr += "<tr>" + image + "</tr>";
                 }
                 htmlStr += "</table>";
-                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.files.length + "] Images for " + imageData.user + " from " + imageData.path;
+                document.getElementById('thumbnailImgeHeading').innerHTML = " [" + imageData.files.length + "] Images for " + imageData.user + " from " + imageData.path.name;
                 document.getElementById('thumbnailImageList').innerHTML = htmlStr;
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
@@ -188,8 +197,8 @@
                     alert("History of previously viewed images is empty");
                 } else {
                     for (var index = 0; index < userData.imageHistory.length; index++) {
-                        htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index] + "\" src=\"/files/" + userData.imageHistory[index] + "\"></td>";
-                        htmlStr = htmlStr + "<td>" + userData.imageHistory[index].replace("images", "original") + "</td></tr>";
+                        htmlStr = htmlStr + "<tr><td><img onclick=\"displayOriginal(" + index + ",true)\" title=\"" + userData.imageHistory[index].na + "\" src=\"/files/" + userData.imageHistory[index].id + "\"></td>";
+                        htmlStr = htmlStr + "<td>" + userData.imageHistory[index].pa + "/" + userData.imageHistory[index].na + "</td></tr>";
                     }
                     htmlStr += "</table>";
                     document.getElementById('thumbnailImgeHeadingHistory').innerHTML = " [" + userData.imageHistory.length + "] Previously viewed images for " + currentUserCaps;
@@ -203,7 +212,7 @@
                 linkHistory.push("id" + entryId);
                 currentThumbnailPath = imagePathData.paths[entryId].encName;
                 document.getElementById('thumbnailImgeHeading').innerHTML = "Please wait. Loading Thumbnails " + currentThumbnailPath;
-                serverGetData(displayLoadedThumbnails, responseError, "files/user/" + currentUser + "/loc/images/path/" + currentThumbnailPath);
+                serverGetData(displayLoadedThumbnails, responseError, "files/user/" + currentUser + "/loc/thumbs/path/" + currentThumbnailPath);
                 displayMap.delete('thumbnailsImage');
                 displayPage('thumbnailsImage');
             }
@@ -274,19 +283,19 @@
                 var fullName;
                 var tag;
                 if (historic) {
-                    imageName = userData.imageHistory[index];
-                    fullName = imageName;
+                    imageName = userData.imageHistory[index].na;
+                    fullName = userData.imageHistory[index].id;
                     tag = "H:(" + index + ")";
                 } else {
                     imageName = imageData.files[index].name.name;
-                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path + "/name/" + imageName + "?thumbnail=true";
+                    fullName = "/user/" + imageData.user + "/loc/original/path/" + imageData.path.encName + "/name/" + imageData.files[index].name.encName + "?thumbnail=true";
                     tag = "C:(" + index + ")";
                 }
                 imageIndex = index;
                 imageIsHistoric = historic;
 
                 if (!historic) {
-                    tempName = "user/" + imageData.user + "/loc/images/path/" + imageData.path + "/name/" + imageName;
+                    var tempName = {id: "user/" + imageData.user + "/loc/thumbs/path/" + imageData.path.encName + "/name/" + imageData.files[index].name.encName, pa:imageData.path.name, na:imageData.files[index].name.name};
                     var tempList = [tempName];
                     for (i = 0; i < userData.imageHistory.length; i++) {
                         if (userData.imageHistory[i] !== tempName) {
@@ -318,7 +327,7 @@
                 var logs = JSON.parse(result);
                 var htmlStr = "<table width=\"100%\" border=\"1\">";
                 for (var i = 0; i < logs.files.length; i++) {
-                    span = "<a href=\"javascript:loadLogFile('" + logs.files[i].name.encName + "')\">" + logs.files[i].name.name + "</a>";
+                    span = "<a href=\"javascript:loadLogFile('" + logs.files[i].name.encName + "','" + logs.files[i].name.name + "')\">" + logs.files[i].name.name + "</a>";
                     htmlStr += "<tr><td style=\"width:20%\">" + logs.files[i].size + "</td><td>" + span + "</td></tr>";
                 }
                 htmlStr += "</table>";
@@ -397,7 +406,7 @@
                     var user = userList[i];
                     var userCaps = capital(user);
                     htmlStr += "<tr>" +
-                            "<td width=\"40%\"><img onclick=\"selectUser('" + user + "')\" src=\"/" + user + ".png\" alt=\"" + userCaps + "\" height=\"" + iconSize + "\" width=\"" + iconSize + "\"> </td>" +
+                            "<td width=\"40%\"><img onclick=\"selectUser('" + user + "')\" src=\"" + user + ".png\" alt=\"" + userCaps + "\" height=\"" + iconSize + "\" width=\"" + iconSize + "\"> </td>" +
                             "<td width=\"40%\" class=\"UserName1\" onclick=\"selectUser('" + user + "')\">" + userCaps + "</td></tr>";
                 }
                 htmlStr += "</table>";
@@ -423,11 +432,11 @@
             }
 
             function saveUserData() {
-                serverPostData(userData, setUserData, responseError, "/files/user/" + currentUser + "/loc/data/path/state/name/state.json");
+                serverPostData(userData, setUserData, responseError, "/files/user/" + currentUser + "/loc/data/name/state.json");
             }
 
             function loadUserData() {
-                serverGetData(setUserData, responseError, "/files/user/" + currentUser + "/loc/data/path/state/name/state.json");
+                serverGetData(setUserData, responseError, "/files/user/" + currentUser + "/loc/data/name/state.json");
             }
 
             window.onload = function () {
@@ -620,6 +629,7 @@
             <div class="Top" id="thumbnailsImageHistory">
                 <span class="SectionName" id="thumbnailImgeHeadingHistory"></span>
                 <button class="MenuButtonWide" onclick="clearThumbnailsList()">Clear This List</button>
+                <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
                 <div id="thumbnailImageListHistory">IMG</div>
                 <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
             </div>
@@ -629,6 +639,7 @@
                 <button class="MenuButton" onclick="setImagesPerRow(userData.imagesPerRow - 1)">&#8595; Less</button>
                 <button class="MenuButton" onclick="setImagesPerRow(userData.imagesPerRow + 1)">&#8593; More</button><br>
                 <span class="SectionName" id="thumbnailImgeHeading"></span>
+                <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
                 <div id="thumbnailImageList">IMG</div>
                 <button class="MenuButtonWide" onclick="displayThumbnailsList()">&#8592; Back to Picture List</button>
             </div>
@@ -656,9 +667,11 @@
             </div> 
 
             <div class="Top" id="logDisplayDiv">
-                <button id="logDisplayFile" onclick="displayPage('detailsDiv')">Back</button>
+                <button id="logDisplayFile1" onclick="displayPage('detailsDiv')">Back</button>
                 <button onclick="reLoadLogFile()">ReLoad</button><br>
-                <code id="logDisplayCode">Hello world</code>
+                <pre id="logDisplayCode">Hello world</pre>
+                <button id="logDisplayFile2" onclick="displayPage('detailsDiv')">Back</button>
+                <button onclick="reLoadLogFile()">ReLoad</button><br>
             </div>
         </div>
     </body>
