@@ -22,5 +22,13 @@ cd /home/pi/server/audio
 lcd ../../audio
 mput *.*
 
+cd /home/pi/server/web/static
+lcd ../web/static
+mput *.*
+
+cd /home/pi/server/web/templates
+lcd ../templates
+mput *.*
+
 quit
 

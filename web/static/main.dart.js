@@ -230,7 +230,7 @@
   W = {},
   F = {
     main: function() {
-      document.querySelector("#output").textContent = "Your Dart app is running.";
+      document.querySelector("#output").textContent = "Your Dart Server is running.";
     }
   };
   var holders = [J, P, W, F];
