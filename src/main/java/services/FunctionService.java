@@ -6,8 +6,8 @@
 package services;
 
 import exceptions.ServiceException;
-import cmd.SystemCommand;
-import cmd.SystemCommandQuietException;
+import shell.SystemCommand;
+import shell.SystemCommandQuietException;
 import config.Functions;
 import exceptions.ConfigDataException;
 import java.lang.reflect.InvocationTargetException;
@@ -39,7 +39,6 @@ public class FunctionService {
     }
     
     public static String func(String funcName, Map<String, String> queryParameters) {
-
         Map<String, String> functionData = functions.getCommandsForFunction(funcName);
         if ((functionData == null) || (functionData.size() < 1)) {
             throw new ConfigDataException("Function '" + funcName + "' is not defined");

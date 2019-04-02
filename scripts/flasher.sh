@@ -5,9 +5,11 @@
 # Add the following to the end of the file.
 #   @reboot bash /home/pi/server/scripts/flasher.sh
 # The flasher file should be this one!
-
+#
 ##############################
 # Find logs directory and define a log file
+# This log will contain only output from this script. Server logs are defined 
+# separately in the server configuration files.
 #
 SCRIPT_DIR="$(dirname "$0")"
 SERVER_DIR="$(dirname "$SCRIPT_DIR")"
@@ -16,7 +18,7 @@ echo "$(date '+%F %T') : ------------------------------------------------------"
 echo "$(date '+%F %T') : Starting Flasher Script : Logging to $LOGFILE" >> $LOGFILE
 
 ##############################
-# Find scripts directory and start some scripts
+# start some scripts
 #
 echo "$(date '+%F %T') : Root path: $SERVER_DIR" >> $LOGFILE
 echo "$(date '+%F %T') : Starting Server ($SERVER_DIR/runWebAppPI.sh) in background" >> $LOGFILE
@@ -128,7 +130,7 @@ do
         echo "$(date '+%F %T') : $( sudo hdparm -y /dev/sda )" >> $LOGFILE
         echo "$(date '+%F %T') : $( sudo hdparm -y /dev/sdb )" >> $LOGFILE
         #
-        # Clear the pins
+        # Clear the pins. Not absolutly necessary (but good practice) as we are about to reboot!
         #
         echo $BEEP_PIN > /sys/class/gpio/unexport 
         echo $FLASH_LED_PIN > /sys/class/gpio/unexport 
@@ -138,6 +140,9 @@ do
         #
         sleep 2
         echo "$(date '+%F %T') : Shutting down NOW!" >> $LOGFILE
+        #
+        # We never return from this command!
+        #
 	sudo shutdown now
 	exit 0
     fi

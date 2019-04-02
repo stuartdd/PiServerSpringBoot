@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script is run by cron two times a day as it takes a long time to run.
 set -e
 
 scriptname=$(basename $0)
@@ -20,7 +21,6 @@ DEST=/media/USBHDD2/shares/
 
 #Set the source directory you want to backup.
 SRC=/media/USBHDD1/shares/
-NETGEAR=//192.168.1.1/
 
 #Options: add 'z' for compression, add 'n' for dryrun (test) so -avRzn
 OPTIONS=-avr

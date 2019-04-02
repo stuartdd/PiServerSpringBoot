@@ -1,4 +1,4 @@
-package cmd;
+package shell;
 
 import config.LogProvider;
 import java.io.BufferedReader;
