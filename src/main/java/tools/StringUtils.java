@@ -21,6 +21,7 @@ public class StringUtils {
 
     private final static Map<String, MediaTypeInf> map = new HashMap();
     public static Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
     static {
         map.put("jpg", new MediaTypeInf("image/jpeg", false));
         map.put("gif", new MediaTypeInf("image/gif", false));
@@ -52,22 +53,6 @@ public class StringUtils {
         return null;
     }
 
-    public static String listToString(List list, String delim) {
-        StringBuilder sb = new StringBuilder();
-        int mark = 0;
-        for (Object s : list) {
-            if (s != null) {
-                sb.append(s.toString());
-            } else {
-                sb.append("null");
-            }
-            mark = sb.length();
-            sb.append(delim);
-        }
-        sb.setLength(mark);
-        return sb.toString();
-    }
-
     public static String arrayToString(Object[] list, String delim) {
         return arrayToString(list, delim, 0);
     }
@@ -91,6 +76,23 @@ public class StringUtils {
         sb.setLength(mark);
         return sb.toString();
     }
+
+    public static String listToString(List list, String delim) {
+        StringBuilder sb = new StringBuilder();
+        int mark = 0;
+        for (Object s : list) {
+            if (s != null) {
+                sb.append(s.toString());
+            } else {
+                sb.append("null");
+            }
+            mark = sb.length();
+            sb.append(delim);
+        }
+        sb.setLength(mark);
+        return sb.toString();
+    }
+
 
     public static String[] splice(String s, char splice) {
         List<String> list = new ArrayList<>();
@@ -188,12 +190,12 @@ public class StringUtils {
     }
 
     public static String parseThumbnailFileName(String name) {
-        
+
         int pos1 = name.lastIndexOf('.');
         if (pos1 < 0) {
             /*
             No '.' then not a Thumbnail name
-            */
+             */
             return name;
         }
         name = name.substring(0, pos1);

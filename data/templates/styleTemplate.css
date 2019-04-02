@@ -1,3 +1,8 @@
+/* 
+    Location   : data/templates
+    Purpose    : Test that this is templated. The height is replaced!
+               : The styleStatic.css is data/static should not be templated
+*/
 html { 
     height:%{height}%;
     background: url(background.jpg);

@@ -63,15 +63,15 @@ public class TestTemplates {
         MvcResult res = mvc.perform(get("/static/julie.png"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsByteArray().length> 100);
+        assertTrue(res.getResponse().getContentAsByteArray().length > 100);
     }
-    
+
     @Test
     public void getStaticIcon() throws Exception {
         MvcResult res = mvc.perform(get("/static/favicon.ico"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("image/x-icon", res.getResponse().getHeader("Content-Type"));
-        assertTrue(res.getResponse().getContentAsByteArray().length> 100);
+        assertTrue(res.getResponse().getContentAsByteArray().length > 100);
     }
 
     @Test
@@ -81,12 +81,33 @@ public class TestTemplates {
                 .andExpect(content().string("This is a template userList = [\"stuart\",\"shared\",\"nonuser\",\"test\"] poleForTime = 200000 historyMaxLen = 20;"));
     }
 
+    /**
+     * <pre>
+     * There are two index001.html files. One in the resources directory
+     * src/main/resources/templates and one in data/templates
+     *
+     * This test ensures that the one defined in data/templates overrides the other.
+     *
+     * This override is defined in the config 'resources -> locations -> templates'
+     * "locations": {
+     *    "logs": "data/logs",
+     *    "cache": "data/cache",
+     *    "scripts": "data/scripts",
+     *    "templates" : "data/templates",
+     *    "static" : "data/static",
+     *    "audio": "audio"
+     * },
+     * </pre>
+     *
+     * @throws Exception
+     */
     @Test
-    public void getTemplateHtml() throws Exception {
+    public void getTemplateHtmlOverride() throws Exception {
         MvcResult res = mvc.perform(get("/static/index001.html"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("text/html", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsString().length() > 100);
+        assertTrue(res.getResponse().getContentAsString().contains("index001-templates"));
     }
 
     @Test
@@ -97,22 +118,44 @@ public class TestTemplates {
         assertTrue(res.getResponse().getContentAsString().length() > 100);
     }
 
+    /**
+     * <pre>
+     * There are two styles.css files. One in the resources directory
+     * src/main/resources/static and one in data/static
+     *
+     * This test ensures that the one defined in data/static overrides the other.
+     *
+     * This override is defined in the config 'resources -> locations -> static'
+     * "locations": {
+     *    "logs": "data/logs",
+     *    "cache": "data/cache",
+     *    "scripts": "data/scripts",
+     *    "templates" : "data/templates",
+     *    "static" : "data/static",
+     *    "audio": "audio"
+     * },
+     * </pre>
+     *
+     * @throws Exception
+     */
     @Test
-    public void getTemplateCSS() throws Exception {
+    public void getStaticCSSOverride() throws Exception {
         MvcResult res = mvc.perform(get("/static/styles.css"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("text/css", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsString().length() > 100);
+        assertTrue(res.getResponse().getContentAsString().contains("Location   : data/static"));
     }
 
     @Test
     public void getTemplateFileIcomStatic() throws Exception {
-        MvcResult res = mvc.perform(get("/static/styleStatic.css"))
+        MvcResult res = mvc.perform(get("/static/styleStatic.css?height=999"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("text/css", res.getResponse().getHeader("Content-Type"));
         String resp = res.getResponse().getContentAsString();
         /*
-        Ensure it is NOT templated
+        Ensure it is NOT templated because it is in the static directory
+        Note urls are the same apart from the file name!
         */
         assertTrue(resp.contains("height:%{height}%"));
     }
@@ -124,8 +167,9 @@ public class TestTemplates {
         assertEquals("text/css", res.getResponse().getHeader("Content-Type"));
         String resp = res.getResponse().getContentAsString();
         /*
-        Ensure it is templated
-        */
+        Ensure it is templated because it is in the template directory
+        Note urls are the same apart from the file name!
+         */
         assertTrue(resp.contains("height:999%"));
     }
 
