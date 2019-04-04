@@ -6,20 +6,21 @@ void main() {
     getTime();
 }
 
-Future<void> getTime() async {
+Future<void> getServerTime() async {
   try {
-    final jsonString = await HttpRequest.getString('/server/stime');
+    final jsonString = await HttpRequest.getString('/server/time');
     processTime(json.decode(jsonString));
   } catch (e) {
-    processError('/server/time', e);
+    processError('/server/time'+e.);
   }
 }
 
-void processTime(Map jsonData) {
+void processServerTime(Map jsonData) {
   final Map time = jsonData['time'];
   querySelector('#output').text = time['mon'] + ' ' + time['dom'].toString() + ' ' + time['year'].toString() + ' at ' + time['hour'].toString() + ':' + time['min'].toString();
 } 
 
-void processError(String message, Type t) {
+void processError(String message) {
+  Window.alert(message);
   querySelector('#output').text = 'Request failed: ' + message;
 }

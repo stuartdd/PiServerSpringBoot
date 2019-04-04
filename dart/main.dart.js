@@ -303,7 +303,7 @@ throw H.e(H.G(a,"String"))},
 e_:function(a){if(a==null)return a
 if(typeof a==="number")return a
 throw H.e(H.G(a,"num"))},
-ek:function(a){if(a==null)return a
+el:function(a){if(a==null)return a
 if(typeof a==="boolean")return a
 throw H.e(H.G(a,"bool"))},
 A:function(a){if(a==null)return a
@@ -354,7 +354,7 @@ ah:function(a,b){a.$ti=b
 return a},
 Z:function(a){if(a==null)return
 return a.$ti},
-en:function(a,b,c){return H.ai(a["$a"+H.f(c)],H.Z(b))},
+eo:function(a,b,c){return H.ai(a["$a"+H.f(c)],H.Z(b))},
 cp:function(a,b,c){var u
 H.r(b)
 H.A(c)
@@ -443,7 +443,7 @@ for(t=0;t<u;++t)if(!H.y(null,null,c[t],d))return!1
 return!0}u=a.length
 for(t=0;t<u;++t)if(!H.y(a[t],b,c[t],d))return!1
 return!0},
-el:function(a,b,c){return a.apply(b,H.ai(J.t(b)["$a"+H.f(c)],H.Z(b)))},
+em:function(a,b,c){return a.apply(b,H.ai(J.t(b)["$a"+H.f(c)],H.Z(b)))},
 cT:function(a){var u
 if(typeof a==="number")return!1
 if('futureOr' in a){u="type" in a?a.type:null
@@ -517,7 +517,7 @@ u=Object.getOwnPropertyNames(c)
 for(t=u.length,s=0;s<t;++s){r=u[s]
 if(!Object.hasOwnProperty.call(a,r))return!1
 if(!H.y(c[r],d,a[r],b))return!1}return!0},
-em:function(a,b,c){Object.defineProperty(a,H.r(b),{value:c,enumerable:false,writable:true,configurable:true})},
+en:function(a,b,c){Object.defineProperty(a,H.r(b),{value:c,enumerable:false,writable:true,configurable:true})},
 dX:function(a){var u,t,s,r,q,p
 u=H.r($.cS.$1(a))
 t=$.bX[u]
@@ -1187,20 +1187,21 @@ _.$ti=e},
 br:function br(a){this.a=a}},F={
 cU:function(){document.querySelector("#output").textContent="Getting the time"
 F.bZ()},
-bZ:function(){var u=0,t=P.dA(-1),s=1,r,q=[],p,o,n,m
+bZ:function(){var u=0,t=P.dA(-1),s=1,r,q=[],p,o,n,m,l
 var $async$bZ=P.dI(function(a,b){if(a===1){r=b
 u=s}while(true)switch(u){case 0:s=3
 u=6
-return P.dt(W.df("/server/time"),$async$bZ)
+return P.dt(W.df("/server/stime"),$async$bZ)
 case 6:p=b
-o=H.h(H.h(C.t.ag(0,p),"$icf").p(0,"time"),"$icf")
-document.querySelector("#output").textContent=H.r(J.K(J.K(J.K(J.K(J.K(J.K(J.K(J.K(o.p(0,"mon")," "),J.L(o.p(0,"dom")))," "),J.L(o.p(0,"year")))," at "),J.L(o.p(0,"hour"))),":"),J.L(o.p(0,"min"))))
+n=H.h(H.h(C.t.ag(0,p),"$icf").p(0,"time"),"$icf")
+document.querySelector("#output").textContent=H.r(J.K(J.K(J.K(J.K(J.K(J.K(J.K(J.K(n.p(0,"mon")," "),J.L(n.p(0,"dom")))," "),J.L(n.p(0,"year")))," at "),J.L(n.p(0,"hour"))),":"),J.L(n.p(0,"min"))))
 s=1
 u=5
 break
 case 3:s=2
-m=r
-H.J(m)
+l=r
+o=H.J(l)
+H.h(o,"$ie7")
 document.querySelector("#output").textContent="Request failed: /server/time"
 u=5
 break
@@ -1709,7 +1710,7 @@ P.bM.prototype={}
 P.u.prototype={
 h:function(a){return H.f(this.a)},
 $iP:1}
-P.bP.prototype={$ieh:1}
+P.bP.prototype={$iei:1}
 P.bU.prototype={
 $0:function(){var u,t,s
 u=this.a
@@ -2157,22 +2158,22 @@ $.ck=!1
 $.j=C.a})();(function lazyInitializers(){var u=hunkHelpers.lazy
 u($,"e3","cZ",function(){return H.cQ("_$dart_dartClosure")})
 u($,"e4","ct",function(){return H.cQ("_$dart_js")})
-u($,"e7","d_",function(){return H.F(H.bd({
+u($,"e8","d_",function(){return H.F(H.bd({
 toString:function(){return"$receiver$"}}))})
-u($,"e8","d0",function(){return H.F(H.bd({$method$:null,
+u($,"e9","d0",function(){return H.F(H.bd({$method$:null,
 toString:function(){return"$receiver$"}}))})
-u($,"e9","d1",function(){return H.F(H.bd(null))})
-u($,"ea","d2",function(){return H.F(function(){var $argumentsExpr$='$arguments$'
+u($,"ea","d1",function(){return H.F(H.bd(null))})
+u($,"eb","d2",function(){return H.F(function(){var $argumentsExpr$='$arguments$'
 try{null.$method$($argumentsExpr$)}catch(t){return t.message}}())})
-u($,"ed","d5",function(){return H.F(H.bd(void 0))})
-u($,"ee","d6",function(){return H.F(function(){var $argumentsExpr$='$arguments$'
+u($,"ee","d5",function(){return H.F(H.bd(void 0))})
+u($,"ef","d6",function(){return H.F(function(){var $argumentsExpr$='$arguments$'
 try{(void 0).$method$($argumentsExpr$)}catch(t){return t.message}}())})
-u($,"ec","d4",function(){return H.F(H.cE(null))})
-u($,"eb","d3",function(){return H.F(function(){try{null.$method$}catch(t){return t.message}}())})
-u($,"eg","d8",function(){return H.F(H.cE(void 0))})
-u($,"ef","d7",function(){return H.F(function(){try{(void 0).$method$}catch(t){return t.message}}())})
-u($,"ei","cu",function(){return P.dn()})
-u($,"ej","al",function(){return[]})})()
+u($,"ed","d4",function(){return H.F(H.cE(null))})
+u($,"ec","d3",function(){return H.F(function(){try{null.$method$}catch(t){return t.message}}())})
+u($,"eh","d8",function(){return H.F(H.cE(void 0))})
+u($,"eg","d7",function(){return H.F(function(){try{(void 0).$method$}catch(t){return t.message}}())})
+u($,"ej","cu",function(){return P.dn()})
+u($,"ek","al",function(){return[]})})()
 var v={mangledGlobalNames:{z:"int",bY:"double",ag:"num",l:"String",X:"bool",k:"Null",o:"List"},mangledNames:{},getTypeFromName:getGlobalFromName,metadata:[],types:[{func:1,ret:P.k},{func:1,ret:-1},{func:1,ret:-1,args:[{func:1,ret:-1}]},{func:1,args:[,]},{func:1,ret:P.k,args:[,]},{func:1,args:[,P.l]},{func:1,args:[P.l]},{func:1,ret:P.k,args:[{func:1,ret:-1}]},{func:1,ret:-1,args:[,]},{func:1,ret:P.k,args:[,P.n]},{func:1,ret:P.k,args:[P.z,,]},{func:1,ret:-1,args:[P.i],opt:[P.n]},{func:1,ret:-1,opt:[P.i]},{func:1,ret:P.k,args:[,],opt:[P.n]},{func:1,ret:[P.q,,],args:[,]},{func:1,ret:P.k,args:[,,]},{func:1,ret:P.l,args:[W.C]},{func:1,ret:P.k,args:[W.E]},{func:1,args:[W.a]}],interceptorsByTag:null,leafTags:null};(function nativeSupport(){!function(){var u=function(a){var o={}
 o[a]=1
 return Object.keys(hunkHelpers.convertToFastObject(o))[0]}
