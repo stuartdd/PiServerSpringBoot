@@ -55,7 +55,7 @@ public class TestTemplates {
     public void getTemplateNotFound() throws Exception {
         mvc.perform(get("/static/template1"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Static file Not Found\", \"Entity\":\"template1\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Static file Not Found\", \"Entity\":\"/template1\"}"));
     }
 
     @Test
@@ -64,6 +64,14 @@ public class TestTemplates {
                 .andExpect(status().isOk()).andReturn();
         assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsByteArray().length > 100);
+    }
+    
+    @Test
+    public void getStaticNestedJS() throws Exception {
+        MvcResult res = mvc.perform(get("/static/dart/someScript.js"))
+                .andExpect(status().isOk()).andReturn();
+        assertEquals("text/javascript", res.getResponse().getHeader("Content-Type"));
+        assertTrue(res.getResponse().getContentAsString().length() > 20);
     }
     
     @Test

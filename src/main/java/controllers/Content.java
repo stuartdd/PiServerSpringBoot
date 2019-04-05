@@ -19,9 +19,12 @@ package controllers;
 import exceptions.ServerRestException;
 import java.util.Map;
 import config.ConfigDataManager;
+import config.LogProvider;
 import java.io.File;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,43 +44,48 @@ import tools.Template;
 @RestController("static")
 public class Content extends ControllerErrorHandlerBase {
 
-    @RequestMapping(value = "static/{name}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> content(@PathVariable String name, @RequestParam Map<String, String> queryParameters) {
-        MediaTypeInf mediaTypeInf = StringUtils.getMediaTypeForFile(name);
+    @RequestMapping(value = "static/**", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> content(@RequestParam Map<String, String> queryParameters, HttpServletRequest request) {
+        String finalName = request.getRequestURI();
+        if (finalName.startsWith("/")) {
+            finalName = finalName.substring(1);
+        }
+        finalName = finalName.substring("static".length());
+        MediaTypeInf mediaTypeInf = StringUtils.getMediaTypeForFile(finalName);
         if (mediaTypeInf == null) {
             mediaTypeInf = StringUtils.getMediaTypeForFile(".txt");
         }
         byte[] bytes;
         try {
-            File f = ConfigDataManager.getFileAtLocation("templates", name);
+            File f = ConfigDataManager.getFileAtLocation("templates", finalName);
             if (f.exists() && mediaTypeInf.isPlainText()) {
                 if (mediaTypeInf.isPlainText()) {
                     bytes = Template.parse(FileUtils.loadFile(f), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
                 } else {
-                    throw new ServerRestException(name, HttpStatus.BAD_REQUEST, "Cannot template binary files types " + mediaTypeInf.getMediaType());
+                    throw new ServerRestException(finalName, HttpStatus.BAD_REQUEST, "Cannot template binary files types " + mediaTypeInf.getMediaType());
                 }
             } else {
-                f = ConfigDataManager.getFileAtLocation("static", name);
+                f = ConfigDataManager.getFileAtLocation("static", finalName);
                 if (f.exists()) {
                     bytes = FileUtils.loadBinaryFile(f);
                 } else {
-                    if (FileUtils.resourceExists("/templates/" + name, this.getClass())) {
+                    if (FileUtils.resourceExists("/templates/" + finalName, this.getClass())) {
                         if (mediaTypeInf.isPlainText()) {
-                            bytes = Template.parse(FileUtils.getResource("/templates/" + name, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
+                            bytes = Template.parse(FileUtils.getResource("/templates/" + finalName, this.getClass()), ConfigDataManager.getProperties(queryParameters)).getBytes(StringUtils.DEFAULT_CHARSET);
                         } else {
-                            throw new ServerRestException(name, HttpStatus.BAD_REQUEST, "Cannot template binary resource types " + mediaTypeInf.getMediaType());
+                            throw new ServerRestException(finalName, HttpStatus.BAD_REQUEST, "Cannot template binary resource types " + mediaTypeInf.getMediaType());
                         }
                     } else {
-                        if (FileUtils.resourceExists("/static/" + name, this.getClass())) {
-                            bytes = FileUtils.loadBinaryFileResource("/static/" + name, this.getClass());
+                        if (FileUtils.resourceExists("/static/" + finalName, this.getClass())) {
+                            bytes = FileUtils.loadBinaryFileResource("/static/" + finalName, this.getClass());
                         } else {
-                            throw new ServerRestException(name, HttpStatus.NOT_FOUND, "Static file Not Found");
+                            throw new ServerRestException(finalName, HttpStatus.NOT_FOUND, "Static file Not Found");
                         }
                     }
                 }
             }
         } catch (Exception ex) {
-            throw new ServerRestException(name, HttpStatus.NOT_FOUND, "Static file read error", ex);
+            throw new ServerRestException(finalName, HttpStatus.NOT_FOUND, "Static file read error", ex);
         }
 
         HttpHeaders headers = new HttpHeaders();
