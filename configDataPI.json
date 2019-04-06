@@ -12,7 +12,7 @@
     "resources": {
         "serverRoot": "/home/pi/server",
         "users": {
-            "stuart": {"thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart"},
+            "stuart": {"name":"Stuart","thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart"},
             "julie": {"thumbs":"thumbnails/julie", "original":"/media/USBHDD1/shares/julie", "data":"cache/julie"},
             "owain": {"thumbs":"thumbnails/owain", "original":"/media/USBHDD1/shares/owain", "data":"cache/owain"},
             "huw": {"thumbs":"thumbnails/huw", "original":"/media/USBHDD1/shares/huw", "data":"cache/huw"},

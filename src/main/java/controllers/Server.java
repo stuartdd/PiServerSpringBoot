@@ -59,5 +59,10 @@ public class Server extends ControllerErrorHandlerBase {
     public String restart(HttpServletRequest req, @RequestParam Map<String, String> queryParameters) {
         return ShutDownService.shutDownLater(appContext, 2, 2, "RESTARTING");
     }
-        
+
+    @RequestMapping(value = "server/users", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String users() {
+        return ServerService.jsonUsers();
+    }
+
 }

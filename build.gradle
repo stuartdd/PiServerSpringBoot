@@ -42,12 +42,12 @@ task copyEndpointLib(type: Copy) {
     include "JsonFormatter*.class"
 }
 
-//task dart() {
-//    doLast {
-//        exec { executable = 'dart2js'; args = [ "dart/main.dart", "-o", "web/static/main.dart.js" ] }
-//    }
-//}
-//
-//compileJava.dependsOn dart
+task dart() {
+    doLast {
+        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/dart/main.dart.js" ] }
+    }
+}
+
+compileJava.dependsOn dart
 
 build.dependsOn copyEndpointLib

@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+    background-color: #17663f;
+    padding: 2px;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+    width: 100%;
+    background: #ccc;
+    padding: 10px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+article {
+    float: left;
+    padding: 1px;
+    width: 100%;
+    font-family: 'Courier New';
+    font-size: 15px;
+    background-color: #a5f1d4;
+}
+
+/* Clear floats after the columns */
+section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the footer */
+footer {
+    background-color: #17663f;
+    padding: 10px;
+    color: white;
+}

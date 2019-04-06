@@ -25,9 +25,7 @@ import org.joda.time.DateTime;
  */
 public class ServerService {
    /**
-     * { "time" : { "hour" : 14, "min" : 14, "sec" : 14, "nano" : 207723479,
-     * "year" : 2017, "month" : "November", "mon" : 11, "dom" : 29, "timestamp"
-     * : "2017-11-29T14:14:14.207723479Z" }}
+     * {"time":{"millis":1554504586062, "time2":"23:49", "time3":"23:49:46", "monthDay":"April:05", "year":2019, "month":4, "dom":5, "mon":"April", "timestamp":"05-04-2019T23:49:46.0+0100"}}
      *
      * @return
      */
@@ -35,15 +33,46 @@ public class ServerService {
         DateTime dt = new DateTime();
         return "{\"time\":{"
                 + "\"millis\":" + System.currentTimeMillis() + ", "
-                + "\"hour\":" + dt.hourOfDay().get() + ", "
-                + "\"min\":" + dt.minuteOfHour().get() + ", "
-                + "\"sec\":" + dt.secondOfMinute().get() + ", "
+                + "\"time2\":" + "\""+time2(dt)+"\", "
+                + "\"time3\":" +"\""+time3(dt)+"\", "
+                + "\"monthDay\":" +"\""+monthDay(dt)+"\", "
                 + "\"year\":" + dt.year().get() + ", "
                 + "\"month\":" + dt.monthOfYear().get() + ", "
                 + "\"dom\":" + dt.dayOfMonth().get() + ", "
                 + "\"mon\":\"" + dt.monthOfYear().getAsText() + "\", "
                 + "\"timestamp\":\"" + ConfigDataManager.formattedTimeStamp() + "\"}}";
-    } 
-    
+    }
+
+    public static String jsonUsers() {
+        StringBuilder sb = new StringBuilder();
+        int mark = 0;
+        for (String s:ConfigDataManager.getUsers().keySet()) {
+            sb.append("\""+s+"\"");
+            mark = sb.length();
+            sb.append(',');
+        }
+        sb.setLength(mark);
+        return "{\"users\": ["+sb.toString()+"]}";
+    }
+
+    private static String monthDay(DateTime dt) {
+        return dt.monthOfYear().getAsText()+":"+pad2(dt.dayOfMonth().get());
+    }
+
+    private static String time2(DateTime dt) {
+        return pad2(dt.hourOfDay().get())+":"+pad2(dt.minuteOfHour().get());
+    }
+
+    private static String time3(DateTime dt) {
+        return time2(dt) + ":" + pad2(dt.secondOfMinute().get());
+    }
+
+    private static String pad2(int i) {
+        if (i < 10) {
+            return "0"+i;
+        }
+        return ""+i;
+    }
+
 
 }
