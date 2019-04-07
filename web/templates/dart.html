@@ -14,18 +14,26 @@
     </head>
 
     <body>
-        <header>
-            <h2>Welcome - Who are you?</h2>
-            <h3>Select from below</h3>
-        </header>
-        <section>
-            <div id="userNameList"></div>
-            <article>
-                <h1>Messages</h1>
-                <p id="responseText"></p>
-            </article>
-        </section>
+        <div id="page_welcome">
+            <header>
+                <h2>Welcome - Who are you?</h2>
+                <h3>Select from below</h3>
+            </header>
+            <section>
+                <div id="userNameList"></div>
+            </section>            
+        </div>
+        <div id="page_main">
+            <header>
+                <h2 id="headerUserName"></h2>
+            </header>
+            <section>
+                <div id="userThumbnailList"></div>
+            </section>            
+        </div>
         <footer>
+            <h3>Messages</h3>
+            <p style="font-family: 'Courier New';", id="diagnosticText"></p>
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 10%; text-align: left;" id="timeText"></td>

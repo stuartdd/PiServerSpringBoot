@@ -1,46 +1,65 @@
 import 'dart:html';
-import 'dart:convert';
 import 'classes.dart';
 
 const String USER_NAME_ROW_ID_PREFIX = 'userNameRow-';
+const String DEFAULT_ERROR_TEXT = 'TOPBOX';
+const String iconSize = '80';
+const String iconSizePlus = '100';
+
 /**
 * Define locations (from id's) in the html
 */
 Element errorMessageText = querySelector('#errorMessageText');
 Element timeText = querySelector('#timeText');
 Element dateText = querySelector('#dateText');
-Element responseText = querySelector('#responseText');
+Element diagnosticText = querySelector('#diagnosticText');
 Element userNameList = querySelector('#userNameList');
-String iconSize = '80';
-String iconSizePlus = '100';
+Element headerUserName = querySelector('#headerUserName');
+
+/**
+ * Define all the pages. Each is addes to the page Manager. A fallback page is also defined.
+ */
+PageDiv fallbackPage = new PageDiv('welcome', querySelector('#page_welcome'), pageChange);
+PageManager pageManager = new PageManager([
+  fallbackPage,
+  PageDiv('main', querySelector('#page_main'), pageChange)
+], fallbackPage);
 
 List userList = new List();
 String currentUser = null;
+Map userDataMap = null;
 
 /**
  * Define the get time request and response procedure.
  */
-ServerRequest setTimeRequest = ServerRequest('GET', '/server/time', null, null,'Reading time from server', (resp) {
+ServerRequest setUserList = ServerRequest('GET', '/server/users','Reading user list from server',processError, populateUserList);
+ServerRequest setTimeRequest = ServerRequest('GET', '/server/time','Reading time from server',processError, (resp) {
   timeText.text = resp.map['time']['time3'];
   dateText.text = resp.map['time']['monthDay'];
 });
+ServerRequest setUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json','Reading user state from server',processError, (resp) {
+  userDataMap = resp.map;
+});
 
-ServerRequest setUserList = ServerRequest('GET', '/server/users', null, null,'Reading user list from server', populateUserList);
 /**
  * Program entry point
  */
 void main() {
-  server(setTimeRequest);
-  server(setUserList);
+  clearError();
+  pageManager.display('welcome');
+  setTimeRequest.send(null, null,null);
+  setUserList.send(null, null,null);
 }
 
+void pageChange(PageDiv old, PageDiv to) {
+  processError('E', (old == null? 'null': old.name) + ':'+ (to == null?'null':to.name));
+}
 
-void userListOnClick(MouseEvent mouse) {
-  String id = (mouse.target as Element).id;
-  if (id.startsWith(USER_NAME_ROW_ID_PREFIX)) {
-    currentUser = id.substring(USER_NAME_ROW_ID_PREFIX.length);
-    processError(currentUser);
-  }
+Future<void> selectCurrentUser(String userName) async {
+  currentUser = userName;
+  headerUserName.text = "Welcome:"+userName;
+  await setUserData.send([userName], null, null);
+  pageManager.display('main');
 }
 
 /**
@@ -59,41 +78,50 @@ void populateUserList(ServerResponse resp) {
   htmlStr += "</table>";
   userNameList.innerHtml = htmlStr;
   userList.forEach((user) {
-    querySelector('#'+USER_NAME_ROW_ID_PREFIX+user).onClick.listen(userListOnClick);
+    querySelector('#'+USER_NAME_ROW_ID_PREFIX+user).onClick.listen((e) {
+        selectCurrentUser(user);
+      });
   });
 }
 
 /**
  * Request Response for the server
  */
-Future<void> server(ServerRequest req) async {
-  clearError();
-  final url = req.finalUrl();
-  final httpRequest = HttpRequest();
-  httpRequest
-    ..open(req.type, url)
-    ..onLoadEnd.listen((e) {
-        var status = httpRequest.status;
-        if ((status >= 200) && (status < 300)) {
-            var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
-            responseText.text = httpRequest.responseText;
-            if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
-              resp.setMap(json.decode(httpRequest.responseText));
-            }
-            Function.apply(req.func, [resp]);
-        } else {
-            processError('[$status:$url] :'+req.desc);
-        }
-      })
-    ..send(req.body);
-}
+// Future<void> server(ServerRequest req,  List urlParameters, Map queryParameters, String body) async {
+//   clearError();
+//   final url = req.finalUrl(urlParameters, queryParameters);
+//   responseText.text = url;
+//   final httpRequest = HttpRequest();
+//   httpRequest
+//     ..open(req.type, url)
+//     ..onLoadEnd.listen((e) {
+//         var status = httpRequest.status;
+//         if ((status >= 200) && (status < 300)) {
+//             var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
+//             responseText.text = url + ' : ' + httpRequest.responseText;
+//             if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
+//               resp.setMap(json.decode(httpRequest.responseText));
+//             }
+//             Function.apply(req.func, [resp]);
+//         } else {
+//             processError('[$status:$url] :'+req.desc);
+//         }
+//       })
+//     ..send(body);
+// }
 
 void clearError() {
-  errorMessageText.text = 'TOPBOX';
-  responseText.text = '';
+  errorMessageText.text = DEFAULT_ERROR_TEXT;
+  diagnosticText.text = '';
 }
 
-void processError(String message) {
-  errorMessageText.text = 'ERROR: ' + message;
+void processError(String key, String message) {
+  if (key == 'E') {
+     errorMessageText.text = 'ERROR: ' + message;
+  }
+  if (key == 'D') {
+     diagnosticText.text = 'DATA: ' + message;
+  }
+
 }
 
