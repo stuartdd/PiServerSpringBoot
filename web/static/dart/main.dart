@@ -1,8 +1,8 @@
 import 'dart:html';
-
 import 'dart:convert';
 import 'classes.dart';
 
+const String USER_NAME_ROW_ID_PREFIX = 'userNameRow-';
 /**
 * Define locations (from id's) in the html
 */
@@ -13,6 +13,9 @@ Element responseText = querySelector('#responseText');
 Element userNameList = querySelector('#userNameList');
 String iconSize = '80';
 String iconSizePlus = '100';
+
+List userList = new List();
+String currentUser = null;
 
 /**
  * Define the get time request and response procedure.
@@ -32,25 +35,33 @@ void main() {
 }
 
 
-void selectUser(String user) {
-  processError(user);
+void userListOnClick(MouseEvent mouse) {
+  String id = (mouse.target as Element).id;
+  if (id.startsWith(USER_NAME_ROW_ID_PREFIX)) {
+    currentUser = id.substring(USER_NAME_ROW_ID_PREFIX.length);
+    processError(currentUser);
+  }
 }
 
+/**
+ * Create a table of user icons and user 
+ */
 void populateUserList(ServerResponse resp) {
-  var users = resp.map['users'];
+  userList = resp.map['users'];
   var htmlStr = "<table width=\"100%\">";
-  users.forEach((v) {
-    String user = v;
+  userList.forEach((user) {
     String userCaps = user.toUpperCase();
-    htmlStr += "<tr >" +
-        "<td width=\""+iconSizePlus+"px\"><img id=\"userNameRow-"+user+"\" src=\"" + user + ".png\" alt=\"" + userCaps + "\" height=\"" + iconSize + "\" width=\"" + iconSize + "\"> </td>" +
-        "<td class=\"UserName1\">" + userCaps + "</td></tr>";  }
-        );
+    htmlStr += "<tr>" +
+        "<td width=\""+iconSizePlus+"px\"><img  id=\""+USER_NAME_ROW_ID_PREFIX+user+"\" src=\"" + user + ".png\" alt=\"" + userCaps + "\" height=\"" + iconSize + "\" width=\"" + iconSize + "\"> </td>" +
+        "<td class=\"UserName1\">" + userCaps + "</td></tr>";  
+      }
+  );
   htmlStr += "</table>";
-  responseText.text = htmlStr;
   userNameList.innerHtml = htmlStr;
+  userList.forEach((user) {
+    querySelector('#'+USER_NAME_ROW_ID_PREFIX+user).onClick.listen(userListOnClick);
+  });
 }
-
 
 /**
  * Request Response for the server
