@@ -1,6 +1,6 @@
-import 'dart:html';
-import 'dart:convert';
 import 'dart:collection';
+import 'dart:convert';
+import 'dart:html';
 
 class PageManager {
   List<PageDiv> pages;
@@ -15,24 +15,24 @@ class PageManager {
   }
 
   /**
-   * Page back. remove the page from the stack. 
-   * Call display with stack false so we dont add the current page to the stack. 
+   * Page back. remove the page from the stack.
+   * Call display with stack false so we dont add the current page to the stack.
    */
   void back() {
     if (!pageNameHistory.isEmpty) {
       display(pageNameHistory.removeLast(), false);
-    }    
+    }
   }
 
   void display(String name, [bool stack = true]) {
     bool pageNotShown = true;
     /**
-    * If we have a current page. 
-    */
+     * If we have a current page.
+     */
     if (currentPage != null) {
       if (currentPage.name == name) {
         return;
-      }      
+      }
       if (stack) {
         pageNameHistory.addLast(currentPage.name);
       }
@@ -99,8 +99,7 @@ class ServerRequest {
   Function error;
   Function func;
 
-  ServerRequest(
-      String type, String host, String desc, Function error, Function func) {
+  ServerRequest(String type, String host, String desc, Function error, Function func) {
     this.type = type == null ? 'GET' : type;
     this.host = host == null ? 'no-host' : host;
     this.desc = desc == null ? 'no-desc' : desc;
@@ -128,8 +127,8 @@ class ServerRequest {
   }
 
   /**
- * Request Response for the server
- */
+   * Request Response for the server
+   */
   Future<void> send([List urlParameters = null, Map queryParameters = null, String body = null]) async {
     final url = this.finalUrl(urlParameters, queryParameters);
     final httpRequest = HttpRequest();
@@ -138,19 +137,14 @@ class ServerRequest {
       ..onLoadEnd.listen((e) {
         var status = httpRequest.status;
         if ((status >= 200) && (status < 300)) {
-          var resp = new ServerResponse(httpRequest.responseText,
-              httpRequest.status, httpRequest.responseHeaders);
-          Function.apply(
-              this.error, ['D', url + ' : ' + httpRequest.responseText]);
-          if (httpRequest.responseHeaders['content-type']
-              .toLowerCase()
-              .contains('json')) {
+          var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
+          Function.apply(this.error, ['D', url + ' : ' + httpRequest.responseText]);
+          if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
             resp.setMap(json.decode(httpRequest.responseText));
           }
           Function.apply(this.func, [resp]);
         } else {
-          Function.apply(this.error,
-              ['E', status.toString() + ':' + url + ':' + this.desc]);
+          Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);
         }
       })
       ..send(body);
