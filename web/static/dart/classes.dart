@@ -1,16 +1,45 @@
 import 'dart:html';
 import 'dart:convert';
+import 'dart:collection';
 
 class PageManager {
   List<PageDiv> pages;
+  int defaultPageIndex = null;
+
   PageDiv currentPage = null;
-  PageDiv defaultPage = null;
-  PageManager(List<PageDiv> pages, PageDiv defaultPage) {
+  Queue<String> pageNameHistory = new Queue();
+
+  PageManager(List<PageDiv> pages, [int defaultPageIndex = 0]) {
     this.pages = pages;
+    this.defaultPageIndex = defaultPageIndex;
   }
 
-  void display(String name) {
+  /**
+   * Page back. remove the page from the stack. 
+   * Call display with stack false so we dont add the current page to the stack. 
+   */
+  void back() {
+    if (!pageNameHistory.isEmpty) {
+      display(pageNameHistory.removeLast(), false);
+    }    
+  }
+
+  void display(String name, [bool stack = true]) {
     bool pageNotShown = true;
+    /**
+    * If we have a current page. 
+    */
+    if (currentPage != null) {
+      if (currentPage.name == name) {
+        return;
+      }      
+      if (stack) {
+        pageNameHistory.addLast(currentPage.name);
+      }
+    }
+    /**
+     * Cycle through all pages and hide pages not named. Only show paga named
+     */
     pages.forEach((newPage) {
       if (newPage.name == name) {
         if (newPage.onShow != null) {
@@ -23,15 +52,16 @@ class PageManager {
         newPage.hide();
       }
     });
-
+    /**
+     * If no page was shown fall back to the defaultPage
+     */
     if (pageNotShown) {
-      if (defaultPage != null) {
-        if (defaultPage.onShow != null) {
-          Function.apply(defaultPage.onShow, [currentPage, defaultPage]);
-        }
-        currentPage = defaultPage;
-        defaultPage.show();
+      PageDiv defaultPage = pages[defaultPageIndex];
+      if (defaultPage.onShow != null) {
+        Function.apply(defaultPage.onShow, [currentPage, defaultPage]);
       }
+      defaultPage.show();
+      currentPage = defaultPage;
     }
   }
 }
@@ -100,8 +130,7 @@ class ServerRequest {
   /**
  * Request Response for the server
  */
-  Future<void> send(
-      List urlParameters, Map queryParameters, String body) async {
+  Future<void> send([List urlParameters = null, Map queryParameters = null, String body = null]) async {
     final url = this.finalUrl(urlParameters, queryParameters);
     final httpRequest = HttpRequest();
     httpRequest
