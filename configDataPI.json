@@ -8,7 +8,7 @@
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validateLocations": true,
+    "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
         "serverRoot": "/home/pi/server",
         "users": {

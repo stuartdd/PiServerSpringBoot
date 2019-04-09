@@ -17,6 +17,7 @@
 package services;
 
 import config.ConfigDataManager;
+import java.util.Map;
 import org.joda.time.DateTime;
 
 /**
@@ -46,8 +47,23 @@ public class ServerService {
     public static String jsonUsers() {
         StringBuilder sb = new StringBuilder();
         int mark = 0;
-        for (String s:ConfigDataManager.getUsers().keySet()) {
-            sb.append("\""+s+"\"");
+        int markSub = 0;
+        StringBuilder sbSub = new StringBuilder();
+        for (Map.Entry<String, Map<String, String>> s:ConfigDataManager.getUsers().entrySet()) {
+            String user = s.getKey();
+            Map<String,String> map = s.getValue();
+            sbSub.setLength(0);
+            markSub = 0;
+            for (Map.Entry<String, String> me:map.entrySet()) {
+                if (!ConfigDataManager.shouldValidateLocation(me.getKey())) {
+                    sbSub.append('"').append(me.getKey()).append("\":\"").append(me.getValue()).append('"');
+                    markSub = sbSub.length();
+                    sbSub.append(',');
+                }
+            }
+            sbSub.setLength(markSub);
+            
+            sb.append("{\"").append(user).append("\":{").append(sbSub).append("}}");
             mark = sb.length();
             sb.append(',');
         }

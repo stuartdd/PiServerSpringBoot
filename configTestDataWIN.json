@@ -8,11 +8,11 @@
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validateLocations": true,
+    "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
         "serverRoot": "",
         "users": {
-            "stuart": {"thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
+            "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
             "nonuser": {"thumbs":"data/thumb/nonuser","original":"data/images/nonuser", "data":"data/nonuser"},
             "test": {"src":"src"}

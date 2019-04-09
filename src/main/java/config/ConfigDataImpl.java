@@ -5,6 +5,7 @@
  */
 package config;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +19,7 @@ public class ConfigDataImpl {
     private String formatTimeStamp;
     private Map<String, String> system;
     private boolean allowServerStopCtrl = true;
-    private boolean validateLocations;
+    private List<String> validatePathsOnStartUp;
     private String logName;
     private String logPath;
     private int logLevelBar = 1;
@@ -96,12 +97,12 @@ public class ConfigDataImpl {
         this.allowServerStopCtrl = allowServerStopCtrl;
     }
 
-    public boolean isValidateLocations() {
-        return validateLocations;
+    public List<String> getValidatePathsOnStartUp() {
+        return validatePathsOnStartUp;
     }
 
-    public void setValidateLocations(boolean validateLocations) {
-        this.validateLocations = validateLocations;
+    public void setValidatePathsOnStartUp(List<String> validatePathsOnStartUp) {
+        this.validatePathsOnStartUp = validatePathsOnStartUp;
     }
 
 }

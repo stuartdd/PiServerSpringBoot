@@ -91,7 +91,7 @@ public class ConfigDataManager {
         if (cacheOverride != null) {
             LogProvider.log("CACHE Path override provided:" + cacheOverride, 1);
             configDataImpl.getResources().getLocations().put("cache", cacheOverride);
-        } 
+        }
 
         if (serverRoot != null) {
             LogProvider.log("SERVER ROOT override provided:" + serverRoot, 0);
@@ -130,33 +130,35 @@ public class ConfigDataManager {
             }
         }
 
-        if (configDataImpl.isValidateLocations()) {
-            try {
-                for (Map.Entry<String, Map<String, String>> usr : getUsers().entrySet()) {
-                    if (usr.getValue() != null) {
-                        for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
+        try {
+            for (Map.Entry<String, Map<String, String>> usr : getUsers().entrySet()) {
+                if (usr.getValue() != null) {
+                    for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
+                        if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
                             getUserLocationFile(usr.getKey(), loc.getKey());
                         }
                     }
                 }
+            }
 
-                for (Map.Entry<String, String> loc : getLocations().entrySet()) {
+            for (Map.Entry<String, String> loc : getLocations().entrySet()) {
+                if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
                     getLocationFile(loc.getKey());
                 }
-
-                FileUtils.exists(getLogPath());
-            } catch (Exception e) {
-                throw new ConfigDataException(configErrorPrefix + "File system reasource not found: " + e.getMessage(), e);
             }
+
+            FileUtils.exists(getLogPath());
+        } catch (Exception e) {
+            throw new ConfigDataException(configErrorPrefix + "File system reasource not found: " + e.getMessage(), e);
         }
 
         /*
         Copy all properties in the System section of the configuration file to the System properties.
-        */
+         */
         for (Map.Entry<String, String> es : configDataImpl.getSystem().entrySet()) {
             System.setProperty(es.getKey(), es.getValue());
         }
-        
+
         StringBuilder sb = new StringBuilder();
         int mark = 0;
         for (String user : getUsers().keySet()) {
@@ -166,7 +168,7 @@ public class ConfigDataManager {
         }
         sb.setLength(mark);
 
-        parameters = new Properties();        
+        parameters = new Properties();
         parameters.putAll(configDataImpl.getResources().getAlias());
         parameters.putAll(System.getProperties());
         parameters.put("userList", sb.toString());
@@ -200,7 +202,7 @@ public class ConfigDataManager {
         }
         return resolveLocation(loc);
     }
-    
+
     public static int getLogLevelBar() {
         return configDataImpl.getLogLevelBar();
     }
@@ -210,7 +212,7 @@ public class ConfigDataManager {
         if (f.exists()) {
             return f;
         }
-        throw new ResourceNotFoundException(locationName + (configDataImpl.isValidateLocations() ? " - ROOT: " + serverRoot + " PATH:" + f.getAbsolutePath() : ""));
+        throw new ResourceNotFoundException("Path to - LOCATION: " + locationName);
     }
 
     public static File getUserLocationFile(String user, String locationName) {
@@ -234,9 +236,9 @@ public class ConfigDataManager {
             return new File(file);
         }
         loc = resolveLocation(loc);
-        return new File(loc+File.separator+file);
+        return new File(loc + File.separator + file);
     }
-    
+
     public static File getUserLocationFile(String user, String locationName, String path, String name) {
         String loc;
         if (user == null) {
@@ -266,7 +268,7 @@ public class ConfigDataManager {
         if (f.exists()) {
             return f;
         }
-        throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path) + (name == null ? "" : "." + name) + (configDataImpl.isValidateLocations() ? " - ROOT: " + serverRoot + " PATH:" + f.getAbsolutePath() : ""));
+        throw new ResourceNotFoundException("Path to - USER:" + user + " LOCATION:" + locationName + " PATH:" + path + " NAME:" + name);
     }
 
     public static Properties getProperties(Map<String, String> localParameters) {
@@ -328,6 +330,15 @@ public class ConfigDataManager {
             return null;
         }
         return val;
+    }
+
+    public static boolean shouldValidateLocation(String key) {
+        for (String name: configDataImpl.getValidatePathsOnStartUp()) {
+            if (name.equalsIgnoreCase(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
