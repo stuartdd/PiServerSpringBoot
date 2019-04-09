@@ -17,15 +17,15 @@
 package services;
 
 import config.ConfigDataManager;
-import java.util.Map;
 import org.joda.time.DateTime;
 
+import java.util.Map;
+
 /**
- *
  * @author stuart
  */
 public class ServerService {
-   /**
+    /**
      * {"time":{"millis":1554504586062, "time2":"23:49", "time3":"23:49:46", "monthDay":"April:05", "year":2019, "month":4, "dom":5, "mon":"April", "timestamp":"05-04-2019T23:49:46.0+0100"}}
      *
      * @return
@@ -34,9 +34,9 @@ public class ServerService {
         DateTime dt = new DateTime();
         return "{\"time\":{"
                 + "\"millis\":" + System.currentTimeMillis() + ", "
-                + "\"time2\":" + "\""+time2(dt)+"\", "
-                + "\"time3\":" +"\""+time3(dt)+"\", "
-                + "\"monthDay\":" +"\""+monthDay(dt)+"\", "
+                + "\"time2\":" + "\"" + time2(dt) + "\", "
+                + "\"time3\":" + "\"" + time3(dt) + "\", "
+                + "\"monthDay\":" + "\"" + monthDay(dt) + "\", "
                 + "\"year\":" + dt.year().get() + ", "
                 + "\"month\":" + dt.monthOfYear().get() + ", "
                 + "\"dom\":" + dt.dayOfMonth().get() + ", "
@@ -46,37 +46,36 @@ public class ServerService {
 
     public static String jsonUsers() {
         StringBuilder sb = new StringBuilder();
-        int mark = 0;
-        int markSub = 0;
-        StringBuilder sbSub = new StringBuilder();
-        for (Map.Entry<String, Map<String, String>> s:ConfigDataManager.getUsers().entrySet()) {
+        int mark1 = 0;
+        int mark2 = 0;
+        for (Map.Entry<String, Map<String, String>> s : ConfigDataManager.getUsers().entrySet()) {
             String user = s.getKey();
-            Map<String,String> map = s.getValue();
-            sbSub.setLength(0);
-            markSub = 0;
-            for (Map.Entry<String, String> me:map.entrySet()) {
+            Map<String, String> map = s.getValue();
+            sb.append("{\"id\":\"").append(user).append('"');
+            mark1 = sb.length();
+            sb.append(',');
+            for (Map.Entry<String, String> me : map.entrySet()) {
                 if (!ConfigDataManager.shouldValidateLocation(me.getKey())) {
-                    sbSub.append('"').append(me.getKey()).append("\":\"").append(me.getValue()).append('"');
-                    markSub = sbSub.length();
-                    sbSub.append(',');
+                    sb.append("\"").append(me.getKey()).append("\":\"").append(me.getValue()).append('"');
+                    mark1 = sb.length();
+                    sb.append(',');
                 }
             }
-            sbSub.setLength(markSub);
-            
-            sb.append("{\"").append(user).append("\":{").append(sbSub).append("}}");
-            mark = sb.length();
+            sb.setLength(mark1);
+            sb.append('}');
+            mark2 = sb.length();
             sb.append(',');
         }
-        sb.setLength(mark);
-        return "{\"users\": ["+sb.toString()+"]}";
+        sb.setLength(mark2);
+        return "{\"users\": [" + sb.toString() + "]}";
     }
 
     private static String monthDay(DateTime dt) {
-        return dt.monthOfYear().getAsText()+":"+pad2(dt.dayOfMonth().get());
+        return dt.monthOfYear().getAsText() + ":" + pad2(dt.dayOfMonth().get());
     }
 
     private static String time2(DateTime dt) {
-        return pad2(dt.hourOfDay().get())+":"+pad2(dt.minuteOfHour().get());
+        return pad2(dt.hourOfDay().get()) + ":" + pad2(dt.minuteOfHour().get());
     }
 
     private static String time3(DateTime dt) {
@@ -85,9 +84,9 @@ public class ServerService {
 
     private static String pad2(int i) {
         if (i < 10) {
-            return "0"+i;
+            return "0" + i;
         }
-        return ""+i;
+        return "" + i;
     }
 
 

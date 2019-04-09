@@ -1,0 +1,66 @@
+2019-04-09 19:42:06.846 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-04-09 19:42:06.863 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-04-09 19:42:06.868 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-09 19:42:06.905 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-09 19:42:06.910 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-04-09 19:42:06.916 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-09 19:42:06.916 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-09 19:42:06.965 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-09 19:42:06.965 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-09 19:42:07.009 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-09 19:42:07.009 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-09 19:42:07.051 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-09 19:42:07.053 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-09 19:42:07.056 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-09 19:42:07.059 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-09 19:42:07.112 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.out] encName:[ufs]
+2019-04-09 19:42:07.250 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-09 19:42:07.255 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-09 19:42:07.255 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-09 19:42:07.255 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-09 19:42:07.255 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-09 19:42:07.255 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-09 19:42:07.310 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-09 19:42:07.311 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-09 19:42:07.312 INFO  Server: CMD:EXIT: Code=0
+2019-04-09 19:42:07.316 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-09 19:42:07.323 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-09 19:42:07.324 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q0:./returnCode.sh
+2019-04-09 19:42:07.324 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q1:9
+2019-04-09 19:42:07.324 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q2:
+2019-04-09 19:42:07.324 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q3:
+2019-04-09 19:42:07.324 INFO  Server: CMD:OUT:./returnCode.sh 9 --> {start}
+2019-04-09 19:42:07.324 INFO  Server: CMD:EXIT: Code=9
+2019-04-09 19:42:07.330 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-04-09 19:42:07.334 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-04-09 19:42:07.347 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 19:42:07.357 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 19:44:44.712 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 19:44:55.375 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 19:51:55.455 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 19:55:02.943 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:07:16.508 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:17:17.860 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:20:05.362 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:21:11.132 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:21:56.791 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:28:35.369 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:28:40.989 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:29:26.775 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:29:32.526 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:32:36.272 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:36:04.335 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:40:51.206 INFO  Server: fileReadUserLocationBase: user:[Stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:40:51.209 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"Stuart"} CAUSE: Stuart
+2019-04-09 20:41:44.913 INFO  Server: fileReadUserLocationBase: user:[Stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:41:44.913 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"Stuart"} CAUSE: Stuart
+2019-04-09 20:43:10.690 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:43:37.300 INFO  Server: fileReadUserLocationBase: user:[shared] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 20:44:03.624 INFO  Server: fileReadUserLocationBase: user:[shared] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:12:59.589 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:15:16.850 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:18:21.578 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:23:05.465 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:28:35.518 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:34:48.608 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-09 21:36:30.748 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]

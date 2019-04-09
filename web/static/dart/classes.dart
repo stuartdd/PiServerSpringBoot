@@ -2,14 +2,42 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:html';
 
-class PageManager {
+class MyButtonManager {
+  List<MyButton> buttons;
+
+  MyButtonManager(List<MyButton> buttons) {
+    this.buttons = buttons;
+  }
+}
+
+class MyButton {
+  String id;
+  Element element;
+  Function onPress;
+
+  MyButton(String id, Element element, Function onPress) {
+    this.id = id;
+    this.element = element;
+    this.onPress = onPress;
+
+    this.element.onClick.listen((e) {
+      this.onPressFunc(e);
+    });
+  }
+
+  void onPressFunc(Event _) {
+    Function.apply(this.onPress, ["E", this.id]);
+  }
+}
+
+class PageDivManager {
   List<PageDiv> pages;
   int defaultPageIndex = null;
 
   PageDiv currentPage = null;
   Queue<String> pageNameHistory = new Queue();
 
-  PageManager(List<PageDiv> pages, [int defaultPageIndex = 0]) {
+  PageDivManager(List<PageDiv> pages, [int defaultPageIndex = 0]) {
     this.pages = pages;
     this.defaultPageIndex = defaultPageIndex;
   }

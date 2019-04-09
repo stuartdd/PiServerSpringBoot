@@ -6,22 +6,49 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Style the header */
 header {
     background-color: #17663f;
     padding: 2px;
     text-align: center;
-    font-size: 25px;
     color: white;
 }
 
-/* Create two columns/boxes that floats next to each other */
+/* Style the footer */
+footer {
+    background-color: #17663f;
+    padding: 10px;
+    color: white;
+}
+
 nav {
+    background-color: #5df191;
     width: 100%;
     display: inline-flex;
     overflow: hidden;
-    background-color: #a5f1d4;
+    font-size: 25px;
 }
+
+article {
+    float: left;
+    padding: 1px;
+    width: 100%;
+    font-size: 15px;
+    background-color: #5df191;
+}
+
+
+.InfoLine {
+    background-color: #5df191;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    color: black;
+    font-size: 25px;
+}
+
+.Left {
+     text-align: left;
+ }
 
 .nav_button {
   background-color: inherit;
@@ -31,20 +58,6 @@ nav {
   cursor: pointer;
   padding: 15px 15px;
   transition: 0.3s;
-  font-size: 20px;
+  font-size: 25px;
 }
 
-article {
-    float: left;
-    padding: 1px;
-    width: 100%;
-    font-size: 15px;
-    background-color: #a5f1d4;
-}
-
-/* Style the footer */
-footer {
-    background-color: #17663f;
-    padding: 10px;
-    color: white;
-}

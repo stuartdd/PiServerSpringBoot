@@ -287,7 +287,7 @@
       this.$ti = t2;
     },
     Symbol: function Symbol(t0) {
-      this.__internal$_name = t0;
+      this._name = t0;
     },
     unminifyOrTag: function(rawClassName) {
       var preserved = H.stringTypeCheck(init.mangledGlobalNames[rawClassName]);
@@ -1656,9 +1656,9 @@
     BoundClosure: function BoundClosure(t0, t1, t2, t3) {
       var _ = this;
       _._self = t0;
-      _.__js_helper$_target = t1;
+      _._target = t1;
       _._receiver = t2;
-      _._name = t3;
+      _.__js_helper$_name = t3;
     },
     TypeErrorImplementation: function TypeErrorImplementation(t0) {
       this.message = t0;
@@ -1887,9 +1887,6 @@
     },
     toString$0$: function(receiver) {
       return J.getInterceptor$(receiver).toString$0(receiver);
-    },
-    toUpperCase$0$s: function(receiver) {
-      return J.getInterceptor$s(receiver).toUpperCase$0(receiver);
     },
     Interceptor: function Interceptor() {
     },
@@ -3117,14 +3114,14 @@
     },
     _EventStream: function _EventStream(t0, t1, t2, t3) {
       var _ = this;
-      _._target = t0;
+      _._html$_target = t0;
       _._eventType = t1;
       _._useCapture = t2;
       _.$ti = t3;
     },
     _ElementEventStreamImpl: function _ElementEventStreamImpl(t0, t1, t2, t3) {
       var _ = this;
-      _._target = t0;
+      _._html$_target = t0;
       _._eventType = t1;
       _._useCapture = t2;
       _.$ti = t3;
@@ -3132,7 +3129,7 @@
     _EventStreamSubscription: function _EventStreamSubscription(t0, t1, t2, t3, t4) {
       var _ = this;
       _._pauseCount = 0;
-      _._target = t0;
+      _._html$_target = t0;
       _._eventType = t1;
       _._onData = t2;
       _._useCapture = t3;
@@ -3221,20 +3218,18 @@
       t1.func = func;
       return t1;
     },
-    PageManager: function PageManager(t0) {
+    PageDivManager: function PageDivManager(t0) {
       var _ = this;
       _.currentPage = _.defaultPageIndex = _.pages = null;
       _.pageNameHistory = t0;
     },
-    PageManager_display_closure: function PageManager_display_closure(t0, t1, t2) {
+    PageDivManager_display_closure: function PageDivManager_display_closure(t0, t1, t2) {
       this._box_0 = t0;
       this.$this = t1;
       this.name = t2;
     },
     PageDiv: function PageDiv() {
-      var _ = this;
-      _.onShow = _.element = _.name = null;
-      _.firstShow = true;
+      this.onShow = this.element = this.name = null;
     },
     ServerRequest: function ServerRequest() {
       var _ = this;
@@ -3255,35 +3250,20 @@
   },
   F = {
     main: function() {
-      var t1, t2;
-      t1 = J.get$onClick$x($.$get$backButton());
-      t2 = H.getTypeArgumentByIndex(t1, 0);
-      W._EventStreamSubscription$(t1._target, t1._eventType, H.functionTypeCheck(new F.main_closure(), {func: 1, ret: -1, args: [t2]}), false, t2);
-      t2 = J.get$onClick$x($.$get$homeButton());
-      t1 = H.getTypeArgumentByIndex(t2, 0);
-      W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new F.main_closure0(), {func: 1, ret: -1, args: [t1]}), false, t1);
       $.$get$errorMessageText().textContent = "TOPBOX";
       $.$get$diagnosticText().textContent = "";
       $.$get$pageManager().display$1(0, "welcome");
       $.$get$fetchTimeData().send$0(0);
       $.$get$fetchUserList().send$0(0);
     },
-    pageChange: function(old, to) {
-      var t1, t2;
+    initWelcomePage: function(old, to) {
       H.interceptedTypeCheck(old, "$isPageDiv");
       H.interceptedTypeCheck(to, "$isPageDiv");
-      t1 = (old == null ? "null" : old.name) + ":";
-      if (to == null)
-        t2 = "null";
-      else {
-        t2 = to.name + "[";
-        t2 = t2 + (to.firstShow ? "FS" : "--") + "]";
-      }
-      t2 = t1 + t2 + ":";
-      t1 = $.$get$pageManager().pageNameHistory;
-      F.processError("E", t2 + C.JSInt_methods.toString$0(t1.get$length(t1)));
+      $.$get$errorMessageText().textContent = "TOPBOX";
+      $.$get$diagnosticText().textContent = "";
+      $.$get$headerUserName().textContent = "Welcome: Who Are You?";
     },
-    selectCurrentUser: function(userName) {
+    selectCurrentUser: function(userId, userName) {
       var $async$goto = 0,
         $async$completer = P._makeAsyncAwaitCompleter(-1);
       var $async$selectCurrentUser = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -3293,10 +3273,11 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              $.currentUser = userName;
+              $.currentUserId = userId;
+              $.currentUserName = userName;
               $.$get$headerUserName().textContent = C.JSString_methods.$add("Welcome:", userName);
               $async$goto = 2;
-              return P._asyncAwait($.$get$fetchUserData().send$1(0, [userName]), $async$selectCurrentUser);
+              return P._asyncAwait($.$get$fetchUserData().send$1(0, [$.currentUserId]), $async$selectCurrentUser);
             case 2:
               // returning from await.
               $.$get$pageManager().display$1(0, "main");
@@ -3306,16 +3287,16 @@
       });
       return P._asyncStartSync($async$selectCurrentUser, $async$completer);
     },
-    populateUserList: function(resp) {
+    populateUserTable: function(resp) {
       var t1, t2;
       t1 = {};
       t2 = H.listTypeCheck(H.interceptedTypeCheck(resp, "$isServerResponse").map.$index(0, "users"));
       $.userList = t2;
       t1.htmlStr = '<table width="100%">';
-      J.forEach$1$ax(t2, new F.populateUserList_closure(t1));
+      J.forEach$1$ax(t2, new F.populateUserTable_closure(t1));
       t1 = t1.htmlStr += "</table>";
       J.set$innerHtml$x($.$get$userNameList(), t1);
-      J.forEach$1$ax($.$get$userList(), new F.populateUserList_closure0());
+      J.forEach$1$ax($.$get$userList(), new F.populateUserTable_closure0());
     },
     processError: function(key, message) {
       H.stringTypeCheck(key);
@@ -3329,17 +3310,14 @@
     },
     closure: function closure() {
     },
-    main_closure: function main_closure() {
+    populateUserTable_closure: function populateUserTable_closure(t0) {
+      this._box_1 = t0;
     },
-    main_closure0: function main_closure0() {
+    populateUserTable_closure0: function populateUserTable_closure0() {
     },
-    populateUserList_closure: function populateUserList_closure(t0) {
+    populateUserTable__closure: function populateUserTable__closure(t0, t1) {
       this._box_0 = t0;
-    },
-    populateUserList_closure0: function populateUserList_closure0() {
-    },
-    populateUserList__closure: function populateUserList__closure(t0) {
-      this.user = t0;
+      this.id = t1;
     }
   };
   var holders = [C, H, J, P, W, V, F];
@@ -3379,6 +3357,9 @@
     },
     get$hashCode: function(receiver) {
       return 0;
+    },
+    noSuchMethod$1: function(receiver, invocation) {
+      return this.super$Interceptor$noSuchMethod(receiver, H.interceptedTypeCheck(invocation, "$isInvocation"));
     },
     $isNull: 1
   };
@@ -3606,9 +3587,6 @@
     toLowerCase$0: function(receiver) {
       return receiver.toLowerCase();
     },
-    toUpperCase$0: function(receiver) {
-      return receiver.toUpperCase();
-    },
     indexOf$1: function(receiver, pattern) {
       var t1 = receiver.indexOf(pattern, 0);
       return t1;
@@ -3762,17 +3740,17 @@
       var hash = this._hashCode;
       if (hash != null)
         return hash;
-      hash = 536870911 & 664597 * J.get$hashCode$(this.__internal$_name);
+      hash = 536870911 & 664597 * J.get$hashCode$(this._name);
       this._hashCode = hash;
       return hash;
     },
     toString$0: function(_) {
-      return 'Symbol("' + H.S(this.__internal$_name) + '")';
+      return 'Symbol("' + H.S(this._name) + '")';
     },
     $eq: function(_, other) {
       if (other == null)
         return false;
-      return other instanceof H.Symbol && this.__internal$_name == other.__internal$_name;
+      return other instanceof H.Symbol && this._name == other._name;
     },
     $isSymbol0: 1
   };
@@ -3889,7 +3867,7 @@
       C.JSArray_methods.add$1(this.$arguments, argument);
       ++t1.argumentCount;
     },
-    $signature: 10
+    $signature: 9
   };
   H.TypeErrorDecoder.prototype = {
     matchTypeError$1: function(message) {
@@ -3950,7 +3928,7 @@
           error.$thrownJsError = this.ex;
       return error;
     },
-    $signature: 5
+    $signature: 4
   };
   H._StackTrace.prototype = {
     toString$0: function(_) {
@@ -3995,7 +3973,7 @@
         return true;
       if (!(other instanceof H.BoundClosure))
         return false;
-      return this._self === other._self && this.__js_helper$_target === other.__js_helper$_target && this._receiver === other._receiver;
+      return this._self === other._self && this._target === other._target && this._receiver === other._receiver;
     },
     get$hashCode: function(_) {
       var t1, receiverHashCode;
@@ -4004,13 +3982,13 @@
         receiverHashCode = H.Primitives_objectHashCode(this._self);
       else
         receiverHashCode = typeof t1 !== "object" ? J.get$hashCode$(t1) : H.Primitives_objectHashCode(t1);
-      return (receiverHashCode ^ H.Primitives_objectHashCode(this.__js_helper$_target)) >>> 0;
+      return (receiverHashCode ^ H.Primitives_objectHashCode(this._target)) >>> 0;
     },
     toString$0: function(_) {
       var receiver = this._receiver;
       if (receiver == null)
         receiver = this._self;
-      return "Closure '" + H.S(this._name) + "' of " + ("Instance of '" + H.Primitives_objectTypeName(receiver) + "'");
+      return "Closure '" + H.S(this.__js_helper$_name) + "' of " + ("Instance of '" + H.Primitives_objectTypeName(receiver) + "'");
     }
   };
   H.TypeErrorImplementation.prototype = {
@@ -4233,19 +4211,19 @@
     call$1: function(o) {
       return this.getTag(o);
     },
-    $signature: 5
+    $signature: 4
   };
   H.initHooks_closure0.prototype = {
     call$2: function(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 11
+    $signature: 10
   };
   H.initHooks_closure1.prototype = {
     call$1: function(tag) {
       return this.prototypeForTag(H.stringTypeCheck(tag));
     },
-    $signature: 12
+    $signature: 11
   };
   P._AsyncRun__initializeScheduleImmediate_internalCallback.prototype = {
     call$1: function(_) {
@@ -4265,7 +4243,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 13
+    $signature: 12
   };
   P._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0: function() {
@@ -4335,7 +4313,7 @@
     call$1: function(result) {
       return this.bodyFunction.call$2(0, result);
     },
-    $signature: 14
+    $signature: 13
   };
   P._awaitOnObject_closure0.prototype = {
     call$2: function(error, stackTrace) {
@@ -4343,13 +4321,13 @@
     },
     "call*": "call$2",
     $requiredArgCount: 2,
-    $signature: 15
+    $signature: 14
   };
   P._wrapJsFunctionForAsync_closure.prototype = {
     call$2: function(errorCode, result) {
       this.$protected(H.intTypeCheck(errorCode), result);
     },
-    $signature: 16
+    $signature: 15
   };
   P._Completer.prototype = {
     completeError$2: function(error, stackTrace) {
@@ -4568,7 +4546,7 @@
     $defaultValues: function() {
       return [null];
     },
-    $signature: 18
+    $signature: 17
   };
   P._Future__chainForeignFuture_closure1.prototype = {
     call$0: function() {
@@ -4622,7 +4600,7 @@
     call$1: function(_) {
       return this.originalSource;
     },
-    $signature: 19
+    $signature: 18
   };
   P._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0: function() {
@@ -5434,7 +5412,7 @@
       t1._contents = t2 + ": ";
       t1._contents += H.S(v);
     },
-    $signature: 22
+    $signature: 21
   };
   P.MapMixin.prototype = {
     forEach$1: function(_, action) {
@@ -5692,12 +5670,12 @@
       t1 = this.sb;
       t2 = this._box_0;
       t1._contents += t2.comma;
-      t3 = t1._contents += H.S(key.__internal$_name);
+      t3 = t1._contents += H.S(key._name);
       t1._contents = t3 + ": ";
       t1._contents += P.Error_safeToString(value);
       t2.comma = ", ";
     },
-    $signature: 23
+    $signature: 22
   };
   P.bool.prototype = {};
   P.double.prototype = {};
@@ -5785,7 +5763,7 @@
       this._namedArguments.forEach$1(0, new P.NoSuchMethodError_toString_closure(_box_0, sb));
       receiverText = P.Error_safeToString(this._core$_receiver);
       actualParameters = sb.toString$0(0);
-      t1 = "NoSuchMethodError: method not found: '" + H.S(this._core$_memberName.__internal$_name) + "'\nReceiver: " + receiverText + "\nArguments: [" + actualParameters + "]";
+      t1 = "NoSuchMethodError: method not found: '" + H.S(this._core$_memberName._name) + "'\nReceiver: " + receiverText + "\nArguments: [" + actualParameters + "]";
       return t1;
     }
   };
@@ -6041,7 +6019,7 @@
     call$1: function(e) {
       return !!J.getInterceptor$(H.interceptedTypeCheck(e, "$isNode")).$isElement;
     },
-    $signature: 24
+    $signature: 23
   };
   W.Event.prototype = {$isEvent: 1};
   W.EventTarget.prototype = {
@@ -6342,7 +6320,7 @@
       var t1 = H.getTypeArgumentByIndex(this, 0);
       H.functionTypeCheck(onData, {func: 1, ret: -1, args: [t1]});
       H.functionTypeCheck(onDone, {func: 1, ret: -1});
-      return W._EventStreamSubscription$(this._target, this._eventType, onData, false, t1);
+      return W._EventStreamSubscription$(this._html$_target, this._eventType, onData, false, t1);
     },
     listen$3$onDone$onError: function(onData, onDone, onError) {
       return this.listen$4$cancelOnError$onDone$onError(onData, null, onDone, onError);
@@ -6351,21 +6329,21 @@
   W._ElementEventStreamImpl.prototype = {};
   W._EventStreamSubscription.prototype = {
     cancel$0: function() {
-      if (this._target == null)
+      if (this._html$_target == null)
         return;
       this._unlisten$0();
-      this._target = null;
+      this._html$_target = null;
       this.set$_onData(null);
       return;
     },
     pause$0: function(_) {
-      if (this._target == null)
+      if (this._html$_target == null)
         return;
       ++this._pauseCount;
       this._unlisten$0();
     },
     resume$0: function() {
-      if (this._target == null || this._pauseCount <= 0)
+      if (this._html$_target == null || this._pauseCount <= 0)
         return;
       --this._pauseCount;
       this._tryResume$0();
@@ -6375,7 +6353,7 @@
       t1 = this._onData;
       t2 = t1 != null;
       if (t2 && this._pauseCount <= 0) {
-        t3 = this._target;
+        t3 = this._html$_target;
         t3.toString;
         H.functionTypeCheck(t1, {func: 1, args: [W.Event]});
         if (t2)
@@ -6387,7 +6365,7 @@
       t1 = this._onData;
       t2 = t1 != null;
       if (t2) {
-        t3 = this._target;
+        t3 = this._html$_target;
         t3.toString;
         H.functionTypeCheck(t1, {func: 1, args: [W.Event]});
         if (t2)
@@ -6402,7 +6380,7 @@
     call$1: function(e) {
       return this.onData.call$1(H.interceptedTypeCheck(e, "$isEvent"));
     },
-    $signature: 25
+    $signature: 24
   };
   W._Html5NodeValidator.prototype = {
     _Html5NodeValidator$1$uriPolicy: function(uriPolicy) {
@@ -6449,13 +6427,13 @@
     call$1: function(v) {
       return H.interceptedTypeCheck(v, "$isNodeValidator").allowsElement$1(this.element);
     },
-    $signature: 7
+    $signature: 6
   };
   W.NodeValidatorBuilder_allowsAttribute_closure.prototype = {
     call$1: function(v) {
       return H.interceptedTypeCheck(v, "$isNodeValidator").allowsAttribute$3(this.element, this.attributeName, this.value);
     },
-    $signature: 7
+    $signature: 6
   };
   W._SimpleNodeValidator.prototype = {
     _SimpleNodeValidator$4$allowedAttributes$allowedElements$allowedUriAttributes: function(uriPolicy, allowedAttributes, allowedElements, allowedUriAttributes) {
@@ -6498,13 +6476,13 @@
     call$1: function(x) {
       return !C.JSArray_methods.contains$1(C.List_yrN, H.stringTypeCheck(x));
     },
-    $signature: 8
+    $signature: 7
   };
   W._SimpleNodeValidator_closure0.prototype = {
     call$1: function(x) {
       return C.JSArray_methods.contains$1(C.List_yrN, H.stringTypeCheck(x));
     },
-    $signature: 8
+    $signature: 7
   };
   W._TemplatingNodeValidator.prototype = {
     allowsAttribute$3: function(element, attributeName, value) {
@@ -6521,7 +6499,7 @@
     call$1: function(attr) {
       return "TEMPLATE::" + H.S(H.stringTypeCheck(attr));
     },
-    $signature: 26
+    $signature: 25
   };
   W._SvgNodeValidator.prototype = {
     allowsElement$1: function(element) {
@@ -6717,7 +6695,7 @@
         child = H.interceptedTypeCheck(nextChild, "$isNode");
       }
     },
-    $signature: 27
+    $signature: 26
   };
   W._NodeList_Interceptor_ListMixin.prototype = {};
   W._NodeList_Interceptor_ListMixin_ImmutableListMixin.prototype = {};
@@ -6752,8 +6730,8 @@
     },
     $isSvgElement: 1
   };
-  V.PageManager.prototype = {
-    display$2: function(_, $name, stack) {
+  V.PageDivManager.prototype = {
+    display$1: function(_, $name) {
       var t1, t2, t3, t4, t5, newTable, split, defaultPage;
       t1 = {};
       t1.pageNotShown = true;
@@ -6762,69 +6740,66 @@
         t2 = t2.name;
         if (t2 === $name)
           return;
-        if (stack) {
-          t3 = this.pageNameHistory;
-          t4 = H.getTypeArgumentByIndex(t3, 0);
-          H.assertSubtypeOfRuntimeType(t2, t4);
-          C.JSArray_methods.$indexSet(t3._table, t3._tail, t2);
-          t2 = t3._tail;
-          t5 = t3._table.length;
-          t2 = (t2 + 1 & t5 - 1) >>> 0;
-          t3._tail = t2;
-          if (t3._head === t2) {
-            t2 = new Array(t5 * 2);
-            t2.fixed$length = Array;
-            newTable = H.setRuntimeTypeInfo(t2, [t4]);
-            t4 = t3._table;
-            t2 = t3._head;
-            split = t4.length - t2;
-            C.JSArray_methods.setRange$4(newTable, 0, split, t4, t2);
-            C.JSArray_methods.setRange$4(newTable, split, split + t3._head, t3._table, 0);
-            t3._head = 0;
-            t3._tail = t3._table.length;
-            t3.set$_table(newTable);
-          }
-          ++t3._modificationCount;
+        t3 = this.pageNameHistory;
+        t4 = H.getTypeArgumentByIndex(t3, 0);
+        H.assertSubtypeOfRuntimeType(t2, t4);
+        C.JSArray_methods.$indexSet(t3._table, t3._tail, t2);
+        t2 = t3._tail;
+        t5 = t3._table.length;
+        t2 = (t2 + 1 & t5 - 1) >>> 0;
+        t3._tail = t2;
+        if (t3._head === t2) {
+          t2 = new Array(t5 * 2);
+          t2.fixed$length = Array;
+          newTable = H.setRuntimeTypeInfo(t2, [t4]);
+          t4 = t3._table;
+          t2 = t3._head;
+          split = t4.length - t2;
+          C.JSArray_methods.setRange$4(newTable, 0, split, t4, t2);
+          C.JSArray_methods.setRange$4(newTable, split, split + t3._head, t3._table, 0);
+          t3._head = 0;
+          t3._tail = t3._table.length;
+          t3.set$_table(newTable);
         }
+        ++t3._modificationCount;
       }
-      C.JSArray_methods.forEach$1(this.pages, new V.PageManager_display_closure(t1, this, $name));
+      C.JSArray_methods.forEach$1(this.pages, new V.PageDivManager_display_closure(t1, this, $name));
       if (t1.pageNotShown) {
         t1 = this.pages;
         t2 = this.defaultPageIndex;
         if (t2 >= 2)
           return H.ioore(t1, t2);
         defaultPage = t1[t2];
-        P.Function_apply(defaultPage.onShow, [this.currentPage, defaultPage]);
+        t1 = defaultPage.onShow;
+        if (t1 != null)
+          P.Function_apply(t1, [this.currentPage, defaultPage]);
         defaultPage.show$0(0);
         this.currentPage = defaultPage;
       }
-    },
-    display$1: function($receiver, $name) {
-      return this.display$2($receiver, $name, true);
     },
     set$pages: function(pages) {
       this.pages = H.assertSubtype(pages, "$isList", [V.PageDiv], "$asList");
     }
   };
-  V.PageManager_display_closure.prototype = {
+  V.PageDivManager_display_closure.prototype = {
     call$1: function(newPage) {
       var t1;
       H.interceptedTypeCheck(newPage, "$isPageDiv");
       if (newPage.name === this.name) {
-        t1 = this.$this;
-        P.Function_apply(newPage.onShow, [t1.currentPage, newPage]);
+        t1 = newPage.onShow;
+        if (t1 != null)
+          P.Function_apply(t1, [this.$this.currentPage, newPage]);
         newPage.show$0(0);
-        t1.currentPage = newPage;
+        this.$this.currentPage = newPage;
         this._box_0.pageNotShown = false;
       } else
         newPage.element.hidden = true;
     },
-    $signature: 28
+    $signature: 27
   };
   V.PageDiv.prototype = {
     show$0: function(_) {
       this.element.hidden = false;
-      this.firstShow = false;
     }
   };
   V.ServerRequest.prototype = {
@@ -6902,7 +6877,7 @@
       } else
         P.Function_apply(t3.error, ["E", C.JSInt_methods.toString$0($status) + ":" + t4 + ":" + t3.desc]);
     },
-    $signature: 29
+    $signature: 28
   };
   V.ServerResponse.prototype = {
     toString$0: function(_) {
@@ -6926,66 +6901,47 @@
     },
     $signature: 2
   };
-  F.main_closure.prototype = {
-    call$1: function(e) {
-      var t1, t2, t3, t4, t5, result;
-      H.interceptedTypeCheck(e, "$isMouseEvent");
-      t1 = $.$get$pageManager();
-      t2 = t1.pageNameHistory;
-      t3 = t2._head;
-      t4 = t2._tail;
-      if (t3 !== t4) {
-        ++t2._modificationCount;
-        t3 = t2._table;
-        t5 = t3.length;
-        t4 = (t4 - 1 & t5 - 1) >>> 0;
-        t2._tail = t4;
-        if (t4 < 0 || t4 >= t5)
-          return H.ioore(t3, t4);
-        result = t3[t4];
-        C.JSArray_methods.$indexSet(t3, t4, null);
-        t1.display$2(0, result, false);
-      }
-    },
-    $signature: 3
-  };
-  F.main_closure0.prototype = {
-    call$1: function(e) {
-      H.interceptedTypeCheck(e, "$isMouseEvent");
-      $.$get$pageManager().display$1(0, "main");
-    },
-    $signature: 3
-  };
-  F.populateUserList_closure.prototype = {
+  F.populateUserTable_closure.prototype = {
     call$1: function(user) {
-      var userCaps, t1;
-      userCaps = J.toUpperCase$0$s(user);
-      t1 = this._box_0;
-      t1.htmlStr = t1.htmlStr + ('<tr><td width="100px"><img  id="userNameRow-' + H.S(user) + '" src="' + H.S(user) + '.png" alt="" height="80" width="80"> </td><td class="UserName1">' + userCaps + "</td></tr>");
+      var t1, id, $name;
+      t1 = J.getInterceptor$asx(user);
+      id = H.stringTypeCheck(t1.$index(user, "id"));
+      $name = H.stringTypeCheck(t1.$index(user, "name"));
+      if ($name == null)
+        $name = id.toUpperCase();
+      t1 = this._box_1;
+      t1.htmlStr = t1.htmlStr + ('<tr class="InfoLine Left"><td width="100px">&nbsp;<img  id="userNameRow-' + H.S(id) + '" src="' + H.S(id) + '.png" alt="' + H.S(id) + '.png" height="80" width="80"> </td><td>&nbsp;&nbsp;' + $name + "</td></tr>");
     },
     $signature: 2
   };
-  F.populateUserList_closure0.prototype = {
+  F.populateUserTable_closure0.prototype = {
     call$1: function(user) {
-      var t1, t2;
-      H.stringTypeCheck(user);
-      t1 = C.JSString_methods.$add("#userNameRow-", user);
-      t1 = J.get$onClick$x(document.querySelector(t1));
-      t2 = H.getTypeArgumentByIndex(t1, 0);
-      W._EventStreamSubscription$(t1._target, t1._eventType, H.functionTypeCheck(new F.populateUserList__closure(user), {func: 1, ret: -1, args: [t2]}), false, t2);
+      var t1, t2, id, $name, t3;
+      t1 = {};
+      t2 = J.getInterceptor$asx(user);
+      id = H.stringTypeCheck(t2.$index(user, "id"));
+      $name = H.stringTypeCheck(t2.$index(user, "name"));
+      t1.name = $name;
+      if ($name == null)
+        t1.name = id.toUpperCase();
+      t2 = C.JSString_methods.$add("#userNameRow-", id);
+      t2 = J.get$onClick$x(document.querySelector(t2));
+      t3 = H.getTypeArgumentByIndex(t2, 0);
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, H.functionTypeCheck(new F.populateUserTable__closure(t1, id), {func: 1, ret: -1, args: [t3]}), false, t3);
     },
     $signature: 2
   };
-  F.populateUserList__closure.prototype = {
+  F.populateUserTable__closure.prototype = {
     call$1: function(e) {
       H.interceptedTypeCheck(e, "$isMouseEvent");
-      F.selectCurrentUser(H.stringTypeCheck(this.user));
+      F.selectCurrentUser(this.id, this._box_0.name);
     },
-    $signature: 3
+    $signature: 29
   };
   (function aliases() {
     var _ = J.Interceptor.prototype;
     _.super$Interceptor$toString = _.toString$0;
+    _.super$Interceptor$noSuchMethod = _.noSuchMethod$1;
     _ = J.JavaScriptObject.prototype;
     _.super$JavaScriptObject$toString = _.toString$0;
     _ = P._BufferingStreamSubscription.prototype;
@@ -7027,17 +6983,17 @@
         return {func: 1, bounds: [P.Object, P.Object], ret: [P.Map, 0, 1], args: [{func: 1, ret: [P.MapEntry, 0, 1], args: [K, V]}]};
       }, this.$receiver, "ConstantMap");
     }, 0);
-    _static_1(P, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 4);
-    _static_1(P, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 4);
-    _static_1(P, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 4);
+    _static_1(P, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 3);
+    _static_1(P, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 3);
+    _static_1(P, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 3);
     _static_0(P, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
     _instance(P._Completer.prototype, "get$completeError", 0, 1, function() {
       return [null];
-    }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 6, 0);
-    _instance(P._SyncCompleter.prototype, "get$complete", 1, 0, null, ["call$1", "call$0"], ["complete$1", "complete$0"], 17, 0);
+    }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 5, 0);
+    _instance(P._SyncCompleter.prototype, "get$complete", 1, 0, null, ["call$1", "call$0"], ["complete$1", "complete$0"], 16, 0);
     _instance(P._Future.prototype, "get$_completeError", 0, 1, function() {
       return [null];
-    }, ["call$2", "call$1"], ["_completeError$2", "_completeError$1"], 6, 0);
+    }, ["call$2", "call$1"], ["_completeError$2", "_completeError$1"], 5, 0);
     _instance(P.Stream.prototype, "get$map", 1, 1, null, ["call$1$1", "call$1"], ["map$1$1", "map$1"], function() {
       return H.computeSignature(function(T) {
         return {func: 1, bounds: [P.Object], ret: [P.Stream, 0], args: [{func: 1, ret: 0, args: [T]}]};
@@ -7046,8 +7002,8 @@
     var _;
     _instance_0_u(_ = P._ForwardingStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 20);
-    _instance_2_u(_, "get$_handleError", "_handleError$2", 21);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 19);
+    _instance_2_u(_, "get$_handleError", "_handleError$2", 20);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
     _instance(P.ListMixin.prototype, "get$map", 1, 1, null, ["call$1$1", "call$1"], ["map$1$1", "map$1"], function() {
       return H.computeSignature(function(E) {
@@ -7074,10 +7030,10 @@
         return {func: 1, bounds: [P.Object], ret: [P.Iterable, 0], args: [{func: 1, ret: 0, args: [E]}]};
       }, this.$receiver, "Iterable");
     }, 0);
-    _static(W, "html__Html5NodeValidator__standardAttributeValidator$closure", 4, null, ["call$4"], ["_Html5NodeValidator__standardAttributeValidator"], 9, 0);
-    _static(W, "html__Html5NodeValidator__uriAttributeValidator$closure", 4, null, ["call$4"], ["_Html5NodeValidator__uriAttributeValidator"], 9, 0);
-    _static_2(F, "main__pageChange$closure", "pageChange", 30);
-    _static_1(F, "main__populateUserList$closure", "populateUserList", 31);
+    _static(W, "html__Html5NodeValidator__standardAttributeValidator$closure", 4, null, ["call$4"], ["_Html5NodeValidator__standardAttributeValidator"], 8, 0);
+    _static(W, "html__Html5NodeValidator__uriAttributeValidator$closure", 4, null, ["call$4"], ["_Html5NodeValidator__uriAttributeValidator"], 8, 0);
+    _static_2(F, "main__initWelcomePage$closure", "initWelcomePage", 30);
+    _static_1(F, "main__populateUserTable$closure", "populateUserTable", 31);
     _static_2(F, "main__processError$closure", "processError", 32);
   })();
   (function inheritance() {
@@ -7085,7 +7041,7 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(P.Object, null);
-    _inheritMany(P.Object, [H.JS_CONST, J.Interceptor, J.ArrayIterator, P.Iterable, H.ListIterator, P.Iterator, H.Symbol, P.MapView, H.ConstantMap, H.Closure, H.JSInvocationMirror, H.TypeErrorDecoder, P.Error, H.ExceptionAndStackTrace, H._StackTrace, P.MapMixin, H.LinkedHashMapCell, H.LinkedHashMapKeyIterator, P._TimerImpl, P._AsyncAwaitCompleter, P._Completer, P._FutureListener, P._Future, P._AsyncCallbackEntry, P.Stream, P.StreamSubscription, P.StreamTransformerBase, P._BufferingStreamSubscription, P._DelayedEvent, P._DelayedDone, P._PendingEvents, P._StreamIterator, P.AsyncError, P._Zone, P._SetBase, P._LinkedHashSetCell, P._LinkedHashSetIterator, P._ListBase_Object_ListMixin, P.ListMixin, P._UnmodifiableMapMixin, P._ListQueueIterator, P.Codec, P.bool, P.num, P.StackOverflowError, P._Exception, P.FormatException, P.Function, P.List, P.Map, P.MapEntry, P.Null, P.StackTrace, P.String, P.StringBuffer, P.Symbol0, W._Html5NodeValidator, W.ImmutableListMixin, W.NodeValidatorBuilder, W._SimpleNodeValidator, W._SvgNodeValidator, W.FixedSizeListIterator, W.NodeValidator, W._SameOriginUriPolicy, W._ValidatingTreeSanitizer, V.PageManager, V.PageDiv, V.ServerRequest, V.ServerResponse]);
+    _inheritMany(P.Object, [H.JS_CONST, J.Interceptor, J.ArrayIterator, P.Iterable, H.ListIterator, P.Iterator, H.Symbol, P.MapView, H.ConstantMap, H.Closure, H.JSInvocationMirror, H.TypeErrorDecoder, P.Error, H.ExceptionAndStackTrace, H._StackTrace, P.MapMixin, H.LinkedHashMapCell, H.LinkedHashMapKeyIterator, P._TimerImpl, P._AsyncAwaitCompleter, P._Completer, P._FutureListener, P._Future, P._AsyncCallbackEntry, P.Stream, P.StreamSubscription, P.StreamTransformerBase, P._BufferingStreamSubscription, P._DelayedEvent, P._DelayedDone, P._PendingEvents, P._StreamIterator, P.AsyncError, P._Zone, P._SetBase, P._LinkedHashSetCell, P._LinkedHashSetIterator, P._ListBase_Object_ListMixin, P.ListMixin, P._UnmodifiableMapMixin, P._ListQueueIterator, P.Codec, P.bool, P.num, P.StackOverflowError, P._Exception, P.FormatException, P.Function, P.List, P.Map, P.MapEntry, P.Null, P.StackTrace, P.String, P.StringBuffer, P.Symbol0, W._Html5NodeValidator, W.ImmutableListMixin, W.NodeValidatorBuilder, W._SimpleNodeValidator, W._SvgNodeValidator, W.FixedSizeListIterator, W.NodeValidator, W._SameOriginUriPolicy, W._ValidatingTreeSanitizer, V.PageDivManager, V.PageDiv, V.ServerRequest, V.ServerResponse]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JSArray, J.JSNumber, J.JSString, W.EventTarget, W.DomException, W.Event, W.Location, W._NodeList_Interceptor_ListMixin, W.__NamedNodeMap_Interceptor_ListMixin]);
     _inheritMany(J.JavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction]);
     _inherit(J.JSUnmodifiableArray, J.JSArray);
@@ -7098,7 +7054,7 @@
     _inherit(P._UnmodifiableMapView_MapView__UnmodifiableMapMixin, P.MapView);
     _inherit(P.UnmodifiableMapView, P._UnmodifiableMapView_MapView__UnmodifiableMapMixin);
     _inherit(H.ConstantMapView, P.UnmodifiableMapView);
-    _inheritMany(H.Closure, [H.ConstantMap_map_closure, H.Primitives_functionNoSuchMethod_closure, H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._AsyncAwaitCompleter_complete_closure, P._AsyncAwaitCompleter_completeError_closure, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_length_closure, P.Stream_length_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.MapBase_mapToString_closure, P.NoSuchMethodError_toString_closure, W.Element_Element$html_closure, W._EventStreamSubscription_closure, W.NodeValidatorBuilder_allowsElement_closure, W.NodeValidatorBuilder_allowsAttribute_closure, W._SimpleNodeValidator_closure, W._SimpleNodeValidator_closure0, W._TemplatingNodeValidator_closure, W._ValidatingTreeSanitizer_sanitizeTree_walk, V.PageManager_display_closure, V.ServerRequest_finalUrl_closure, V.ServerRequest_send_closure, F.closure0, F.closure, F.main_closure, F.main_closure0, F.populateUserList_closure, F.populateUserList_closure0, F.populateUserList__closure]);
+    _inheritMany(H.Closure, [H.ConstantMap_map_closure, H.Primitives_functionNoSuchMethod_closure, H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._AsyncAwaitCompleter_complete_closure, P._AsyncAwaitCompleter_completeError_closure, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_length_closure, P.Stream_length_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.MapBase_mapToString_closure, P.NoSuchMethodError_toString_closure, W.Element_Element$html_closure, W._EventStreamSubscription_closure, W.NodeValidatorBuilder_allowsElement_closure, W.NodeValidatorBuilder_allowsAttribute_closure, W._SimpleNodeValidator_closure, W._SimpleNodeValidator_closure0, W._TemplatingNodeValidator_closure, W._ValidatingTreeSanitizer_sanitizeTree_walk, V.PageDivManager_display_closure, V.ServerRequest_finalUrl_closure, V.ServerRequest_send_closure, F.closure0, F.closure, F.populateUserTable_closure, F.populateUserTable_closure0, F.populateUserTable__closure]);
     _inherit(H.ConstantStringMap, H.ConstantMap);
     _inheritMany(P.Error, [H.NullError, H.JsNoSuchMethodError, H.UnknownJsTypeError, H.TypeErrorImplementation, H.RuntimeError, P.NullThrownError, P.ArgumentError, P.NoSuchMethodError, P.UnsupportedError, P.UnimplementedError, P.StateError, P.ConcurrentModificationError, P.CyclicInitializationError]);
     _inheritMany(H.TearOffClosure, [H.StaticClosure, H.BoundClosure]);
@@ -7310,7 +7266,8 @@
     $.Element__parseRange = null;
     $.Element__defaultValidator = null;
     $.Element__defaultSanitizer = null;
-    $.currentUser = null;
+    $.currentUserId = null;
+    $.currentUserName = null;
   })();
   (function lazyInitializers() {
     var _lazy = hunkHelpers.lazy;
@@ -7423,21 +7380,15 @@
     _lazy($, "mainPage", "$get$mainPage", function() {
       return W.querySelector("#page_main");
     });
-    _lazy($, "backButton", "$get$backButton", function() {
-      return W.querySelector("#backButton");
-    });
-    _lazy($, "homeButton", "$get$homeButton", function() {
-      return W.querySelector("#homeButton");
-    });
     _lazy($, "pageManager", "$get$pageManager", function() {
       var t1, t2, t3, t4;
-      t1 = H.setRuntimeTypeInfo([V.PageDiv$("welcome", $.$get$welcomePage(), F.main__pageChange$closure()), V.PageDiv$("main", $.$get$mainPage(), F.main__pageChange$closure())], [V.PageDiv]);
+      t1 = H.setRuntimeTypeInfo([V.PageDiv$("welcome", $.$get$welcomePage(), F.main__initWelcomePage$closure()), V.PageDiv$("main", $.$get$mainPage(), null)], [V.PageDiv]);
       t2 = P.String;
       t3 = new P.ListQueue(0, 0, [t2]);
       t4 = new Array(8);
       t4.fixed$length = Array;
       t3.set$_table(H.setRuntimeTypeInfo(t4, [t2]));
-      t3 = new V.PageManager(t3);
+      t3 = new V.PageDivManager(t3);
       t3.set$pages(t1);
       t3.defaultPageIndex = 0;
       return t3;
@@ -7446,7 +7397,7 @@
       return [];
     });
     _lazy($, "fetchUserList", "$get$fetchUserList", function() {
-      return V.ServerRequest$("GET", "/server/users", "Reading user list from server", F.main__processError$closure(), F.main__populateUserList$closure());
+      return V.ServerRequest$("GET", "/server/users", "Reading user data from server", F.main__processError$closure(), F.main__populateUserTable$closure());
     });
     _lazy($, "fetchTimeData", "$get$fetchTimeData", function() {
       return V.ServerRequest$("GET", "/server/time", "Reading time from server", F.main__processError$closure(), new F.closure0());
@@ -7455,7 +7406,7 @@
       return V.ServerRequest$("GET", "/files/user/{1}/loc/data/name/state.json", "Reading user state from server", F.main__processError$closure(), new F.closure());
     });
   })();
-  var init = {mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"}, mangledNames: {}, getTypeFromName: getGlobalFromName, metadata: [], types: [{func: 1, ret: -1}, {func: 1, ret: P.Null}, {func: 1, ret: P.Null, args: [,]}, {func: 1, ret: P.Null, args: [W.MouseEvent]}, {func: 1, ret: -1, args: [{func: 1, ret: -1}]}, {func: 1, args: [,]}, {func: 1, ret: -1, args: [P.Object], opt: [P.StackTrace]}, {func: 1, ret: P.bool, args: [W.NodeValidator]}, {func: 1, ret: P.bool, args: [P.String]}, {func: 1, ret: P.bool, args: [W.Element, P.String, P.String, W._Html5NodeValidator]}, {func: 1, ret: P.Null, args: [P.String,,]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, ret: P.Null, args: [{func: 1, ret: -1}]}, {func: 1, ret: -1, args: [,]}, {func: 1, ret: P.Null, args: [, P.StackTrace]}, {func: 1, ret: P.Null, args: [P.int,,]}, {func: 1, ret: -1, opt: [P.Object]}, {func: 1, ret: P.Null, args: [,], opt: [P.StackTrace]}, {func: 1, ret: [P._Future,,], args: [,]}, {func: 1, ret: -1, args: [P.Object]}, {func: 1, ret: -1, args: [, P.StackTrace]}, {func: 1, ret: P.Null, args: [,,]}, {func: 1, ret: P.Null, args: [P.Symbol0,,]}, {func: 1, ret: P.bool, args: [W.Node]}, {func: 1, args: [W.Event]}, {func: 1, ret: P.String, args: [P.String]}, {func: 1, ret: -1, args: [W.Node, W.Node]}, {func: 1, ret: P.Null, args: [V.PageDiv]}, {func: 1, ret: P.Null, args: [W.ProgressEvent]}, {func: 1, ret: -1, args: [V.PageDiv, V.PageDiv]}, {func: 1, ret: -1, args: [V.ServerResponse]}, {func: 1, ret: -1, args: [P.String, P.String]}], interceptorsByTag: null, leafTags: null};
+  var init = {mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"}, mangledNames: {}, getTypeFromName: getGlobalFromName, metadata: [], types: [{func: 1, ret: -1}, {func: 1, ret: P.Null}, {func: 1, ret: P.Null, args: [,]}, {func: 1, ret: -1, args: [{func: 1, ret: -1}]}, {func: 1, args: [,]}, {func: 1, ret: -1, args: [P.Object], opt: [P.StackTrace]}, {func: 1, ret: P.bool, args: [W.NodeValidator]}, {func: 1, ret: P.bool, args: [P.String]}, {func: 1, ret: P.bool, args: [W.Element, P.String, P.String, W._Html5NodeValidator]}, {func: 1, ret: P.Null, args: [P.String,,]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, ret: P.Null, args: [{func: 1, ret: -1}]}, {func: 1, ret: -1, args: [,]}, {func: 1, ret: P.Null, args: [, P.StackTrace]}, {func: 1, ret: P.Null, args: [P.int,,]}, {func: 1, ret: -1, opt: [P.Object]}, {func: 1, ret: P.Null, args: [,], opt: [P.StackTrace]}, {func: 1, ret: [P._Future,,], args: [,]}, {func: 1, ret: -1, args: [P.Object]}, {func: 1, ret: -1, args: [, P.StackTrace]}, {func: 1, ret: P.Null, args: [,,]}, {func: 1, ret: P.Null, args: [P.Symbol0,,]}, {func: 1, ret: P.bool, args: [W.Node]}, {func: 1, args: [W.Event]}, {func: 1, ret: P.String, args: [P.String]}, {func: 1, ret: -1, args: [W.Node, W.Node]}, {func: 1, ret: P.Null, args: [V.PageDiv]}, {func: 1, ret: P.Null, args: [W.ProgressEvent]}, {func: 1, ret: P.Null, args: [W.MouseEvent]}, {func: 1, ret: -1, args: [V.PageDiv, V.PageDiv]}, {func: 1, ret: -1, args: [V.ServerResponse]}, {func: 1, ret: -1, args: [P.String, P.String]}], interceptorsByTag: null, leafTags: null};
   (function nativeSupport() {
     !function() {
       var intern = function(s) {

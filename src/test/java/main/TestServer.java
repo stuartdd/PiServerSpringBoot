@@ -68,7 +68,6 @@ public class TestServer {
         Assert.assertTrue(s.contains("\"Name\":\"julie\""));
         Assert.assertTrue(s.contains("\"Name\":\"huw\""));
     }
-
     @Test
     public void getUsers() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/server/users"))
@@ -78,6 +77,7 @@ public class TestServer {
         Assert.assertTrue(s.contains("\"stuart\""));
         Assert.assertTrue(s.contains("\"nonuser\""));
         Assert.assertTrue(s.contains("\"test\""));
+        Assert.assertTrue(s.contains("\"name\":\"Stuart\""));
     }
 
 }

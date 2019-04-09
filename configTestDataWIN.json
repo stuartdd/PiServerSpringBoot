@@ -13,7 +13,7 @@
         "serverRoot": "",
         "users": {
             "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
-            "shared": {"thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
+            "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
             "nonuser": {"thumbs":"data/thumb/nonuser","original":"data/images/nonuser", "data":"data/nonuser"},
             "test": {"src":"src"}
         },

@@ -13,10 +13,10 @@
         "serverRoot": "/home/pi/server",
         "users": {
             "stuart": {"name":"Stuart","thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart"},
-            "julie": {"thumbs":"thumbnails/julie", "original":"/media/USBHDD1/shares/julie", "data":"cache/julie"},
-            "owain": {"thumbs":"thumbnails/owain", "original":"/media/USBHDD1/shares/owain", "data":"cache/owain"},
-            "huw": {"thumbs":"thumbnails/huw", "original":"/media/USBHDD1/shares/huw", "data":"cache/huw"},
-            "shared": {"thumbs":"thumbnails/shared", "original":"/media/USBHDD1/shares/shared", "data":"cache/shared"}
+            "julie": {"name":"Julie","thumbs":"thumbnails/julie", "original":"/media/USBHDD1/shares/julie", "data":"cache/julie"},
+            "owain": {"name":"Owain","thumbs":"thumbnails/owain", "original":"/media/USBHDD1/shares/owain", "data":"cache/owain"},
+            "huw": {"name":"Huw","thumbs":"thumbnails/huw", "original":"/media/USBHDD1/shares/huw", "data":"cache/huw"},
+            "shared": {"name":"Something for everyone","thumbs":"thumbnails/shared", "original":"/media/USBHDD1/shares/shared", "data":"cache/shared"}
         },
         "locations": {
             "logs": "logs",
