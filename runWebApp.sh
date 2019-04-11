@@ -22,7 +22,7 @@ echo 'RC FILE :'$RC_FILE
 RC=2
 while [[ $RC -eq 2 ]]
 do
-    java -jar $EXE_JAR configDataLINUX.json 
+    java -jar $EXE_JAR configDataLINUX.json
     RC=`cat $RC_FILE`
     echo 'RESPONSE FROM SERVER: '$RC
 done

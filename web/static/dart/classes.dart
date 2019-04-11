@@ -165,10 +165,7 @@ class ServerRequest {
   /**
    * Request Response for the server
    */
-  Future<void> send(
-      [List urlParameters = null,
-      Map queryParameters = null,
-      String body = null]) async {
+  Future<void> send([List urlParameters = null, Map queryParameters = null, String body = null]) async {
     final url = this.finalUrl(urlParameters, queryParameters);
     final httpRequest = HttpRequest();
     httpRequest
@@ -176,10 +173,8 @@ class ServerRequest {
       ..onLoadEnd.listen((e) {
         var status = httpRequest.status;
         if ((status >= 200) && (status < 300)) {
-          var resp = new ServerResponse(httpRequest.responseText,
-              httpRequest.status, httpRequest.responseHeaders);
-          Function.apply(
-              this.error, ['D', url + ' : ' + httpRequest.responseText]);
+          var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
+          Function.apply(this.error, ['D', url + ' : ' + httpRequest.responseText]);
           if (httpRequest.responseHeaders['content-type']
               .toLowerCase()
               .contains('json')) {
