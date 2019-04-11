@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'classes.dart';
 
 const String USER_NAME_ROW_ID_PREFIX = 'userNameRow-';
@@ -21,16 +20,14 @@ final Element userNameList = querySelector('#userNameList');
 final Element headerUserName = querySelector('#headerUserName');
 final Element welcomePage = querySelector('#page_welcome');
 final Element mainPage = querySelector('#page_main');
-//final Element backButton = querySelector('#backButton');
-//final Element homeButton = querySelector('#homeButton');
 
 /**
  * Define all the pages. Each is addes to the page Manager. A fallback page is also defined.
  */
-PageDivManager pageManager = new PageDivManager([PageDiv(PAGE_NAME_WELCOME, welcomePage, initWelcomePage), PageDiv(PAGE_NAME_MAIN, mainPage, null)]);
-MyButtonManager buttonManager = new MyButtonManager([
-  new MyButton("back", querySelector('#backButton'), (String id) { processError; }),
-  new MyButton("home", querySelector('#homeButton'), (String id) { processError; })
+final PageDivManager pageManager = new PageDivManager([PageDiv(PAGE_NAME_WELCOME, welcomePage, initWelcomePage), PageDiv(PAGE_NAME_MAIN, mainPage, null)]);
+final MyButtonManager buttonManager = new MyButtonManager([
+  MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}), 
+  MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);})
 ]);
 
 List userList = new List();
@@ -54,18 +51,11 @@ ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/nam
  * Program entry point
  */
 void main() {
-//  backButton.onClick.listen((e) {
-//    pageManager.back();
-//  });
-//
-//  homeButton.onClick.listen((e) {
-//    pageManager.display(PAGE_NAME_MAIN);
-//  });
-
-  clearError();
-  pageManager.display(PAGE_NAME_WELCOME);
+  pageManager.init();
+  buttonManager.init();
   fetchTimeData.send();
   fetchUserList.send();
+  pageManager.display(PAGE_NAME_WELCOME);
 }
 
 void initWelcomePage(PageDiv old, PageDiv to) {
@@ -91,14 +81,13 @@ void populateUserTable(ServerResponse resp) {
   userList.forEach((user) {
     String id = user['id'];
     String name = user['name'];
-    if (name == null) {
+       if (name == null) {
       name = id.toUpperCase();
     }
     htmlStr += "<tr class=\"InfoLine Left\"><td width=\"${iconSizePlus}px\">&nbsp;<img  id=\"${USER_NAME_ROW_ID_PREFIX}${id}\" src=\"${id}.png\" alt=\"${id}.png\" height=\"${iconSize}\" width=\"${iconSize}\"> </td><td>&nbsp;&nbsp;${name}</td></tr>";
   });
   htmlStr += "</table>";
   userNameList.innerHtml = htmlStr;
-
   userList.forEach((user) {
     String id = user['id'];
     String name = user['name'];
@@ -124,7 +113,3 @@ void processError(String key, String message) {
     diagnosticText.text = 'DATA: ' + message;
   }
 }
-
-//void pageChange(PageDiv old, PageDiv to) {
-//  processError('E', (old == null ? 'null' : old.name) + ':' + (to == null ? 'null' : to.name + '[' + (to.firstShow ? 'FS' : '--') + ']') + ':' + pageManager.pageNameHistory.length.toString());
-//}

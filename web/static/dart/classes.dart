@@ -8,6 +8,10 @@ class MyButtonManager {
   MyButtonManager(List<MyButton> buttons) {
     this.buttons = buttons;
   }
+
+  void init() {
+    window.console.info('MyButtonManager:Init:');
+  }
 }
 
 class MyButton {
@@ -26,7 +30,7 @@ class MyButton {
   }
 
   void onPressFunc(Event _) {
-    Function.apply(this.onPress, ["E", this.id]);
+    Function.apply(this.onPress, [this.id]);
   }
 }
 
@@ -42,6 +46,9 @@ class PageDivManager {
     this.defaultPageIndex = defaultPageIndex;
   }
 
+  void init() {
+    window.console.info('PageDivManager:Init:');
+  }
   /**
    * Page back. remove the page from the stack.
    * Call display with stack false so we dont add the current page to the stack.
@@ -127,7 +134,8 @@ class ServerRequest {
   Function error;
   Function func;
 
-  ServerRequest(String type, String host, String desc, Function error, Function func) {
+  ServerRequest(
+      String type, String host, String desc, Function error, Function func) {
     this.type = type == null ? 'GET' : type;
     this.host = host == null ? 'no-host' : host;
     this.desc = desc == null ? 'no-desc' : desc;
@@ -157,7 +165,10 @@ class ServerRequest {
   /**
    * Request Response for the server
    */
-  Future<void> send([List urlParameters = null, Map queryParameters = null, String body = null]) async {
+  Future<void> send(
+      [List urlParameters = null,
+      Map queryParameters = null,
+      String body = null]) async {
     final url = this.finalUrl(urlParameters, queryParameters);
     final httpRequest = HttpRequest();
     httpRequest
@@ -165,14 +176,19 @@ class ServerRequest {
       ..onLoadEnd.listen((e) {
         var status = httpRequest.status;
         if ((status >= 200) && (status < 300)) {
-          var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
-          Function.apply(this.error, ['D', url + ' : ' + httpRequest.responseText]);
-          if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
+          var resp = new ServerResponse(httpRequest.responseText,
+              httpRequest.status, httpRequest.responseHeaders);
+          Function.apply(
+              this.error, ['D', url + ' : ' + httpRequest.responseText]);
+          if (httpRequest.responseHeaders['content-type']
+              .toLowerCase()
+              .contains('json')) {
             resp.setMap(json.decode(httpRequest.responseText));
           }
           Function.apply(this.func, [resp]);
         } else {
-          Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);
+          Function.apply(this.error,
+              ['E', status.toString() + ':' + url + ':' + this.desc]);
         }
       })
       ..send(body);

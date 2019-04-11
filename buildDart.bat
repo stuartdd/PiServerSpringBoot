@@ -1,1 +1,1 @@
-dart2js.bat dart/$1 -o web/static/$1.js
+dart2js.bat web/static/dart/%1 -o web/static/dart/%1.js
