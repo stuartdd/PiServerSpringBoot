@@ -20,14 +20,15 @@ footer {
     background-color: %{css.header.background};
 }
 
-nav {
+article {
+    float: left;
+    padding: 1px;
     width: 100%;
-    display: inline-flex;
-    font-size: 25px;
+    font-size: 15px;
     background-color: %{css.main.background};
 }
 
-article {
+section {
     float: left;
     padding: 1px;
     width: 100%;

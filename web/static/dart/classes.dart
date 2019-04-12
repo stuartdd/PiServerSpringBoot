@@ -90,8 +90,10 @@ class PageDivManager {
     /**
      * If no page was shown fall back to the defaultPage
      */
+
     if (pageNotShown) {
       PageDiv defaultPage = pages[defaultPageIndex];
+      window.console.debug('PageDivManager:display:Page \'${name}\' not found. Default page \'${defaultPage.name}\' was shown.');
       if (defaultPage.onShow != null) {
         Function.apply(defaultPage.onShow, [currentPage, defaultPage]);
       }
@@ -149,6 +151,7 @@ class ServerRequest {
     if ((urlParameters != null) && (urlParameters.isNotEmpty)) {
       urlParameters.forEach((param) {
         s = s.replaceAll('{' + index.toString() + '}', param);
+        index++;
       });
     }
     if ((queryParameters == null) || (queryParameters.isEmpty)) {

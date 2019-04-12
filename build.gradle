@@ -1,10 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
     id 'org.springframework.boot' version '2.0.5.RELEASE'
 }
 
 version = '1.0'
 sourceCompatibility = '1.8'
+mainClassName = 'main.Main'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
@@ -42,12 +44,12 @@ task copyEndpointLib(type: Copy) {
     include "JsonFormatter*.class"
 }
 
-task dart() {
-    doLast {
-        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/dart/main.dart.js" ] }
-    }
-}
-
-compileJava.dependsOn dart
+//task dart() {
+//    doLast {
+//        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/dart/main.dart.js" ] }
+//    }
+//}
+//
+//compileJava.dependsOn dart
 
 build.dependsOn copyEndpointLib
