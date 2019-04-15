@@ -6,6 +6,7 @@
 package services;
 
 import exceptions.ServiceException;
+import services.dto.FunctionResponseDto;
 import shell.SystemCommand;
 import shell.SystemCommandQuietException;
 import config.Functions;
@@ -38,7 +39,7 @@ public class FunctionService {
         }
     }
     
-    public static String func(String funcName, Map<String, String> queryParameters) {
+    public static FunctionResponseDto func(String funcName, Map<String, String> queryParameters) {
         Map<String, String> functionData = functions.getCommandsForFunction(funcName);
         if ((functionData == null) || (functionData.size() < 1)) {
             throw new ConfigDataException("Function '" + funcName + "' is not defined");
@@ -70,7 +71,7 @@ public class FunctionService {
         if (o.toString().trim().length() == 0) {
             throw new ConfigDataException(desc + " returned empty result");
         }
-        return o.toString();
+        return new FunctionResponseDto(o.toString(), functionData);
     }
 
     public String scriptAll(Map<String, String> map, String desc) {

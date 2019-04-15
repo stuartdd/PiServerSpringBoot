@@ -41,6 +41,14 @@ hr {
     margin: 2px;
 }
 
+.TitleLine{
+    width: 100%;
+    color: black;
+    padding: 15px 15px;
+    text-align: center;
+    font-size: 25px;
+    background-color: %{css.hilight.background};
+}
 
 .InfoLine {
     width: 100%;

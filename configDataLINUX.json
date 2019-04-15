@@ -42,8 +42,9 @@
         },
         "commands": {
              "ds": {
-                "func": "scriptBetween",
-                "script": "diskStatus"
+                 "func": "scriptBetween",
+                 "script": "diskStatus",
+                 "Content-Type" : "application/json; charset=UTF-8"
             }
         }
     }

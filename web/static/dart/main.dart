@@ -4,6 +4,7 @@ import 'classes.dart';
 const String USER_NAME_ROW_ID_PREFIX = 'userNameRow-';
 const String THN_DIR_ROW_ID_PREFIX = 'thumbNail-';
 const String THN_IMAG_ROW_ID_PREFIX = 'thumbNailImage-';
+const String LOG_FILE_ROW_ID_PREFIX = 'logFile-';
 
 const String DEFAULT_ERROR_TEXT = 'TOPBOX';
 const String PAGE_NAME_WELCOME = 'welcome';
@@ -33,6 +34,8 @@ final Element userThumbnails = querySelector('#userThumbnails');
 final Element navButtons = querySelector('#navButtons');
 final Element originalImage = querySelector('#originalImage');
 final Element userFileSizes = querySelector('#userFileSizes');
+final Element diskStatus = querySelector('#diskStatus');
+final Element logFileList = querySelector('#logFileList');
 
 List userList = new List();
 String currentUserId = null;
@@ -41,7 +44,9 @@ Map userDataMap = null;
 Map thumbNailDirList = null;
 Map thumbNailList = null;
 Map selectedDirectoryHistory = {};
-List<Map> userFileSizesData = new List();
+List userFileSizesData = [];
+List diskStatusData = [];
+Map logFileListData = {};
 /**
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
  */
@@ -71,9 +76,16 @@ ServerRequest fetchUserList = ServerRequest('GET', '/server/users', 'Reading use
   populateUserTable();
 });
 ServerRequest fetchUserFileSizes = ServerRequest('GET', '/files/loc/cache/name/ufs', 'Reading user file sizes', processError, (resp) {
-  userFileSizesData = resp.map;
-  window.console.debug(userFileSizesData.toString());
+  userFileSizesData = resp.list;
   populateUserFileSizes();
+});
+ServerRequest fetchLogFileList = ServerRequest('GET', '/files/loc/logs?ext=log', 'Reading list of log files', processError, (resp) {
+  logFileListData = resp.map;
+  populateLogFileList();
+});
+ServerRequest fetchDiskStatus = ServerRequest('GET', '/func/ds', 'Reading Disk Status', processError, (resp) {
+  diskStatusData = resp.list;
+  populateDiskStatus();
 });
 ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time from server', processError, (resp) {
   timeText.text = resp.map['time']['time3'];
@@ -103,28 +115,34 @@ void main() {
   pageManager.display(PAGE_NAME_WELCOME);
 }
 
-Future<void> selectStatusPage() async {
-  await fetchUserFileSizes.send(); 
+Future<void> selectLogFile(String name, String base64) async {
+  processError("D", 'name:$name base64:$base64');
+}
+
+void selectStatusPage() {
+  fetchUserFileSizes.send();
+  fetchDiskStatus.send();
+  fetchLogFileList.send();
   pageManager.display(PAGE_STATUS);
 }
 
-Future<void> selectThumbnailDir(String name, String base64) async {
-  await fetchThumbNails.send([currentUserId, base64]); 
+void selectThumbnailDir(String name, String base64) {
+  fetchThumbNails.send([currentUserId, base64]);
   pageManager.display(PAGE_THUMBNAILS);
 }
 
-Future<void> selectCurrentUser(String userId, String userName) async {
+void selectCurrentUser(String userId, String userName) {
   if ((currentUserId == null) || (currentUserId != userId)) {
     currentUserId = userId;
     currentUserName = userName;
-    await fetchUserData.send([currentUserId]);
-    await fetchThumbNailDirPaths.send([currentUserId]);
+    fetchUserData.send([currentUserId]);
+    fetchThumbNailDirPaths.send([currentUserId]);
     selectedDirectoryHistory = {};
   }
   pageManager.display(PAGE_NAME_MAIN);
 }
 
-Future<void> selectThumbnailImage(String encPath, String encName, String dispName) async {
+void selectThumbnailImage(String encPath, String encName, String dispName) {
   processError('D', '${encPath} --> ${encName}');
   originalImage.innerHtml = '<img width=\"100%\" title=\"${dispName}\"src=\"/files/user/${currentUserId}/loc/thumbs/path/${encPath}/name/${encName}\">';
   pageManager.display(PAGE_ORIGINAL);
@@ -134,12 +152,39 @@ Future<void> selectThumbnailImage(String encPath, String encName, String dispNam
  * [{"Size":"162215134","Name":"shared"},{"Size":"35722111","Name":"stuart"},{"Size":"36979282","Name":"julie"},{"Size":"36854954","Name":"owain"},{"Size":"10696354","Name":"huw"}]
  */
 void populateUserFileSizes() {
-  String htmlStr = '<table width=\"100%\">';  
+  String htmlStr = '<table width=\"100%\">';
   userFileSizesData.forEach((ufsData) {
-    htmlStr += '<tr><td>${ufsData['Name']}</td><td>${ufsData['Size']}</td></tr>';
-  }); 
+    htmlStr += '<tr><td width=\"25%\">${ufsData['Name']}</td><td>${ufsData['Size']} K.</td></tr>';
+  });
   htmlStr += '</table>';
   userFileSizes.innerHtml = htmlStr;
+}
+
+void populateDiskStatus() {
+  String htmlStr = '<table width=\"100%\">';
+  diskStatusData.forEach((statusData) {
+    htmlStr += '<tr><td width=\"25%\">${statusData['name']}</td><td>${statusData['state']}</td></tr>';
+  });
+  htmlStr += '</table>';
+  diskStatus.innerHtml = htmlStr;
+}
+
+void populateLogFileList() {
+  String htmlStr = '<table width=\"100%\">';
+  int index = 0;
+  logFileListData['files'].forEach((logFile) {
+    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\">${logFile['name']['name']}</td></tr>';
+    index++;
+  });
+  htmlStr += '</table>';
+  logFileList.innerHtml = htmlStr;
+  index = 0;
+  logFileListData['files'].forEach((logFile) {
+    querySelector('#${LOG_FILE_ROW_ID_PREFIX}${index}').onClick.listen((e) {
+      selectLogFile(logFile['name']['name'], logFile['name']['encName']);
+    });
+    index++;
+  });
 }
 
 void populateThumbnails() {

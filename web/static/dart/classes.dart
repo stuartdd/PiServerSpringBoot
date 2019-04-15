@@ -18,6 +18,7 @@ class MyButtonManager {
       });
     });
   }
+
   void init() {
     window.console.info('MyButtonManager:Init:');
   }
@@ -187,11 +188,11 @@ class ServerRequest {
   /**
    * Request Response for the server
    */
-    Future<void> sendObject([List<String> urlParameters = null, Map<String, String> queryParameters = null, Object body = null]) async {
-      send(urlParameters, queryParameters, jsonEncode(body));
-    }
+  Future<void> sendObject([List<String> urlParameters = null, Map<String, String> queryParameters = null, Object body = null]) async {
+    send(urlParameters, queryParameters, jsonEncode(body));
+  }
 
-    Future<void> send([List<String> urlParameters = null, Map<String, String> queryParameters = null, String body = null]) async {
+  Future<void> send([List<String> urlParameters = null, Map<String, String> queryParameters = null, String body = null]) async {
     final url = this.finalUrl(urlParameters, queryParameters);
     final httpRequest = HttpRequest();
     httpRequest
@@ -200,22 +201,33 @@ class ServerRequest {
         var status = httpRequest.status;
         if ((status >= 200) && (status < 300)) {
           var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
-          String conTentType = resp.getHeader('content-type');
+          String contentType = resp.getHeader('content-type');
           if (resp.hasResponseText()) {
-            Function.apply(this.error, ['D', 'contentType: ${conTentType} URL: ${url} Resp: ${resp.body}']);
             if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
-              resp.setMap(jsonDecode(resp.body));
+              Object o = jsonDecode(resp.body);
+              window.console.debug(o.toString());
+              if (o is List) {
+                Function.apply(this.error, ['D', 'LIST: contentType: ${contentType} URL: ${url} Resp: ${resp.body}']);
+                resp.setList(o);
+              } else {
+                if (o is Map) {
+                  Function.apply(this.error, ['D', 'MAP: contentType: ${contentType} URL: ${url} Resp: ${resp.body}']);
+                  resp.setMap(o);
+                } else {
+                  Function.apply(this.error, ['E', 'Response is not a Map or a List' + ':' + this.desc]);
+                }
+              }
             }
           } else {
-            if (this.error!=null) {
-              Function.apply(this.error, ['D', 'contentType: ${conTentType} URL: ${url} Resp: NULL']);
+            if (this.error != null) {
+              Function.apply(this.error, ['D', 'URL: ${url} Resp: NULL']);
             }
           }
-          if (this.func!=null) {
+          if (this.func != null) {
             Function.apply(this.func, [resp]);
           }
         } else {
-          if (this.error!=null) {
+          if (this.error != null) {
             Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);
           }
         }
@@ -229,12 +241,14 @@ class ServerResponse {
   int status;
   Map headers;
   Map map;
+  List list;
 
   ServerResponse(String body, int status, Map headers) {
     this.body = body;
     this.status = status;
     this.headers = headers;
     this.map = {};
+    this.list = [];
   }
 
   bool hasResponseText() {
@@ -254,6 +268,10 @@ class ServerResponse {
 
   void setMap(Map map) {
     this.map = map;
+  }
+
+  void setList(List list) {
+    this.list = list;
   }
 
   String toString() {

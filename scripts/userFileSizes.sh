@@ -46,7 +46,7 @@ sudo du -s /media/USBHDD1/shares/huw >> $TMPFILE
 #      "files/loc/cache/name/ufs"
 #   This reads a file from location 'cache' with the name 'ufs'
 #   The configuration file must define the 'cache' in 'locations' (see above)
-#   The configuration file must define an alias for 'userFileSizes.json' as 'ufs'
+#   The configuration file must define an alias for 'userFileSizes.json-m ' as 'ufs'
 #     For example: "alias" : {"ufs":"userFileSizes.json"}
 #   If the alias cannot be found it will try to read the file 'ufs' and will fail.
 #   The reason to use the alias is to de-couple the server name from the browser.  

@@ -1929,6 +1929,9 @@
     get$length$asx: function(receiver) {
       return J.getInterceptor$asx(receiver).get$length(receiver);
     },
+    get$list$x: function(receiver) {
+      return J.getInterceptor$x(receiver).get$list(receiver);
+    },
     get$map$ax: function(receiver) {
       return J.getInterceptor$ax(receiver).get$map(receiver);
     },
@@ -3264,6 +3267,8 @@
     },
     HttpRequestEventTarget: function HttpRequestEventTarget() {
     },
+    InputElement: function InputElement() {
+    },
     Location: function Location() {
     },
     MouseEvent: function MouseEvent() {
@@ -3460,7 +3465,7 @@
     },
     ServerResponse: function ServerResponse() {
       var _ = this;
-      _.map = _.headers = _.status = _.body = null;
+      _.list = _.map = _.headers = _.status = _.body = null;
     }
   },
   F = {
@@ -3478,112 +3483,47 @@
       $.$get$fetchUserList().send$0(0);
       t1.display$1(0, "welcome");
     },
-    selectStatusPage: function() {
+    selectLogFile: function($name, base64) {
       var $async$goto = 0,
         $async$completer = P._makeAsyncAwaitCompleter(-1);
-      var $async$selectStatusPage = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+      var $async$selectLogFile = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return P._asyncRethrow($async$result, $async$completer);
         while (true)
           switch ($async$goto) {
             case 0:
               // Function start
-              $async$goto = 2;
-              return P._asyncAwait($.$get$fetchUserFileSizes().send$0(0), $async$selectStatusPage);
-            case 2:
-              // returning from await.
-              $.$get$pageManager().display$1(0, "status");
+              F.processError("D", "name:" + H.S($name) + " base64:" + H.S(base64));
               // implicit return
               return P._asyncReturn(null, $async$completer);
           }
       });
-      return P._asyncStartSync($async$selectStatusPage, $async$completer);
-    },
-    selectThumbnailDir: function($name, base64) {
-      var $async$goto = 0,
-        $async$completer = P._makeAsyncAwaitCompleter(-1);
-      var $async$selectThumbnailDir = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return P._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              $async$goto = 2;
-              return P._asyncAwait($.$get$fetchThumbNails().send$1(0, H.setRuntimeTypeInfo([$.currentUserId, base64], [P.String])), $async$selectThumbnailDir);
-            case 2:
-              // returning from await.
-              $.$get$pageManager().display$1(0, "thumbnails");
-              // implicit return
-              return P._asyncReturn(null, $async$completer);
-          }
-      });
-      return P._asyncStartSync($async$selectThumbnailDir, $async$completer);
-    },
-    selectCurrentUser: function(userId, userName) {
-      var $async$goto = 0,
-        $async$completer = P._makeAsyncAwaitCompleter(-1),
-        t1;
-      var $async$selectCurrentUser = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return P._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              t1 = $.currentUserId;
-              $async$goto = t1 == null || t1 !== userId ? 2 : 3;
-              break;
-            case 2:
-              // then
-              $.currentUserId = userId;
-              $.currentUserName = userName;
-              t1 = [P.String];
-              $async$goto = 4;
-              return P._asyncAwait($.$get$fetchUserData().send$1(0, H.setRuntimeTypeInfo([userId], t1)), $async$selectCurrentUser);
-            case 4:
-              // returning from await.
-              $async$goto = 5;
-              return P._asyncAwait($.$get$fetchThumbNailDirPaths().send$1(0, H.setRuntimeTypeInfo([$.currentUserId], t1)), $async$selectCurrentUser);
-            case 5:
-              // returning from await.
-              $.selectedDirectoryHistory = P.LinkedHashMap__makeEmpty();
-            case 3:
-              // join
-              $.$get$pageManager().display$1(0, "main");
-              // implicit return
-              return P._asyncReturn(null, $async$completer);
-          }
-      });
-      return P._asyncStartSync($async$selectCurrentUser, $async$completer);
-    },
-    selectThumbnailImage: function(encPath, encName, dispName) {
-      var $async$goto = 0,
-        $async$completer = P._makeAsyncAwaitCompleter(-1);
-      var $async$selectThumbnailImage = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return P._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              F.processError("D", H.S(encPath) + " --> " + H.S(encName));
-              J.set$innerHtml$x($.$get$originalImage(), '<img width="100%" title="' + H.S(dispName) + '"src="/files/user/' + H.S($.currentUserId) + "/loc/thumbs/path/" + H.S(encPath) + "/name/" + H.S(encName) + '">');
-              $.$get$pageManager().display$1(0, "original");
-              // implicit return
-              return P._asyncReturn(null, $async$completer);
-          }
-      });
-      return P._asyncStartSync($async$selectThumbnailImage, $async$completer);
+      return P._asyncStartSync($async$selectLogFile, $async$completer);
     },
     populateUserFileSizes: function() {
+      var t1 = {};
+      t1.htmlStr = '<table width="100%">';
+      J.forEach$1$ax($.$get$userFileSizesData(), new F.populateUserFileSizes_closure(t1));
+      t1 = t1.htmlStr += "</table>";
+      J.set$innerHtml$x($.$get$userFileSizes(), t1);
+    },
+    populateDiskStatus: function() {
+      var t1 = {};
+      t1.htmlStr = '<table width="100%">';
+      J.forEach$1$ax($.$get$diskStatusData(), new F.populateDiskStatus_closure(t1));
+      t1 = t1.htmlStr += "</table>";
+      J.set$innerHtml$x($.$get$diskStatus(), t1);
+    },
+    populateLogFileList: function() {
       var t1, t2;
       t1 = {};
       t1.htmlStr = '<table width="100%">';
-      t2 = $.$get$userFileSizesData();
-      (t2 && C.JSArray_methods).forEach$1(t2, new F.populateUserFileSizes_closure(t1));
-      t1 = t1.htmlStr += "</table>";
-      J.set$innerHtml$x($.$get$userFileSizes(), t1);
+      t1.index = 0;
+      J.forEach$1$ax($.$get$logFileListData().$index(0, "files"), new F.populateLogFileList_closure(t1));
+      t2 = t1.htmlStr += "</table>";
+      J.set$innerHtml$x($.$get$logFileList(), t2);
+      t1.index = 0;
+      J.forEach$1$ax($.$get$logFileListData().$index(0, "files"), new F.populateLogFileList_closure0(t1));
     },
     populateThumbnails: function() {
       var t1, user, encPath, width, t2;
@@ -3693,7 +3633,11 @@
     },
     closure: function closure() {
     },
+    closure11: function closure11() {
+    },
     closure9: function closure9() {
+    },
+    closure10: function closure10() {
     },
     closure3: function closure3() {
     },
@@ -3705,6 +3649,18 @@
     },
     populateUserFileSizes_closure: function populateUserFileSizes_closure(t0) {
       this._box_0 = t0;
+    },
+    populateDiskStatus_closure: function populateDiskStatus_closure(t0) {
+      this._box_0 = t0;
+    },
+    populateLogFileList_closure: function populateLogFileList_closure(t0) {
+      this._box_0 = t0;
+    },
+    populateLogFileList_closure0: function populateLogFileList_closure0(t0) {
+      this._box_0 = t0;
+    },
+    populateLogFileList__closure: function populateLogFileList__closure(t0) {
+      this.logFile = t0;
     },
     populateThumbnails_closure: function populateThumbnails_closure(t0, t1, t2, t3) {
       var _ = this;
@@ -4734,13 +4690,13 @@
     call$2: function(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 33
+    $signature: 32
   };
   H.initHooks_closure1.prototype = {
     call$1: function(tag) {
       return this.prototypeForTag(H.stringTypeCheck(tag));
     },
-    $signature: 32
+    $signature: 31
   };
   P._AsyncRun__initializeScheduleImmediate_internalCallback.prototype = {
     call$1: function(_) {
@@ -4760,7 +4716,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 34
+    $signature: 21
   };
   P._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0: function() {
@@ -5063,7 +5019,7 @@
     $defaultValues: function() {
       return [null];
     },
-    $signature: 17
+    $signature: 18
   };
   P._Future__chainForeignFuture_closure1.prototype = {
     call$0: function() {
@@ -5117,7 +5073,7 @@
     call$1: function(_) {
       return this.originalSource;
     },
-    $signature: 18
+    $signature: 19
   };
   P._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0: function() {
@@ -6001,7 +5957,7 @@
       t1._contents = t2 + ": ";
       t1._contents += H.S(v);
     },
-    $signature: 12
+    $signature: 9
   };
   P.MapMixin.prototype = {
     forEach$1: function(_, action) {
@@ -6527,7 +6483,7 @@
       C.JSArray_methods.$indexSet(t1, t2.i++, key);
       C.JSArray_methods.$indexSet(t1, t2.i++, value);
     },
-    $signature: 12
+    $signature: 9
   };
   P._JsonStringStringifier.prototype = {
     get$_partialResult: function() {
@@ -6784,7 +6740,7 @@
     $isStringSink: 1
   };
   P.Symbol0.prototype = {};
-  W.HtmlElement.prototype = {};
+  W.HtmlElement.prototype = {$isHtmlElement: 1};
   W.AnchorElement.prototype = {
     toString$0: function(receiver) {
       return String(receiver);
@@ -6946,6 +6902,11 @@
     }
   };
   W.HttpRequestEventTarget.prototype = {};
+  W.InputElement.prototype = {
+    get$list: function(receiver) {
+      return receiver.list;
+    }
+  };
   W.Location.prototype = {
     toString$0: function(receiver) {
       return String(receiver);
@@ -7312,13 +7273,13 @@
     call$1: function(v) {
       return H.interceptedTypeCheck(v, "$isNodeValidator").allowsElement$1(this.element);
     },
-    $signature: 10
+    $signature: 7
   };
   W.NodeValidatorBuilder_allowsAttribute_closure.prototype = {
     call$1: function(v) {
       return H.interceptedTypeCheck(v, "$isNodeValidator").allowsAttribute$3(this.element, this.attributeName, this.value);
     },
-    $signature: 10
+    $signature: 7
   };
   W._SimpleNodeValidator.prototype = {
     _SimpleNodeValidator$4$allowedAttributes$allowedElements$allowedUriAttributes: function(uriPolicy, allowedAttributes, allowedElements, allowedUriAttributes) {
@@ -7361,13 +7322,13 @@
     call$1: function(x) {
       return !C.JSArray_methods.contains$1(C.List_yrN, H.stringTypeCheck(x));
     },
-    $signature: 7
+    $signature: 10
   };
   W._SimpleNodeValidator_closure0.prototype = {
     call$1: function(x) {
       return C.JSArray_methods.contains$1(C.List_yrN, H.stringTypeCheck(x));
     },
-    $signature: 7
+    $signature: 10
   };
   W._TemplatingNodeValidator.prototype = {
     allowsAttribute$3: function(element, attributeName, value) {
@@ -7826,7 +7787,7 @@
   };
   V.ServerRequest_send_closure.prototype = {
     call$1: function(e) {
-      var t1, $status, t2, t3, resp, conTentType;
+      var t1, $status, t2, t3, resp, contentType, o;
       H.interceptedTypeCheck(e, "$isProgressEvent");
       t1 = this.httpRequest;
       $status = t1.status;
@@ -7840,20 +7801,34 @@
         resp.status = $status;
         resp.headers = t3;
         resp.map = P.LinkedHashMap__makeEmpty();
-        conTentType = resp.getHeader$1("content-type");
+        resp.list = [];
+        contentType = resp.getHeader$1("content-type");
         t2 = resp.body;
         if (t2 != null && C.JSString_methods.trim$0(t2) !== "") {
-          t3 = this.$this;
-          P.Function_apply(t3.error, ["D", "contentType: " + conTentType + " URL: " + this.url + " Resp: " + H.S(t2)]);
           t1 = C.HttpRequest_methods.get$responseHeaders(t1).$index(0, "content-type").toLowerCase();
-          if (H.stringContainsUnchecked(t1, "json", 0))
-            resp.map = H.interceptedTypeCheck(C.JsonCodec_null_null.decode$2$reviver(0, resp.body, null), "$isMap");
-          t1 = t3;
-        } else {
-          t1 = this.$this;
-          P.Function_apply(t1.error, ["D", "contentType: " + conTentType + " URL: " + this.url + " Resp: NULL"]);
-        }
-        t1 = t1.func;
+          if (H.stringContainsUnchecked(t1, "json", 0)) {
+            o = C.JsonCodec_null_null.decode$2$reviver(0, resp.body, null);
+            window;
+            t1 = J.getInterceptor$(o);
+            t2 = t1.toString$0(o);
+            if (typeof console != "undefined")
+              window.console.debug(t2);
+            if (!!t1.$isList) {
+              P.Function_apply(this.$this.error, ["D", "LIST: contentType: " + contentType + " URL: " + this.url + " Resp: " + H.S(resp.body)]);
+              resp.list = o;
+            } else {
+              t2 = this.$this;
+              t3 = t2.error;
+              if (!!t1.$isMap) {
+                P.Function_apply(t3, ["D", "MAP: contentType: " + contentType + " URL: " + this.url + " Resp: " + H.S(resp.body)]);
+                resp.map = o;
+              } else
+                P.Function_apply(t3, ["E", "Response is not a Map or a List:" + t2.desc]);
+            }
+          }
+        } else
+          P.Function_apply(this.$this.error, ["E", "URL: " + this.url + " Resp: NULL"]);
+        t1 = this.$this.func;
         if (t1 != null)
           P.Function_apply(t1, [resp]);
       } else {
@@ -7878,6 +7853,9 @@
     },
     get$map: function(receiver) {
       return this.map;
+    },
+    get$list: function(receiver) {
+      return this.list;
     }
   };
   F.closure4.prototype = {
@@ -7910,7 +7888,10 @@
   };
   F.closure6.prototype = {
     call$1: function(id) {
-      F.selectStatusPage();
+      $.$get$fetchUserFileSizes().send$0(0);
+      $.$get$fetchDiskStatus().send$0(0);
+      $.$get$fetchLogFileList().send$0(0);
+      $.$get$pageManager().display$1(0, "status");
     },
     $signature: 0
   };
@@ -7933,15 +7914,24 @@
     },
     $signature: 0
   };
+  F.closure11.prototype = {
+    call$1: function(resp) {
+      $.userFileSizesData = H.listTypeCheck(J.get$list$x(resp));
+      F.populateUserFileSizes();
+    },
+    $signature: 0
+  };
   F.closure9.prototype = {
     call$1: function(resp) {
-      var t1 = H.assertSubtype(J.get$map$ax(resp), "$isList", [[P.Map,,,]], "$asList");
-      $.userFileSizesData = t1;
-      window;
-      t1 = C.JSNull_methods.toString$0(t1);
-      if (typeof console != "undefined")
-        window.console.debug(t1);
-      F.populateUserFileSizes();
+      $.logFileListData = H.interceptedTypeCheck(J.get$map$ax(resp), "$isMap");
+      F.populateLogFileList();
+    },
+    $signature: 0
+  };
+  F.closure10.prototype = {
+    call$1: function(resp) {
+      $.diskStatusData = H.listTypeCheck(J.get$list$x(resp));
+      F.populateDiskStatus();
     },
     $signature: 0
   };
@@ -7975,12 +7965,53 @@
   };
   F.populateUserFileSizes_closure.prototype = {
     call$1: function(ufsData) {
-      var t1;
-      H.interceptedTypeCheck(ufsData, "$isMap");
+      var t1, t2;
       t1 = this._box_0;
-      t1.htmlStr = t1.htmlStr + ("<tr><td>" + H.S(ufsData.$index(0, "Name")) + "</td><td>" + H.S(ufsData.$index(0, "Size")) + "</td></tr>");
+      t2 = J.getInterceptor$asx(ufsData);
+      t1.htmlStr = t1.htmlStr + ('<tr><td width="25%">' + H.S(t2.$index(ufsData, "Name")) + "</td><td>" + H.S(t2.$index(ufsData, "Size")) + " K.</td></tr>");
     },
-    $signature: 31
+    $signature: 0
+  };
+  F.populateDiskStatus_closure.prototype = {
+    call$1: function(statusData) {
+      var t1, t2;
+      t1 = this._box_0;
+      t2 = J.getInterceptor$asx(statusData);
+      t1.htmlStr = t1.htmlStr + ('<tr><td width="25%">' + H.S(t2.$index(statusData, "name")) + "</td><td>" + H.S(t2.$index(statusData, "state")) + "</td></tr>");
+    },
+    $signature: 0
+  };
+  F.populateLogFileList_closure.prototype = {
+    call$1: function(logFile) {
+      var t1, t2;
+      t1 = this._box_0;
+      t2 = J.getInterceptor$asx(logFile);
+      t1.htmlStr = t1.htmlStr + ('<tr><td width="25%">' + H.S(t2.$index(logFile, "size")) + '</td><td id="logFile-' + t1.index + '">' + H.S(J.$index$asx(t2.$index(logFile, "name"), "name")) + "</td></tr>");
+      ++t1.index;
+    },
+    $signature: 0
+  };
+  F.populateLogFileList_closure0.prototype = {
+    call$1: function(logFile) {
+      var t1, t2, t3;
+      t1 = this._box_0;
+      t2 = "#logFile-" + t1.index;
+      t2 = J.get$onClick$x(document.querySelector(t2));
+      t3 = H.getTypeArgumentByIndex(t2, 0);
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, H.functionTypeCheck(new F.populateLogFileList__closure(logFile), {func: 1, ret: -1, args: [t3]}), false, t3);
+      ++t1.index;
+    },
+    $signature: 0
+  };
+  F.populateLogFileList__closure.prototype = {
+    call$1: function(e) {
+      var t1, t2;
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      t1 = this.logFile;
+      t2 = J.getInterceptor$asx(t1);
+      F.selectLogFile(H.stringTypeCheck(J.$index$asx(t2.$index(t1, "name"), "name")), H.stringTypeCheck(J.$index$asx(t2.$index(t1, "name"), "encName")));
+    },
+    $signature: 4
   };
   F.populateThumbnails_closure.prototype = {
     call$1: function(fileData) {
@@ -8013,11 +8044,16 @@
   };
   F.populateThumbnails__closure.prototype = {
     call$1: function(e) {
-      var t1, t2;
+      var t1, t2, t3, t4;
       H.interceptedTypeCheck(e, "$isMouseEvent");
-      t1 = this.fileData;
-      t2 = J.getInterceptor$asx(t1);
-      F.selectThumbnailImage(this.encPath, H.stringTypeCheck(J.$index$asx(t2.$index(t1, "name"), "encName")), H.stringTypeCheck(J.$index$asx(t2.$index(t1, "name"), "name")));
+      t1 = this.encPath;
+      t2 = this.fileData;
+      t3 = J.getInterceptor$asx(t2);
+      t4 = H.stringTypeCheck(J.$index$asx(t3.$index(t2, "name"), "encName"));
+      t2 = H.stringTypeCheck(J.$index$asx(t3.$index(t2, "name"), "name"));
+      F.processError("D", H.S(t1) + " --> " + H.S(t4));
+      J.set$innerHtml$x($.$get$originalImage(), '<img width="100%" title="' + H.S(t2) + '"src="/files/user/' + H.S($.currentUserId) + "/loc/thumbs/path/" + H.S(t1) + "/name/" + H.S(t4) + '">');
+      $.$get$pageManager().display$1(0, "original");
     },
     $signature: 4
   };
@@ -8050,8 +8086,12 @@
   };
   F.populateThumbNailDirList__closure.prototype = {
     call$1: function(e) {
+      var t1;
       H.interceptedTypeCheck(e, "$isMouseEvent");
-      F.selectThumbnailDir(H.stringTypeCheck(this.disp), H.stringTypeCheck(this.base64));
+      H.stringTypeCheck(this.disp);
+      t1 = H.stringTypeCheck(this.base64);
+      $.$get$fetchThumbNails().send$1(0, H.setRuntimeTypeInfo([$.currentUserId, t1], [P.String]));
+      $.$get$pageManager().display$1(0, "thumbnails");
     },
     $signature: 4
   };
@@ -8087,8 +8127,20 @@
   };
   F.populateUserTable__closure.prototype = {
     call$1: function(e) {
+      var t1, t2, t3;
       H.interceptedTypeCheck(e, "$isMouseEvent");
-      F.selectCurrentUser(this.id, this._box_0.name);
+      t1 = this.id;
+      t2 = this._box_0.name;
+      t3 = $.currentUserId;
+      if (t3 == null || t3 !== t1) {
+        $.currentUserId = t1;
+        $.currentUserName = t2;
+        t2 = [P.String];
+        $.$get$fetchUserData().send$1(0, H.setRuntimeTypeInfo([t1], t2));
+        $.$get$fetchThumbNailDirPaths().send$1(0, H.setRuntimeTypeInfo([$.currentUserId], t2));
+        $.selectedDirectoryHistory = P.LinkedHashMap__makeEmpty();
+      }
+      $.$get$pageManager().display$1(0, "main");
     },
     $signature: 4
   };
@@ -8143,11 +8195,11 @@
     _static_0(P, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 1);
     _instance(P._Completer.prototype, "get$completeError", 0, 1, function() {
       return [null];
-    }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 9, 0);
-    _instance(P._SyncCompleter.prototype, "get$complete", 1, 0, null, ["call$1", "call$0"], ["complete$1", "complete$0"], 21, 0);
+    }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 12, 0);
+    _instance(P._SyncCompleter.prototype, "get$complete", 1, 0, null, ["call$1", "call$0"], ["complete$1", "complete$0"], 17, 0);
     _instance(P._Future.prototype, "get$_completeError", 0, 1, function() {
       return [null];
-    }, ["call$2", "call$1"], ["_completeError$2", "_completeError$1"], 9, 0);
+    }, ["call$2", "call$1"], ["_completeError$2", "_completeError$1"], 12, 0);
     _instance(P.Stream.prototype, "get$map", 1, 1, null, ["call$1$1", "call$1"], ["map$1$1", "map$1"], function() {
       return H.computeSignature(function(T) {
         return {func: 1, bounds: [P.Object], ret: [P.Stream, 0], args: [{func: 1, ret: 0, args: [T]}]};
@@ -8156,8 +8208,8 @@
     var _;
     _instance_0_u(_ = P._ForwardingStreamSubscription.prototype, "get$_onPause", "_onPause$0", 1);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 1);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 19);
-    _instance_2_u(_, "get$_handleError", "_handleError$2", 20);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 20);
+    _instance_2_u(_, "get$_handleError", "_handleError$2", 33);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 1);
     _instance(P.ListMixin.prototype, "get$map", 1, 1, null, ["call$1$1", "call$1"], ["map$1$1", "map$1"], function() {
       return H.computeSignature(function(E) {
@@ -8212,7 +8264,7 @@
     _inherit(P._UnmodifiableMapView_MapView__UnmodifiableMapMixin, P.MapView);
     _inherit(P.UnmodifiableMapView, P._UnmodifiableMapView_MapView__UnmodifiableMapMixin);
     _inherit(H.ConstantMapView, P.UnmodifiableMapView);
-    _inheritMany(H.Closure, [H.ConstantMap_map_closure, H.Primitives_functionNoSuchMethod_closure, H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._AsyncAwaitCompleter_complete_closure, P._AsyncAwaitCompleter_completeError_closure, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_forEach_closure, P.Stream_forEach__closure, P.Stream_forEach__closure0, P.Stream_forEach_closure0, P.Stream_length_closure, P.Stream_length_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._cancelAndError_closure, P._cancelAndErrorClosure_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.MapBase_mapToString_closure, P._JsonStringifier_writeMap_closure, P.NoSuchMethodError_toString_closure, W.Element_Element$html_closure, W._EventStreamSubscription_closure, W.NodeValidatorBuilder_allowsElement_closure, W.NodeValidatorBuilder_allowsAttribute_closure, W._SimpleNodeValidator_closure, W._SimpleNodeValidator_closure0, W._TemplatingNodeValidator_closure, W._ValidatingTreeSanitizer_sanitizeTree_walk, V.MyButtonManager_hidden_closure, V.MyButtonManager_hidden__closure, V.MyButton_closure, V.PageDivManager_display_closure, V.ServerRequest_finalUrl_closure, V.ServerRequest_send_closure, F.closure4, F.closure5, F.closure6, F.closure7, F.closure8, F.closure, F.closure9, F.closure3, F.closure2, F.closure0, F.closure1, F.populateUserFileSizes_closure, F.populateThumbnails_closure, F.populateThumbnails_closure0, F.populateThumbnails__closure, F.populateThumbNailDirList_closure, F.populateThumbNailDirList_closure0, F.populateThumbNailDirList__closure, F.populateUserTable_closure, F.populateUserTable_closure0, F.populateUserTable__closure]);
+    _inheritMany(H.Closure, [H.ConstantMap_map_closure, H.Primitives_functionNoSuchMethod_closure, H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._AsyncAwaitCompleter_complete_closure, P._AsyncAwaitCompleter_completeError_closure, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_forEach_closure, P.Stream_forEach__closure, P.Stream_forEach__closure0, P.Stream_forEach_closure0, P.Stream_length_closure, P.Stream_length_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._cancelAndError_closure, P._cancelAndErrorClosure_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.MapBase_mapToString_closure, P._JsonStringifier_writeMap_closure, P.NoSuchMethodError_toString_closure, W.Element_Element$html_closure, W._EventStreamSubscription_closure, W.NodeValidatorBuilder_allowsElement_closure, W.NodeValidatorBuilder_allowsAttribute_closure, W._SimpleNodeValidator_closure, W._SimpleNodeValidator_closure0, W._TemplatingNodeValidator_closure, W._ValidatingTreeSanitizer_sanitizeTree_walk, V.MyButtonManager_hidden_closure, V.MyButtonManager_hidden__closure, V.MyButton_closure, V.PageDivManager_display_closure, V.ServerRequest_finalUrl_closure, V.ServerRequest_send_closure, F.closure4, F.closure5, F.closure6, F.closure7, F.closure8, F.closure, F.closure11, F.closure9, F.closure10, F.closure3, F.closure2, F.closure0, F.closure1, F.populateUserFileSizes_closure, F.populateDiskStatus_closure, F.populateLogFileList_closure, F.populateLogFileList_closure0, F.populateLogFileList__closure, F.populateThumbnails_closure, F.populateThumbnails_closure0, F.populateThumbnails__closure, F.populateThumbNailDirList_closure, F.populateThumbNailDirList_closure0, F.populateThumbNailDirList__closure, F.populateUserTable_closure, F.populateUserTable_closure0, F.populateUserTable__closure]);
     _inherit(H.ConstantStringMap, H.ConstantMap);
     _inheritMany(P.Error, [H.NullError, H.JsNoSuchMethodError, H.UnknownJsTypeError, H.TypeErrorImplementation, H.RuntimeError, P.JsonUnsupportedObjectError, P.NullThrownError, P.ArgumentError, P.NoSuchMethodError, P.UnsupportedError, P.UnimplementedError, P.StateError, P.ConcurrentModificationError, P.CyclicInitializationError]);
     _inheritMany(H.TearOffClosure, [H.StaticClosure, H.BoundClosure]);
@@ -8237,7 +8289,7 @@
     _inheritMany(W.EventTarget, [W.Node, W.HttpRequestEventTarget]);
     _inheritMany(W.Node, [W.Element, W.CharacterData, W._Attr]);
     _inheritMany(W.Element, [W.HtmlElement, P.SvgElement]);
-    _inheritMany(W.HtmlElement, [W.AnchorElement, W.AreaElement, W.BaseElement, W.BodyElement, W.FormElement, W.SelectElement, W.TableElement, W.TableRowElement, W.TableSectionElement, W.TemplateElement]);
+    _inheritMany(W.HtmlElement, [W.AnchorElement, W.AreaElement, W.BaseElement, W.BodyElement, W.FormElement, W.InputElement, W.SelectElement, W.TableElement, W.TableRowElement, W.TableSectionElement, W.TemplateElement]);
     _inherit(W.HttpRequest, W.HttpRequestEventTarget);
     _inheritMany(W.Event, [W.UIEvent, W.ProgressEvent]);
     _inherit(W.MouseEvent, W.UIEvent);
@@ -8555,6 +8607,12 @@
     _lazy($, "userFileSizes", "$get$userFileSizes", function() {
       return W.querySelector("#userFileSizes");
     });
+    _lazy($, "diskStatus", "$get$diskStatus", function() {
+      return W.querySelector("#diskStatus");
+    });
+    _lazy($, "logFileList", "$get$logFileList", function() {
+      return W.querySelector("#logFileList");
+    });
     _lazy($, "userList", "$get$userList", function() {
       return [];
     });
@@ -8562,7 +8620,13 @@
       return P.LinkedHashMap__makeEmpty();
     });
     _lazy($, "userFileSizesData", "$get$userFileSizesData", function() {
-      return H.setRuntimeTypeInfo([], [[P.Map,,,]]);
+      return [];
+    });
+    _lazy($, "diskStatusData", "$get$diskStatusData", function() {
+      return [];
+    });
+    _lazy($, "logFileListData", "$get$logFileListData", function() {
+      return P.LinkedHashMap__makeEmpty();
     });
     _lazy($, "pageManager", "$get$pageManager", function() {
       var t1, t2, t3, t4;
@@ -8586,7 +8650,13 @@
       return V.ServerRequest$("GET", "/server/users", "Reading user data from server", F.main__processError$closure(), new F.closure());
     });
     _lazy($, "fetchUserFileSizes", "$get$fetchUserFileSizes", function() {
-      return V.ServerRequest$("GET", "/files/loc/cache/name/ufs", "Reading user file sizes", F.main__processError$closure(), new F.closure9());
+      return V.ServerRequest$("GET", "/files/loc/cache/name/ufs", "Reading user file sizes", F.main__processError$closure(), new F.closure11());
+    });
+    _lazy($, "fetchLogFileList", "$get$fetchLogFileList", function() {
+      return V.ServerRequest$("GET", "/files/loc/logs?ext=log", "Reading list of log files", F.main__processError$closure(), new F.closure9());
+    });
+    _lazy($, "fetchDiskStatus", "$get$fetchDiskStatus", function() {
+      return V.ServerRequest$("GET", "/func/ds", "Reading Disk Status", F.main__processError$closure(), new F.closure10());
     });
     _lazy($, "fetchTimeData", "$get$fetchTimeData", function() {
       return V.ServerRequest$("GET", "/server/time", "Reading time from server", F.main__processError$closure(), new F.closure3());
@@ -8604,7 +8674,7 @@
       return V.ServerRequest$("GET", "/files/user/{1}/loc/thumbs/path/{2}", "Reading thumbnails", F.main__processError$closure(), new F.closure1());
     });
   })();
-  var init = {mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"}, mangledNames: {}, getTypeFromName: getGlobalFromName, metadata: [], types: [{func: 1, ret: P.Null, args: [,]}, {func: 1, ret: -1}, {func: 1, ret: P.Null}, {func: 1, ret: -1, args: [V.PageDiv, V.PageDiv]}, {func: 1, ret: P.Null, args: [W.MouseEvent]}, {func: 1, args: [,]}, {func: 1, ret: -1, args: [{func: 1, ret: -1}]}, {func: 1, ret: P.bool, args: [P.String]}, {func: 1, ret: P.Null, args: [, P.StackTrace]}, {func: 1, ret: -1, args: [P.Object], opt: [P.StackTrace]}, {func: 1, ret: P.bool, args: [W.NodeValidator]}, {func: 1, ret: P.Null, args: [P.String]}, {func: 1, ret: P.Null, args: [,,]}, {func: 1, ret: P.bool, args: [W.Element, P.String, P.String, W._Html5NodeValidator]}, {func: 1, ret: -1, args: [,]}, {func: 1, ret: P.Null, args: [P.int,,]}, {func: 1, ret: P.Null, args: [P.String,,]}, {func: 1, ret: P.Null, args: [,], opt: [P.StackTrace]}, {func: 1, ret: [P._Future,,], args: [,]}, {func: 1, ret: -1, args: [P.Object]}, {func: 1, ret: -1, args: [, P.StackTrace]}, {func: 1, ret: -1, opt: [P.Object]}, {func: 1, ret: P.Null, args: [P.Symbol0,,]}, {func: 1, ret: P.bool, args: [W.Node]}, {func: 1, args: [W.Event]}, {func: 1, ret: -1, args: [P.String, P.String]}, {func: 1, ret: P.String, args: [P.String]}, {func: 1, ret: -1, args: [W.Node, W.Node]}, {func: 1, ret: P.Null, args: [V.MyButton]}, {func: 1, ret: P.Null, args: [V.PageDiv]}, {func: 1, ret: P.Null, args: [W.ProgressEvent]}, {func: 1, ret: P.Null, args: [[P.Map,,,]]}, {func: 1, args: [P.String]}, {func: 1, args: [, P.String]}, {func: 1, ret: P.Null, args: [{func: 1, ret: -1}]}], interceptorsByTag: null, leafTags: null};
+  var init = {mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"}, mangledNames: {}, getTypeFromName: getGlobalFromName, metadata: [], types: [{func: 1, ret: P.Null, args: [,]}, {func: 1, ret: -1}, {func: 1, ret: P.Null}, {func: 1, ret: -1, args: [V.PageDiv, V.PageDiv]}, {func: 1, ret: P.Null, args: [W.MouseEvent]}, {func: 1, args: [,]}, {func: 1, ret: -1, args: [{func: 1, ret: -1}]}, {func: 1, ret: P.bool, args: [W.NodeValidator]}, {func: 1, ret: P.Null, args: [, P.StackTrace]}, {func: 1, ret: P.Null, args: [,,]}, {func: 1, ret: P.bool, args: [P.String]}, {func: 1, ret: P.Null, args: [P.String]}, {func: 1, ret: -1, args: [P.Object], opt: [P.StackTrace]}, {func: 1, ret: P.bool, args: [W.Element, P.String, P.String, W._Html5NodeValidator]}, {func: 1, ret: -1, args: [,]}, {func: 1, ret: P.Null, args: [P.int,,]}, {func: 1, ret: P.Null, args: [P.String,,]}, {func: 1, ret: -1, opt: [P.Object]}, {func: 1, ret: P.Null, args: [,], opt: [P.StackTrace]}, {func: 1, ret: [P._Future,,], args: [,]}, {func: 1, ret: -1, args: [P.Object]}, {func: 1, ret: P.Null, args: [{func: 1, ret: -1}]}, {func: 1, ret: P.Null, args: [P.Symbol0,,]}, {func: 1, ret: P.bool, args: [W.Node]}, {func: 1, args: [W.Event]}, {func: 1, ret: -1, args: [P.String, P.String]}, {func: 1, ret: P.String, args: [P.String]}, {func: 1, ret: -1, args: [W.Node, W.Node]}, {func: 1, ret: P.Null, args: [V.MyButton]}, {func: 1, ret: P.Null, args: [V.PageDiv]}, {func: 1, ret: P.Null, args: [W.ProgressEvent]}, {func: 1, args: [P.String]}, {func: 1, args: [, P.String]}, {func: 1, ret: -1, args: [, P.StackTrace]}], interceptorsByTag: null, leafTags: null};
   (function nativeSupport() {
     !function() {
       var intern = function(s) {
@@ -8628,8 +8698,8 @@
       }
       init.dispatchPropertyName = init.getIsolateTag("dispatch_record");
     }();
-    hunkHelpers.setOrUpdateInterceptorsByTag({DOMError: J.Interceptor, DOMImplementation: J.Interceptor, MediaError: J.Interceptor, NavigatorUserMediaError: J.Interceptor, OverconstrainedError: J.Interceptor, PositionError: J.Interceptor, Range: J.Interceptor, SQLError: J.Interceptor, HTMLAudioElement: W.HtmlElement, HTMLBRElement: W.HtmlElement, HTMLButtonElement: W.HtmlElement, HTMLCanvasElement: W.HtmlElement, HTMLContentElement: W.HtmlElement, HTMLDListElement: W.HtmlElement, HTMLDataElement: W.HtmlElement, HTMLDataListElement: W.HtmlElement, HTMLDetailsElement: W.HtmlElement, HTMLDialogElement: W.HtmlElement, HTMLDivElement: W.HtmlElement, HTMLEmbedElement: W.HtmlElement, HTMLFieldSetElement: W.HtmlElement, HTMLHRElement: W.HtmlElement, HTMLHeadElement: W.HtmlElement, HTMLHeadingElement: W.HtmlElement, HTMLHtmlElement: W.HtmlElement, HTMLIFrameElement: W.HtmlElement, HTMLImageElement: W.HtmlElement, HTMLInputElement: W.HtmlElement, HTMLLIElement: W.HtmlElement, HTMLLabelElement: W.HtmlElement, HTMLLegendElement: W.HtmlElement, HTMLLinkElement: W.HtmlElement, HTMLMapElement: W.HtmlElement, HTMLMediaElement: W.HtmlElement, HTMLMenuElement: W.HtmlElement, HTMLMetaElement: W.HtmlElement, HTMLMeterElement: W.HtmlElement, HTMLModElement: W.HtmlElement, HTMLOListElement: W.HtmlElement, HTMLObjectElement: W.HtmlElement, HTMLOptGroupElement: W.HtmlElement, HTMLOptionElement: W.HtmlElement, HTMLOutputElement: W.HtmlElement, HTMLParagraphElement: W.HtmlElement, HTMLParamElement: W.HtmlElement, HTMLPictureElement: W.HtmlElement, HTMLPreElement: W.HtmlElement, HTMLProgressElement: W.HtmlElement, HTMLQuoteElement: W.HtmlElement, HTMLScriptElement: W.HtmlElement, HTMLShadowElement: W.HtmlElement, HTMLSlotElement: W.HtmlElement, HTMLSourceElement: W.HtmlElement, HTMLSpanElement: W.HtmlElement, HTMLStyleElement: W.HtmlElement, HTMLTableCaptionElement: W.HtmlElement, HTMLTableCellElement: W.HtmlElement, HTMLTableDataCellElement: W.HtmlElement, HTMLTableHeaderCellElement: W.HtmlElement, HTMLTableColElement: W.HtmlElement, HTMLTextAreaElement: W.HtmlElement, HTMLTimeElement: W.HtmlElement, HTMLTitleElement: W.HtmlElement, HTMLTrackElement: W.HtmlElement, HTMLUListElement: W.HtmlElement, HTMLUnknownElement: W.HtmlElement, HTMLVideoElement: W.HtmlElement, HTMLDirectoryElement: W.HtmlElement, HTMLFontElement: W.HtmlElement, HTMLFrameElement: W.HtmlElement, HTMLFrameSetElement: W.HtmlElement, HTMLMarqueeElement: W.HtmlElement, HTMLElement: W.HtmlElement, HTMLAnchorElement: W.AnchorElement, HTMLAreaElement: W.AreaElement, HTMLBaseElement: W.BaseElement, HTMLBodyElement: W.BodyElement, CDATASection: W.CharacterData, CharacterData: W.CharacterData, Comment: W.CharacterData, ProcessingInstruction: W.CharacterData, Text: W.CharacterData, DOMException: W.DomException, Element: W.Element, AbortPaymentEvent: W.Event, AnimationEvent: W.Event, AnimationPlaybackEvent: W.Event, ApplicationCacheErrorEvent: W.Event, BackgroundFetchClickEvent: W.Event, BackgroundFetchEvent: W.Event, BackgroundFetchFailEvent: W.Event, BackgroundFetchedEvent: W.Event, BeforeInstallPromptEvent: W.Event, BeforeUnloadEvent: W.Event, BlobEvent: W.Event, CanMakePaymentEvent: W.Event, ClipboardEvent: W.Event, CloseEvent: W.Event, CustomEvent: W.Event, DeviceMotionEvent: W.Event, DeviceOrientationEvent: W.Event, ErrorEvent: W.Event, ExtendableEvent: W.Event, ExtendableMessageEvent: W.Event, FetchEvent: W.Event, FontFaceSetLoadEvent: W.Event, ForeignFetchEvent: W.Event, GamepadEvent: W.Event, HashChangeEvent: W.Event, InstallEvent: W.Event, MediaEncryptedEvent: W.Event, MediaKeyMessageEvent: W.Event, MediaQueryListEvent: W.Event, MediaStreamEvent: W.Event, MediaStreamTrackEvent: W.Event, MessageEvent: W.Event, MIDIConnectionEvent: W.Event, MIDIMessageEvent: W.Event, MutationEvent: W.Event, NotificationEvent: W.Event, PageTransitionEvent: W.Event, PaymentRequestEvent: W.Event, PaymentRequestUpdateEvent: W.Event, PopStateEvent: W.Event, PresentationConnectionAvailableEvent: W.Event, PresentationConnectionCloseEvent: W.Event, PromiseRejectionEvent: W.Event, PushEvent: W.Event, RTCDataChannelEvent: W.Event, RTCDTMFToneChangeEvent: W.Event, RTCPeerConnectionIceEvent: W.Event, RTCTrackEvent: W.Event, SecurityPolicyViolationEvent: W.Event, SensorErrorEvent: W.Event, SpeechRecognitionError: W.Event, SpeechRecognitionEvent: W.Event, SpeechSynthesisEvent: W.Event, StorageEvent: W.Event, SyncEvent: W.Event, TrackEvent: W.Event, TransitionEvent: W.Event, WebKitTransitionEvent: W.Event, VRDeviceEvent: W.Event, VRDisplayEvent: W.Event, VRSessionEvent: W.Event, MojoInterfaceRequestEvent: W.Event, USBConnectionEvent: W.Event, IDBVersionChangeEvent: W.Event, AudioProcessingEvent: W.Event, OfflineAudioCompletionEvent: W.Event, WebGLContextEvent: W.Event, Event: W.Event, InputEvent: W.Event, Window: W.EventTarget, DOMWindow: W.EventTarget, EventTarget: W.EventTarget, HTMLFormElement: W.FormElement, XMLHttpRequest: W.HttpRequest, XMLHttpRequestEventTarget: W.HttpRequestEventTarget, Location: W.Location, MouseEvent: W.MouseEvent, DragEvent: W.MouseEvent, PointerEvent: W.MouseEvent, WheelEvent: W.MouseEvent, Document: W.Node, DocumentFragment: W.Node, HTMLDocument: W.Node, ShadowRoot: W.Node, XMLDocument: W.Node, DocumentType: W.Node, Node: W.Node, NodeList: W.NodeList, RadioNodeList: W.NodeList, ProgressEvent: W.ProgressEvent, ResourceProgressEvent: W.ProgressEvent, HTMLSelectElement: W.SelectElement, HTMLTableElement: W.TableElement, HTMLTableRowElement: W.TableRowElement, HTMLTableSectionElement: W.TableSectionElement, HTMLTemplateElement: W.TemplateElement, CompositionEvent: W.UIEvent, FocusEvent: W.UIEvent, KeyboardEvent: W.UIEvent, TextEvent: W.UIEvent, TouchEvent: W.UIEvent, UIEvent: W.UIEvent, Attr: W._Attr, NamedNodeMap: W._NamedNodeMap, MozNamedAttrMap: W._NamedNodeMap, SVGScriptElement: P.ScriptElement, SVGAElement: P.SvgElement, SVGAnimateElement: P.SvgElement, SVGAnimateMotionElement: P.SvgElement, SVGAnimateTransformElement: P.SvgElement, SVGAnimationElement: P.SvgElement, SVGCircleElement: P.SvgElement, SVGClipPathElement: P.SvgElement, SVGDefsElement: P.SvgElement, SVGDescElement: P.SvgElement, SVGDiscardElement: P.SvgElement, SVGEllipseElement: P.SvgElement, SVGFEBlendElement: P.SvgElement, SVGFEColorMatrixElement: P.SvgElement, SVGFEComponentTransferElement: P.SvgElement, SVGFECompositeElement: P.SvgElement, SVGFEConvolveMatrixElement: P.SvgElement, SVGFEDiffuseLightingElement: P.SvgElement, SVGFEDisplacementMapElement: P.SvgElement, SVGFEDistantLightElement: P.SvgElement, SVGFEFloodElement: P.SvgElement, SVGFEFuncAElement: P.SvgElement, SVGFEFuncBElement: P.SvgElement, SVGFEFuncGElement: P.SvgElement, SVGFEFuncRElement: P.SvgElement, SVGFEGaussianBlurElement: P.SvgElement, SVGFEImageElement: P.SvgElement, SVGFEMergeElement: P.SvgElement, SVGFEMergeNodeElement: P.SvgElement, SVGFEMorphologyElement: P.SvgElement, SVGFEOffsetElement: P.SvgElement, SVGFEPointLightElement: P.SvgElement, SVGFESpecularLightingElement: P.SvgElement, SVGFESpotLightElement: P.SvgElement, SVGFETileElement: P.SvgElement, SVGFETurbulenceElement: P.SvgElement, SVGFilterElement: P.SvgElement, SVGForeignObjectElement: P.SvgElement, SVGGElement: P.SvgElement, SVGGeometryElement: P.SvgElement, SVGGraphicsElement: P.SvgElement, SVGImageElement: P.SvgElement, SVGLineElement: P.SvgElement, SVGLinearGradientElement: P.SvgElement, SVGMarkerElement: P.SvgElement, SVGMaskElement: P.SvgElement, SVGMetadataElement: P.SvgElement, SVGPathElement: P.SvgElement, SVGPatternElement: P.SvgElement, SVGPolygonElement: P.SvgElement, SVGPolylineElement: P.SvgElement, SVGRadialGradientElement: P.SvgElement, SVGRectElement: P.SvgElement, SVGSetElement: P.SvgElement, SVGStopElement: P.SvgElement, SVGStyleElement: P.SvgElement, SVGSVGElement: P.SvgElement, SVGSwitchElement: P.SvgElement, SVGSymbolElement: P.SvgElement, SVGTSpanElement: P.SvgElement, SVGTextContentElement: P.SvgElement, SVGTextElement: P.SvgElement, SVGTextPathElement: P.SvgElement, SVGTextPositioningElement: P.SvgElement, SVGTitleElement: P.SvgElement, SVGUseElement: P.SvgElement, SVGViewElement: P.SvgElement, SVGGradientElement: P.SvgElement, SVGComponentTransferFunctionElement: P.SvgElement, SVGFEDropShadowElement: P.SvgElement, SVGMPathElement: P.SvgElement, SVGElement: P.SvgElement});
-    hunkHelpers.setOrUpdateLeafTags({DOMError: true, DOMImplementation: true, MediaError: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, Range: true, SQLError: true, HTMLAudioElement: true, HTMLBRElement: true, HTMLButtonElement: true, HTMLCanvasElement: true, HTMLContentElement: true, HTMLDListElement: true, HTMLDataElement: true, HTMLDataListElement: true, HTMLDetailsElement: true, HTMLDialogElement: true, HTMLDivElement: true, HTMLEmbedElement: true, HTMLFieldSetElement: true, HTMLHRElement: true, HTMLHeadElement: true, HTMLHeadingElement: true, HTMLHtmlElement: true, HTMLIFrameElement: true, HTMLImageElement: true, HTMLInputElement: true, HTMLLIElement: true, HTMLLabelElement: true, HTMLLegendElement: true, HTMLLinkElement: true, HTMLMapElement: true, HTMLMediaElement: true, HTMLMenuElement: true, HTMLMetaElement: true, HTMLMeterElement: true, HTMLModElement: true, HTMLOListElement: true, HTMLObjectElement: true, HTMLOptGroupElement: true, HTMLOptionElement: true, HTMLOutputElement: true, HTMLParagraphElement: true, HTMLParamElement: true, HTMLPictureElement: true, HTMLPreElement: true, HTMLProgressElement: true, HTMLQuoteElement: true, HTMLScriptElement: true, HTMLShadowElement: true, HTMLSlotElement: true, HTMLSourceElement: true, HTMLSpanElement: true, HTMLStyleElement: true, HTMLTableCaptionElement: true, HTMLTableCellElement: true, HTMLTableDataCellElement: true, HTMLTableHeaderCellElement: true, HTMLTableColElement: true, HTMLTextAreaElement: true, HTMLTimeElement: true, HTMLTitleElement: true, HTMLTrackElement: true, HTMLUListElement: true, HTMLUnknownElement: true, HTMLVideoElement: true, HTMLDirectoryElement: true, HTMLFontElement: true, HTMLFrameElement: true, HTMLFrameSetElement: true, HTMLMarqueeElement: true, HTMLElement: false, HTMLAnchorElement: true, HTMLAreaElement: true, HTMLBaseElement: true, HTMLBodyElement: true, CDATASection: true, CharacterData: true, Comment: true, ProcessingInstruction: true, Text: true, DOMException: true, Element: false, AbortPaymentEvent: true, AnimationEvent: true, AnimationPlaybackEvent: true, ApplicationCacheErrorEvent: true, BackgroundFetchClickEvent: true, BackgroundFetchEvent: true, BackgroundFetchFailEvent: true, BackgroundFetchedEvent: true, BeforeInstallPromptEvent: true, BeforeUnloadEvent: true, BlobEvent: true, CanMakePaymentEvent: true, ClipboardEvent: true, CloseEvent: true, CustomEvent: true, DeviceMotionEvent: true, DeviceOrientationEvent: true, ErrorEvent: true, ExtendableEvent: true, ExtendableMessageEvent: true, FetchEvent: true, FontFaceSetLoadEvent: true, ForeignFetchEvent: true, GamepadEvent: true, HashChangeEvent: true, InstallEvent: true, MediaEncryptedEvent: true, MediaKeyMessageEvent: true, MediaQueryListEvent: true, MediaStreamEvent: true, MediaStreamTrackEvent: true, MessageEvent: true, MIDIConnectionEvent: true, MIDIMessageEvent: true, MutationEvent: true, NotificationEvent: true, PageTransitionEvent: true, PaymentRequestEvent: true, PaymentRequestUpdateEvent: true, PopStateEvent: true, PresentationConnectionAvailableEvent: true, PresentationConnectionCloseEvent: true, PromiseRejectionEvent: true, PushEvent: true, RTCDataChannelEvent: true, RTCDTMFToneChangeEvent: true, RTCPeerConnectionIceEvent: true, RTCTrackEvent: true, SecurityPolicyViolationEvent: true, SensorErrorEvent: true, SpeechRecognitionError: true, SpeechRecognitionEvent: true, SpeechSynthesisEvent: true, StorageEvent: true, SyncEvent: true, TrackEvent: true, TransitionEvent: true, WebKitTransitionEvent: true, VRDeviceEvent: true, VRDisplayEvent: true, VRSessionEvent: true, MojoInterfaceRequestEvent: true, USBConnectionEvent: true, IDBVersionChangeEvent: true, AudioProcessingEvent: true, OfflineAudioCompletionEvent: true, WebGLContextEvent: true, Event: false, InputEvent: false, Window: true, DOMWindow: true, EventTarget: false, HTMLFormElement: true, XMLHttpRequest: true, XMLHttpRequestEventTarget: false, Location: true, MouseEvent: true, DragEvent: true, PointerEvent: true, WheelEvent: true, Document: true, DocumentFragment: true, HTMLDocument: true, ShadowRoot: true, XMLDocument: true, DocumentType: true, Node: false, NodeList: true, RadioNodeList: true, ProgressEvent: true, ResourceProgressEvent: true, HTMLSelectElement: true, HTMLTableElement: true, HTMLTableRowElement: true, HTMLTableSectionElement: true, HTMLTemplateElement: true, CompositionEvent: true, FocusEvent: true, KeyboardEvent: true, TextEvent: true, TouchEvent: true, UIEvent: false, Attr: true, NamedNodeMap: true, MozNamedAttrMap: true, SVGScriptElement: true, SVGAElement: true, SVGAnimateElement: true, SVGAnimateMotionElement: true, SVGAnimateTransformElement: true, SVGAnimationElement: true, SVGCircleElement: true, SVGClipPathElement: true, SVGDefsElement: true, SVGDescElement: true, SVGDiscardElement: true, SVGEllipseElement: true, SVGFEBlendElement: true, SVGFEColorMatrixElement: true, SVGFEComponentTransferElement: true, SVGFECompositeElement: true, SVGFEConvolveMatrixElement: true, SVGFEDiffuseLightingElement: true, SVGFEDisplacementMapElement: true, SVGFEDistantLightElement: true, SVGFEFloodElement: true, SVGFEFuncAElement: true, SVGFEFuncBElement: true, SVGFEFuncGElement: true, SVGFEFuncRElement: true, SVGFEGaussianBlurElement: true, SVGFEImageElement: true, SVGFEMergeElement: true, SVGFEMergeNodeElement: true, SVGFEMorphologyElement: true, SVGFEOffsetElement: true, SVGFEPointLightElement: true, SVGFESpecularLightingElement: true, SVGFESpotLightElement: true, SVGFETileElement: true, SVGFETurbulenceElement: true, SVGFilterElement: true, SVGForeignObjectElement: true, SVGGElement: true, SVGGeometryElement: true, SVGGraphicsElement: true, SVGImageElement: true, SVGLineElement: true, SVGLinearGradientElement: true, SVGMarkerElement: true, SVGMaskElement: true, SVGMetadataElement: true, SVGPathElement: true, SVGPatternElement: true, SVGPolygonElement: true, SVGPolylineElement: true, SVGRadialGradientElement: true, SVGRectElement: true, SVGSetElement: true, SVGStopElement: true, SVGStyleElement: true, SVGSVGElement: true, SVGSwitchElement: true, SVGSymbolElement: true, SVGTSpanElement: true, SVGTextContentElement: true, SVGTextElement: true, SVGTextPathElement: true, SVGTextPositioningElement: true, SVGTitleElement: true, SVGUseElement: true, SVGViewElement: true, SVGGradientElement: true, SVGComponentTransferFunctionElement: true, SVGFEDropShadowElement: true, SVGMPathElement: true, SVGElement: false});
+    hunkHelpers.setOrUpdateInterceptorsByTag({DOMError: J.Interceptor, DOMImplementation: J.Interceptor, MediaError: J.Interceptor, NavigatorUserMediaError: J.Interceptor, OverconstrainedError: J.Interceptor, PositionError: J.Interceptor, Range: J.Interceptor, SQLError: J.Interceptor, HTMLAudioElement: W.HtmlElement, HTMLBRElement: W.HtmlElement, HTMLButtonElement: W.HtmlElement, HTMLCanvasElement: W.HtmlElement, HTMLContentElement: W.HtmlElement, HTMLDListElement: W.HtmlElement, HTMLDataElement: W.HtmlElement, HTMLDataListElement: W.HtmlElement, HTMLDetailsElement: W.HtmlElement, HTMLDialogElement: W.HtmlElement, HTMLDivElement: W.HtmlElement, HTMLEmbedElement: W.HtmlElement, HTMLFieldSetElement: W.HtmlElement, HTMLHRElement: W.HtmlElement, HTMLHeadElement: W.HtmlElement, HTMLHeadingElement: W.HtmlElement, HTMLHtmlElement: W.HtmlElement, HTMLIFrameElement: W.HtmlElement, HTMLImageElement: W.HtmlElement, HTMLLIElement: W.HtmlElement, HTMLLabelElement: W.HtmlElement, HTMLLegendElement: W.HtmlElement, HTMLLinkElement: W.HtmlElement, HTMLMapElement: W.HtmlElement, HTMLMediaElement: W.HtmlElement, HTMLMenuElement: W.HtmlElement, HTMLMetaElement: W.HtmlElement, HTMLMeterElement: W.HtmlElement, HTMLModElement: W.HtmlElement, HTMLOListElement: W.HtmlElement, HTMLObjectElement: W.HtmlElement, HTMLOptGroupElement: W.HtmlElement, HTMLOptionElement: W.HtmlElement, HTMLOutputElement: W.HtmlElement, HTMLParagraphElement: W.HtmlElement, HTMLParamElement: W.HtmlElement, HTMLPictureElement: W.HtmlElement, HTMLPreElement: W.HtmlElement, HTMLProgressElement: W.HtmlElement, HTMLQuoteElement: W.HtmlElement, HTMLScriptElement: W.HtmlElement, HTMLShadowElement: W.HtmlElement, HTMLSlotElement: W.HtmlElement, HTMLSourceElement: W.HtmlElement, HTMLSpanElement: W.HtmlElement, HTMLStyleElement: W.HtmlElement, HTMLTableCaptionElement: W.HtmlElement, HTMLTableCellElement: W.HtmlElement, HTMLTableDataCellElement: W.HtmlElement, HTMLTableHeaderCellElement: W.HtmlElement, HTMLTableColElement: W.HtmlElement, HTMLTextAreaElement: W.HtmlElement, HTMLTimeElement: W.HtmlElement, HTMLTitleElement: W.HtmlElement, HTMLTrackElement: W.HtmlElement, HTMLUListElement: W.HtmlElement, HTMLUnknownElement: W.HtmlElement, HTMLVideoElement: W.HtmlElement, HTMLDirectoryElement: W.HtmlElement, HTMLFontElement: W.HtmlElement, HTMLFrameElement: W.HtmlElement, HTMLFrameSetElement: W.HtmlElement, HTMLMarqueeElement: W.HtmlElement, HTMLElement: W.HtmlElement, HTMLAnchorElement: W.AnchorElement, HTMLAreaElement: W.AreaElement, HTMLBaseElement: W.BaseElement, HTMLBodyElement: W.BodyElement, CDATASection: W.CharacterData, CharacterData: W.CharacterData, Comment: W.CharacterData, ProcessingInstruction: W.CharacterData, Text: W.CharacterData, DOMException: W.DomException, Element: W.Element, AbortPaymentEvent: W.Event, AnimationEvent: W.Event, AnimationPlaybackEvent: W.Event, ApplicationCacheErrorEvent: W.Event, BackgroundFetchClickEvent: W.Event, BackgroundFetchEvent: W.Event, BackgroundFetchFailEvent: W.Event, BackgroundFetchedEvent: W.Event, BeforeInstallPromptEvent: W.Event, BeforeUnloadEvent: W.Event, BlobEvent: W.Event, CanMakePaymentEvent: W.Event, ClipboardEvent: W.Event, CloseEvent: W.Event, CustomEvent: W.Event, DeviceMotionEvent: W.Event, DeviceOrientationEvent: W.Event, ErrorEvent: W.Event, ExtendableEvent: W.Event, ExtendableMessageEvent: W.Event, FetchEvent: W.Event, FontFaceSetLoadEvent: W.Event, ForeignFetchEvent: W.Event, GamepadEvent: W.Event, HashChangeEvent: W.Event, InstallEvent: W.Event, MediaEncryptedEvent: W.Event, MediaKeyMessageEvent: W.Event, MediaQueryListEvent: W.Event, MediaStreamEvent: W.Event, MediaStreamTrackEvent: W.Event, MessageEvent: W.Event, MIDIConnectionEvent: W.Event, MIDIMessageEvent: W.Event, MutationEvent: W.Event, NotificationEvent: W.Event, PageTransitionEvent: W.Event, PaymentRequestEvent: W.Event, PaymentRequestUpdateEvent: W.Event, PopStateEvent: W.Event, PresentationConnectionAvailableEvent: W.Event, PresentationConnectionCloseEvent: W.Event, PromiseRejectionEvent: W.Event, PushEvent: W.Event, RTCDataChannelEvent: W.Event, RTCDTMFToneChangeEvent: W.Event, RTCPeerConnectionIceEvent: W.Event, RTCTrackEvent: W.Event, SecurityPolicyViolationEvent: W.Event, SensorErrorEvent: W.Event, SpeechRecognitionError: W.Event, SpeechRecognitionEvent: W.Event, SpeechSynthesisEvent: W.Event, StorageEvent: W.Event, SyncEvent: W.Event, TrackEvent: W.Event, TransitionEvent: W.Event, WebKitTransitionEvent: W.Event, VRDeviceEvent: W.Event, VRDisplayEvent: W.Event, VRSessionEvent: W.Event, MojoInterfaceRequestEvent: W.Event, USBConnectionEvent: W.Event, IDBVersionChangeEvent: W.Event, AudioProcessingEvent: W.Event, OfflineAudioCompletionEvent: W.Event, WebGLContextEvent: W.Event, Event: W.Event, InputEvent: W.Event, Window: W.EventTarget, DOMWindow: W.EventTarget, EventTarget: W.EventTarget, HTMLFormElement: W.FormElement, XMLHttpRequest: W.HttpRequest, XMLHttpRequestEventTarget: W.HttpRequestEventTarget, HTMLInputElement: W.InputElement, Location: W.Location, MouseEvent: W.MouseEvent, DragEvent: W.MouseEvent, PointerEvent: W.MouseEvent, WheelEvent: W.MouseEvent, Document: W.Node, DocumentFragment: W.Node, HTMLDocument: W.Node, ShadowRoot: W.Node, XMLDocument: W.Node, DocumentType: W.Node, Node: W.Node, NodeList: W.NodeList, RadioNodeList: W.NodeList, ProgressEvent: W.ProgressEvent, ResourceProgressEvent: W.ProgressEvent, HTMLSelectElement: W.SelectElement, HTMLTableElement: W.TableElement, HTMLTableRowElement: W.TableRowElement, HTMLTableSectionElement: W.TableSectionElement, HTMLTemplateElement: W.TemplateElement, CompositionEvent: W.UIEvent, FocusEvent: W.UIEvent, KeyboardEvent: W.UIEvent, TextEvent: W.UIEvent, TouchEvent: W.UIEvent, UIEvent: W.UIEvent, Attr: W._Attr, NamedNodeMap: W._NamedNodeMap, MozNamedAttrMap: W._NamedNodeMap, SVGScriptElement: P.ScriptElement, SVGAElement: P.SvgElement, SVGAnimateElement: P.SvgElement, SVGAnimateMotionElement: P.SvgElement, SVGAnimateTransformElement: P.SvgElement, SVGAnimationElement: P.SvgElement, SVGCircleElement: P.SvgElement, SVGClipPathElement: P.SvgElement, SVGDefsElement: P.SvgElement, SVGDescElement: P.SvgElement, SVGDiscardElement: P.SvgElement, SVGEllipseElement: P.SvgElement, SVGFEBlendElement: P.SvgElement, SVGFEColorMatrixElement: P.SvgElement, SVGFEComponentTransferElement: P.SvgElement, SVGFECompositeElement: P.SvgElement, SVGFEConvolveMatrixElement: P.SvgElement, SVGFEDiffuseLightingElement: P.SvgElement, SVGFEDisplacementMapElement: P.SvgElement, SVGFEDistantLightElement: P.SvgElement, SVGFEFloodElement: P.SvgElement, SVGFEFuncAElement: P.SvgElement, SVGFEFuncBElement: P.SvgElement, SVGFEFuncGElement: P.SvgElement, SVGFEFuncRElement: P.SvgElement, SVGFEGaussianBlurElement: P.SvgElement, SVGFEImageElement: P.SvgElement, SVGFEMergeElement: P.SvgElement, SVGFEMergeNodeElement: P.SvgElement, SVGFEMorphologyElement: P.SvgElement, SVGFEOffsetElement: P.SvgElement, SVGFEPointLightElement: P.SvgElement, SVGFESpecularLightingElement: P.SvgElement, SVGFESpotLightElement: P.SvgElement, SVGFETileElement: P.SvgElement, SVGFETurbulenceElement: P.SvgElement, SVGFilterElement: P.SvgElement, SVGForeignObjectElement: P.SvgElement, SVGGElement: P.SvgElement, SVGGeometryElement: P.SvgElement, SVGGraphicsElement: P.SvgElement, SVGImageElement: P.SvgElement, SVGLineElement: P.SvgElement, SVGLinearGradientElement: P.SvgElement, SVGMarkerElement: P.SvgElement, SVGMaskElement: P.SvgElement, SVGMetadataElement: P.SvgElement, SVGPathElement: P.SvgElement, SVGPatternElement: P.SvgElement, SVGPolygonElement: P.SvgElement, SVGPolylineElement: P.SvgElement, SVGRadialGradientElement: P.SvgElement, SVGRectElement: P.SvgElement, SVGSetElement: P.SvgElement, SVGStopElement: P.SvgElement, SVGStyleElement: P.SvgElement, SVGSVGElement: P.SvgElement, SVGSwitchElement: P.SvgElement, SVGSymbolElement: P.SvgElement, SVGTSpanElement: P.SvgElement, SVGTextContentElement: P.SvgElement, SVGTextElement: P.SvgElement, SVGTextPathElement: P.SvgElement, SVGTextPositioningElement: P.SvgElement, SVGTitleElement: P.SvgElement, SVGUseElement: P.SvgElement, SVGViewElement: P.SvgElement, SVGGradientElement: P.SvgElement, SVGComponentTransferFunctionElement: P.SvgElement, SVGFEDropShadowElement: P.SvgElement, SVGMPathElement: P.SvgElement, SVGElement: P.SvgElement});
+    hunkHelpers.setOrUpdateLeafTags({DOMError: true, DOMImplementation: true, MediaError: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, Range: true, SQLError: true, HTMLAudioElement: true, HTMLBRElement: true, HTMLButtonElement: true, HTMLCanvasElement: true, HTMLContentElement: true, HTMLDListElement: true, HTMLDataElement: true, HTMLDataListElement: true, HTMLDetailsElement: true, HTMLDialogElement: true, HTMLDivElement: true, HTMLEmbedElement: true, HTMLFieldSetElement: true, HTMLHRElement: true, HTMLHeadElement: true, HTMLHeadingElement: true, HTMLHtmlElement: true, HTMLIFrameElement: true, HTMLImageElement: true, HTMLLIElement: true, HTMLLabelElement: true, HTMLLegendElement: true, HTMLLinkElement: true, HTMLMapElement: true, HTMLMediaElement: true, HTMLMenuElement: true, HTMLMetaElement: true, HTMLMeterElement: true, HTMLModElement: true, HTMLOListElement: true, HTMLObjectElement: true, HTMLOptGroupElement: true, HTMLOptionElement: true, HTMLOutputElement: true, HTMLParagraphElement: true, HTMLParamElement: true, HTMLPictureElement: true, HTMLPreElement: true, HTMLProgressElement: true, HTMLQuoteElement: true, HTMLScriptElement: true, HTMLShadowElement: true, HTMLSlotElement: true, HTMLSourceElement: true, HTMLSpanElement: true, HTMLStyleElement: true, HTMLTableCaptionElement: true, HTMLTableCellElement: true, HTMLTableDataCellElement: true, HTMLTableHeaderCellElement: true, HTMLTableColElement: true, HTMLTextAreaElement: true, HTMLTimeElement: true, HTMLTitleElement: true, HTMLTrackElement: true, HTMLUListElement: true, HTMLUnknownElement: true, HTMLVideoElement: true, HTMLDirectoryElement: true, HTMLFontElement: true, HTMLFrameElement: true, HTMLFrameSetElement: true, HTMLMarqueeElement: true, HTMLElement: false, HTMLAnchorElement: true, HTMLAreaElement: true, HTMLBaseElement: true, HTMLBodyElement: true, CDATASection: true, CharacterData: true, Comment: true, ProcessingInstruction: true, Text: true, DOMException: true, Element: false, AbortPaymentEvent: true, AnimationEvent: true, AnimationPlaybackEvent: true, ApplicationCacheErrorEvent: true, BackgroundFetchClickEvent: true, BackgroundFetchEvent: true, BackgroundFetchFailEvent: true, BackgroundFetchedEvent: true, BeforeInstallPromptEvent: true, BeforeUnloadEvent: true, BlobEvent: true, CanMakePaymentEvent: true, ClipboardEvent: true, CloseEvent: true, CustomEvent: true, DeviceMotionEvent: true, DeviceOrientationEvent: true, ErrorEvent: true, ExtendableEvent: true, ExtendableMessageEvent: true, FetchEvent: true, FontFaceSetLoadEvent: true, ForeignFetchEvent: true, GamepadEvent: true, HashChangeEvent: true, InstallEvent: true, MediaEncryptedEvent: true, MediaKeyMessageEvent: true, MediaQueryListEvent: true, MediaStreamEvent: true, MediaStreamTrackEvent: true, MessageEvent: true, MIDIConnectionEvent: true, MIDIMessageEvent: true, MutationEvent: true, NotificationEvent: true, PageTransitionEvent: true, PaymentRequestEvent: true, PaymentRequestUpdateEvent: true, PopStateEvent: true, PresentationConnectionAvailableEvent: true, PresentationConnectionCloseEvent: true, PromiseRejectionEvent: true, PushEvent: true, RTCDataChannelEvent: true, RTCDTMFToneChangeEvent: true, RTCPeerConnectionIceEvent: true, RTCTrackEvent: true, SecurityPolicyViolationEvent: true, SensorErrorEvent: true, SpeechRecognitionError: true, SpeechRecognitionEvent: true, SpeechSynthesisEvent: true, StorageEvent: true, SyncEvent: true, TrackEvent: true, TransitionEvent: true, WebKitTransitionEvent: true, VRDeviceEvent: true, VRDisplayEvent: true, VRSessionEvent: true, MojoInterfaceRequestEvent: true, USBConnectionEvent: true, IDBVersionChangeEvent: true, AudioProcessingEvent: true, OfflineAudioCompletionEvent: true, WebGLContextEvent: true, Event: false, InputEvent: false, Window: true, DOMWindow: true, EventTarget: false, HTMLFormElement: true, XMLHttpRequest: true, XMLHttpRequestEventTarget: false, HTMLInputElement: true, Location: true, MouseEvent: true, DragEvent: true, PointerEvent: true, WheelEvent: true, Document: true, DocumentFragment: true, HTMLDocument: true, ShadowRoot: true, XMLDocument: true, DocumentType: true, Node: false, NodeList: true, RadioNodeList: true, ProgressEvent: true, ResourceProgressEvent: true, HTMLSelectElement: true, HTMLTableElement: true, HTMLTableRowElement: true, HTMLTableSectionElement: true, HTMLTemplateElement: true, CompositionEvent: true, FocusEvent: true, KeyboardEvent: true, TextEvent: true, TouchEvent: true, UIEvent: false, Attr: true, NamedNodeMap: true, MozNamedAttrMap: true, SVGScriptElement: true, SVGAElement: true, SVGAnimateElement: true, SVGAnimateMotionElement: true, SVGAnimateTransformElement: true, SVGAnimationElement: true, SVGCircleElement: true, SVGClipPathElement: true, SVGDefsElement: true, SVGDescElement: true, SVGDiscardElement: true, SVGEllipseElement: true, SVGFEBlendElement: true, SVGFEColorMatrixElement: true, SVGFEComponentTransferElement: true, SVGFECompositeElement: true, SVGFEConvolveMatrixElement: true, SVGFEDiffuseLightingElement: true, SVGFEDisplacementMapElement: true, SVGFEDistantLightElement: true, SVGFEFloodElement: true, SVGFEFuncAElement: true, SVGFEFuncBElement: true, SVGFEFuncGElement: true, SVGFEFuncRElement: true, SVGFEGaussianBlurElement: true, SVGFEImageElement: true, SVGFEMergeElement: true, SVGFEMergeNodeElement: true, SVGFEMorphologyElement: true, SVGFEOffsetElement: true, SVGFEPointLightElement: true, SVGFESpecularLightingElement: true, SVGFESpotLightElement: true, SVGFETileElement: true, SVGFETurbulenceElement: true, SVGFilterElement: true, SVGForeignObjectElement: true, SVGGElement: true, SVGGeometryElement: true, SVGGraphicsElement: true, SVGImageElement: true, SVGLineElement: true, SVGLinearGradientElement: true, SVGMarkerElement: true, SVGMaskElement: true, SVGMetadataElement: true, SVGPathElement: true, SVGPatternElement: true, SVGPolygonElement: true, SVGPolylineElement: true, SVGRadialGradientElement: true, SVGRectElement: true, SVGSetElement: true, SVGStopElement: true, SVGStyleElement: true, SVGSVGElement: true, SVGSwitchElement: true, SVGSymbolElement: true, SVGTSpanElement: true, SVGTextContentElement: true, SVGTextElement: true, SVGTextPathElement: true, SVGTextPositioningElement: true, SVGTitleElement: true, SVGUseElement: true, SVGViewElement: true, SVGGradientElement: true, SVGComponentTransferFunctionElement: true, SVGFEDropShadowElement: true, SVGMPathElement: true, SVGElement: false});
   })();
   convertAllToFastObject(holders);
   convertToFastObject($);
