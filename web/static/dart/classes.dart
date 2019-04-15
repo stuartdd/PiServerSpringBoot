@@ -18,7 +18,6 @@ class MyButtonManager {
       });
     });
   }
-
   void init() {
     window.console.info('MyButtonManager:Init:');
   }

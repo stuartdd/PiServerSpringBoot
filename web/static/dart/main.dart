@@ -10,8 +10,10 @@ const String PAGE_NAME_WELCOME = 'welcome';
 const String PAGE_NAME_MAIN = 'main';
 const String PAGE_THUMBNAILS = 'thumbnails';
 const String PAGE_ORIGINAL = 'original';
+const String PAGE_STATUS = 'status';
 
-const List<String> NAV_BUTTON_IDS = ['back', 'home'];
+
+const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
 const List<String> ADD_SUB_BUTTON_IDS = ['addCol', 'subCol'];
 
 const String iconSize = '80';
@@ -30,6 +32,7 @@ final Element userThumbnailDirList = querySelector('#userThumbnailDirList');
 final Element userThumbnails = querySelector('#userThumbnails');
 final Element navButtons = querySelector('#navButtons');
 final Element originalImage = querySelector('#originalImage');
+final Element userFileSizes = querySelector('#userFileSizes');
 
 List userList = new List();
 String currentUserId = null;
@@ -38,7 +41,7 @@ Map userDataMap = null;
 Map thumbNailDirList = null;
 Map thumbNailList = null;
 Map selectedDirectoryHistory = {};
-
+List<Map> userFileSizesData = new List();
 /**
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
  */
@@ -46,7 +49,8 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_NAME_WELCOME, querySelector('#page_welcome'), initWelcomePage),
   PageDiv(PAGE_NAME_MAIN,  querySelector('#page_main'), initMainPage),
   PageDiv(PAGE_THUMBNAILS,  querySelector('#page_thumbnails'), initThumbNailPage),
-  PageDiv(PAGE_ORIGINAL,  querySelector('#page_original'), initOriginalImagePage)
+  PageDiv(PAGE_ORIGINAL,  querySelector('#page_original'), initOriginalImagePage),
+  PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage)
 ]);
 /**
  * Define all the buttons and their actions. Each button is added to the MyButtonManager
@@ -54,6 +58,7 @@ final PageDivManager pageManager = new PageDivManager([
 final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}),
   MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
+  MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
   MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);})
 ]);
@@ -65,16 +70,19 @@ ServerRequest fetchUserList = ServerRequest('GET', '/server/users', 'Reading use
   userList = resp.map['users'];
   populateUserTable();
 });
+ServerRequest fetchUserFileSizes = ServerRequest('GET', '/files/loc/cache/name/ufs', 'Reading user file sizes', processError, (resp) {
+  userFileSizesData = resp.map;
+  window.console.debug(userFileSizesData.toString());
+  populateUserFileSizes();
+});
 ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time from server', processError, (resp) {
   timeText.text = resp.map['time']['time3'];
   dateText.text = resp.map['time']['monthDay'];
 });
-
 ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json', 'Reading user state from server', processError, (resp) {
   userDataMap = resp.map;
 });
 ServerRequest saveUserList = ServerRequest('POST', '/files/user/{1}/loc/data/name/state.json', 'Writing user data to server', processError, null);
-
 ServerRequest fetchThumbNailDirPaths = ServerRequest('GET', '/paths/user/{1}/loc/thumbs', 'Reading thumbnail dir list', processError, (resp) {
   thumbNailDirList = resp.map;
   populateThumbNailDirList();
@@ -93,6 +101,11 @@ void main() {
   fetchTimeData.send();
   fetchUserList.send();
   pageManager.display(PAGE_NAME_WELCOME);
+}
+
+Future<void> selectStatusPage() async {
+  await fetchUserFileSizes.send(); 
+  pageManager.display(PAGE_STATUS);
 }
 
 Future<void> selectThumbnailDir(String name, String base64) async {
@@ -115,6 +128,18 @@ Future<void> selectThumbnailImage(String encPath, String encName, String dispNam
   processError('D', '${encPath} --> ${encName}');
   originalImage.innerHtml = '<img width=\"100%\" title=\"${dispName}\"src=\"/files/user/${currentUserId}/loc/thumbs/path/${encPath}/name/${encName}\">';
   pageManager.display(PAGE_ORIGINAL);
+}
+
+/**
+ * [{"Size":"162215134","Name":"shared"},{"Size":"35722111","Name":"stuart"},{"Size":"36979282","Name":"julie"},{"Size":"36854954","Name":"owain"},{"Size":"10696354","Name":"huw"}]
+ */
+void populateUserFileSizes() {
+  String htmlStr = '<table width=\"100%\">';  
+  userFileSizesData.forEach((ufsData) {
+    htmlStr += '<tr><td>${ufsData['Name']}</td><td>${ufsData['Size']}</td></tr>';
+  }); 
+  htmlStr += '</table>';
+  userFileSizes.innerHtml = htmlStr;
 }
 
 void populateThumbnails() {
