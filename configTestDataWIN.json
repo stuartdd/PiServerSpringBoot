@@ -30,7 +30,7 @@
             "templates" : "data/templates",
             "static" : "data/static"
         },
-        "alias" : {"ufs":"userFileSizes.out"}
+        "alias" : {"ufs":"userFileSizes.json"}
     },
 
     "functions": {

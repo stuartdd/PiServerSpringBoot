@@ -30,7 +30,7 @@
             "static" : "data/static",
             "audio": "audio"
         },
-        "alias" : {"ufs":"userFileSizes.out"}
+        "alias" : {"ufs":"userFileSizes.json"}
     },
 
     "functions": {

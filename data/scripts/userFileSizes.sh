@@ -6,7 +6,7 @@
 #    Run this file by hand if the cache contents are deleted.
 #
 # It creates a dummy file in the cache directory that is read by the web app.
-#   userFileSizes.out
+#   userFileSizes.json
 #
 CACHE=../cache
 TMPFILE="$(mktemp)"
@@ -20,6 +20,6 @@ echo '36979282        /media/USBHDD1/shares/julie' >> $TMPFILE
 echo '36854954        /media/USBHDD1/shares/owain' >> $TMPFILE
 echo '10696354        /media/USBHDD1/shares/huw' >> $TMPFILE
 echo {start}
-java -cp ../../build/classes/java/main/ external.JsonFormatterPipe -nSize,Name -p1,5 -l5 -de32,47 -ou$CACHE/userFileSizes.out -in$TMPFILE
+java -cp ../../build/classes/java/main/ external.JsonFormatterPipe -nSize,Name -p1,5 -l5 -de32,47 -ou$CACHE/userFileSizes.json -in$TMPFILE
 echo {end}
 rm $TMPFILE
