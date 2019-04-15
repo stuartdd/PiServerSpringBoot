@@ -9,6 +9,16 @@ class MyButtonManager {
     this.buttons = buttons;
   }
 
+  void hidden(List<String> buttonIds, bool hide) {
+    buttonIds.forEach((buttonName) {
+      buttons.forEach((button) {
+        if (buttonName == button.id) {
+          button.hidden(hide);
+        }
+      });
+    });
+  }
+
   void init() {
     window.console.info('MyButtonManager:Init:');
   }
@@ -20,6 +30,9 @@ class MyButton {
   Function onPress;
 
   MyButton(String id, Element element, Function onPress) {
+    if (element == null) {
+      window.console.error('MyButton:Constructor:id[$id]:Element is null');
+    }
     this.id = id;
     this.element = element;
     this.onPress = onPress;
@@ -27,6 +40,10 @@ class MyButton {
     this.element.onClick.listen((e) {
       this.onPressFunc(e);
     });
+  }
+
+  void hidden(bool hide) {
+    this.element.hidden = hide;
   }
 
   void onPressFunc(Event _) {
@@ -49,6 +66,7 @@ class PageDivManager {
   void init() {
     window.console.info('PageDivManager:Init:');
   }
+
   /**
    * Page back. remove the page from the stack.
    * Call display with stack false so we dont add the current page to the stack.
@@ -111,6 +129,9 @@ class PageDiv {
   bool firstShow = true;
 
   PageDiv(String name, Element element, Function onShow) {
+    if (element == null) {
+      window.console.error('PageDiv:Constructor:name[$name]:Element is null');
+    }
     this.name = name;
     this.element = element;
     this.onShow = onShow;
@@ -136,8 +157,7 @@ class ServerRequest {
   Function error;
   Function func;
 
-  ServerRequest(
-      String type, String host, String desc, Function error, Function func) {
+  ServerRequest(String type, String host, String desc, Function error, Function func) {
     this.type = type == null ? 'GET' : type;
     this.host = host == null ? 'no-host' : host;
     this.desc = desc == null ? 'no-desc' : desc;
@@ -145,7 +165,7 @@ class ServerRequest {
     this.func = func;
   }
 
-  String finalUrl(List urlParameters, Map queryParameters) {
+  String finalUrl(List<String> urlParameters, Map<String, String> queryParameters) {
     String s = host;
     int index = 1;
     if ((urlParameters != null) && (urlParameters.isNotEmpty)) {
@@ -168,7 +188,11 @@ class ServerRequest {
   /**
    * Request Response for the server
    */
-  Future<void> send([List urlParameters = null, Map queryParameters = null, String body = null]) async {
+    Future<void> sendObject([List<String> urlParameters = null, Map<String, String> queryParameters = null, Object body = null]) async {
+      send(urlParameters, queryParameters, jsonEncode(body));
+    }
+
+    Future<void> send([List<String> urlParameters = null, Map<String, String> queryParameters = null, String body = null]) async {
     final url = this.finalUrl(urlParameters, queryParameters);
     final httpRequest = HttpRequest();
     httpRequest
@@ -177,16 +201,24 @@ class ServerRequest {
         var status = httpRequest.status;
         if ((status >= 200) && (status < 300)) {
           var resp = new ServerResponse(httpRequest.responseText, httpRequest.status, httpRequest.responseHeaders);
-          Function.apply(this.error, ['D', url + ' : ' + httpRequest.responseText]);
-          if (httpRequest.responseHeaders['content-type']
-              .toLowerCase()
-              .contains('json')) {
-            resp.setMap(json.decode(httpRequest.responseText));
+          String conTentType = resp.getHeader('content-type');
+          if (resp.hasResponseText()) {
+            Function.apply(this.error, ['D', 'contentType: ${conTentType} URL: ${url} Resp: ${resp.body}']);
+            if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
+              resp.setMap(jsonDecode(resp.body));
+            }
+          } else {
+            if (this.error!=null) {
+              Function.apply(this.error, ['D', 'contentType: ${conTentType} URL: ${url} Resp: NULL']);
+            }
           }
-          Function.apply(this.func, [resp]);
+          if (this.func!=null) {
+            Function.apply(this.func, [resp]);
+          }
         } else {
-          Function.apply(this.error,
-              ['E', status.toString() + ':' + url + ':' + this.desc]);
+          if (this.error!=null) {
+            Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);
+          }
         }
       })
       ..send(body);
@@ -204,6 +236,21 @@ class ServerResponse {
     this.status = status;
     this.headers = headers;
     this.map = {};
+  }
+
+  bool hasResponseText() {
+    return ((body != null) && (body.trim() != ''));
+  }
+
+  String getHeader(String name) {
+    String h = headers[name.toLowerCase()];
+    if ((h == null) || (h.trim() == '')) {
+      h = headers[name];
+      if ((h == null) || (h.trim() == '')) {
+        return '';
+      }
+    }
+    return h;
   }
 
   void setMap(Map map) {

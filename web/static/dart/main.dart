@@ -3,11 +3,16 @@ import 'classes.dart';
 
 const String USER_NAME_ROW_ID_PREFIX = 'userNameRow-';
 const String THN_DIR_ROW_ID_PREFIX = 'thumbNail-';
+const String THN_IMAG_ROW_ID_PREFIX = 'thumbNailImage-';
 
 const String DEFAULT_ERROR_TEXT = 'TOPBOX';
 const String PAGE_NAME_WELCOME = 'welcome';
 const String PAGE_NAME_MAIN = 'main';
 const String PAGE_THUMBNAILS = 'thumbnails';
+const String PAGE_ORIGINAL = 'original';
+
+const List<String> NAV_BUTTON_IDS = ['back', 'home'];
+const List<String> ADD_SUB_BUTTON_IDS = ['addCol', 'subCol'];
 
 const String iconSize = '80';
 const String iconSizePlus = '100';
@@ -24,6 +29,7 @@ final Element headerUserName = querySelector('#headerUserName');
 final Element userThumbnailDirList = querySelector('#userThumbnailDirList');
 final Element userThumbnails = querySelector('#userThumbnails');
 final Element navButtons = querySelector('#navButtons');
+final Element originalImage = querySelector('#originalImage');
 
 List userList = new List();
 String currentUserId = null;
@@ -39,14 +45,17 @@ Map selectedDirectoryHistory = {};
 final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_NAME_WELCOME, querySelector('#page_welcome'), initWelcomePage),
   PageDiv(PAGE_NAME_MAIN,  querySelector('#page_main'), initMainPage),
-  PageDiv(PAGE_THUMBNAILS,  querySelector('#page_thumbnails'), initAnyPage)
+  PageDiv(PAGE_THUMBNAILS,  querySelector('#page_thumbnails'), initThumbNailPage),
+  PageDiv(PAGE_ORIGINAL,  querySelector('#page_original'), initOriginalImagePage)
 ]);
 /**
  * Define all the buttons and their actions. Each button is added to the MyButtonManager
  */
 final MyButtonManager buttonManager = new MyButtonManager([
-  MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}), 
-  MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);})
+  MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}),
+  MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
+  MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
+  MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);})
 ]);
 
 /**
@@ -60,9 +69,12 @@ ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time
   timeText.text = resp.map['time']['time3'];
   dateText.text = resp.map['time']['monthDay'];
 });
+
 ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json', 'Reading user state from server', processError, (resp) {
   userDataMap = resp.map;
 });
+ServerRequest saveUserList = ServerRequest('POST', '/files/user/{1}/loc/data/name/state.json', 'Writing user data to server', processError, null);
+
 ServerRequest fetchThumbNailDirPaths = ServerRequest('GET', '/paths/user/{1}/loc/thumbs', 'Reading thumbnail dir list', processError, (resp) {
   thumbNailDirList = resp.map;
   populateThumbNailDirList();
@@ -92,7 +104,6 @@ Future<void> selectCurrentUser(String userId, String userName) async {
   if ((currentUserId == null) || (currentUserId != userId)) {
     currentUserId = userId;
     currentUserName = userName;
-    headerUserName.text = "Welcome:" + currentUserName;
     await fetchUserData.send([currentUserId]);
     await fetchThumbNailDirPaths.send([currentUserId]);
     selectedDirectoryHistory = {};
@@ -100,9 +111,38 @@ Future<void> selectCurrentUser(String userId, String userName) async {
   pageManager.display(PAGE_NAME_MAIN);
 }
 
+Future<void> selectThumbnailImage(String encPath, String encName, String dispName) async {
+  processError('D', '${encPath} --> ${encName}');
+  originalImage.innerHtml = '<img width=\"100%\" title=\"${dispName}\"src=\"/files/user/${currentUserId}/loc/thumbs/path/${encPath}/name/${encName}\">';
+  pageManager.display(PAGE_ORIGINAL);
+}
+
 void populateThumbnails() {
   selectedDirectoryHistory[thumbNailList['path']['encName']]=true;
-  userThumbnails.text = selectedDirectoryHistory.toString();
+  String user = thumbNailList['user'];
+  String encPath = thumbNailList['path']['encName'];
+  int width = userDataMap['imagesPerRow'];
+
+  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${width}\"><hr></td></tr><tr>';
+  int index = 1;
+  thumbNailList['files'].forEach((fileData) {
+    htmlStr += '<td><img id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
+    if ((index % width) == 0) {
+      htmlStr += '</tr><tr><td colspan=\"${width}\"><hr></td></tr><tr>';
+    }
+    index++;
+  });
+  htmlStr += '</tr></table>';
+  userThumbnails.innerHtml = htmlStr;
+  window.console.debug(htmlStr);
+  pageManager.display(PAGE_THUMBNAILS);
+  index = 1;
+  thumbNailList['files'].forEach((fileData) {
+    querySelector('#${THN_IMAG_ROW_ID_PREFIX}${index}').onClick.listen((e) {
+      selectThumbnailImage(encPath, fileData['name']['encName'], fileData['name']['name']);
+    });
+    index++;
+  });
 }
 
 void populateThumbNailDirList() {
@@ -122,7 +162,7 @@ void populateThumbNailDirList() {
     htmlStr += '<tr ${hilight} ><td width=\"100%\"><a id=\"${THN_DIR_ROW_ID_PREFIX}${i}\" title=\"${disp}\">${disp}</td></tr><tr><td><hr></td></tr>';
     i++;
   });
-  htmlStr += "</table>";
+  htmlStr += '</table>';
   userThumbnailDirList.innerHtml = htmlStr;
   // Set the onClick for each id.
   i = 0;
@@ -166,22 +206,49 @@ void populateUserTable() {
   });
 }
 
+void updateThumbNailsPerRow(int amount) {
+  int count = userDataMap['imagesPerRow'];
+  count = count + amount;
+  if (count > 20) {
+    count = 20;
+  }
+  if (count < 1) {
+    count = 1;
+  }
+  userDataMap['imagesPerRow'] = count;
+  saveUsersState();
+  populateThumbnails();
+}
+
+void saveUsersState() {
+  saveUserList.sendObject([currentUserId],null,userDataMap);
+}
+
 void initWelcomePage(PageDiv old, PageDiv to) {
   clearError();
-  window.console.info('initWelcomePage:');
   navButtons.hidden = true;
   headerUserName.text = "Welcome: Who Are You?";
 }
 
 void initMainPage(PageDiv old, PageDiv to) {
   initAnyPage(old, to);
-  // Redisplay the list of directories so we can see the history hilight
   populateThumbNailDirList();
+}
+
+void initThumbNailPage(PageDiv old, PageDiv to) {
+  initAnyPage(old, to);
+  buttonManager.hidden(ADD_SUB_BUTTON_IDS, false);
+}
+
+void initOriginalImagePage(PageDiv old, PageDiv to) {
+  clearError();
+  navButtons.hidden = true;
 }
 
 void initAnyPage(PageDiv old, PageDiv to) {
   clearError();
-  window.console.info('initAnyPage:');
+  buttonManager.hidden(ADD_SUB_BUTTON_IDS, true);
+  headerUserName.text = "Welcome: ${currentUserName}";
   navButtons.hidden = false;
 }
 
