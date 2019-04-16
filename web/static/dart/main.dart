@@ -12,6 +12,7 @@ const String PAGE_NAME_MAIN = 'main';
 const String PAGE_THUMBNAILS = 'thumbnails';
 const String PAGE_ORIGINAL = 'original';
 const String PAGE_STATUS = 'status';
+const String PAGE_DISPLAY_LOG = 'displayLog';
 
 
 const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
@@ -36,6 +37,8 @@ final Element originalImage = querySelector('#originalImage');
 final Element userFileSizes = querySelector('#userFileSizes');
 final Element diskStatus = querySelector('#diskStatus');
 final Element logFileList = querySelector('#logFileList');
+final Element displayLog = querySelector('#displayLog');
+
 
 List userList = new List();
 String currentUserId = null;
@@ -47,6 +50,7 @@ Map selectedDirectoryHistory = {};
 List userFileSizesData = [];
 List diskStatusData = [];
 Map logFileListData = {};
+String logFileText = null;
 /**
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
  */
@@ -55,7 +59,8 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_NAME_MAIN,  querySelector('#page_main'), initMainPage),
   PageDiv(PAGE_THUMBNAILS,  querySelector('#page_thumbnails'), initThumbNailPage),
   PageDiv(PAGE_ORIGINAL,  querySelector('#page_original'), initOriginalImagePage),
-  PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage)
+  PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage),
+  PageDiv(PAGE_DISPLAY_LOG,  querySelector('#page_displayLog'), initAnyPage)
 ]);
 /**
  * Define all the buttons and their actions. Each button is added to the MyButtonManager
@@ -82,6 +87,10 @@ ServerRequest fetchUserFileSizes = ServerRequest('GET', '/files/loc/cache/name/u
 ServerRequest fetchLogFileList = ServerRequest('GET', '/files/loc/logs?ext=log', 'Reading list of log files', processError, (resp) {
   logFileListData = resp.map;
   populateLogFileList();
+});
+ServerRequest fetchLogFileText = ServerRequest('GET', '/files/loc/logs/name/{1}', 'Reading log file', processError, (resp) {
+  logFileText = resp.body;
+  populateLogFileText();
 });
 ServerRequest fetchDiskStatus = ServerRequest('GET', '/func/ds', 'Reading Disk Status', processError, (resp) {
   diskStatusData = resp.list;
@@ -117,6 +126,8 @@ void main() {
 
 Future<void> selectLogFile(String name, String base64) async {
   processError("D", 'name:$name base64:$base64');
+  fetchLogFileText.send([base64],null,null);
+  pageManager.display(PAGE_DISPLAY_LOG);
 }
 
 void selectStatusPage() {
@@ -185,6 +196,10 @@ void populateLogFileList() {
     });
     index++;
   });
+}
+
+void populateLogFileText() {
+  displayLog.text = logFileText;
 }
 
 void populateThumbnails() {
