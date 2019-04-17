@@ -1,449 +1,130 @@
-2019-04-17 14:44:09.598 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-04-17 14:44:09.624 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-04-17 14:44:09.632 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-17 14:44:09.670 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 14:44:09.676 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-17 14:44:09.685 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 14:44:09.685 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-17 14:44:09.739 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 14:44:09.739 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-17 14:44:09.781 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 14:44:09.781 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-17 14:44:09.821 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-17 14:44:09.823 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 14:44:09.826 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 14:44:09.829 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-17 14:44:09.886 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 14:44:10.029 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:44:10.033 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 14:44:10.033 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 14:44:10.033 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 14:44:10.033 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 14:44:10.034 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 14:44:10.078 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 14:44:10.080 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 14:44:10.081 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 14:44:10.085 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:44:10.092 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:44:10.096 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q0:./returnCode.sh
-2019-04-17 14:44:10.096 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q1:9
-2019-04-17 14:44:10.096 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q2:
-2019-04-17 14:44:10.096 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q3:
-2019-04-17 14:44:10.096 INFO  Server: CMD:OUT:./returnCode.sh 9 --> {start}
-2019-04-17 14:44:10.096 INFO  Server: CMD:EXIT: Code=9
-2019-04-17 14:44:10.101 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-04-17 14:44:10.105 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
-2019-04-17 14:44:10.117 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 14:44:10.126 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 14:44:46.772 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 14:44:49.777 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 14:44:49.777 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 14:44:49.779 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:44:49.783 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 14:44:49.783 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 14:44:49.784 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 14:44:49.784 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 14:44:49.784 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 14:44:49.833 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 14:44:49.834 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 14:44:49.835 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 14:44:51.446 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 14:45:24.825 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 14:45:24.825 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 14:45:24.825 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:45:24.826 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 14:45:24.826 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 14:45:24.826 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 14:45:24.826 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 14:45:24.827 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 14:45:24.877 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 14:45:24.878 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 14:45:24.879 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 14:45:41.779 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 14:53:14.126 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 14:53:15.132 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:53:15.132 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 14:53:15.133 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 14:53:15.133 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 14:53:15.133 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 14:53:15.133 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 14:53:15.133 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 14:53:15.134 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 14:53:15.185 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 14:53:15.186 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 14:53:15.187 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 14:53:17.756 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 14:57:56.509 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 14:57:57.811 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 14:57:57.812 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 14:57:57.812 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 14:57:57.813 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 14:57:57.814 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 14:57:57.814 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 14:57:57.814 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 14:57:57.814 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 14:57:57.863 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 14:57:57.865 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 14:57:57.866 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 14:57:59.669 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 14:58:33.069 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 14:59:04.391 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:00:13.542 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:00:14.483 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:00:14.483 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:00:14.483 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:00:14.484 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:00:14.484 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:00:14.484 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:00:14.484 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:00:14.485 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:00:14.536 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:00:14.537 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:00:14.538 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:00:15.942 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:00:28.887 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:02:15.529 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:02:17.170 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:02:17.170 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:02:17.170 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:02:17.171 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:02:17.171 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:02:17.171 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:02:17.171 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:02:17.172 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:02:17.222 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:02:17.223 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:02:17.224 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:02:18.725 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:02:54.731 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:02:55.640 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:02:55.640 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:02:55.640 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:02:55.641 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:02:55.642 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:02:55.642 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:02:55.642 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:02:55.643 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:02:55.693 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:02:55.694 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:02:55.695 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:02:56.605 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:03:21.485 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:03:22.893 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:03:22.893 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:03:22.894 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:03:22.894 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:03:22.894 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:03:22.894 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:03:22.894 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:03:22.895 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:03:22.948 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:03:22.949 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:03:22.950 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:03:24.744 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:04:30.981 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:04:32.187 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:04:32.187 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:04:32.187 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:04:32.187 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:04:32.188 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:04:32.188 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:04:32.188 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:04:32.189 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:04:32.239 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:04:32.241 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:04:32.241 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:04:33.723 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:06:43.265 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:06:44.207 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:06:44.207 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:06:44.207 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:06:44.207 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:06:44.208 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:06:44.208 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:06:44.208 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:06:44.209 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:06:44.258 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:06:44.260 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:06:44.261 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:06:46.032 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:07:01.275 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-17 15:07:06.986 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:10:18.596 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:10:20.219 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:10:20.219 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:10:20.219 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:10:20.220 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:10:20.220 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:10:20.220 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:10:20.220 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:10:20.221 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:10:20.275 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:10:20.276 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:10:20.277 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:10:22.157 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:11:01.725 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:11:02.972 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:11:02.974 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:11:02.974 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:11:02.975 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:11:02.975 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:11:02.975 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:11:02.975 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:11:02.976 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:11:03.028 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:11:03.029 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:11:03.030 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:11:04.450 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:11:29.927 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:11:30.892 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:11:30.892 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:11:30.893 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:11:30.893 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:11:30.893 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:11:30.893 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:11:30.893 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:11:30.894 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:11:30.944 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:11:30.946 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:11:30.947 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:11:33.247 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-17 15:11:50.821 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-17 15:13:16.898 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:13:18.370 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:13:18.370 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:13:18.371 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:13:18.371 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:13:18.371 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:13:18.371 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:13:18.371 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:13:18.372 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:13:18.422 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:13:18.423 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:13:18.424 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:13:20.083 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:15:36.453 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:15:38.114 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:15:38.115 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:15:38.116 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:15:38.116 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:15:38.116 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:15:38.116 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:15:38.116 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:15:38.117 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:15:38.171 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:15:38.172 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:15:38.173 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:15:40.988 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-17 15:18:51.070 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:18:52.261 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:18:52.262 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:18:52.263 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:18:52.263 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:18:52.263 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:18:52.263 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:18:52.263 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:18:52.265 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:18:52.317 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:18:52.319 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:18:52.320 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:18:54.088 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:22:25.287 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:22:26.340 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:22:26.341 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:22:26.341 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:22:26.342 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:22:26.342 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:22:26.342 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:22:26.342 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:22:26.342 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:22:26.396 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:22:26.398 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:22:26.398 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:22:27.724 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:23:42.732 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:23:43.615 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:23:43.616 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:23:43.617 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:23:43.617 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:23:43.617 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:23:43.617 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:23:43.617 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:23:43.618 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:23:43.673 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:23:43.675 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:23:43.676 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:23:44.725 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-17 15:23:51.682 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:33:31.284 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:33:32.845 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:33:32.845 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:33:32.846 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:33:32.846 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:33:32.846 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:33:32.846 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:33:32.847 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:33:32.847 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:33:32.906 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:33:32.907 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:33:32.908 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:33:35.710 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:37.651 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:39.680 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:40.356 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:40.952 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:41.337 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:41.562 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:41.790 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:42.014 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:42.225 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:42.417 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:33:42.586 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:35:26.892 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:35:27.689 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:35:27.689 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:35:27.690 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:35:27.690 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:35:27.690 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:35:27.690 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:35:27.690 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:35:27.691 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:35:27.743 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:35:27.744 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:35:27.745 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:35:30.626 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:35:34.833 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:37:22.546 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 15:37:24.340 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-17 15:37:24.342 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-17 15:37:24.344 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-17 15:37:24.344 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-17 15:37:24.344 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-17 15:37:24.344 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-17 15:37:24.344 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-17 15:37:24.345 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-17 15:37:24.398 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-17 15:37:24.399 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-17 15:37:24.400 INFO  Server: CMD:EXIT: Code=0
-2019-04-17 15:37:25.924 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:37:29.129 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:37:30.474 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:37:35.650 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
-2019-04-17 15:37:47.283 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:37:51.983 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:38:02.270 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:38:25.363 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:38:28.462 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 15:39:58.864 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
-2019-04-17 16:35:20.050 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:35:21.188 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 002 encPath:bGcgMDAy
-2019-04-17 16:35:21.201 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-17 16:35:21.201 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
-2019-04-17 16:39:54.898 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:39:55.969 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 002 encPath:bGcgMDAy
-2019-04-17 16:39:55.980 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
-2019-04-17 16:39:55.980 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-17 16:42:55.324 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:42:57.062 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:42:57.068 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 16:42:57.068 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:43:51.669 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:43:53.568 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:43:53.574 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 16:43:53.574 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:45:29.762 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:45:30.686 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:45:30.696 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 16:45:30.696 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:47:09.713 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:47:10.670 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:47:10.677 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:47:10.677 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 16:51:32.020 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:51:33.867 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:51:33.873 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 16:51:33.873 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:55:02.987 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:55:04.441 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:55:04.447 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:55:04.448 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 16:59:02.996 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 16:59:05.228 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 16:59:05.233 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 16:59:05.233 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:05:12.472 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:05:13.375 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:05:13.380 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:05:13.380 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:05:15.260 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:05:16.824 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:05:16.830 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:05:16.830 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:16:55.773 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:16:56.752 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:16:56.757 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:16:56.757 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:22:22.875 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:22:24.134 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:22:24.147 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:22:24.148 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:23:42.610 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:23:44.752 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:23:44.759 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:23:44.759 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:24:32.944 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:24:34.909 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:24:34.918 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:24:34.918 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:27:18.582 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:27:19.737 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:27:19.743 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:27:19.743 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:31:11.060 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:31:13.070 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:31:13.077 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:31:13.077 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:33:24.035 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:33:25.257 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:33:25.268 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:33:25.268 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:35:46.274 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:35:48.615 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:35:48.621 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:35:48.622 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:38:16.388 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:38:17.975 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:38:17.983 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:38:17.983 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:41:57.964 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:42:00.139 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:42:00.144 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:42:00.144 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:49:25.702 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:49:28.211 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:49:28.217 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:49:28.217 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 17:58:02.231 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 17:58:03.246 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 17:58:03.251 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 17:58:03.251 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 18:00:27.197 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 18:00:28.871 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 18:00:28.878 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 18:00:28.878 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 18:02:02.261 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 18:02:03.280 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 18:02:03.288 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 18:02:03.288 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 18:30:28.140 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 18:30:30.164 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-17 18:30:30.174 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-17 18:30:30.174 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-17 18:36:33.875 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 18:36:35.784 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 002 encPath:bGcgMDAy
-2019-04-17 18:36:35.790 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
-2019-04-17 18:36:35.790 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-17 18:36:52.505 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-17 18:36:55.757 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 002 encPath:bGcgMDAy
-2019-04-17 18:36:55.765 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
-2019-04-17 18:36:55.765 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-17 22:55:56.433 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-04-17 22:55:56.453 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-04-17 22:55:56.459 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-17 22:55:56.492 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-17 22:55:56.498 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
+2019-04-17 22:55:56.505 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-17 22:55:56.505 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-17 22:55:56.558 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-17 22:55:56.558 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-17 22:55:56.599 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-17 22:55:56.599 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-17 22:55:56.640 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-17 22:55:56.642 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-17 22:55:56.645 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-17 22:55:56.648 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-17 22:55:56.701 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-17 22:55:56.832 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:55:56.836 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-17 22:55:56.836 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-17 22:55:56.836 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-17 22:55:56.836 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-17 22:55:56.836 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-17 22:55:56.884 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-17 22:55:56.885 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-17 22:55:56.886 INFO  Server: CMD:EXIT: Code=0
+2019-04-17 22:55:56.891 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:55:56.897 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:55:56.898 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q0:./returnCode.sh
+2019-04-17 22:55:56.898 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q1:9
+2019-04-17 22:55:56.898 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q2:
+2019-04-17 22:55:56.898 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q3:
+2019-04-17 22:55:56.898 INFO  Server: CMD:OUT:./returnCode.sh 9 --> {start}
+2019-04-17 22:55:56.898 INFO  Server: CMD:EXIT: Code=9
+2019-04-17 22:55:56.902 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-04-17 22:55:56.906 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-04-17 22:55:56.918 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 22:55:56.927 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 22:56:32.576 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 22:56:34.822 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-17 22:56:34.823 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-17 22:56:34.824 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:56:34.828 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-17 22:56:34.828 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-17 22:56:34.829 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-17 22:56:34.829 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-17 22:56:34.829 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-17 22:56:34.878 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-17 22:56:34.879 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-17 22:56:34.880 INFO  Server: CMD:EXIT: Code=0
+2019-04-17 22:56:36.369 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
+2019-04-17 22:56:53.436 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
+2019-04-17 22:57:02.058 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
+2019-04-17 22:57:06.325 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:57:13.715 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:58:09.349 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 22:58:10.297 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-17 22:58:10.297 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:58:10.297 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-17 22:58:10.298 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-17 22:58:10.298 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-17 22:58:10.298 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-17 22:58:10.298 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-17 22:58:10.299 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-17 22:58:10.360 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-17 22:58:10.361 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-17 22:58:10.362 INFO  Server: CMD:EXIT: Code=0
+2019-04-17 22:58:13.617 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:00.225 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 22:59:01.500 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-17 22:59:01.500 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-17 22:59:01.500 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:59:01.501 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-17 22:59:01.501 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-17 22:59:01.501 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-17 22:59:01.501 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-17 22:59:01.502 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-17 22:59:01.557 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-17 22:59:01.558 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-17 22:59:01.559 INFO  Server: CMD:EXIT: Code=0
+2019-04-17 22:59:02.969 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:29.879 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:36.443 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 22:59:38.022 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 22:59:38.022 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-17 22:59:38.022 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-17 22:59:38.023 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-17 22:59:38.023 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-17 22:59:38.023 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-17 22:59:38.023 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-17 22:59:38.024 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-17 22:59:38.081 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-17 22:59:38.083 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-17 22:59:38.083 INFO  Server: CMD:EXIT: Code=0
+2019-04-17 22:59:39.715 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:46.864 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:48.179 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:49.745 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:50.178 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:50.476 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:50.860 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:51.085 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 22:59:51.278 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 23:00:30.996 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-17 23:00:31.002 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-17 23:00:31.002 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-17 23:15:41.329 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 23:15:43.326 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-17 23:15:43.326 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-17 23:15:43.327 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-17 23:15:43.327 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-17 23:15:43.327 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-17 23:15:43.327 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-17 23:15:43.328 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-17 23:15:43.330 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-17 23:15:43.380 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-17 23:15:43.381 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-17 23:15:43.382 INFO  Server: CMD:EXIT: Code=0
+2019-04-17 23:15:45.944 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 23:15:53.243 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 23:15:57.815 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-17 23:16:04.877 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-17 23:16:04.885 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-17 23:16:04.885 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-17 23:16:21.375 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 002 encPath:bGcgMDAy
+2019-04-17 23:16:21.384 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-17 23:16:21.384 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-17 23:16:34.420 INFO  Server: fileReadUserLocationBase: user:[shared] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-17 23:16:36.096 INFO  Server: listFilesBase: user:shared loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-17 23:16:36.101 INFO  Server: fileReadUserLocationBase: user:[shared] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-17 23:16:36.101 INFO  Server: fileReadUserLocationBase: user:[shared] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]

@@ -20,6 +20,7 @@ package main;
 
 import config.ConfigDataManager;
 import io.FileListIo;
+import io.FileSpecIo;
 import io.PathsIO;
 import java.io.File;
 import static org.junit.Assert.assertEquals;
@@ -72,6 +73,7 @@ public class TestFileSystem {
             String n = fil.getName();
             if (!n.contains("Test")) {
                 if ((n.toLowerCase().contains(lName)) && (n.toLowerCase().endsWith(".log"))) {
+                    System.out.println("DELETED:"+fil.getAbsolutePath());
                     fil.delete();
                 }
             }
@@ -127,9 +129,11 @@ public class TestFileSystem {
         MvcResult mvcResult = mvc.perform(get("/files/loc/logs?ext=log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
-        assertEquals(3, fileList.getFiles().size());
-        assertEquals("PiServerTest.log", fileList.getFiles().get(0).getName().getName());
-        assertEquals("UGlTZXJ2ZXJUZXN0LmxvZw==", fileList.getFiles().get(0).getName().getEncName());
+        assertTrue(fileList.getFiles().size() > 2);
+        for (FileSpecIo f:fileList.getFiles()) {
+            assertTrue(f.getName().getName().endsWith(".log"));
+            assertEquals(EncodeDecode.decode(f.getName().getEncName()),f.getName().getName());
+        }
     }
 
     public void testPathIoJsonLoad() {

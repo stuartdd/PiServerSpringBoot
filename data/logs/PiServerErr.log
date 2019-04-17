@@ -1,6 +1,6 @@
-2019-04-17 14:44:09.606 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-04-17 14:44:09.624 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-04-17 14:44:09.967 ERROR ServerError: {"Status":404, "Msg":"Static file Not Found", "Entity":"/template1"} EXCEPTION:
+2019-04-17 22:55:56.439 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-04-17 22:55:56.453 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-04-17 22:55:56.776 ERROR ServerError: {"Status":404, "Msg":"Static file Not Found", "Entity":"/template1"} EXCEPTION:
 exceptions.ServerRestException: /template1
 	at controllers.Content.content(Content.java:88) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]
@@ -95,7 +95,7 @@ exceptions.ServerRestException: /template1
 Caused by: exceptions.ServerRestException: /template1
 	at controllers.Content.content(Content.java:82) ~[main/:?]
 	... 89 more
-2019-04-17 14:44:09.990 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/jpeg", "Entity":"/template.jpg"} EXCEPTION:
+2019-04-17 22:55:56.798 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/jpeg", "Entity":"/template.jpg"} EXCEPTION:
 exceptions.ServerRestException: /template.jpg
 	at controllers.Content.content(Content.java:88) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]
@@ -190,7 +190,7 @@ exceptions.ServerRestException: /template.jpg
 Caused by: exceptions.ServerRestException: /template.jpg
 	at controllers.Content.content(Content.java:76) ~[main/:?]
 	... 89 more
-2019-04-17 14:44:09.997 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/png", "Entity":"/template.png"} EXCEPTION:
+2019-04-17 22:55:56.803 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/png", "Entity":"/template.png"} EXCEPTION:
 exceptions.ServerRestException: /template.png
 	at controllers.Content.content(Content.java:88) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]
@@ -285,7 +285,7 @@ exceptions.ServerRestException: /template.png
 Caused by: exceptions.ServerRestException: /template.png
 	at controllers.Content.content(Content.java:76) ~[main/:?]
 	... 89 more
-2019-04-17 14:44:10.086 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Failed command :./notScript.sh  ../"} EXCEPTION:
+2019-04-17 22:55:56.892 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Failed command :./notScript.sh  ../"} EXCEPTION:
 exceptions.ConfigDataException: Function 'notScript'. Method 'scriptAll' failed with a SystemCommandException
 	at services.FunctionService.func(FunctionService.java:66) ~[main/:?]
 	at controllers.Script.script(Script.java:31) ~[main/:?]
@@ -410,5 +410,5 @@ Caused by: java.io.IOException: error=2, No such file or directory
 	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_181]
 	at services.FunctionService.func(FunctionService.java:64) ~[main/:?]
 	... 90 more
-2019-04-17 14:44:10.101 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-04-17 14:44:10.105 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
+2019-04-17 22:55:56.903 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-04-17 22:55:56.906 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented

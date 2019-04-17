@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,12 +40,12 @@
         <div id="page_displayLog">
             <article id="logFileName" class="TitleLine" >Log file:</article>
              <div class="nav_button_bar">
+                 <button class="nav_button" id="scrollLogDownButton">BOTTOM</button>
                  <button class="nav_button" id="reloadLogButton">Reload</button>
-                 <button class="nav_button" id="scrollLogDownButton">Goto END</button>
-            </div>
+             </div>
             <pre class="Log" id="displayLog"></pre>
             <div class="nav_button_bar">
-                <button class="nav_button" id="scrollLogUpButton">Goto TOP</button>
+                <button class="nav_button" id="scrollLogUpButton">TOP</button>
                 <button class="nav_button" id="scrollLogFollow">Follow</button>
             </div>
 
@@ -60,7 +60,7 @@
         </div>
         <footer id="footer">
             <h3>Messages</h3>
-            <p style="font-family: 'Courier New';", id="diagnosticText"></p>
+            <p style="font-family: 'Courier New',serif;" id="diagnosticText"></p>
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 10%; text-align: left;" id="timeText"></td>
