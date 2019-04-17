@@ -38,7 +38,17 @@
             <article id="originalImage"></article>
         </div>
         <div id="page_displayLog">
+            <article id="logFileName" class="TitleLine" >Log file:</article>
+             <div class="nav_button_bar">
+                 <button class="nav_button" id="reloadLogButton">Reload</button>
+                 <button class="nav_button" id="scrollLogDownButton">Goto END</button>
+            </div>
             <pre class="Log" id="displayLog"></pre>
+            <div class="nav_button_bar">
+                <button class="nav_button" id="scrollLogUpButton">Goto TOP</button>
+                <button class="nav_button" id="scrollLogFollow">Follow</button>
+            </div>
+
         </div>
         <div id="page_status">
             <article class="TitleLine" >User File Sizes:</article>

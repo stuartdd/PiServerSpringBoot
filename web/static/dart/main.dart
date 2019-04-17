@@ -40,19 +40,9 @@ final Element userFileSizes = querySelector('#userFileSizes');
 final Element diskStatus = querySelector('#diskStatus');
 final Element logFileList = querySelector('#logFileList');
 final Element displayLog = querySelector('#displayLog');
+final Element logFileName = querySelector('#logFileName');
 
 
-List userList = new List();
-String currentUserId = null;
-String currentUserName = null;
-Map userDataMap = null;
-Map thumbNailDirList = null;
-Map thumbNailList = null;
-Map selectedDirectoryHistory = {};
-List userFileSizesData = [];
-List diskStatusData = [];
-Map logFileListData = {};
-String logFileText = null;
 /**
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
  */
@@ -72,7 +62,11 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
-  MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);})
+  MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
+  MyButton('logUp', querySelector('#scrollLogUpButton'), (id) {scrollToTop();}),
+  MyButton('logDown', querySelector('#scrollLogDownButton'), (id) {scrollToBottom();}),
+  MyButton('logFollow', querySelector('#scrollLogFollow'), (id) {reSelectLogFile(); scrollToBottom();}),
+  MyButton('logLoad', querySelector('#reloadLogButton'), (id) {reSelectLogFile();})
 ]);
 
 /**
@@ -92,7 +86,7 @@ ServerRequest fetchLogFileList = ServerRequest('GET', '/files/loc/logs?ext=log',
 });
 ServerRequest fetchLogFileText = ServerRequest('GET', '/files/loc/logs/name/{1}', 'Reading log file', processError, (resp) {
   logFileText = resp.body;
-  populateLogFileText();
+  displayLog.text = logFileText;
 });
 ServerRequest fetchDiskStatus = ServerRequest('GET', '/func/ds', 'Reading Disk Status', processError, (resp) {
   diskStatusData = resp.list;
@@ -115,6 +109,22 @@ ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs
   populateThumbnails();
 });
 
+
+List userList = [];
+String currentUserId = null;
+String currentUserName = null;
+Map userDataMap = null;
+Map thumbNailDirList = null;
+Map thumbNailList = null;
+Map selectedDirectoryHistory = {};
+List userFileSizesData = [];
+List diskStatusData = [];
+Map logFileListData = {};
+String logFileText = null;
+String currentLogFileName = null;
+String currentLogFileBase64 = null;
+String currentImageEncName = null;
+
 /**
  * Program entry point
  */
@@ -132,10 +142,16 @@ void main() {
     });
 }
 
-Future<void> selectLogFile(String name, String base64) async {
-  processError("D", 'name:$name base64:$base64');
-  fetchLogFileText.send([base64],null,null);
+void selectLogFile(String name, String base64)  {
+  currentLogFileName = name;
+  currentLogFileBase64 = base64;
+  fetchLogFileText.send([currentLogFileBase64],null,null);
+  logFileName.text = "Log File:"+currentLogFileName;
   pageManager.display(PAGE_DISPLAY_LOG);
+}
+
+void reSelectLogFile()  {
+  fetchLogFileText.send([currentLogFileBase64],null,null);
 }
 
 void selectStatusPage() {
@@ -161,10 +177,52 @@ void selectCurrentUser(String userId, String userName) {
   pageManager.display(PAGE_NAME_MAIN);
 }
 
-void selectThumbnailImage(String encPath, String encName, String dispName) {
-  processError('D', '${encPath} --> ${encName}');
-  originalImage.innerHtml = '<img width=\"100%\" title=\"${dispName}\"src=\"/files/user/${currentUserId}/loc/thumbs/path/${encPath}/name/${encName}\">';
+void selectThumbnailImage(String encName, String dispName) {
+  currentImageEncName = encName;
+  String encPath = thumbNailList['path']['encName'];
+  originalImage.innerHtml = '<img id="oriiginalImage" width=\"100%\" title=\"${dispName}\"src=\"/files/user/${currentUserId}/loc/thumbs/path/${encPath}/name/${encName}\">';
+  querySelector('#oriiginalImage').onClick.listen((e) {
+    if (e.target is Element){
+       onClickOriginalImage(e.offset.x, e.offset.y, e.target);
+    }
+  });
   pageManager.display(PAGE_ORIGINAL);
+}
+
+void onClickOriginalImage(int x, int y, Element e) {
+  int w = e.clientWidth;
+  int h = e.clientHeight;
+  if (y < (h / 4)) {
+    pageManager.back();
+  }
+  if (currentImageEncName != null) {
+    Map before;
+    Map found;
+    Map after;
+    thumbNailList['files'].forEach((fileData) {
+      if (found != null) {
+        after = fileData;
+      }
+      if (fileData['name']['encName'] == currentImageEncName) {
+        found = fileData;
+      }
+      if (found == null) {
+        before = fileData;
+      }
+    });
+
+    if (x < (w / 4)) {
+      if (before != null) {
+        selectThumbnailImage(before['name']['encName'], before['name']['name']);
+      }
+    } else {
+      if (x > (w - (w / 4))) {
+        if (after != null)  {
+          selectThumbnailImage(after['name']['encName'], after['name']['name']);
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -206,10 +264,6 @@ void populateLogFileList() {
   });
 }
 
-void populateLogFileText() {
-  displayLog.text = logFileText;
-}
-
 void populateThumbnails() {
   selectedDirectoryHistory[thumbNailList['path']['encName']]=true;
   String user = thumbNailList['user'];
@@ -231,7 +285,7 @@ void populateThumbnails() {
   index = 1;
   thumbNailList['files'].forEach((fileData) {
     querySelector('#${THN_IMAG_ROW_ID_PREFIX}${index}').onClick.listen((e) {
-      selectThumbnailImage(encPath, fileData['name']['encName'], fileData['name']['name']);
+      selectThumbnailImage(fileData['name']['encName'], fileData['name']['name']);
     });
     index++;
   });
@@ -336,6 +390,17 @@ void initOriginalImagePage(PageDiv old, PageDiv to) {
   clearError();
   navButtons.hidden = true;
 }
+
+
+void scrollToBottom() {
+  var scrollingElement = window.document.scrollingElement;
+  scrollingElement.scrollTop = scrollingElement.scrollHeight;
+}
+
+void scrollToTop() {
+  window.document.scrollingElement.scrollTop = 0;
+}
+
 
 void initAnyPage(PageDiv old, PageDiv to) {
   clearError();
