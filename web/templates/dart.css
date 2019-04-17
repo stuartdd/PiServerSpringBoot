@@ -30,7 +30,9 @@ article {
 
 section {
     float: left;
-    padding: 1px;
+    display: inline-block;
+    color: black;
+    padding: 10px;
     width: 100%;
     font-size: 15px;
     background-color: %{css.main.background};
@@ -39,6 +41,16 @@ section {
 hr {
     color: #17663f;
     margin: 2px;
+}
+
+.Log {
+    float: left;
+    display: inline-block;
+    color: black;
+    padding: 5px;
+    width: 100%;
+    font-size: 15px;
+    background-color: %{css.main.background};  
 }
 
 .TitleLine{
@@ -65,6 +77,12 @@ hr {
 
 .Hilight {
     background-color: %{css.hilight.background};
+}
+
+.nav_button_bar {
+  background-color: %{css.main.background};
+  float: left;
+  width: 100%;
 }
 
 .nav_button {

@@ -29,6 +29,8 @@ final Element timeText = querySelector('#timeText');
 final Element dateText = querySelector('#dateText');
 final Element diagnosticText = querySelector('#diagnosticText');
 final Element userNameList = querySelector('#userNameList');
+final Element header = querySelector('#header');
+final Element footer = querySelector('#footer');
 final Element headerUserName = querySelector('#headerUserName');
 final Element userThumbnailDirList = querySelector('#userThumbnailDirList');
 final Element userThumbnails = querySelector('#userThumbnails');
@@ -122,6 +124,12 @@ void main() {
   fetchTimeData.send();
   fetchUserList.send();
   pageManager.display(PAGE_NAME_WELCOME);
+  header.onClick.listen((e) {
+      pageManager.back();
+    });
+  footer.onClick.listen((e) {
+      pageManager.back();
+    });
 }
 
 Future<void> selectLogFile(String name, String base64) async {
@@ -219,7 +227,6 @@ void populateThumbnails() {
   });
   htmlStr += '</tr></table>';
   userThumbnails.innerHtml = htmlStr;
-  window.console.debug(htmlStr);
   pageManager.display(PAGE_THUMBNAILS);
   index = 1;
   thumbNailList['files'].forEach((fileData) {

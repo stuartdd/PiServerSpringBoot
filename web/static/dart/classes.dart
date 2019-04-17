@@ -73,7 +73,9 @@ class PageDivManager {
    */
   void back() {
     if (!pageNameHistory.isEmpty) {
-      display(pageNameHistory.removeLast(), false);
+      String s = pageNameHistory.removeLast();
+      window.console.debug('BACK:[${s}]');
+      display(s, false);
     }
   }
 
@@ -205,7 +207,6 @@ class ServerRequest {
           if (resp.hasResponseText()) {
             if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
               Object o = jsonDecode(resp.body);
-              window.console.debug(o.toString());
               if (o is List) {
                 Function.apply(this.error, ['D', 'LIST: contentType: ${contentType} URL: ${url} Resp: ${resp.body}']);
                 resp.setList(o);
