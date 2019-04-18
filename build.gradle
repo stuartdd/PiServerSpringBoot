@@ -46,7 +46,7 @@ task copyEndpointLib(type: Copy) {
 
 task dart() {
     doLast {
-        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/dart/main.dart.js" ] }
+        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/main.dart.js" ] }
     }
 }
 
