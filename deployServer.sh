@@ -1,6 +1,6 @@
 #!/bin/sh
 
-
+set -e
 
 sshpass -v -p ims2d sftp -oBatchMode=no -b depolyServer.script pi@topbox
 

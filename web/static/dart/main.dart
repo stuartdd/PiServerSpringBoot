@@ -100,10 +100,12 @@ ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/nam
   userDataMap = resp.map;
 });
 ServerRequest saveUserList = ServerRequest('POST', '/files/user/{1}/loc/data/name/state.json', 'Writing user data to server', processError, null);
+
 ServerRequest fetchThumbNailDirPaths = ServerRequest('GET', '/paths/user/{1}/loc/thumbs', 'Reading thumbnail dir list', processError, (resp) {
   thumbNailDirList = resp.map;
   populateThumbNailDirList();
 });
+
 ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs/path/{2}', 'Reading thumbnails', processError, (resp) {
   thumbNailList = resp.map;
   populateThumbnails();
@@ -180,7 +182,7 @@ void selectCurrentUser(String userId, String userName) {
 void selectThumbnailImage(String encName, String dispName) {
   currentImageEncName = encName;
   String encPath = thumbNailList['path']['encName'];
-  originalImage.innerHtml = '<img id="oriiginalImage" width=\"100%\" title=\"${dispName}\"src=\"/files/user/${currentUserId}/loc/thumbs/path/${encPath}/name/${encName}\">';
+  originalImage.innerHtml = '<img id="oriiginalImage" width=\"100%\" title=\"${dispName}\" src=\"/files/user/${currentUserId}/loc/original/path/${encPath}/name/${encName}?thumbnail=true\">';
   querySelector('#oriiginalImage').onClick.listen((e) {
     if (e.target is Element){
        onClickOriginalImage(e.offset.x, e.offset.y, e.target);
@@ -373,7 +375,7 @@ void saveUsersState() {
 void initWelcomePage(PageDiv old, PageDiv to) {
   clearError();
   navButtons.hidden = true;
-  headerUserName.text = "Welcome: Who Are You?";
+  headerUserName.text = "Welcome - Who Are You?";
 }
 
 void initMainPage(PageDiv old, PageDiv to) {
@@ -400,7 +402,6 @@ void scrollToBottom() {
 void scrollToTop() {
   window.document.scrollingElement.scrollTop = 0;
 }
-
 
 void initAnyPage(PageDiv old, PageDiv to) {
   clearError();
