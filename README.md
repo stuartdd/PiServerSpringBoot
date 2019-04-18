@@ -36,7 +36,9 @@ This is intended for use as an alarm or a warning event but could be used for an
 Html files can be returned after the substition of parameters.
 ## Images and Binary data 
 Detection of Images and binary data files can be configured.
-
+```
+sudo apt-get install imagemagick
+```
 ## Config definition
 ### Example
 ```
