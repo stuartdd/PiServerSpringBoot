@@ -1,3 +1,8 @@
+cd /home/pi/server
+put configDataPI.json
+put runWebAppPI.sh
+chmod 775 runWebAppPI.sh
+
 cd /home/pi/server/scripts
 lcd scripts
 mput *.*

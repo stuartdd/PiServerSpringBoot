@@ -60,13 +60,17 @@ final PageDivManager pageManager = new PageDivManager([
 final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}),
   MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
-  MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
+  MyButton('imageBack', querySelector('#imageBackButton'), (id) {pageManager.back();}),
+  MyButton('imageHome', querySelector('#imageHomeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
+  MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
+   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
   MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
   MyButton('logUp', querySelector('#scrollLogUpButton'), (id) {scrollToTop();}),
   MyButton('logDown', querySelector('#scrollLogDownButton'), (id) {scrollToBottom();}),
   MyButton('logFollow', querySelector('#scrollLogFollow'), (id) {reSelectLogFile(); scrollToBottom();}),
-  MyButton('logLoad', querySelector('#reloadLogButton'), (id) {reSelectLogFile();})
+  MyButton('logLoad', querySelector('#reloadLogButton'), (id) {reSelectLogFile();}),
+  MyButton('svrRestart', querySelector('#restartServerButton'), (id) {restartServerConfirm();})
 ]);
 
 /**
@@ -110,6 +114,12 @@ ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs
   thumbNailList = resp.map;
   populateThumbnails();
 });
+ServerRequest rotateImageRequest = ServerRequest('GET', '/files/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&func=rot', 'Rotate Image!', processError, (resp) {
+  processError('D', resp.body);
+});
+ServerRequest restartServerRequest = ServerRequest('GET', '/server/restart', 'Restart the Server thumbnails', processError, (resp) {
+  restartServerAck(resp.map);
+});
 
 
 List userList = [];
@@ -126,9 +136,11 @@ String logFileText = null;
 String currentLogFileName = null;
 String currentLogFileBase64 = null;
 String currentImageEncName = null;
+String currentImageEncPath = null;
 
 /**
  * Program entry point
+ * Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
  */
 void main() {
   pageManager.init();
@@ -142,6 +154,10 @@ void main() {
   footer.onClick.listen((e) {
       pageManager.back();
     });
+}
+
+void rotateOriginal(int degrees) {
+  rotateImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName]);
 }
 
 void selectLogFile(String name, String base64)  {
@@ -181,8 +197,8 @@ void selectCurrentUser(String userId, String userName) {
 
 void selectThumbnailImage(String encName, String dispName) {
   currentImageEncName = encName;
-  String encPath = thumbNailList['path']['encName'];
-  originalImage.innerHtml = '<img id="oriiginalImage" width=\"100%\" title=\"${dispName}\" src=\"/files/user/${currentUserId}/loc/original/path/${encPath}/name/${encName}?thumbnail=true\">';
+  currentImageEncPath = thumbNailList['path']['encName'];
+  originalImage.innerHtml = '<img id="oriiginalImage" width=\"100%\" title=\"${dispName}\" src=\"/files/user/${currentUserId}/loc/original/path/${currentImageEncPath}/name/${currentImageEncName}?thumbnail=true\">';
   querySelector('#oriiginalImage').onClick.listen((e) {
     if (e.target is Element){
        onClickOriginalImage(e.offset.x, e.offset.y, e.target);
@@ -201,17 +217,19 @@ void onClickOriginalImage(int x, int y, Element e) {
     Map before;
     Map found;
     Map after;
-    thumbNailList['files'].forEach((fileData) {
+    List files = thumbNailList['files'];
+    for (int i=0; i<files.length; i++) {
       if (found != null) {
-        after = fileData;
+        after = files[i];
+        break;
       }
-      if (fileData['name']['encName'] == currentImageEncName) {
-        found = fileData;
+      if (files[i]['name']['encName'] == currentImageEncName) {
+        found = files[i];
       }
       if (found == null) {
-        before = fileData;
+        before = files[i];
       }
-    });
+    }
 
     if (x < (w / 4)) {
       if (before != null) {
@@ -252,7 +270,7 @@ void populateLogFileList() {
   String htmlStr = '<table width=\"100%\">';
   int index = 0;
   logFileListData['files'].forEach((logFile) {
-    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\">${logFile['name']['name']}</td></tr>';
+    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\">${logFile['name']['name']}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
     index++;
   });
   htmlStr += '</table>';
@@ -270,14 +288,15 @@ void populateThumbnails() {
   selectedDirectoryHistory[thumbNailList['path']['encName']]=true;
   String user = thumbNailList['user'];
   String encPath = thumbNailList['path']['encName'];
-  int width = userDataMap['imagesPerRow'];
+  int columns = userDataMap['imagesPerRow'];
+  double imageWidth = 100;
 
-  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${width}\"><hr></td></tr><tr>';
+  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"><hr></td></tr><tr>';
   int index = 1;
   thumbNailList['files'].forEach((fileData) {
-    htmlStr += '<td><img id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
-    if ((index % width) == 0) {
-      htmlStr += '</tr><tr><td colspan=\"${width}\"><hr></td></tr><tr>';
+    htmlStr += '<td><img width=\"${imageWidth}%\" id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
+    if ((index % columns) == 0) {
+      htmlStr += '</tr><tr><td colspan=\"${columns}\"><hr></td></tr><tr>';
     }
     index++;
   });
@@ -299,7 +318,7 @@ void populateThumbNailDirList() {
   }
   var i=0;
   var disp;
-  var htmlStr = '<table width=\"100%\">';
+  var htmlStr = '<table width=\"100%\"><tr><td><hr></td></tr>';
   // Create the HTML
   thumbNailDirList['paths'].forEach((dirData) {
     disp = dirData['name'];
@@ -412,7 +431,18 @@ void initAnyPage(PageDiv old, PageDiv to) {
 
 void clearError() {
   errorMessageText.text = DEFAULT_ERROR_TEXT;
+  diagnosticText.hidden = false;
   diagnosticText.text = '';
+}
+
+void restartServerConfirm() {
+  if (window.confirm("Restart The Server - Are you sure?[AKK]")) {
+    restartServerRequest.send();
+  }
+}
+
+void restartServerAck(Map map) {
+  window.alert("Restart The Server Status : ${map['Status']}. Message : Refresh the page to continue.");
 }
 
 void processError(String key, String message) {
@@ -420,6 +450,7 @@ void processError(String key, String message) {
     errorMessageText.text = 'ERROR: ' + message;
   }
   if (key == 'D') {
+    diagnosticText.hidden = false;
     diagnosticText.text = 'DATA: ' + message;
   }
 }

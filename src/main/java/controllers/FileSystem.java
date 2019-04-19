@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
+import services.FunctionService;
+import services.dto.FunctionResponseDto;
 import tools.EncodeDecode;
 import tools.MediaTypeInf;
 import tools.StringUtils;
@@ -113,7 +115,18 @@ public class FileSystem extends ControllerErrorHandlerBase {
             finalName = StringUtils.parseThumbnailFileName(finalName);
             LogProvider.log("fileReadUserLocationBase: finalName:[" + finalName + "]", 2);
         }
-        byte[] bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
+        byte[] bytes;
+        String function = queryParameters.get("func");
+        if ((function != null) && (function.trim().length()>0)) {
+            queryParameters.put("path",finalPath);
+            queryParameters.put("name",finalName);
+            queryParameters.put("encPath",path);
+            queryParameters.put("encName",name);
+            FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
+            bytes = functionResponseDto.getResponse().getBytes(StringUtils.DEFAULT_CHARSET);
+        } else {
+            bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
+        }
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 

@@ -47,6 +47,11 @@
                 "func": "scriptBetween",
                 "script": "diskStatus"
             },
+            "rot": {
+                "func": "scriptBetween",
+                "script": "rotateImage",
+                "Content-Type" : "text/plain; charset=UTF-8"
+            },
             "notImplemented": {
                 "func": "notImplemented"
             },

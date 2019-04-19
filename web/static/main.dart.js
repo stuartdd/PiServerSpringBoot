@@ -3546,18 +3546,17 @@
       W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new F.main_closure0(), {func: 1, ret: -1, args: [t1]}), false, t1);
     },
     selectThumbnailImage: function(encName, dispName) {
-      var encPath, t1, t2;
+      var t1, t2;
       $.currentImageEncName = encName;
-      encPath = H.stringTypeCheck(J.$index$asx($.thumbNailList.$index(0, "path"), "encName"));
-      J.set$innerHtml$x($.$get$originalImage(), '<img id="oriiginalImage" width="100%" title="' + H.S(dispName) + '" src="/files/user/' + H.S($.currentUserId) + "/loc/original/path/" + H.S(encPath) + "/name/" + H.S(encName) + '?thumbnail=true">');
+      $.currentImageEncPath = H.stringTypeCheck(J.$index$asx($.thumbNailList.$index(0, "path"), "encName"));
+      J.set$innerHtml$x($.$get$originalImage(), '<img id="oriiginalImage" width="100%" title="' + H.S(dispName) + '" src="/files/user/' + H.S($.currentUserId) + "/loc/original/path/" + H.S($.currentImageEncPath) + "/name/" + H.S($.currentImageEncName) + '?thumbnail=true">');
       t1 = J.get$onClick$x(document.querySelector("#oriiginalImage"));
       t2 = H.getTypeArgumentByIndex(t1, 0);
       W._EventStreamSubscription$(t1._target, t1._eventType, H.functionTypeCheck(new F.selectThumbnailImage_closure(), {func: 1, ret: -1, args: [t2]}), false, t2);
       $.$get$pageManager().display$1(0, "original");
     },
     onClickOriginalImage: function(x, y, e) {
-      var t1, w, h, t2;
-      t1 = {};
+      var w, h, files, after, t1, before, found, i;
       w = e.clientWidth;
       h = e.clientHeight;
       if (typeof h !== "number")
@@ -3567,24 +3566,37 @@
       if (y < h / 4)
         $.$get$pageManager().back$0();
       if ($.currentImageEncName != null) {
-        t1.before = null;
-        t1.found = null;
-        t1.after = null;
-        J.forEach$1$ax($.thumbNailList.$index(0, "files"), new F.onClickOriginalImage_closure(t1));
+        files = H.listTypeCheck($.thumbNailList.$index(0, "files"));
+        t1 = J.getInterceptor$asx(files);
+        before = null;
+        found = null;
+        i = 0;
+        while (true) {
+          if (!(i < t1.get$length(files))) {
+            after = null;
+            break;
+          }
+          if (found != null) {
+            after = H.interceptedTypeCheck(t1.$index(files, i), "$isMap");
+            break;
+          }
+          if (J.$eq$(J.$index$asx(J.$index$asx(t1.$index(files, i), "name"), "encName"), $.currentImageEncName))
+            found = H.interceptedTypeCheck(t1.$index(files, i), "$isMap");
+          if (found == null)
+            before = H.interceptedTypeCheck(t1.$index(files, i), "$isMap");
+          ++i;
+        }
         if (typeof w !== "number")
           return w.$div();
-        t2 = w / 4;
+        t1 = w / 4;
         if (typeof x !== "number")
           return x.$lt();
-        if (x < t2) {
-          t2 = t1.before;
-          if (t2 != null)
-            F.selectThumbnailImage(H.stringTypeCheck(J.$index$asx(t2.$index(0, "name"), "encName")), H.stringTypeCheck(J.$index$asx(t1.before.$index(0, "name"), "name")));
-        } else if (x > w - t2) {
-          t2 = t1.after;
-          if (t2 != null)
-            F.selectThumbnailImage(H.stringTypeCheck(J.$index$asx(t2.$index(0, "name"), "encName")), H.stringTypeCheck(J.$index$asx(t1.after.$index(0, "name"), "name")));
-        }
+        if (x < t1) {
+          if (before != null)
+            F.selectThumbnailImage(H.stringTypeCheck(J.$index$asx(before.$index(0, "name"), "encName")), H.stringTypeCheck(J.$index$asx(before.$index(0, "name"), "name")));
+        } else if (x > w - t1)
+          if (after != null)
+            F.selectThumbnailImage(H.stringTypeCheck(J.$index$asx(after.$index(0, "name"), "encName")), H.stringTypeCheck(J.$index$asx(after.$index(0, "name"), "name")));
       }
     },
     populateUserFileSizes: function() {
@@ -3613,15 +3625,15 @@
       J.forEach$1$ax($.$get$logFileListData().$index(0, "files"), new F.populateLogFileList_closure0(t1));
     },
     populateThumbnails: function() {
-      var t1, user, encPath, width, t2;
+      var t1, user, encPath, columns, t2;
       t1 = {};
       $.$get$selectedDirectoryHistory().$indexSet(0, J.$index$asx($.thumbNailList.$index(0, "path"), "encName"), true);
       user = H.stringTypeCheck($.thumbNailList.$index(0, "user"));
       encPath = H.stringTypeCheck(J.$index$asx($.thumbNailList.$index(0, "path"), "encName"));
-      width = H.intTypeCheck($.userDataMap.$index(0, "imagesPerRow"));
-      t1.htmlStr = '<table width="100%"><tr><tr><td colspan="' + H.S(width) + '"><hr></td></tr><tr>';
+      columns = H.intTypeCheck($.userDataMap.$index(0, "imagesPerRow"));
+      t1.htmlStr = '<table width="100%"><tr><tr><td colspan="' + H.S(columns) + '"><hr></td></tr><tr>';
       t1.index = 1;
-      J.forEach$1$ax($.thumbNailList.$index(0, "files"), new F.populateThumbnails_closure(t1, user, encPath, width));
+      J.forEach$1$ax($.thumbNailList.$index(0, "files"), new F.populateThumbnails_closure(t1, 100, user, encPath, columns));
       t2 = t1.htmlStr += "</tr></table>";
       J.set$innerHtml$x($.$get$userThumbnails(), t2);
       $.$get$pageManager().display$1(0, "thumbnails");
@@ -3636,7 +3648,7 @@
         return;
       t1.i = 0;
       t1.disp = null;
-      t1.htmlStr = '<table width="100%">';
+      t1.htmlStr = '<table width="100%"><tr><td><hr></td></tr>';
       J.forEach$1$ax(t2.$index(0, "paths"), new F.populateThumbNailDirList_closure(t1));
       t2 = t1.htmlStr += "</table>";
       J.set$innerHtml$x($.$get$userThumbnailDirList(), t2);
@@ -3667,8 +3679,7 @@
     initWelcomePage: function(old, to) {
       H.interceptedTypeCheck(old, "$isPageDiv");
       H.interceptedTypeCheck(to, "$isPageDiv");
-      $.$get$errorMessageText().textContent = "TOPBOX";
-      $.$get$diagnosticText().textContent = "";
+      F.clearError();
       $.$get$navButtons().hidden = true;
       $.$get$headerUserName().textContent = "Welcome - Who Are You?";
     },
@@ -3683,26 +3694,34 @@
     initOriginalImagePage: function(old, to) {
       H.interceptedTypeCheck(old, "$isPageDiv");
       H.interceptedTypeCheck(to, "$isPageDiv");
-      $.$get$errorMessageText().textContent = "TOPBOX";
-      $.$get$diagnosticText().textContent = "";
+      F.clearError();
       $.$get$navButtons().hidden = true;
     },
     initAnyPage: function(old, to) {
       H.interceptedTypeCheck(old, "$isPageDiv");
       H.interceptedTypeCheck(to, "$isPageDiv");
-      $.$get$errorMessageText().textContent = "TOPBOX";
-      $.$get$diagnosticText().textContent = "";
+      F.clearError();
       $.$get$buttonManager().hidden$2(0, C.List_addCol_subCol, true);
       $.$get$headerUserName().textContent = "Welcome: " + H.S($.currentUserName);
       $.$get$navButtons().hidden = false;
     },
+    clearError: function() {
+      $.$get$errorMessageText().textContent = "TOPBOX";
+      var t1 = $.$get$diagnosticText();
+      t1.hidden = false;
+      t1.textContent = "";
+    },
     processError: function(key, message) {
+      var t1;
       H.stringTypeCheck(key);
       H.stringTypeCheck(message);
       if (key === "E")
         $.$get$errorMessageText().textContent = C.JSString_methods.$add("ERROR: ", message);
-      if (key === "D")
-        $.$get$diagnosticText().textContent = C.JSString_methods.$add("DATA: ", message);
+      if (key === "D") {
+        t1 = $.$get$diagnosticText();
+        t1.hidden = false;
+        t1.textContent = C.JSString_methods.$add("DATA: ", message);
+      }
     },
     closure4: function closure4() {
     },
@@ -3722,15 +3741,23 @@
     },
     closure12: function closure12() {
     },
-    closure: function closure() {
-    },
-    closure16: function closure16() {
+    closure13: function closure13() {
     },
     closure14: function closure14() {
     },
-    closure13: function closure13() {
-    },
     closure15: function closure15() {
+    },
+    closure16: function closure16() {
+    },
+    closure: function closure() {
+    },
+    closure21: function closure21() {
+    },
+    closure19: function closure19() {
+    },
+    closure18: function closure18() {
+    },
+    closure20: function closure20() {
     },
     closure3: function closure3() {
     },
@@ -3740,14 +3767,15 @@
     },
     closure1: function closure1() {
     },
+    closure22: function closure22() {
+    },
+    closure17: function closure17() {
+    },
     main_closure: function main_closure() {
     },
     main_closure0: function main_closure0() {
     },
     selectThumbnailImage_closure: function selectThumbnailImage_closure() {
-    },
-    onClickOriginalImage_closure: function onClickOriginalImage_closure(t0) {
-      this._box_0 = t0;
     },
     populateUserFileSizes_closure: function populateUserFileSizes_closure(t0) {
       this._box_0 = t0;
@@ -3764,12 +3792,13 @@
     populateLogFileList__closure: function populateLogFileList__closure(t0) {
       this.logFile = t0;
     },
-    populateThumbnails_closure: function populateThumbnails_closure(t0, t1, t2, t3) {
+    populateThumbnails_closure: function populateThumbnails_closure(t0, t1, t2, t3, t4) {
       var _ = this;
       _._box_0 = t0;
-      _.user = t1;
-      _.encPath = t2;
-      _.width = t3;
+      _.imageWidth = t1;
+      _.user = t2;
+      _.encPath = t3;
+      _.columns = t4;
     },
     populateThumbnails_closure0: function populateThumbnails_closure0(t0) {
       this._box_0 = t0;
@@ -8097,6 +8126,24 @@
   };
   F.closure6.prototype = {
     call$1: function(id) {
+      $.$get$pageManager().back$0();
+    },
+    $signature: 0
+  };
+  F.closure7.prototype = {
+    call$1: function(id) {
+      $.$get$pageManager().display$1(0, "main");
+    },
+    $signature: 0
+  };
+  F.closure8.prototype = {
+    call$1: function(id) {
+      $.$get$rotateImageRequest().send$1(0, H.setRuntimeTypeInfo([$.currentUserId, $.currentImageEncPath, $.currentImageEncName], [P.String]));
+    },
+    $signature: 0
+  };
+  F.closure9.prototype = {
+    call$1: function(id) {
       $.$get$fetchUserFileSizes().send$0(0);
       $.$get$fetchDiskStatus().send$0(0);
       $.$get$fetchLogFileList().send$0(0);
@@ -8104,19 +8151,19 @@
     },
     $signature: 0
   };
-  F.closure7.prototype = {
+  F.closure10.prototype = {
     call$1: function(id) {
       F.updateThumbNailsPerRow(1);
     },
     $signature: 0
   };
-  F.closure8.prototype = {
+  F.closure11.prototype = {
     call$1: function(id) {
       F.updateThumbNailsPerRow(-1);
     },
     $signature: 0
   };
-  F.closure9.prototype = {
+  F.closure12.prototype = {
     call$1: function(id) {
       var t1 = window.document.scrollingElement;
       t1.toString;
@@ -8124,7 +8171,7 @@
     },
     $signature: 0
   };
-  F.closure10.prototype = {
+  F.closure13.prototype = {
     call$1: function(id) {
       var scrollingElement, t1;
       scrollingElement = window.document.scrollingElement;
@@ -8134,7 +8181,7 @@
     },
     $signature: 0
   };
-  F.closure11.prototype = {
+  F.closure14.prototype = {
     call$1: function(id) {
       var scrollingElement, t1;
       $.$get$fetchLogFileText().send$3(0, H.setRuntimeTypeInfo([$.currentLogFileBase64], [P.String]), null, null);
@@ -8145,9 +8192,16 @@
     },
     $signature: 0
   };
-  F.closure12.prototype = {
+  F.closure15.prototype = {
     call$1: function(id) {
       $.$get$fetchLogFileText().send$3(0, H.setRuntimeTypeInfo([$.currentLogFileBase64], [P.String]), null, null);
+    },
+    $signature: 0
+  };
+  F.closure16.prototype = {
+    call$1: function(id) {
+      if (window.confirm("Restart The Server - Are you sure?[AKK]"))
+        $.$get$restartServerRequest().send$0(0);
     },
     $signature: 0
   };
@@ -8158,21 +8212,21 @@
     },
     $signature: 0
   };
-  F.closure16.prototype = {
+  F.closure21.prototype = {
     call$1: function(resp) {
       $.userFileSizesData = H.listTypeCheck(J.get$list$x(resp));
       F.populateUserFileSizes();
     },
     $signature: 0
   };
-  F.closure14.prototype = {
+  F.closure19.prototype = {
     call$1: function(resp) {
       $.logFileListData = H.interceptedTypeCheck(J.get$map$ax(resp), "$isMap");
       F.populateLogFileList();
     },
     $signature: 0
   };
-  F.closure13.prototype = {
+  F.closure18.prototype = {
     call$1: function(resp) {
       var t1 = H.stringTypeCheck(J.get$body$x(resp));
       $.logFileText = t1;
@@ -8180,7 +8234,7 @@
     },
     $signature: 0
   };
-  F.closure15.prototype = {
+  F.closure20.prototype = {
     call$1: function(resp) {
       $.diskStatusData = H.listTypeCheck(J.get$list$x(resp));
       F.populateDiskStatus();
@@ -8215,6 +8269,19 @@
     },
     $signature: 0
   };
+  F.closure22.prototype = {
+    call$1: function(resp) {
+      F.processError("D", H.stringTypeCheck(J.get$body$x(resp)));
+    },
+    $signature: 0
+  };
+  F.closure17.prototype = {
+    call$1: function(resp) {
+      var t1 = H.interceptedTypeCheck(J.get$map$ax(resp), "$isMap");
+      window.alert("Restart The Server Status : " + H.S(t1.$index(0, "Status")) + ". Message : Refresh the page to continue.");
+    },
+    $signature: 0
+  };
   F.main_closure.prototype = {
     call$1: function(e) {
       H.interceptedTypeCheck(e, "$isMouseEvent");
@@ -8240,18 +8307,6 @@
     },
     $signature: 3
   };
-  F.onClickOriginalImage_closure.prototype = {
-    call$1: function(fileData) {
-      var t1 = this._box_0;
-      if (t1.found != null)
-        t1.after = H.interceptedTypeCheck(fileData, "$isMap");
-      if (J.$eq$(J.$index$asx(J.$index$asx(fileData, "name"), "encName"), $.currentImageEncName))
-        t1.found = H.interceptedTypeCheck(fileData, "$isMap");
-      if (t1.found == null)
-        t1.before = H.interceptedTypeCheck(fileData, "$isMap");
-    },
-    $signature: 0
-  };
   F.populateUserFileSizes_closure.prototype = {
     call$1: function(ufsData) {
       var t1, t2;
@@ -8275,7 +8330,7 @@
       var t1, t2;
       t1 = this._box_0;
       t2 = J.getInterceptor$asx(logFile);
-      t1.htmlStr = t1.htmlStr + ('<tr><td width="25%">' + H.S(t2.$index(logFile, "size")) + '</td><td id="logFile-' + t1.index + '">' + H.S(J.$index$asx(t2.$index(logFile, "name"), "name")) + "</td></tr>");
+      t1.htmlStr = t1.htmlStr + ('<tr><td width="25%">' + H.S(t2.$index(logFile, "size")) + '</td><td id="logFile-' + t1.index + '">' + H.S(J.$index$asx(t2.$index(logFile, "name"), "name")) + '</td></tr><tr><td colspan="2"><hr></td></tr>');
       ++t1.index;
     },
     $signature: 0
@@ -8313,10 +8368,10 @@
       var t1, t2, htmlStr, t3;
       t1 = this._box_0;
       t2 = J.getInterceptor$asx(fileData);
-      htmlStr = t1.htmlStr + ('<td><img id="thumbNailImage-' + t1.index + '" title="' + H.S(J.$index$asx(t2.$index(fileData, "name"), "name")) + '" src="/files/user/' + H.S(this.user) + "/loc/thumbs/path/" + H.S(this.encPath) + "/name/" + H.S(J.$index$asx(t2.$index(fileData, "name"), "encName")) + '"></td>');
+      htmlStr = t1.htmlStr + ('<td><img width="' + this.imageWidth + '%" id="thumbNailImage-' + t1.index + '" title="' + H.S(J.$index$asx(t2.$index(fileData, "name"), "name")) + '" src="/files/user/' + H.S(this.user) + "/loc/thumbs/path/" + H.S(this.encPath) + "/name/" + H.S(J.$index$asx(t2.$index(fileData, "name"), "encName")) + '"></td>');
       t1.htmlStr = htmlStr;
       t2 = t1.index;
-      t3 = this.width;
+      t3 = this.columns;
       if (typeof t3 !== "number")
         return H.iae(t3);
       if (C.JSInt_methods.$mod(t2, t3) === 0)
@@ -8554,7 +8609,7 @@
     _inherit(P._UnmodifiableMapView_MapView__UnmodifiableMapMixin, P.MapView);
     _inherit(P.UnmodifiableMapView, P._UnmodifiableMapView_MapView__UnmodifiableMapMixin);
     _inherit(H.ConstantMapView, P.UnmodifiableMapView);
-    _inheritMany(H.Closure, [H.ConstantMap_map_closure, H.Primitives_functionNoSuchMethod_closure, H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._AsyncAwaitCompleter_complete_closure, P._AsyncAwaitCompleter_completeError_closure, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_forEach_closure, P.Stream_forEach__closure, P.Stream_forEach__closure0, P.Stream_forEach_closure0, P.Stream_length_closure, P.Stream_length_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._cancelAndError_closure, P._cancelAndErrorClosure_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.MapBase_mapToString_closure, P._JsonStringifier_writeMap_closure, P.NoSuchMethodError_toString_closure, W.Element_Element$html_closure, W._EventStreamSubscription_closure, W.NodeValidatorBuilder_allowsElement_closure, W.NodeValidatorBuilder_allowsAttribute_closure, W._SimpleNodeValidator_closure, W._SimpleNodeValidator_closure0, W._TemplatingNodeValidator_closure, W._ValidatingTreeSanitizer_sanitizeTree_walk, V.MyButtonManager_hidden_closure, V.MyButtonManager_hidden__closure, V.MyButton_closure, V.PageDivManager_display_closure, V.ServerRequest_finalUrl_closure, V.ServerRequest_send_closure, F.closure4, F.closure5, F.closure6, F.closure7, F.closure8, F.closure9, F.closure10, F.closure11, F.closure12, F.closure, F.closure16, F.closure14, F.closure13, F.closure15, F.closure3, F.closure2, F.closure0, F.closure1, F.main_closure, F.main_closure0, F.selectThumbnailImage_closure, F.onClickOriginalImage_closure, F.populateUserFileSizes_closure, F.populateDiskStatus_closure, F.populateLogFileList_closure, F.populateLogFileList_closure0, F.populateLogFileList__closure, F.populateThumbnails_closure, F.populateThumbnails_closure0, F.populateThumbnails__closure, F.populateThumbNailDirList_closure, F.populateThumbNailDirList_closure0, F.populateThumbNailDirList__closure, F.populateUserTable_closure, F.populateUserTable_closure0, F.populateUserTable__closure]);
+    _inheritMany(H.Closure, [H.ConstantMap_map_closure, H.Primitives_functionNoSuchMethod_closure, H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._AsyncAwaitCompleter_complete_closure, P._AsyncAwaitCompleter_completeError_closure, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_forEach_closure, P.Stream_forEach__closure, P.Stream_forEach__closure0, P.Stream_forEach_closure0, P.Stream_length_closure, P.Stream_length_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._cancelAndError_closure, P._cancelAndErrorClosure_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.MapBase_mapToString_closure, P._JsonStringifier_writeMap_closure, P.NoSuchMethodError_toString_closure, W.Element_Element$html_closure, W._EventStreamSubscription_closure, W.NodeValidatorBuilder_allowsElement_closure, W.NodeValidatorBuilder_allowsAttribute_closure, W._SimpleNodeValidator_closure, W._SimpleNodeValidator_closure0, W._TemplatingNodeValidator_closure, W._ValidatingTreeSanitizer_sanitizeTree_walk, V.MyButtonManager_hidden_closure, V.MyButtonManager_hidden__closure, V.MyButton_closure, V.PageDivManager_display_closure, V.ServerRequest_finalUrl_closure, V.ServerRequest_send_closure, F.closure4, F.closure5, F.closure6, F.closure7, F.closure8, F.closure9, F.closure10, F.closure11, F.closure12, F.closure13, F.closure14, F.closure15, F.closure16, F.closure, F.closure21, F.closure19, F.closure18, F.closure20, F.closure3, F.closure2, F.closure0, F.closure1, F.closure22, F.closure17, F.main_closure, F.main_closure0, F.selectThumbnailImage_closure, F.populateUserFileSizes_closure, F.populateDiskStatus_closure, F.populateLogFileList_closure, F.populateLogFileList_closure0, F.populateLogFileList__closure, F.populateThumbnails_closure, F.populateThumbnails_closure0, F.populateThumbnails__closure, F.populateThumbNailDirList_closure, F.populateThumbNailDirList_closure0, F.populateThumbNailDirList__closure, F.populateUserTable_closure, F.populateUserTable_closure0, F.populateUserTable__closure]);
     _inherit(H.ConstantStringMap, H.ConstantMap);
     _inheritMany(P.Error, [H.NullError, H.JsNoSuchMethodError, H.UnknownJsTypeError, H.TypeErrorImplementation, H.RuntimeError, P.JsonUnsupportedObjectError, P.NullThrownError, P.ArgumentError, P.NoSuchMethodError, P.UnsupportedError, P.UnimplementedError, P.StateError, P.ConcurrentModificationError, P.CyclicInitializationError]);
     _inheritMany(H.TearOffClosure, [H.StaticClosure, H.BoundClosure]);
@@ -8782,6 +8837,7 @@
     $.currentLogFileName = null;
     $.currentLogFileBase64 = null;
     $.currentImageEncName = null;
+    $.currentImageEncPath = null;
   })();
   (function lazyInitializers() {
     var _lazy = hunkHelpers.lazy;
@@ -8936,23 +8992,23 @@
     });
     _lazy($, "buttonManager", "$get$buttonManager", function() {
       var t1 = new V.MyButtonManager();
-      t1.set$buttons(0, H.setRuntimeTypeInfo([V.MyButton$("back", W.querySelector("#backButton"), new F.closure4()), V.MyButton$("home", W.querySelector("#homeButton"), new F.closure5()), V.MyButton$("status", W.querySelector("#statusButton"), new F.closure6()), V.MyButton$("addCol", W.querySelector("#addColButton"), new F.closure7()), V.MyButton$("subCol", W.querySelector("#subColButton"), new F.closure8()), V.MyButton$("logUp", W.querySelector("#scrollLogUpButton"), new F.closure9()), V.MyButton$("logDown", W.querySelector("#scrollLogDownButton"), new F.closure10()), V.MyButton$("logFollow", W.querySelector("#scrollLogFollow"), new F.closure11()), V.MyButton$("logLoad", W.querySelector("#reloadLogButton"), new F.closure12())], [V.MyButton]));
+      t1.set$buttons(0, H.setRuntimeTypeInfo([V.MyButton$("back", W.querySelector("#backButton"), new F.closure4()), V.MyButton$("home", W.querySelector("#homeButton"), new F.closure5()), V.MyButton$("imageBack", W.querySelector("#imageBackButton"), new F.closure6()), V.MyButton$("imageHome", W.querySelector("#imageHomeButton"), new F.closure7()), V.MyButton$("imageRotate", W.querySelector("#imageRotateButton"), new F.closure8()), V.MyButton$("status", W.querySelector("#statusButton"), new F.closure9()), V.MyButton$("addCol", W.querySelector("#addColButton"), new F.closure10()), V.MyButton$("subCol", W.querySelector("#subColButton"), new F.closure11()), V.MyButton$("logUp", W.querySelector("#scrollLogUpButton"), new F.closure12()), V.MyButton$("logDown", W.querySelector("#scrollLogDownButton"), new F.closure13()), V.MyButton$("logFollow", W.querySelector("#scrollLogFollow"), new F.closure14()), V.MyButton$("logLoad", W.querySelector("#reloadLogButton"), new F.closure15()), V.MyButton$("svrRestart", W.querySelector("#restartServerButton"), new F.closure16())], [V.MyButton]));
       return t1;
     });
     _lazy($, "fetchUserList", "$get$fetchUserList", function() {
       return V.ServerRequest$("GET", "/server/users", "Reading user data from server", F.main__processError$closure(), new F.closure());
     });
     _lazy($, "fetchUserFileSizes", "$get$fetchUserFileSizes", function() {
-      return V.ServerRequest$("GET", "/files/loc/cache/name/ufs", "Reading user file sizes", F.main__processError$closure(), new F.closure16());
+      return V.ServerRequest$("GET", "/files/loc/cache/name/ufs", "Reading user file sizes", F.main__processError$closure(), new F.closure21());
     });
     _lazy($, "fetchLogFileList", "$get$fetchLogFileList", function() {
-      return V.ServerRequest$("GET", "/files/loc/logs?ext=log", "Reading list of log files", F.main__processError$closure(), new F.closure14());
+      return V.ServerRequest$("GET", "/files/loc/logs?ext=log", "Reading list of log files", F.main__processError$closure(), new F.closure19());
     });
     _lazy($, "fetchLogFileText", "$get$fetchLogFileText", function() {
-      return V.ServerRequest$("GET", "/files/loc/logs/name/{1}", "Reading log file", F.main__processError$closure(), new F.closure13());
+      return V.ServerRequest$("GET", "/files/loc/logs/name/{1}", "Reading log file", F.main__processError$closure(), new F.closure18());
     });
     _lazy($, "fetchDiskStatus", "$get$fetchDiskStatus", function() {
-      return V.ServerRequest$("GET", "/func/ds", "Reading Disk Status", F.main__processError$closure(), new F.closure15());
+      return V.ServerRequest$("GET", "/func/ds", "Reading Disk Status", F.main__processError$closure(), new F.closure20());
     });
     _lazy($, "fetchTimeData", "$get$fetchTimeData", function() {
       return V.ServerRequest$("GET", "/server/time", "Reading time from server", F.main__processError$closure(), new F.closure3());
@@ -8968,6 +9024,12 @@
     });
     _lazy($, "fetchThumbNails", "$get$fetchThumbNails", function() {
       return V.ServerRequest$("GET", "/files/user/{1}/loc/thumbs/path/{2}", "Reading thumbnails", F.main__processError$closure(), new F.closure1());
+    });
+    _lazy($, "rotateImageRequest", "$get$rotateImageRequest", function() {
+      return V.ServerRequest$("GET", "/files/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&func=rot", "Rotate Image!", F.main__processError$closure(), new F.closure22());
+    });
+    _lazy($, "restartServerRequest", "$get$restartServerRequest", function() {
+      return V.ServerRequest$("GET", "/server/restart", "Restart the Server thumbnails", F.main__processError$closure(), new F.closure17());
     });
     _lazy($, "userList", "$get$userList", function() {
       return [];

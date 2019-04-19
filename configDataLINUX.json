@@ -45,6 +45,12 @@
                  "func": "scriptBetween",
                  "script": "diskStatus",
                  "Content-Type" : "application/json; charset=UTF-8"
+            },
+            "rot": {
+                "func": "scriptBetween",
+                "funcion": "scriptBetween",
+                "script": "rotateImage",
+                "Content-Type" : "text/plain; charset=UTF-8"
             }
         }
     }

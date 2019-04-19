@@ -35,7 +35,7 @@
     },
 
     "functions": {
-        "echoScriptOutput": false,
+        "echoScriptOutput": true,
         "poleForTime": 999999999,
         "osTemplates": {
             "linux": "%{scripts}|./%{script}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
@@ -44,9 +44,15 @@
             "unknown": "unknown-OS"
         },
         "commands": {
-             "ds": {
+            "ds": {
                 "func": "scriptBetween",
-                "script": "diskStatus"
+                "script": "diskStatus",
+                "Content-Type" : "application/json; charset=UTF-8"
+            },
+            "rot": {
+                "func": "scriptBetween",
+                "script": "rotateImage",
+                "Content-Type" : "text/plain; charset=UTF-8"
             }
         }
     }

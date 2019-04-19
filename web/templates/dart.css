@@ -9,14 +9,14 @@ body {
 }
 
 header {
-    padding: 2px;
+    padding: 1px;
     text-align: center;
     background-color: %{css.header.background};
 }
 
 /* Style the footer */
 footer {
-    padding: 10px;
+    padding: 1px;
     background-color: %{css.header.background};
 }
 
@@ -24,7 +24,7 @@ article {
     float: left;
     padding: 1px;
     width: 100%;
-    font-size: 15px;
+    font-size: 17px;
     background-color: %{css.main.background};
 }
 
@@ -32,9 +32,8 @@ section {
     float: left;
     display: inline-block;
     color: black;
-    padding: 10px;
     width: 100%;
-    font-size: 15px;
+    font-size: 17px;
     background-color: %{css.main.background};
 }
 
@@ -47,7 +46,7 @@ hr {
     float: left;
     display: inline-block;
     color: black;
-    padding: 5px;
+    padding: 1px;
     width: 100%;
     font-size: 15px;
     background-color: %{css.main.background};  
@@ -58,16 +57,15 @@ hr {
     color: black;
     padding: 15px 15px;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
     background-color: %{css.hilight.background};
 }
 
 .InfoLine {
     width: 100%;
     color: black;
-    padding: 15px 15px;
     text-align: center;
-    font-size: 25px;
+    font-size: 17px;
     background-color: %{css.main.background};
 }
 
@@ -86,15 +84,26 @@ hr {
 }
 
 .nav_button {
-  background-color: inherit;
-  float: left;
-  width: 15%;
-  outline: none;
-  cursor: pointer;
-  padding: 10px 10px;
-  transition: 0.3s;
-  font-size: 25px;
-  border: 2px solid %{css.button.border};
+    background-color: inherit;
+    float: left;
+    width: 20%;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    transition: 0.3s;
+    font-size: 14px;
+    border: 2px solid %{css.button.border};
+}
+
+.full_button {
+    background-color: #ff7584;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    transition: 0.3s;
+    font-size: 14px;
+    border: 2px solid %{css.button.border};
 }
 
 
