@@ -44,25 +44,25 @@
         },
         "commands": {
             "ds": {
-                "func": "scriptBetween",
+                "method": "scriptBetween",
                 "script": "diskStatus"
             },
             "rot": {
-                "func": "scriptBetween",
+                "method": "scriptBetween",
                 "script": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8"
             },
             "notImplemented": {
-                "func": "notImplemented"
+                "method": "notImplemented"
             },
             "notScript": {
-                "func": "scriptAll",
+                "method": "scriptAll",
                 "script": "notScript",
                 "P0": "",
                 "P1": "../"
             },
             "minRcError": {
-                "func": "scriptAll",
+                "method": "scriptAll",
                 "script": "returnCode",
                 "P0": "9",
                 "P1": "",
@@ -71,12 +71,12 @@
                 "minRC": 9
             },
             "ufs": {
-                "func": "readFileFromLocation",
+                "method": "readFileFromLocation",
                 "location": "cache",
                 "file": "userFileSizes.log"
             },
             "testtree": {
-                "func": "scriptBetween",
+                "method": "scriptBetween",
                 "script": "getDir",
                 "P0": "%{scripts}",
                 "P1": "",
@@ -84,18 +84,18 @@
                 "P3": ""
             },
             "log": {
-                "func": "rsyncLogs",
+                "method": "rsyncLogs",
                 "script": "./listFiles",
                 "dir": "/logs",
                 "id": "log"
             },
             "vol": {
-                "func": "extractVolume",
+                "method": "extractVolume",
                 "script": "./setVolume",
                 "$1": "level"
             },
             "getVol": {
-                "func": "extractVolume",
+                "method": "extractVolume",
                 "script": "./getVolume"
             }
         }

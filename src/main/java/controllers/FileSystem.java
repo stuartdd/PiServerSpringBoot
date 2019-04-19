@@ -122,6 +122,8 @@ public class FileSystem extends ControllerErrorHandlerBase {
             queryParameters.put("name",finalName);
             queryParameters.put("encPath",path);
             queryParameters.put("encName",name);
+            queryParameters.put("user",user);
+            queryParameters.putAll(ConfigDataManager.getUser(user));
             FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
             bytes = functionResponseDto.getResponse().getBytes(StringUtils.DEFAULT_CHARSET);
         } else {

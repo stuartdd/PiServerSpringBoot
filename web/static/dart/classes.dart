@@ -229,7 +229,12 @@ class ServerRequest {
           }
         } else {
           if (this.error != null) {
-            Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);
+            String body = httpRequest.responseText;
+            if ((body == null) || (body.trim().length == 0)) {
+              Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);              
+            } else {
+              Function.apply(this.error, ['E', status.toString() + ': ' + url + ': ' + this.desc + ': ' + body]);                            
+            }
           }
         }
       })

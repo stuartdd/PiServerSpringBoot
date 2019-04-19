@@ -45,14 +45,15 @@
         },
         "commands": {
             "ds": {
-                "func": "scriptBetween",
+                "method": "scriptBetween",
                 "script": "diskStatus",
                 "Content-Type" : "application/json; charset=UTF-8"
             },
             "rot": {
-                "func": "scriptBetween",
+                "method": "scriptBetween",
                 "script": "rotateImage",
-                "Content-Type" : "text/plain; charset=UTF-8"
+                "Content-Type" : "text/plain; charset=UTF-8",
+                "P1":"\"%{original}%{path}/%{name}\"" 
             }
         }
     }

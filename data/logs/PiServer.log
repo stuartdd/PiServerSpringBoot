@@ -1,70 +1,380 @@
-2019-04-19 00:52:36.361 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-04-19 00:52:36.383 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-04-19 00:52:36.391 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-19 00:52:36.422 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-19 00:52:36.428 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerTest.log] encName:[UGlTZXJ2ZXJUZXN0LmxvZw==]
-2019-04-19 00:52:36.436 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:52:36.436 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:52:36.487 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:52:36.487 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:52:36.531 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:52:36.531 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:52:36.572 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-19 00:52:36.575 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-19 00:52:36.579 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-19 00:52:36.582 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-19 00:52:36.638 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-19 00:52:36.766 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-19 00:52:36.769 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-19 00:52:36.769 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-19 00:52:36.769 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-19 00:52:36.770 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-19 00:52:36.770 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-19 00:52:36.819 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-19 00:52:36.821 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-19 00:52:36.822 INFO  Server: CMD:EXIT: Code=0
-2019-04-19 00:52:36.827 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-19 00:52:36.832 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-19 00:52:36.833 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q0:./returnCode.sh
-2019-04-19 00:52:36.833 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q1:9
-2019-04-19 00:52:36.833 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q2:
-2019-04-19 00:52:36.833 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q3:
-2019-04-19 00:52:36.833 INFO  Server: CMD:OUT:./returnCode.sh 9 --> {start}
-2019-04-19 00:52:36.833 INFO  Server: CMD:EXIT: Code=9
-2019-04-19 00:52:36.838 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-04-19 00:52:36.841 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Function 'notImplemented'. Method 'notImplemented' is not implemented
-2019-04-19 00:52:36.851 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-19 00:52:36.859 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-19 00:52:50.300 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:52:50.305 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:53:05.011 INFO  Server: CMD:CURRENT_DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-19 00:53:05.022 INFO  Server: CMD:OUT:./rotateImage.sh --> Q0:./rotateImage.sh
-2019-04-19 00:53:05.023 INFO  Server: CMD:OUT:./rotateImage.sh --> Q1:
-2019-04-19 00:53:05.023 INFO  Server: CMD:OUT:./rotateImage.sh --> Q2:
-2019-04-19 00:53:05.023 INFO  Server: CMD:OUT:./rotateImage.sh --> Q3:
-2019-04-19 00:53:05.023 INFO  Server: CMD:OUT:./rotateImage.sh --> {start}
-2019-04-19 00:53:05.024 INFO  Server: CMD:OUT:./rotateImage.sh --> convert -rotate 90 howtogeek-rotated.jpg
-2019-04-19 00:53:05.025 INFO  Server: CMD:OUT:./rotateImage.sh --> convert -rotate 90 howtogeek-rotated.jpg
-2019-04-19 00:53:05.027 INFO  Server: CMD:OUT:./rotateImage.sh --> {end}
-2019-04-19 00:53:05.031 INFO  Server: CMD:EXIT: Code=0
-2019-04-19 00:53:17.107 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-19 00:53:19.733 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-19 00:53:19.744 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-19 00:53:19.744 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:53:20.770 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:53:20.770 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:53:22.446 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:53:22.446 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:53:34.840 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot'. Method 'rot' is not implemented"} CAUSE: Function 'rot'. Method 'rot' is not implemented
-2019-04-19 00:53:51.261 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:53:51.261 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:54:13.661 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot'. Method 'rot' is not implemented"} CAUSE: Function 'rot'. Method 'rot' is not implemented
-2019-04-19 00:54:37.495 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:54:37.495 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:56:44.560 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot'. Method 'rot' is not implemented"} CAUSE: Function 'rot'. Method 'rot' is not implemented
-2019-04-19 00:56:55.472 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:56:55.472 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:57:42.837 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot'. Method 'rot' is not implemented"} CAUSE: Function 'rot'. Method 'rot' is not implemented
-2019-04-19 00:57:50.640 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-19 00:57:50.640 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-19 00:59:37.516 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot'. Method 'rot' is not implemented"} CAUSE: Function 'rot'. Method 'rot' is not implemented
+2019-04-19 13:27:27.108 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-19 13:27:28.757 INFO  Server: listFilesBase: user:stuart loc: thumbs path:\lg 001 encPath:XGxnIDAwMQ==
+2019-04-19 13:27:28.795 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:27:28.797 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:27:29.510 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:27:29.510 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:27:31.108 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:27:31.108 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:27:31.154 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:27:31.203 ERROR Server: CMD:ERR:cmd.exe /c rotateImage.bat --> 'rotateImage.bat' is not recognized as an internal or external command,
+2019-04-19 13:27:31.204 ERROR Server: CMD:ERR:cmd.exe /c rotateImage.bat --> operable program or batch file.
+2019-04-19 13:27:31.205 INFO  Server: CMD:EXIT: Code=1
+2019-04-19 13:27:31.210 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot' returned code 1. Min value is 0"} CAUSE: Function 'rot' returned code 1. Min value is 0
+2019-04-19 13:29:52.850 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:29:52.850 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:29:52.851 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:29:52.911 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> Q0:rotateImage.bat
+2019-04-19 13:29:52.911 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> Q1: 
+2019-04-19 13:29:52.911 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> Q2: 
+2019-04-19 13:29:52.911 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> Q3:
+2019-04-19 13:29:52.914 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> {start}
+2019-04-19 13:29:52.915 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> Option Not supported on Windows
+2019-04-19 13:29:52.915 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat --> {end}
+2019-04-19 13:29:52.917 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:32:20.279 INFO  Server: {"Status":"OK", "Msg":"SHUTTING DOWN", "Entity":"CODE:1 DELAY:2 Seconds"}
+2019-04-19 13:32:41.893 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:32:41.900 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:32:41.905 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:32:41.949 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> Q0:rotateImage.bat
+2019-04-19 13:32:41.949 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> Q1:22082006011.jpg 
+2019-04-19 13:32:41.950 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> Q2: 
+2019-04-19 13:32:41.950 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> Q3:
+2019-04-19 13:32:41.953 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> {start}
+2019-04-19 13:32:41.953 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> Option Not supported on Windows; 22082006011.jpg
+2019-04-19 13:32:41.954 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006011.jpg --> {end}
+2019-04-19 13:32:41.956 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:33:13.981 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:33:13.981 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:33:16.752 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:33:16.753 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:33:16.754 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:33:16.799 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> Q0:rotateImage.bat
+2019-04-19 13:33:16.800 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> Q1:22082006010.jpg 
+2019-04-19 13:33:16.800 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> Q2: 
+2019-04-19 13:33:16.801 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> Q3:
+2019-04-19 13:33:16.805 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> {start}
+2019-04-19 13:33:16.806 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> Option Not supported on Windows; 22082006010.jpg
+2019-04-19 13:33:16.807 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  22082006010.jpg --> {end}
+2019-04-19 13:33:16.809 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:34:35.080 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:34:35.112 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:34:35.123 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:34:35.163 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q0:rotateImage.bat
+2019-04-19 13:34:35.163 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q1:\lg 
+2019-04-19 13:34:35.164 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q2:001 
+2019-04-19 13:34:35.164 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q3:22082006010.jpg
+2019-04-19 13:34:35.168 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {start}
+2019-04-19 13:34:35.168 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Option Not supported on Windows; \lg
+2019-04-19 13:34:35.169 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {end}
+2019-04-19 13:34:35.171 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:35:45.246 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:35:45.246 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:35:45.247 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:35:45.293 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q0:rotateImage.bat
+2019-04-19 13:35:45.294 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q1:\lg 
+2019-04-19 13:35:45.294 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q2:001 
+2019-04-19 13:35:45.295 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q3:22082006010.jpg
+2019-04-19 13:35:45.300 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {start}
+2019-04-19 13:35:45.300 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Option Not supported on Windows; rotateImage.bat\\lg
+2019-04-19 13:35:45.301 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {end}
+2019-04-19 13:35:45.303 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:37:01.380 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:37:01.380 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:37:01.380 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:37:01.420 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q0:rotateImage.bat
+2019-04-19 13:37:01.420 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q1:\lg 
+2019-04-19 13:37:01.421 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q2:001 
+2019-04-19 13:37:01.422 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q3:22082006010.jpg
+2019-04-19 13:37:01.425 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {start}
+2019-04-19 13:37:01.425 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Option Not supported on Windows; rotateImage.bat\\lg
+2019-04-19 13:37:01.426 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {end}
+2019-04-19 13:37:01.428 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:37:02.587 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:37:02.587 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:37:02.588 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:37:02.644 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q0:rotateImage.bat
+2019-04-19 13:37:02.645 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q1:\lg 
+2019-04-19 13:37:02.645 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q2:001 
+2019-04-19 13:37:02.646 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q3:22082006010.jpg
+2019-04-19 13:37:02.648 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {start}
+2019-04-19 13:37:02.649 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Option Not supported on Windows; rotateImage.bat\\lg
+2019-04-19 13:37:02.650 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {end}
+2019-04-19 13:37:02.652 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:39:57.495 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-19 13:39:57.495 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-19 13:39:57.496 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:39:57.535 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q0:rotateImage.bat
+2019-04-19 13:39:57.535 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q1:\lg 
+2019-04-19 13:39:57.536 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q2:001 
+2019-04-19 13:39:57.536 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Q3:22082006010.jpg
+2019-04-19 13:39:57.539 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {start}
+2019-04-19 13:39:57.540 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> Option Not supported on Windows; \lg\00122082006010.jpg
+2019-04-19 13:39:57.540 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat \lg 001 22082006010.jpg --> {end}
+2019-04-19 13:39:57.543 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:42:17.465 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:42:17.475 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:42:17.483 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:42:17.530 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:42:17.530 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:42:17.531 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q2:001' 
+2019-04-19 13:42:17.532 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q3:'22082006011.jpg'
+2019-04-19 13:42:17.536 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> {start}
+2019-04-19 13:42:17.537 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Option Not supported on Windows; '\lg\001''22082006011.jpg'
+2019-04-19 13:42:17.538 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> {end}
+2019-04-19 13:42:17.541 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:43:30.999 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:43:30.999 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:43:30.999 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:43:31.042 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:43:31.043 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:43:31.043 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q2:001' 
+2019-04-19 13:43:31.043 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Q3:'22082006011.jpg'
+2019-04-19 13:43:31.047 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> {start}
+2019-04-19 13:43:31.047 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> Option Not supported on Windows; '\lg\001'
+2019-04-19 13:43:31.048 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001' '22082006011.jpg' --> {end}
+2019-04-19 13:43:31.050 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:44:53.417 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:44:53.427 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:44:53.435 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:44:53.482 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:44:53.483 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:44:53.483 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q2:001 
+2019-04-19 13:44:53.484 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q3:22082006011.jpg'
+2019-04-19 13:44:53.488 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> {start}
+2019-04-19 13:44:53.489 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Option Not supported on Windows; '\lg\001
+2019-04-19 13:44:53.489 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> {end}
+2019-04-19 13:44:53.492 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:46:52.237 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:46:52.237 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:46:53.393 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:46:53.393 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:53:38.650 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:53:38.650 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:53:38.697 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:53:38.697 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:53:38.698 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:53:38.698 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:53:38.698 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q2:001 
+2019-04-19 13:53:38.698 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q2:001 
+2019-04-19 13:53:38.698 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q3:22082006011.jpg'
+2019-04-19 13:53:38.698 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Q3:22082006011.jpg'
+2019-04-19 13:53:38.701 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> {start}
+2019-04-19 13:53:38.701 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> {start}
+2019-04-19 13:53:38.701 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Option Not supported on Windows; '\lg\001
+2019-04-19 13:53:38.701 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> Option Not supported on Windows; '\lg\001
+2019-04-19 13:53:38.701 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> {end}
+2019-04-19 13:53:38.702 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001 22082006011.jpg' --> {end}
+2019-04-19 13:53:38.704 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:53:38.704 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:55:33.095 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:55:33.102 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:55:36.497 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:55:36.497 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:56:07.079 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:56:07.079 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:56:38.800 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:56:38.800 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:58:00.171 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:58:00.171 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:58:00.171 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:58:00.174 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:58:00.206 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:58:00.210 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:58:00.215 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:58:00.216 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:58:00.216 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:58:00.234 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:58:00.319 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:58:00.319 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:58:00.320 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:58:00.320 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:58:00.322 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:58:00.323 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:58:00.323 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:58:00.324 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:58:00.325 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:58:00.326 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:58:00.327 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:58:00.329 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:58:00.330 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:58:00.332 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:58:00.333 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:58:00.334 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:58:00.340 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:58:00.342 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:58:00.342 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:58:00.343 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:58:00.346 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:58:00.346 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:58:00.347 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:58:00.348 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:58:00.348 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:58:00.349 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:58:00.349 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:58:00.349 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:58:00.352 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:58:00.354 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:58:00.355 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:58:00.356 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:58:00.357 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:58:00.363 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:58:00.364 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:58:00.367 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:58:00.367 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:58:00.371 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:58:00.376 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:58:00.377 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:58:00.381 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:58:00.381 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:58:00.385 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:58:00.385 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:58:00.387 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:58:00.387 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:58:00.389 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:58:00.393 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 13:58:45.736 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 13:58:50.659 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 13:59:41.838 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 13:59:41.875 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 13:59:41.875 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 13:59:41.876 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 13:59:41.876 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 13:59:41.878 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 13:59:41.879 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg\001/22082006011.jpg'
+2019-04-19 13:59:41.879 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 13:59:41.881 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:01:09.316 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 14:01:09.317 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 14:01:19.770 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:01:19.808 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 14:01:19.808 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q1:'\lg 
+2019-04-19 14:01:19.808 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q2:001/22082006011.jpg' 
+2019-04-19 14:01:19.809 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Q3:
+2019-04-19 14:01:19.812 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {start}
+2019-04-19 14:01:19.813 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> Option Not supported on Windows; '\lg 001/22082006011.jpg' 
+2019-04-19 14:01:19.813 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001/22082006011.jpg' --> {end}
+2019-04-19 14:01:19.815 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:03:10.921 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 14:03:10.928 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 14:03:10.933 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:03:10.971 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 14:03:10.972 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q1:'\lg 
+2019-04-19 14:03:10.972 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q2:001\22082006011.jpg' 
+2019-04-19 14:03:10.973 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q3:
+2019-04-19 14:03:10.976 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> {start}
+2019-04-19 14:03:10.976 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Option Not supported on Windows; '\lg 001\22082006011.jpg' 
+2019-04-19 14:03:10.977 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> {end}
+2019-04-19 14:03:10.979 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:03:17.034 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 001] encPath:[XGxnIDAwMQ==] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-19 14:03:17.035 INFO  Server: fileReadUserLocationBase: finalName:[22082006011.jpg]
+2019-04-19 14:03:17.036 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:03:17.078 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q0:rotateImage.bat
+2019-04-19 14:03:17.079 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q1:'\lg 
+2019-04-19 14:03:17.079 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q2:001\22082006011.jpg' 
+2019-04-19 14:03:17.080 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Q3:
+2019-04-19 14:03:17.084 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> {start}
+2019-04-19 14:03:17.085 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> Option Not supported on Windows; '\lg 001\22082006011.jpg' 
+2019-04-19 14:03:17.086 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 001\22082006011.jpg' --> {end}
+2019-04-19 14:03:17.088 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:04:08.131 INFO  Server: listFilesBase: user:stuart loc: thumbs path:\lg 002 encPath:XGxnIDAwMg==
+2019-04-19 14:04:08.197 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:04:08.197 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-19 14:04:13.549 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-19 14:04:13.550 INFO  Server: fileReadUserLocationBase: finalName:[22082006012.jpg]
+2019-04-19 14:04:16.023 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-19 14:04:16.024 INFO  Server: fileReadUserLocationBase: finalName:[22082006012.jpg]
+2019-04-19 14:04:16.025 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:04:16.070 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> Q0:rotateImage.bat
+2019-04-19 14:04:16.070 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> Q1:'\lg 
+2019-04-19 14:04:16.071 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> Q2:002\22082006012.jpg' 
+2019-04-19 14:04:16.072 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> Q3:
+2019-04-19 14:04:16.075 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> {start}
+2019-04-19 14:04:16.076 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> Option Not supported on Windows; '\lg 002\22082006012.jpg' 
+2019-04-19 14:04:16.077 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat '\lg 002\22082006012.jpg' --> {end}
+2019-04-19 14:04:16.079 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:05:32.892 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-19 14:05:32.899 INFO  Server: fileReadUserLocationBase: finalName:[22082006012.jpg]
+2019-04-19 14:05:32.905 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:05:32.942 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> Q0:rotateImage.bat
+2019-04-19 14:05:32.943 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> Q1:"\lg 002\22082006012.jpg" 
+2019-04-19 14:05:32.943 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> Q2: 
+2019-04-19 14:05:32.943 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> Q3:
+2019-04-19 14:05:32.945 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> {start}
+2019-04-19 14:05:32.945 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> Option Not supported on Windows; "\lg 002\22082006012.jpg"  
+2019-04-19 14:05:32.946 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat "\lg 002\22082006012.jpg" --> {end}
+2019-04-19 14:05:32.948 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:09:20.132 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-19 14:09:22.206 INFO  Server: listFilesBase: user:stuart loc: thumbs path:\lg 002 encPath:XGxnIDAwMg==
+2019-04-19 14:09:22.233 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:09:22.240 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
+2019-04-19 14:09:23.645 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:09:23.647 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:09:25.912 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:09:25.912 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:09:25.916 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:09:25.961 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q0:rotateImage.bat
+2019-04-19 14:09:25.961 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q1:\lg 
+2019-04-19 14:09:25.962 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q2:002\22082006016.jpg 
+2019-04-19 14:09:25.962 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q3:
+2019-04-19 14:09:25.967 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> {start}
+2019-04-19 14:09:25.968 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Option Not supported on Windows. File: \lg 002\22082006016.jpg   
+2019-04-19 14:09:25.968 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> {end}
+2019-04-19 14:09:25.971 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:10:05.767 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:10:05.767 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:10:05.767 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:10:05.807 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q0:rotateImage.bat
+2019-04-19 14:10:05.809 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q1:\lg 
+2019-04-19 14:10:05.809 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q2:002\22082006016.jpg 
+2019-04-19 14:10:05.809 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q3:
+2019-04-19 14:10:05.812 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> {start}
+2019-04-19 14:10:05.813 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Option Not supported on Windows. File: "\lg 002\22082006016.jpg   "
+2019-04-19 14:10:05.813 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> {end}
+2019-04-19 14:10:05.815 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:21:22.487 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:21:22.488 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:26:34.238 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:26:34.390 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q0:rotateImage.bat
+2019-04-19 14:26:34.391 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q1:\lg 
+2019-04-19 14:26:34.391 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q2:002\22082006016.jpg 
+2019-04-19 14:26:34.392 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Q3:
+2019-04-19 14:26:34.394 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> {start}
+2019-04-19 14:26:34.394 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> Option Not supported on Windows. File: "\lg 002\22082006016.jpg   "
+2019-04-19 14:26:34.395 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\22082006016.jpg --> {end}
+2019-04-19 14:26:34.401 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:27:03.180 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:27:03.187 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:27:55.120 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:27:55.166 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> Q0:rotateImage.bat
+2019-04-19 14:27:55.167 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> Q1:\lg 
+2019-04-19 14:27:55.167 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> Q2:002\Stuart 
+2019-04-19 14:27:55.167 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> Q3:
+2019-04-19 14:27:55.171 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> {start}
+2019-04-19 14:27:55.171 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> Option Not supported on Windows. File: "\lg 002\Stuart   "
+2019-04-19 14:27:55.172 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  \lg 002\Stuart --> {end}
+2019-04-19 14:27:55.174 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:29:32.372 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:29:32.380 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:29:37.938 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:29:37.977 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q0:rotateImage.bat
+2019-04-19 14:29:37.977 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q1:data/images/stuart\\lg 
+2019-04-19 14:29:37.977 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q2:002\Stuart 
+2019-04-19 14:29:37.978 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q3:
+2019-04-19 14:29:37.981 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> {start}
+2019-04-19 14:29:37.981 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Option Not supported on Windows. File: "data/images/stuart\\lg 002\Stuart   "
+2019-04-19 14:29:37.982 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> {end}
+2019-04-19 14:29:37.985 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:31:50.668 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:31:50.669 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:31:50.671 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:31:50.714 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q0:rotateImage.bat
+2019-04-19 14:31:50.714 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q1:data/images/stuart\\lg 
+2019-04-19 14:31:50.715 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q2:002\Stuart 
+2019-04-19 14:31:50.715 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Q3:
+2019-04-19 14:31:50.719 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> {start}
+2019-04-19 14:31:50.720 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> Option Not supported on Windows. File: "data/images/stuart\\lg 002\Stuart   "
+2019-04-19 14:31:50.720 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\\lg 002\Stuart --> {end}
+2019-04-19 14:31:50.723 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:35:19.929 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
+2019-04-19 14:35:19.936 INFO  Server: fileReadUserLocationBase: finalName:[22082006016.jpg]
+2019-04-19 14:35:19.941 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-19 14:35:19.981 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> Q0:rotateImage.bat
+2019-04-19 14:35:19.982 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> Q1:data/images/stuart\lg 
+2019-04-19 14:35:19.982 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> Q2:002\Stuart 
+2019-04-19 14:35:19.982 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> Q3:
+2019-04-19 14:35:19.985 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> {start}
+2019-04-19 14:35:19.985 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> Option Not supported on Windows. File: data/images/stuart\lg 002\Stuart   
+2019-04-19 14:35:19.985 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  data/images/stuart\lg 002\Stuart --> {end}
+2019-04-19 14:35:19.987 INFO  Server: CMD:EXIT: Code=0
+2019-04-19 14:39:33.512 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[\lg 002] encPath:[XGxnIDAwMg==] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]

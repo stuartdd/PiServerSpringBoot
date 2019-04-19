@@ -44,7 +44,7 @@ public class FunctionService {
         if ((functionData == null) || (functionData.size() < 1)) {
             throw new ConfigDataException("Function '" + funcName + "' is not defined");
         }
-        String methodName = functionData.get("func");
+        String methodName = functionData.get("method");
         if (methodName == null) {
             throw new ConfigDataException("Function '" + funcName + "' does not define 'func'");
         }
