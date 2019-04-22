@@ -12,10 +12,15 @@ rem
 rem  Create a temp file for the output of the commands
 rem
 @echo {start}
-IF EXIST %1 goto FILE_EXISTS
+IF EXIST %1 goto IMAGE_EXISTS
   echo Image File: %3 does not exist
 goto END
-:FILE_EXISTS
-  echo Rotate Image %4. Option is not supported on Windows. Image file: %1. Backup %2
+:IMAGE_EXISTS
+    java -cp ../../build/classes/java/main/ external.BackupFile %1 %2
+    IF %ERRORLEVEL% NEQ 0 (
+    echo external.BackupFile returned with an error.
+        exit 1;
+    )
+    echo Rotate Image %4. Option is not supported on Windows. Image file: %1.
 :END
 @echo {end}

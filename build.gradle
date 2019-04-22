@@ -38,10 +38,10 @@ bootJar {
 }
 
 task copyEndpointLib(type: Copy) {
-    println 'copy JsonFormatterPipe class to scripts directories'
+    println 'copy external class files to scripts/external directories'
     from 'build/classes/java/main/external'
     into 'scripts/external'
-    include "JsonFormatter*.class"
+    include "*.class"
 }
 
 //task dart() {
