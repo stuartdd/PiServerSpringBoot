@@ -38,7 +38,7 @@ public class SystemCommand {
             builder.directory(new File(path));
         }
         if (echoScriptOutput) {
-            LogProvider.log("CMD:CURRENT_DIR: " + builder.directory().getAbsolutePath(), 1);
+            LogProvider.log("CMD:SCRIPT DIR: " + builder.directory().getAbsolutePath(), 1);
         }
         Process p;
         try {

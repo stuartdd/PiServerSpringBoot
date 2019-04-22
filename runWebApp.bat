@@ -1,2 +1,2 @@
 cls
-java -jar build\libs\PiServerSpringBoot-1.0.jar configTestDataWIN.json
+java -jar build\libs\PiServerSpringBoot-1.0.jar configDataWIN.json

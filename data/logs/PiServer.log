@@ -1,66 +1,60 @@
-2019-04-22 19:02:24.804 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-22 19:02:26.274 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:XGxnIDAwMQ==
-2019-04-22 19:02:26.297 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-22 19:02:26.304 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-22 19:02:30.872 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-22 19:02:30.873 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-22 19:02:32.551 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-22 19:02:32.551 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-22 19:02:32.554 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-04-22 19:02:32.596 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> Q0:rotateImage.bat
-2019-04-22 19:02:32.597 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> Q1:"C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" 
-2019-04-22 19:02:32.597 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> Q2:"C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" 
-2019-04-22 19:02:32.597 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> Q3:"22082006010.jpg"
-2019-04-22 19:02:32.598 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> Q4:90
-2019-04-22 19:02:32.601 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> {start}
-2019-04-22 19:02:32.602 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> Rotate Image 90. Option is not supported on Windows. Image file: "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg". Backup "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg"
-2019-04-22 19:02:32.603 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\\22082006010.jpg" "22082006010.jpg" 90 --> {end}
-2019-04-22 19:02:32.605 INFO  Server: CMD:EXIT: Code=0
-2019-04-22 19:16:36.119 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-22 19:16:41.808 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 002 encPath:XGxnIDAwMg==
-2019-04-22 19:16:41.835 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_16_19_33_22082006016.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNl8xOV8zM18yMjA4MjAwNjAxNi5qcGcuanBn]
-2019-04-22 19:16:41.836 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-22 19:16:43.478 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-22 19:16:43.478 INFO  Server: fileReadUserLocationBase: finalName:[22082006012.jpg]
-2019-04-22 19:16:45.701 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-22 19:16:45.701 INFO  Server: fileReadUserLocationBase: finalName:[22082006012.jpg]
-2019-04-22 19:16:45.706 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-04-22 19:16:45.748 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q0:rotateImage.bat
-2019-04-22 19:16:45.748 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q1:"C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" 
-2019-04-22 19:16:45.748 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q2:"C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" 
-2019-04-22 19:16:45.749 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q3:"22082006012.jpg"
-2019-04-22 19:16:45.749 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q4:90
-2019-04-22 19:16:45.751 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> {start}
-2019-04-22 19:16:45.752 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Rotate Image 90. Option is not supported on Windows. Image file: "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg". Backup "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg"
-2019-04-22 19:16:45.753 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> {end}
-2019-04-22 19:16:45.755 INFO  Server: CMD:EXIT: Code=0
-2019-04-22 19:21:40.462 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 002] encPath:[bGcgMDAy] name:[2006_08_22_15_54_52_22082006012.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF81Ml8yMjA4MjAwNjAxMi5qcGcuanBn]
-2019-04-22 19:21:40.470 INFO  Server: fileReadUserLocationBase: finalName:[22082006012.jpg]
-2019-04-22 19:21:40.477 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-04-22 19:21:40.514 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q0:rotateImage.bat
-2019-04-22 19:21:40.514 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q1:"C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" 
-2019-04-22 19:21:40.514 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q2:"C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" 
-2019-04-22 19:21:40.514 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q3:"22082006012.jpg"
-2019-04-22 19:21:40.515 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Q4:90
-2019-04-22 19:21:40.517 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> {start}
-2019-04-22 19:21:40.518 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> Rotate Image 90. Option is not supported on Windows. Image file: "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg". Backup "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg"
-2019-04-22 19:21:40.518 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 002\22082006012.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006012.jpg" "22082006012.jpg" 90 --> {end}
-2019-04-22 19:21:40.520 INFO  Server: CMD:EXIT: Code=0
-2019-04-22 19:22:04.510 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-22 19:22:06.648 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:XGxnIDAwMQ==
-2019-04-22 19:22:06.667 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-22 19:22:06.677 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-22 19:22:08.200 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-22 19:22:08.200 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-22 19:22:09.266 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-22 19:22:09.266 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-22 19:22:09.267 INFO  Server: CMD:CURRENT_DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-04-22 19:22:09.308 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> Q0:rotateImage.bat
-2019-04-22 19:22:09.308 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> Q1:"C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" 
-2019-04-22 19:22:09.308 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> Q2:"C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" 
-2019-04-22 19:22:09.309 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> Q3:"22082006010.jpg"
-2019-04-22 19:22:09.309 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> Q4:90
-2019-04-22 19:22:09.313 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> {start}
-2019-04-22 19:22:09.315 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> Rotate Image 90. Option is not supported on Windows. Image file: "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg". Backup "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg"
-2019-04-22 19:22:09.315 INFO  Server: CMD:OUT:cmd.exe /c rotateImage.bat  "C:\Users\stuar\git\PiServerSpringBoot\data\images\stuart\lg 001\22082006010.jpg" "C:\Users\stuar\git\PiServerSpringBoot\data\backup\stuart\22082006010.jpg" "22082006010.jpg" 90 --> {end}
-2019-04-22 19:22:09.318 INFO  Server: CMD:EXIT: Code=0
+2019-04-22 21:02:17.990 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-22 21:02:19.406 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-22 21:02:19.417 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-22 21:02:19.439 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-22 21:02:19.534 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q0:diskStatus.bat
+2019-04-22 21:02:19.535 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q1: 
+2019-04-22 21:02:19.539 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q2: 
+2019-04-22 21:02:19.541 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q3:
+2019-04-22 21:02:19.544 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> C:\Users\stuar\AppData\Local\Temp\DiskStatus17207.txt
+2019-04-22 21:02:19.606 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {start}
+2019-04-22 21:02:19.880 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-22 21:02:19.895 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {end}
+2019-04-22 21:02:19.902 INFO  Server: CMD:EXIT: Code=0
+2019-04-22 21:14:20.711 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-22 21:14:22.693 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-22 21:14:22.694 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-22 21:14:22.704 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-22 21:14:22.757 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q0:diskStatus.bat
+2019-04-22 21:14:22.758 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q1: 
+2019-04-22 21:14:22.758 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q2: 
+2019-04-22 21:14:22.758 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q3:
+2019-04-22 21:14:22.762 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> C:\Users\stuar\AppData\Local\Temp\DiskStatus19568.txt
+2019-04-22 21:14:22.783 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {start}
+2019-04-22 21:14:22.887 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-22 21:14:22.898 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {end}
+2019-04-22 21:14:22.902 INFO  Server: CMD:EXIT: Code=0
+2019-04-22 21:14:57.425 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-22 21:15:08.229 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServer.log] encName:[UGlTZXJ2ZXIubG9n]
+2019-04-22 21:15:12.863 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-22 21:15:12.863 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-22 21:15:12.869 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-22 21:15:12.922 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q0:diskStatus.bat
+2019-04-22 21:15:12.922 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q1: 
+2019-04-22 21:15:12.923 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q2: 
+2019-04-22 21:15:12.923 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q3:
+2019-04-22 21:15:12.927 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> C:\Users\stuar\AppData\Local\Temp\DiskStatus19731.txt
+2019-04-22 21:15:12.942 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {start}
+2019-04-22 21:15:13.050 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-22 21:15:13.062 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {end}
+2019-04-22 21:15:13.065 INFO  Server: CMD:EXIT: Code=0
+2019-04-22 21:15:15.464 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[TestLog.log] encName:[VGVzdExvZy5sb2c=]
+2019-04-22 21:15:28.546 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[PiServerErr.log] encName:[UGlTZXJ2ZXJFcnIubG9n]
+2019-04-22 21:15:50.971 INFO  Server: {"Status":"OK", "Msg":"RESTARTING", "Entity":"CODE:2 DELAY:2 Seconds"}
+2019-04-22 21:19:35.738 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-22 21:19:37.920 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:XGxnIDAwMQ==
+2019-04-22 21:19:37.944 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-22 21:19:37.944 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
+2019-04-22 21:19:45.285 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-22 21:19:45.292 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-22 21:19:45.295 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-04-22 21:19:45.349 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q0:diskStatus.bat
+2019-04-22 21:19:45.350 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q1: 
+2019-04-22 21:19:45.350 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q2: 
+2019-04-22 21:19:45.351 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> Q3:
+2019-04-22 21:19:45.357 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> C:\Users\stuar\AppData\Local\Temp\DiskStatus20622.txt
+2019-04-22 21:19:45.368 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {start}
+2019-04-22 21:19:45.474 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-22 21:19:45.486 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat --> {end}
+2019-04-22 21:19:45.490 INFO  Server: CMD:EXIT: Code=0
+2019-04-22 21:19:53.818 INFO  Server: {"Status":"OK", "Msg":"RESTARTING", "Entity":"CODE:2 DELAY:2 Seconds"}

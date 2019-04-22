@@ -17,6 +17,7 @@
 package main;
 
 import config.ConfigDataManager;
+import config.LogProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,6 +36,7 @@ public class Main {
         FunctionService.init(ConfigDataManager.getFunctions());
         ShutDownService.setExitFlag(0);
         ThreadPool.init();
+        LogProvider.log(ConfigDataManager.getSubstitutionData(), 8);
         SpringApplication.run(Main.class, args);
     }
 

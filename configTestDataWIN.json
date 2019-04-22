@@ -37,34 +37,34 @@
         "echoScriptOutput": true,
         "poleForTime": 200000,
         "osTemplates": {
-            "linux": "%{scripts}|./%{script}.sh %{P0} %{P1} %{P2} %{P3}", 
-            "win": "%{scripts}|cmd.exe|/c|%{script}.bat %{P0} %{P1} %{P2} %{P3}",
-            "mac": "%{scripts}|%{script}.sh %{P0} %{P1} %{P2} %{P3}",
+            "linux": "%{scripts}|./%{scriptName}.sh %{P0} %{P1} %{P2} %{P3}", 
+            "win": "%{scripts}|cmd.exe|/c|%{scriptName}.bat %{P0} %{P1} %{P2} %{P3}",
+            "mac": "%{scripts}|%{scriptName}.sh %{P0} %{P1} %{P2} %{P3}",
             "unknown": "unknown-OS"
         },
-        "commands": {
+        "shellCommands": {
             "ds": {
-                "method": "scriptBetween",
-                "script": "diskStatus",
+                "methodName": "scriptBetween",
+                "scriptName": "diskStatus",
                 "P0" : "%{cache}"
             },
             "rot": {
-                "method": "scriptBetween",
-                "script": "rotateImage",
+                "methodName": "scriptBetween",
+                "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8"
             },
             "notImplemented": {
-                "method": "notImplemented"
+                "methodName": "notImplemented"
             },
             "notScript": {
-                "method": "scriptAll",
-                "script": "notScript",
+                "methodName": "scriptAll",
+                "scriptName": "notScript",
                 "P0": "",
                 "P1": "../"
             },
             "minRcError": {
-                "method": "scriptAll",
-                "script": "returnCode",
+                "methodName": "scriptAll",
+                "scriptName": "returnCode",
                 "P0": "9",
                 "P1": "",
                 "P2": "",
@@ -72,32 +72,32 @@
                 "minRC": 9
             },
             "ufs": {
-                "method": "readFileFromLocation",
+                "methodName": "readFileFromLocation",
                 "location": "cache",
                 "file": "userFileSizes.log"
             },
             "testtree": {
-                "method": "scriptBetween",
-                "script": "getDir",
+                "methodName": "scriptBetween",
+                "scriptName": "getDir",
                 "P0": "%{scripts}",
                 "P1": "",
                 "P2": "",
                 "P3": ""
             },
             "log": {
-                "method": "rsyncLogs",
-                "script": "./listFiles",
+                "methodName": "rsyncLogs",
+                "scriptName": "./listFiles",
                 "dir": "/logs",
                 "id": "log"
             },
             "vol": {
-                "method": "extractVolume",
-                "script": "./setVolume",
+                "methodName": "extractVolume",
+                "scriptName": "./setVolume",
                 "$1": "level"
             },
             "getVol": {
-                "method": "extractVolume",
-                "script": "./getVolume"
+                "methodName": "extractVolume",
+                "scriptName": "./getVolume"
             }
         }
     }

@@ -8,24 +8,24 @@
         "css.hilight.background": "#e8f560",
         "css.button.border": "black"
     },
-    "logPath": "data/logs",
+    "logPath": "data\\logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
+    "validatePathsOnStartUp": ["thumbs","original","backup","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
-        "serverRoot": "",
+        "serverRoot": "C:\\Users\\stuar\\git\\PiServerSpringBoot",
         "users": {
-            "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
-            "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"}
+            "stuart": {"name":"Stuart","thumbs":"data\\thumb\\stuart","original":"data\\images\\stuart", "data":"data\\stuart", "backup":"data\\backup\\stuart"},
+            "shared": {"name":"Something for everyone","thumbs":"data\\thumb\\shared","original":"data\\images\\shared", "data":"data\\shared", "backup":"data\\backup\\shared"}
         },
         "locations": {
-            "logs": "data/logs",
-            "cache": "data/cache",
-            "scripts": "data/scripts",
-            "templates" : "web/templates",
-            "static" : "web/static",
+            "logs": "data\\logs",
+            "cache": "data\\cache",
+            "scripts": "data\\scripts",
+            "templates" : "web\\templates",
+            "static" : "web\\static",
             "audio": "audio"
         },
         "alias" : {"ufs":"userFileSizes.json"}
@@ -35,22 +35,25 @@
         "echoScriptOutput": true,
         "poleForTime": 2000,
         "osTemplates": {
-            "linux": "%{scripts}|./%{script}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
-            "win": "%{scripts}|cmd.exe|/c|%{script}.bat %{P0} %{P1} %{P2} %{P3}",
-            "mac": "%{scripts}|%{script}.sh %{P0} %{P1} %{P2} %{P3}",
+            "linux": "%{scripts}|./%{scriptName}.sh|%{P0}|%{P1}|%{P2}|%{P3}|%{P4}|%{P4}", 
+            "win": "%{scripts}|cmd.exe|/c|%{scriptName}.bat %{P0} %{P1} %{P2} %{P3} %{P4} %{P5}",
+            "mac": "%{scripts}|%{scriptName}.sh %{P0} %{P1} %{P2} %{P3} %{P4} %{P5}",
             "unknown": "unknown-OS"
         },
-        "commands": {
+        "shellCommands": {
              "ds": {
-                 "method": "scriptBetween",
-                 "script": "diskStatus",
+                 "methodName": "scriptBetween",
+                 "scriptName": "diskStatus",
                  "Content-Type" : "application/json; charset=UTF-8"
             },
             "rot": {
-                "method": "scriptBetween",
-                "script": "rotateImage",
+                "methodName": "scriptBetween",
+                "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"%{original}%{path}\\%{name}" 
+                "P1":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{fileName}\"",
+                "P3":"\"%{fileName}\"",
+                "P4":"%{degrees}"
             }
         }
     }

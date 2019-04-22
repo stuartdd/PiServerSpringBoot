@@ -17,21 +17,21 @@ public class Functions {
     private boolean echoScriptOutput;
     private long poleForTime = 2000;
     private Map<String,String> osTemplates;
-    private Map<String, Map<String, String>> commands = new HashMap<>();
+    private Map<String, Map<String, String>> shellCommands = new HashMap<>();
 
     public Map<String, String> getCommandsForFunction(String funString) {
-        Map<String, String> l = commands.get(funString);
+        Map<String, String> l = shellCommands.get(funString);
         return (l == null ? null : l);
     }
 
-    public Map<String, Map<String, String>> getCommands() {
-        return commands;
+    public Map<String, Map<String, String>> getShellCommands() {
+        return shellCommands;
     }
 
-    public void setCommands(Map<String, Map<String, String>> commands) {
-        this.commands = commands;
+    public void setShellCommands(Map<String, Map<String, String>> shellCommands) {
+        this.shellCommands = shellCommands;
     }
-
+    
     public boolean isEchoScriptOutput() {
         return echoScriptOutput;
     }

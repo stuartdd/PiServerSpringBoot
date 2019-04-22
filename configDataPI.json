@@ -38,20 +38,20 @@
         "echoScriptOutput": true,
         "poleForTime": 999999999,
         "osTemplates": {
-            "linux": "%{scripts}|./%{script}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
-            "win": "%{scripts}|cmd.exe|/c|%{script}.bat %{P0} %{P1} %{P2} %{P3}",
-            "mac": "%{scripts}|%{script}.sh %{P0} %{P1} %{P2} %{P3}",
+            "linux": "%{scripts}|./%{scriptName}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
+            "win": "%{scripts}|cmd.exe|/c|%{scriptName}.bat %{P0} %{P1} %{P2} %{P3}",
+            "mac": "%{scripts}|%{scriptName}.sh %{P0} %{P1} %{P2} %{P3}",
             "unknown": "unknown-OS"
         },
-        "commands": {
+        "shellCommands": {
             "ds": {
-                "method": "scriptBetween",
-                "script": "diskStatus",
+                "methodName": "scriptBetween",
+                "scriptName": "diskStatus",
                 "Content-Type" : "application/json; charset=UTF-8"
             },
             "rot": {
-                "method": "scriptBetween",
-                "script": "rotateImage",
+                "methodName": "scriptBetween",
+                "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
                 "P1":"\"%{original}%{path}/%{name}\"" 
             }

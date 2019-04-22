@@ -41,35 +41,35 @@ public class TestScripts {
 
     @Test
     public void getDiskStatus() throws Exception {
-        MvcResult s = mvc.perform(get("/func/ds"))
+        MvcResult s = mvc.perform(get("/script/ds"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("[{\"name\":\"/dev/sda:\",\"state\":\"standby\"},{\"name\":\"/dev/sdb:\",\"state\":\"active/idle\"}]", s.getResponse().getContentAsString());
     }
    
     @Test
     public void getFuncNotFound() throws Exception {
-        MvcResult s = mvc.perform(get("/func/xxx"))
+        MvcResult s = mvc.perform(get("/script/xxx"))
                 .andExpect(status().isFailedDependency()).andReturn();
         assertTrue(s.getResponse().getContentAsString().contains("Function 'xxx' is not defined"));
     }
 
     @Test
     public void getFuncNotImplemented() throws Exception {
-        MvcResult s = mvc.perform(get("/func/notImplemented"))
+        MvcResult s = mvc.perform(get("/script/notImplemented"))
                 .andExpect(status().isFailedDependency()).andReturn();
         assertTrue(s.getResponse().getContentAsString().contains("Method 'notImplemented' is not implemented"));
     }
 
     @Test
     public void getScriptNotFound() throws Exception {
-        MvcResult s = mvc.perform(get("/func/notScript"))
+        MvcResult s = mvc.perform(get("/script/notScript"))
                 .andExpect(status().isFailedDependency()).andReturn();
         assertTrue(s.getResponse().getContentAsString().contains("Failed Dependency"));
     }
 
     @Test
     public void getScriptMinRC() throws Exception {
-        MvcResult s = mvc.perform(get("/func/minRcError"))
+        MvcResult s = mvc.perform(get("/script/minRcError"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals(200, s.getResponse().getStatus());
     }

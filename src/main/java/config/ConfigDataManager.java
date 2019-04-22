@@ -20,11 +20,13 @@ import exceptions.ConfigDataException;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
+import java.util.TreeMap;
 import org.joda.time.DateTime;
 import tools.FileUtils;
 import tools.JsonUtils;
+import tools.OsUtils;
 import tools.StringUtils;
 
 /**
@@ -35,7 +37,7 @@ public class ConfigDataManager {
 
     private static final String FS = File.separator;
     private static String configDataName;
-    private static Properties parameters;
+    private static Map<String, String> parameterMap;
     /*
     Do not give direct access to configDataImpl. It should always remain wrapped
      */
@@ -80,8 +82,8 @@ public class ConfigDataManager {
             throw new ConfigDataException(configErrorPrefix + "User data 'resources-->users' not found or is empty");
         }
 
-        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getCommands() == null) || (configDataImpl.getFunctions().getCommands().size() == 0)) {
-            throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->commands' not found or is empty");
+        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getShellCommands() == null) || (configDataImpl.getFunctions().getShellCommands().size() == 0)) {
+            throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->getShellCommands' not found or is empty");
         }
 
         if (getLocations().get("scripts") == null) {
@@ -160,19 +162,49 @@ public class ConfigDataManager {
         }
 
         StringBuilder sb = new StringBuilder();
-        int mark = 0;
+        int mark = sb.length();
         for (String user : getUsers().keySet()) {
-            sb.append('"').append(user).append('"');
+            sb.append(user);
             mark = sb.length();
             sb.append(',');
         }
         sb.setLength(mark);
 
-        parameters = new Properties();
-        parameters.putAll(configDataImpl.getResources().getAlias());
-        parameters.putAll(System.getProperties());
-        parameters.put("userList", sb.toString());
-        parameters.put("user", "");
+        parameterMap = new HashMap<>();
+        parameterMap.putAll(configDataImpl.getResources().getAlias());
+        for (Map.Entry<Object, Object> s : System.getProperties().entrySet()) {
+            if (s.getKey() != null) {
+                String key = s.getKey().toString();
+                if ((!key.startsWith("sun.")) && (!key.startsWith("java.")) && (!key.startsWith("user.")) && (!key.startsWith("os")) && (!key.startsWith("awt"))) {
+                    parameterMap.put(s.getKey().toString(), s.getValue().toString());
+                }
+            }
+        }
+        parameterMap.put("userList", sb.toString());
+        parameterMap.remove("user");
+        String root = configDataImpl.getResources().getServerRoot();
+        if ((root != null) && (root.trim().length() > 0)) {
+            parameterMap.put("serverRoot", root);
+        }
+        parameterMap.put("server.started", (new DateTime()).toString("yyyy/MM/dd HH:mm:ss"));
+        parameterMap.put("server.config", configDataName);
+        parameterMap.put("server.os", OsUtils.resolveOS().name());
+    }
+
+    public static String getSubstitutionData() {
+        StringBuilder sb = new StringBuilder();
+        Map<String, String> sorted = new TreeMap<>();
+        sorted.putAll(parameterMap);
+        sb.append("{\"status\":{");
+        int mark = sb.length();
+        for (Map.Entry<String, String> s : sorted.entrySet()) {
+            sb.append('"').append(s.getKey()).append("\":\"").append(s.getValue()).append('"');
+            mark = sb.length();
+            sb.append(',');
+        }
+        sb.setLength(mark);
+        sb.append("}}");
+        return StringUtils.cleanJsonString(sb.toString());
     }
 
     public static Map<String, Map<String, String>> getUsers() {
@@ -247,7 +279,7 @@ public class ConfigDataManager {
             Map<String, String> map = getUser(user);
             loc = map.get(locationName);
             if (loc == null) {
-                throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName + (path == null ? "" : "." + path));
+                throw new ResourceNotFoundException(user + "." + locationName + (path == null ? "" : "." + path));
             }
             loc = resolveLocation(loc);
         }
@@ -271,9 +303,9 @@ public class ConfigDataManager {
         throw new ResourceNotFoundException("Path to - USER:" + user + " LOCATION:" + locationName + " PATH:" + path + " NAME:" + name);
     }
 
-    public static Properties getProperties(Map<String, String> localParameters) {
-        Properties p = new Properties();
-        p.putAll(parameters);
+    public static Map<String, String> getParameters(Map<String, String> localParameters) {
+        Map<String, String> p = new HashMap<>();
+        p.putAll(parameterMap);
         p.putAll(localParameters);
         return p;
     }
@@ -333,7 +365,7 @@ public class ConfigDataManager {
     }
 
     public static boolean shouldValidateLocation(String key) {
-        for (String name: configDataImpl.getValidatePathsOnStartUp()) {
+        for (String name : configDataImpl.getValidatePathsOnStartUp()) {
             if (name.equalsIgnoreCase(key)) {
                 return true;
             }

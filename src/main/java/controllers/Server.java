@@ -62,7 +62,12 @@ public class Server extends ControllerErrorHandlerBase {
 
     @RequestMapping(value = "server/users", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String users() {
-        return ServerService.jsonUsers();
+        return StringUtils.cleanJsonString(ServerService.jsonUsers());
+    }
+    
+    @RequestMapping(value = "server/status", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String status() {
+        return ConfigDataManager.getSubstitutionData();
     }
 
 }

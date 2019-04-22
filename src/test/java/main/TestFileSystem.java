@@ -117,10 +117,10 @@ public class TestFileSystem {
     }
 
     private void testReadLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/" + EncodeDecode.encode("PiServerTest.log"))).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/" + EncodeDecode.encode("TestLog.log"))).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         assertTrue(resp.length() > 100);
-        assertTrue(resp.contains("ERROR Server: &lt;Dry-Run&gt; "));
+        assertTrue(resp.contains("main.TestFileSystem"));
         assertFalse(resp.contains("<"));
         assertFalse(resp.contains(">"));
     }

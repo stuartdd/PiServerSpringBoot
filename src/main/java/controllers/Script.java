@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FunctionService;
 import services.dto.FunctionResponseDto;
-import tools.StringUtils;
 
 /**
  *
@@ -26,7 +25,7 @@ import tools.StringUtils;
  */
 @RestController("scripts")
 public class Script extends ControllerErrorHandlerBase {
-    @RequestMapping(value = "func/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "script/{id}", method = RequestMethod.GET)
     public ResponseEntity<String> script(@PathVariable String id, @RequestParam Map<String, String> queryParameters) {
         FunctionResponseDto functionResponseDto = FunctionService.func(id, queryParameters);
         HttpHeaders headers = new HttpHeaders();

@@ -41,7 +41,7 @@ final Element diskStatus = querySelector('#diskStatus');
 final Element logFileList = querySelector('#logFileList');
 final Element displayLog = querySelector('#displayLog');
 final Element logFileName = querySelector('#logFileName');
-
+final Element serverStatusDataList = querySelector('#serverStatusDataList');
 
 /**
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
@@ -92,7 +92,7 @@ ServerRequest fetchLogFileText = ServerRequest('GET', '/files/loc/logs/name/{1}'
   logFileText = resp.body;
   displayLog.text = logFileText;
 });
-ServerRequest fetchDiskStatus = ServerRequest('GET', '/func/ds', 'Reading Disk Status', processError, (resp) {
+ServerRequest fetchDiskStatus = ServerRequest('GET', '/script/ds', 'Reading Disk Status', processError, (resp) {
   diskStatusData = resp.list;
   populateDiskStatus();
 });
@@ -109,16 +109,18 @@ ServerRequest fetchThumbNailDirPaths = ServerRequest('GET', '/paths/user/{1}/loc
   thumbNailDirList = resp.map;
   populateThumbNailDirList();
 });
-
 ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs/path/{2}', 'Reading thumbnails', processError, (resp) {
   thumbNailList = resp.map;
   populateThumbnails();
 });
-ServerRequest rotateImageRequest = ServerRequest('GET', '/files/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&func=rot', 'Rotate Image!', processError, (resp) {
+ServerRequest rotateImageRequest = ServerRequest('GET', '/files/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&script=rot&degrees={4}', 'Rotate Image!', processError, (resp) {
   processError('D', resp.body);
 });
 ServerRequest restartServerRequest = ServerRequest('GET', '/server/restart', 'Restart the Server thumbnails', processError, (resp) {
   restartServerAck(resp.map);
+});
+ServerRequest fetchServerStatusData = ServerRequest('GET', '/server/status', 'Server Status', processError, (resp) {
+  populateServerStatusData(resp.map);
 });
 
 
@@ -157,7 +159,7 @@ void main() {
 }
 
 void rotateOriginal(int degrees) {
-  rotateImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName]);
+  rotateImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName, '90']);
 }
 
 void selectLogFile(String name, String base64)  {
@@ -176,6 +178,7 @@ void selectStatusPage() {
   fetchUserFileSizes.send();
   fetchDiskStatus.send();
   fetchLogFileList.send();
+  fetchServerStatusData.send();
   pageManager.display(PAGE_STATUS);
 }
 
@@ -245,6 +248,14 @@ void onClickOriginalImage(int x, int y, Element e) {
   }
 }
 
+void populateServerStatusData(Map map) {
+  String htmlStr = '<table width=\"100%\">';
+  map['status'].forEach((k,v) {
+    htmlStr += '<tr><td width=\"25%\">${k}</td><td>${v}</td></tr>';
+  });
+  htmlStr += '</table>';
+  serverStatusDataList.innerHtml = htmlStr;
+}
 /**
  * [{"Size":"162215134","Name":"shared"},{"Size":"35722111","Name":"stuart"},{"Size":"36979282","Name":"julie"},{"Size":"36854954","Name":"owain"},{"Size":"10696354","Name":"huw"}]
  */
@@ -412,6 +423,22 @@ void initOriginalImagePage(PageDiv old, PageDiv to) {
   navButtons.hidden = true;
 }
 
+void initAnyPage(PageDiv old, PageDiv to) {
+  clearError();
+  buttonManager.hidden(ADD_SUB_BUTTON_IDS, true);
+  headerUserName.text = "Welcome: ${currentUserName}";
+  navButtons.hidden = false;
+}
+
+void restartServerConfirm() {
+  if (window.confirm("Restart The Server - Are you sure?")) {
+    restartServerRequest.send();
+  }
+}
+
+void restartServerAck(Map map) {
+  window.alert("Restart The Server Status : ${map['Status']}. Message : Refresh the page to continue.");
+}
 
 void scrollToBottom() {
   var scrollingElement = window.document.scrollingElement;
@@ -422,27 +449,10 @@ void scrollToTop() {
   window.document.scrollingElement.scrollTop = 0;
 }
 
-void initAnyPage(PageDiv old, PageDiv to) {
-  clearError();
-  buttonManager.hidden(ADD_SUB_BUTTON_IDS, true);
-  headerUserName.text = "Welcome: ${currentUserName}";
-  navButtons.hidden = false;
-}
-
 void clearError() {
   errorMessageText.text = DEFAULT_ERROR_TEXT;
   diagnosticText.hidden = false;
   diagnosticText.text = '';
-}
-
-void restartServerConfirm() {
-  if (window.confirm("Restart The Server - Are you sure?[AKK]")) {
-    restartServerRequest.send();
-  }
-}
-
-void restartServerAck(Map map) {
-  window.alert("Restart The Server Status : ${map['Status']}. Message : Refresh the page to continue.");
 }
 
 void processError(String key, String message) {

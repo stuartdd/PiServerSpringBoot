@@ -220,4 +220,24 @@ public class StringUtils {
         }
         return sb.toString().getBytes();
     }
+    
+    public static String cleanJsonString(String jsonIn) {
+        StringBuilder sb = new StringBuilder();
+        for (char c:jsonIn.toCharArray()) {
+            if (c == '\\') {
+                sb.append('\\').append('\\');
+            } else {
+                if ((c < ' ') || (c > 127)) {
+                    String hex = Integer.toHexString(c);
+                    if (hex.length() == 1) {
+                        hex = '0' + hex;
+                    }
+                    sb.append('#').append(hex.toUpperCase());
+                } else {
+                    sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
+    }
 }

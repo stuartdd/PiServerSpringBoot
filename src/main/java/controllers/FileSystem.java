@@ -107,7 +107,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         }
         String finalPath = null;
         if (path != null) {
-            finalPath = EncodeDecode.decode(path);
+            finalPath = FileService.conditionFileName(EncodeDecode.decode(path));
         }
         LogProvider.log("fileReadUserLocationBase: user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);
         String subStringExpression = queryParameters.get("thumbnail");
@@ -116,12 +116,10 @@ public class FileSystem extends ControllerErrorHandlerBase {
             LogProvider.log("fileReadUserLocationBase: finalName:[" + finalName + "]", 2);
         }
         byte[] bytes;
-        String function = queryParameters.get("func");
+        String function = queryParameters.get("script");
         if ((function != null) && (function.trim().length()>0)) {
-            queryParameters.put("path",finalPath);
-            queryParameters.put("name",finalName);
-            queryParameters.put("encPath",path);
-            queryParameters.put("encName",name);
+            queryParameters.put("filePath",finalPath);
+            queryParameters.put("fileName",finalName);
             queryParameters.put("user",user);
             queryParameters.putAll(ConfigDataManager.getUser(user));
             FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
@@ -200,7 +198,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
     public FileListIo listFilesBase(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @RequestParam Map<String, String> queryParameters) {
         String finalPath = null;
         if (path != null) {
-            finalPath = EncodeDecode.decode(path);
+            finalPath = FileService.conditionFileName(EncodeDecode.decode(path));
         }
         LogProvider.log("listFilesBase: user:" + user + " loc: " + loc + " path:" + finalPath + " encPath:" + path, 1);
         String filter = queryParameters.getOrDefault("ext", null);

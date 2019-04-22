@@ -5,7 +5,7 @@ echo Q2:$2
 echo Q3:$3
 TMPFILE1="$(mktemp)"
 TMPFILE2="$(mktemp)"
-convert $1 -rotate 90 howtogeek-rotated.jpg > $TMPFILE1 2> $TMPFILE2
+convert $1 -rotate $3 howtogeek-rotated.jpg > $TMPFILE1 2> $TMPFILE2
 echo {start}
 echo convert $1 -rotate 90 howtogeek-rotated.jpg
 cat $TMPFILE1

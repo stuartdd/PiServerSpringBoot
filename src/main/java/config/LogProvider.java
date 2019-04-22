@@ -21,10 +21,12 @@ public class LogProvider {
     private static void init() {
         logLevelBar = ConfigDataManager.getLogLevelBar();
         if (logger == null) {
-            logger = LogManager.getLogger("Server:");
-        }
-        if (loggerError == null) {
-            loggerError = LogManager.getLogger("ServerError:");
+            if (logger == null) {
+                logger = LogManager.getLogger("Server:");
+            }
+            if (loggerError == null) {
+                loggerError = LogManager.getLogger("ServerError:");
+            }
         }
     }
 

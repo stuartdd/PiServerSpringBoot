@@ -112,4 +112,23 @@ public class FileService {
         }
         return fileListOut;
     }
+    
+    public static String conditionFileName(String s) {
+        if (s== null) {
+            return null;
+        }
+        String strim = s.trim();
+        if (strim.startsWith("\\") || strim.startsWith("/")) {
+            strim = strim.substring(1);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c:strim.toCharArray()) {
+            if ((c == '\\') || (c == '/')) {
+                sb.append(FS);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import config.ConfigDataManager;
-import java.util.HashMap;
 import tools.FileUtils;
 import tools.OsUtils;
 import tools.StringUtils;
@@ -44,14 +43,14 @@ public class FunctionService {
         if ((functionData == null) || (functionData.size() < 1)) {
             throw new ConfigDataException("Function '" + funcName + "' is not defined");
         }
-        String methodName = functionData.get("method");
+        String methodName = functionData.get("methodName");
         if (methodName == null) {
             throw new ConfigDataException("Function '" + funcName + "' does not define 'func'");
         }
         if (queryParameters != null) {
             functionData.putAll(queryParameters);
         }
-        String desc = "Function '" + funcName + "'. Method '" + methodName + "'";
+        String desc = "Script ID'" + funcName + "'. Method '" + methodName + "'";
         Method m;
         try {
             m = FunctionService.class.getDeclaredMethod(methodName, new Class[]{Map.class, String.class});
@@ -102,15 +101,12 @@ public class FunctionService {
     }
 
     private Object[] substituteAndSplit(Map<String, String> mapIn, String desc) {
-        Map<String,String> mapSub = new HashMap<>();
+        Map<String,String> mapSub = ConfigDataManager.getParameters(ConfigDataManager.getLocations());
         for (Map.Entry<String, String> key:mapIn.entrySet()) {
-            mapSub.put(key.getKey(), Template.parse(key.getValue(), ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.IGNORE));
-        }
-        for (Map.Entry<String, String> key:mapSub.entrySet()) {
             mapSub.put(key.getKey(), Template.parse(key.getValue(), mapSub, Template.URESOLVED_ACTION.IGNORE));
         }
         for (Map.Entry<String, String> key:mapSub.entrySet()) {
-            mapSub.put(key.getKey(), Template.parse(key.getValue(), System.getProperties(), Template.URESOLVED_ACTION.IGNORE));
+            mapSub.put(key.getKey(), Template.parse(key.getValue(), mapSub, Template.URESOLVED_ACTION.IGNORE));
         }
         String t1 = Template.parse(osTemplate, mapSub, Template.URESOLVED_ACTION.IGNORE);
         t1 = Template.parse(t1, ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.BLANK);
