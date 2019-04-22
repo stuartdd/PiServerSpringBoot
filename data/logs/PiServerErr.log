@@ -1,3 +1,0 @@
-2019-04-19 13:27:31.204 ERROR ServerError: CMD:ERR:cmd.exe /c rotateImage.bat --> 'rotateImage.bat' is not recognized as an internal or external command,
-2019-04-19 13:27:31.204 ERROR ServerError: CMD:ERR:cmd.exe /c rotateImage.bat --> operable program or batch file.
-2019-04-19 13:27:31.211 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'rot' returned code 1. Min value is 0"} CAUSE: Function 'rot' returned code 1. Min value is 0
