@@ -13,12 +13,12 @@
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
+    "validatePathsOnStartUp": ["thumbs","original","backup","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
-        "serverRoot": "",
+        "serverRoot": "/home/stuart/git/java/PiServerSpringBoot",
         "users": {
-            "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
-            "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"}
+            "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart", "backup":"data/backup/stuart"},
+            "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared", "backup":"data/backup/shared"}
         },
         "locations": {
             "logs": "data/logs",
@@ -35,9 +35,9 @@
         "echoScriptOutput": true,
         "poleForTime": 2000,
         "osTemplates": {
-            "linux": "%{scripts}|./%{scriptName}.sh|%{P0}|%{P1}|%{P2}|%{P3}", 
-            "win": "%{scripts}|cmd.exe|/c|%{scriptName}.bat %{P0} %{P1} %{P2} %{P3}",
-            "mac": "%{scripts}|%{scriptName}.sh %{P0} %{P1} %{P2} %{P3}",
+            "linux": "%{scripts}|./%{scriptName}.sh|%{P0}|%{P1}|%{P2}|%{P3}|%{P4}|%{P5}",
+            "win": "%{scripts}|cmd.exe|/c|%{scriptName}.bat %{P0} %{P1} %{P2} %{P3} %{P4} %{P5}",
+            "mac": "%{scripts}|%{scriptName}.sh %{P0} %{P1} %{P2} %{P3} %{P4} %{P5}",
             "unknown": "unknown-OS"
         },
         "shellCommands": {
@@ -50,7 +50,10 @@
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"\"%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"" 
+                "P1":"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P2":"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P3":"%{fileName}",
+                "P4":"%{degrees}"
             }
         }
     }

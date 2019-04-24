@@ -35,7 +35,7 @@
         "echoScriptOutput": true,
         "poleForTime": 2000,
         "osTemplates": {
-            "linux": "%{scripts}|./%{scriptName}.sh|%{P0}|%{P1}|%{P2}|%{P3}|%{P4}|%{P4}", 
+            "linux": "%{scripts}|./%{scriptName}.sh|%{P0}|%{P1}|%{P2}|%{P3}|%{P4}|%{P5}",
             "win": "%{scripts}|cmd.exe|/c|%{scriptName}.bat %{P0} %{P1} %{P2} %{P3} %{P4} %{P5}",
             "mac": "%{scripts}|%{scriptName}.sh %{P0} %{P1} %{P2} %{P3} %{P4} %{P5}",
             "unknown": "unknown-OS"

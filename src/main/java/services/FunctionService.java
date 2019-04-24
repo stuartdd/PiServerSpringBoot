@@ -117,7 +117,9 @@ public class FunctionService {
         }
         List<String> l = new ArrayList<>();
         for (int i=1; i<split.length; i++) {
-            l.add(split[i]);
+            if ((split[i] != null) && (split[i].trim().length()>0)) {
+                l.add(split[i]);
+            }
         }
         Object[] res = new Object[2];
         res[0] = split[0];

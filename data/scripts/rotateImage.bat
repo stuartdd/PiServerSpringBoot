@@ -4,23 +4,16 @@
 @echo Q2:%2 
 @echo Q3:%3
 @echo Q4:%4
-rem 
-rem  Dummy batch script for testing as this cannot run on windows or on any device that does not have /dev/sda and /dev/sdb
-rem  So we just pretend and create a temporary file that contains the sort of data we would get.
-rem  The real one is in scripts dir and runs on raspberryPi 
-rem 
-rem  Create a temp file for the output of the commands
-rem
 @echo {start}
 IF EXIST %1 goto IMAGE_EXISTS
   echo Image File: %3 does not exist
 goto END
 :IMAGE_EXISTS
-    java -cp ../../build/classes/java/main/ external.BackupFile %1 %2
+    java -cp ../../build/classes/java/main/ external.CopyFile %1 %2
     IF %ERRORLEVEL% NEQ 0 (
-    echo external.BackupFile returned with an error.
-        exit 1;
+        echo external.CopyFile returned with an error.
+        exit %ERRORLEVEL%;
     )
-    echo Rotate Image %4. Option is not supported on Windows. Image file: %1.
+    echo Rotate Image %3 %4 degrees. Option is only currently supported on RaspberryPi".
 :END
 @echo {end}

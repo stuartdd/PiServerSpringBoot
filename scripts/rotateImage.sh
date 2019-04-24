@@ -3,13 +3,18 @@ echo Q0:$0
 echo Q1:$1 
 echo Q2:$2 
 echo Q3:$3
-TMPFILE1="$(mktemp)"
-TMPFILE2="$(mktemp)"
-convert $1 -rotate $3 howtogeek-rotated.jpg > $TMPFILE1 2> $TMPFILE2
+echo Q4:$4
 echo {start}
-echo convert $1 -rotate 90 howtogeek-rotated.jpg
-cat $TMPFILE1
-cat $TMPFILE2
+if [ -f "$1" ];
+then
+	java external.CopyFile "$1" "$2"
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "echo external.CopyFile returned with an error."
+        exit $retVal
+    fi
+    echo "Rotate Image $3 $4 degrees. Too be implemented on RaspberryPi".
+exit $retValelse
+	echo "Image File: $3 does not exist"
+fi
 echo {end}
-rm $TMPFILE1
-rm $TMPFILE2

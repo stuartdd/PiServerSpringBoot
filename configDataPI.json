@@ -13,15 +13,15 @@
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
+    "validatePathsOnStartUp": ["thumbs","original","backup","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
         "serverRoot": "/home/pi/server",
         "users": {
-            "stuart": {"name":"Stuart","thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart"},
-            "julie": {"name":"Julie","thumbs":"thumbnails/julie", "original":"/media/USBHDD1/shares/julie", "data":"cache/julie"},
-            "owain": {"name":"Owain","thumbs":"thumbnails/owain", "original":"/media/USBHDD1/shares/owain", "data":"cache/owain"},
-            "huw": {"name":"Huw","thumbs":"thumbnails/huw", "original":"/media/USBHDD1/shares/huw", "data":"cache/huw"},
-            "shared": {"name":"Something for everyone","thumbs":"thumbnails/shared", "original":"/media/USBHDD1/shares/shared", "data":"cache/shared"}
+            "stuart": {"name":"Stuart","thumbs":"thumbnails/stuart", "original":"/media/USBHDD1/shares/stuart", "data":"cache/stuart", "backup":"backup/stuart"},
+            "julie": {"name":"Julie","thumbs":"thumbnails/julie", "original":"/media/USBHDD1/shares/julie", "data":"cache/julie", "backup":"backup/julie"},
+            "owain": {"name":"Owain","thumbs":"thumbnails/owain", "original":"/media/USBHDD1/shares/owain", "data":"cache/owain", "backup":"backup/owain"},
+            "huw": {"name":"Huw","thumbs":"thumbnails/huw", "original":"/media/USBHDD1/shares/huw", "data":"cache/huw", "backup":"backup/huw"},
+            "shared": {"name":"Something for everyone","thumbs":"thumbnails/shared", "original":"/media/USBHDD1/shares/shared", "data":"cache/shared", "backup":"backup/shared"}
         },
         "locations": {
             "logs": "logs",
@@ -53,7 +53,10 @@
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"\"%{original}%{path}/%{name}\"" 
+                "P1":"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P2":"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P3":"%{fileName}",
+                "P4":"%{degrees}"
             }
         }
     }
