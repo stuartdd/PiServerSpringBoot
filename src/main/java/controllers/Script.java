@@ -1,10 +1,23 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2018 Stuiart Davies (stuartdd)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package controllers;
 
+import config.ConfigDataManager;
+import config.LogProvider;
 import java.util.Map;
 
 import org.springframework.http.CacheControl;
@@ -16,8 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import services.FileService;
 import services.FunctionService;
 import services.dto.FunctionResponseDto;
+import tools.EncodeDecode;
+import tools.MediaTypeInfAndName;
+import tools.StringUtils;
 
 /**
  *
@@ -25,9 +42,40 @@ import services.dto.FunctionResponseDto;
  */
 @RestController("scripts")
 public class Script extends ControllerErrorHandlerBase {
-    @RequestMapping(value = "script/{id}", method = RequestMethod.GET)
-    public ResponseEntity<String> script(@PathVariable String id, @RequestParam Map<String, String> queryParameters) {
-        FunctionResponseDto functionResponseDto = FunctionService.func(id, queryParameters);
+
+    @RequestMapping(value = "/script/{function}/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> scriptWithFile(@PathVariable String function, @PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
+        MediaTypeInfAndName mediaTypeInf = MediaTypeInfAndName.getMediaTypeForFile(name);
+        String finalName = mediaTypeInf.getFileName();
+        String finalPath = FileService.conditionFileName(EncodeDecode.decode(path));
+        
+        LogProvider.log("scriptUserLocationBase: function:[" + function + "] user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);;
+        String subStringExpression = queryParameters.get("thumbnail");
+        if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
+            finalName = StringUtils.parseThumbnailFileName(mediaTypeInf.getFileName());
+            LogProvider.log("scriptUserLocationBase: function:[" + function + "] finalName:[" + finalName + "]", 2);
+        }
+        queryParameters.put("filePath", finalPath);
+        queryParameters.put("fileName", finalName);
+        queryParameters.put("user", user);
+        queryParameters.putAll(ConfigDataManager.getUser(user));
+        FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
+        byte[] bytes = functionResponseDto.getResponse().getBytes(StringUtils.DEFAULT_CHARSET);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+        if (mediaTypeInf.isPlainText()) {
+            bytes = StringUtils.encodePlainText(bytes);
+        }
+        headers.add("Content-Type", mediaTypeInf.getMediaType());
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @RequestMapping(value = "script/{function}", method = RequestMethod.GET)
+    public ResponseEntity<String> script(@PathVariable String function, @RequestParam Map<String, String> queryParameters) {
+        FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
         headers.add("Content-Type", functionResponseDto.getMap().get("Content-Type"));

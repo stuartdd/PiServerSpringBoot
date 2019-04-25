@@ -19,7 +19,6 @@ package controllers;
 import exceptions.ServerRestException;
 import java.util.Map;
 import config.ConfigDataManager;
-import config.LogProvider;
 import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.CacheControl;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tools.FileUtils;
-import tools.MediaTypeInf;
+import tools.MediaTypeInfAndName;
 import tools.StringUtils;
 import tools.Template;
 
@@ -50,10 +49,7 @@ public class Content extends ControllerErrorHandlerBase {
             finalName = finalName.substring(1);
         }
         finalName = finalName.substring("static".length());
-        MediaTypeInf mediaTypeInf = StringUtils.getMediaTypeForFile(finalName);
-        if (mediaTypeInf == null) {
-            mediaTypeInf = StringUtils.getMediaTypeForFile(".txt");
-        }
+        MediaTypeInfAndName mediaTypeInf = MediaTypeInfAndName.getMediaTypeForFile(finalName);
         byte[] bytes;
         try {
             File f = ConfigDataManager.getFileAtLocation("templates", finalName);

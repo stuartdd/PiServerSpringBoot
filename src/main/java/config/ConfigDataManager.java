@@ -29,10 +29,6 @@ import tools.JsonUtils;
 import tools.OsUtils;
 import tools.StringUtils;
 
-/**
- *
- * @author stuart
- */
 public class ConfigDataManager {
 
     private static final String FS = File.separator;
