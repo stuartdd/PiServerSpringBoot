@@ -4640,7 +4640,7 @@ u($,"kF","ib",function(){return V.V("GET","/files/user/{1}/loc/data/name/state.j
 u($,"kU","im",function(){return V.V("POST","/files/user/{1}/loc/data/name/state.json","Writing user data to server",F.W(),null)})
 u($,"kC","i8",function(){return V.V("GET","/paths/user/{1}/loc/thumbs","Reading thumbnail dir list",F.W(),new F.ey())})
 u($,"kD","i9",function(){return V.V("GET","/files/user/{1}/loc/thumbs/path/{2}","Reading thumbnails",F.W(),new F.ez())})
-u($,"kT","il",function(){return V.V("GET","/script/rot/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}","Rotate Image!",F.W(),new F.eO())})
+u($,"kT","il",function(){return V.V("GET","/script/rotate/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}","Rotate Image!",F.W(),new F.eO())})
 u($,"kS","ik",function(){return V.V("GET","/server/restart","Restart the Server thumbnails",F.W(),new F.eH())})
 u($,"kB","i7",function(){return V.V("GET","/server/status","Server Status",F.W(),new F.eJ())})
 u($,"k1","fV",function(){return[]})

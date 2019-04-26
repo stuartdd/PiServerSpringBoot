@@ -18,6 +18,8 @@ package controllers;
 
 import config.ConfigDataManager;
 import config.LogProvider;
+import exceptions.ResourceNotFoundException;
+import java.io.File;
 import java.util.Map;
 
 import org.springframework.http.CacheControl;
@@ -47,18 +49,35 @@ public class Script extends ControllerErrorHandlerBase {
     public ResponseEntity<byte[]> scriptWithFile(@PathVariable String function, @PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
         MediaTypeInfAndName mediaTypeInf = MediaTypeInfAndName.getMediaTypeForFile(name);
         String finalName = mediaTypeInf.getFileName();
-        String finalPath = FileService.conditionFileName(EncodeDecode.decode(path));
-        
-        LogProvider.log("scriptUserLocationBase: function:[" + function + "] user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);;
+        String finalPath = null;
+        if (path != null) {
+            finalPath = FileService.conditionFileName(EncodeDecode.decode(path));
+        }
+
+        LogProvider.log("scriptUserLocationBase: function:[" + function + "] user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
             finalName = StringUtils.parseThumbnailFileName(mediaTypeInf.getFileName());
             LogProvider.log("scriptUserLocationBase: function:[" + function + "] finalName:[" + finalName + "]", 2);
         }
+
+        try {
+            File file = ConfigDataManager.getUserLocationFile(user, loc, finalPath, finalName);
+            queryParameters.put("fullName", file.getAbsolutePath());
+            if (file.getParent() != null) {
+                queryParameters.put("parentPath", file.getParent());
+            }
+        } catch (ResourceNotFoundException ex) {
+            queryParameters.put("fullName", ex.getMessage());
+        }
         queryParameters.put("filePath", finalPath);
         queryParameters.put("fileName", finalName);
-        queryParameters.put("user", user);
-        queryParameters.putAll(ConfigDataManager.getUser(user));
+        if (user != null) {
+            queryParameters.put("user", user);
+            queryParameters.putAll(ConfigDataManager.getUser(user));
+        } else {
+            queryParameters.putAll(ConfigDataManager.getLocations());
+        }
         FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
         byte[] bytes = functionResponseDto.getResponse().getBytes(StringUtils.DEFAULT_CHARSET);
 
@@ -71,6 +90,21 @@ public class Script extends ControllerErrorHandlerBase {
         headers.add("Content-Type", mediaTypeInf.getMediaType());
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
         return responseEntity;
+    }
+
+    @RequestMapping(value = "/script/{function}/user/{user}/loc/{loc}/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> scriptUserLocation(@PathVariable String function, @PathVariable String user, @PathVariable String loc, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
+        return scriptWithFile(function, user, loc, (String) null, name, queryParameters);
+    }
+
+    @RequestMapping(value = "/script/{function}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET, produces = "text/plain")
+    public ResponseEntity<byte[]> fileReadLocation(@PathVariable String function, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
+        return scriptWithFile(function, (String) null, loc, path, name, queryParameters);
+    }
+
+    @RequestMapping(value = "/script/{function}/loc/{loc}/name/{name}", method = RequestMethod.GET, produces = "text/plain")
+    public ResponseEntity<byte[]> fileReadLocation(@PathVariable String function, @PathVariable String loc, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
+        return scriptWithFile(function, (String) null, loc, (String) null, name, queryParameters);
     }
 
     @RequestMapping(value = "script/{function}", method = RequestMethod.GET)

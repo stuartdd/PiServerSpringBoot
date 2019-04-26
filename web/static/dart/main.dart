@@ -113,7 +113,10 @@ ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs
   thumbNailList = resp.map;
   populateThumbnails();
 });
-ServerRequest rotateImageRequest = ServerRequest('GET', '/script/rot/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
+ServerRequest rotateImageRequest = ServerRequest('GET', '/script/rotate/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
+  processError('D', resp.body);
+});
+ServerRequest restoreImageRequest = ServerRequest('GET', '/script/restore/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
   processError('D', resp.body);
 });
 ServerRequest restartServerRequest = ServerRequest('GET', '/server/restart', 'Restart the Server thumbnails', processError, (resp) {
