@@ -16,7 +16,6 @@
  */
 package controllers;
 
-import config.ConfigDataManager;
 import config.LogProvider;
 import io.FileListIo;
 import io.PathsIO;
@@ -32,10 +31,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
-import services.FunctionService;
-import services.dto.FunctionResponseDto;
 import tools.EncodeDecode;
-import tools.MediaTypeInf;
+import tools.MediaTypeInfAndName;
 import tools.StringUtils;
 
 @RestController("files")
@@ -86,25 +83,8 @@ public class FileSystem extends ControllerErrorHandlerBase {
      */
     @RequestMapping(value = "/files/user/{user}/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> fileReadUserLocationBase(@PathVariable String user, @PathVariable String loc, @PathVariable String path, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
-        MediaTypeInf mediaTypeInf = null;
-        String finalName = null;
-        if (name != null) {
-            mediaTypeInf = StringUtils.getMediaTypeForFile(name);
-            if (mediaTypeInf == null) {
-                finalName = EncodeDecode.decode(name);
-                mediaTypeInf = StringUtils.getMediaTypeForFile(finalName);
-            }
-            if (mediaTypeInf == null) {
-                finalName = ConfigDataManager.alias(name);
-                mediaTypeInf = StringUtils.getMediaTypeForFile(finalName);
-            }
-            if (finalName == null) {
-                finalName = name;
-            }
-        }
-        if (mediaTypeInf == null) {
-            mediaTypeInf = StringUtils.getMediaTypeForFile(".txt");
-        }
+        MediaTypeInfAndName mediaTypeInf = MediaTypeInfAndName.getMediaTypeForFile(name);
+        String finalName = mediaTypeInf.getFileName();
         String finalPath = null;
         if (path != null) {
             finalPath = FileService.conditionFileName(EncodeDecode.decode(path));
@@ -112,21 +92,12 @@ public class FileSystem extends ControllerErrorHandlerBase {
         LogProvider.log("fileReadUserLocationBase: user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
-            finalName = StringUtils.parseThumbnailFileName(finalName);
+            finalName = StringUtils.parseThumbnailFileName(mediaTypeInf.getFileName());
             LogProvider.log("fileReadUserLocationBase: finalName:[" + finalName + "]", 2);
         }
-        byte[] bytes;
-        String function = queryParameters.get("script");
-        if ((function != null) && (function.trim().length()>0)) {
-            queryParameters.put("filePath",finalPath);
-            queryParameters.put("fileName",finalName);
-            queryParameters.put("user",user);
-            queryParameters.putAll(ConfigDataManager.getUser(user));
-            FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
-            bytes = functionResponseDto.getResponse().getBytes(StringUtils.DEFAULT_CHARSET);
-        } else {
-            bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
-        }
+
+        byte[] bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
+
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 
