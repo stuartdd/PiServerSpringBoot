@@ -17,20 +17,21 @@
 package config;
 
 import exceptions.ConfigDataException;
+import exceptions.ResourceFileNotFoundException;
 import exceptions.ResourceNotFoundException;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 import org.joda.time.DateTime;
 import tools.FileUtils;
 import tools.JsonUtils;
 import tools.OsUtils;
 import tools.StringUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
- *
  * @author stuart
  */
 public class ConfigDataManager {
@@ -111,10 +112,8 @@ public class ConfigDataManager {
             if (serverRoot.trim().length() == 0) {
                 serverRoot = null;
             } else {
-                File sr = new File(serverRoot);
-                sr = new File(sr.getAbsolutePath());
-                if (!sr.exists()) {
-                    throw new ConfigDataException(configErrorPrefix + "ServerRoot does not exist: " + sr.getAbsolutePath());
+                if (!FileUtils.exists(serverRoot)) {
+                    throw new ConfigDataException(configErrorPrefix + "ServerRoot does not exist: " + serverRoot);
                 }
                 /*
                 If it the current path
@@ -132,6 +131,10 @@ public class ConfigDataManager {
             }
         }
 
+        if (!FileUtils.exists(getLogPath())) {
+            throw new ConfigDataException(configErrorPrefix + "LogPath does not exist: " + getLogPath());
+        }
+
         try {
             for (Map.Entry<String, Map<String, String>> usr : getUsers().entrySet()) {
                 if (usr.getValue() != null) {
@@ -145,13 +148,14 @@ public class ConfigDataManager {
 
             for (Map.Entry<String, String> loc : getLocations().entrySet()) {
                 if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
-                    getLocationFile(loc.getKey());
+                    getLocationAsFile(loc.getKey());
                 }
             }
 
-            FileUtils.exists(getLogPath());
+        } catch (ConfigDataException e) {
+            throw e;
         } catch (Exception e) {
-            throw new ConfigDataException(configErrorPrefix + "File system reasource not found: " + e.getMessage(), e);
+            throw new ConfigDataException(configErrorPrefix + "System resource error " + e.getMessage(), e);
         }
 
         /*
@@ -219,14 +223,18 @@ public class ConfigDataManager {
         return map;
     }
 
+
     public static Map<String, String> getLocations() {
         return configDataImpl.getResources().getLocations();
     }
 
-    public static String alias(String name) {
-        return configDataImpl.getResources().getAlias().get(name);
-    }
-
+    /**
+     * Check that a location exists and return the path.
+     *
+     * @param locationName The name of the location in the config data
+     * @return The value of the location from the config file
+     * @throws ResourceNotFoundException if the location is not in the config data.
+     */
     public static String getLocation(String locationName) {
         String loc = getLocations().get(locationName);
         if (loc == null) {
@@ -235,72 +243,108 @@ public class ConfigDataManager {
         return resolveLocation(loc);
     }
 
-    public static int getLogLevelBar() {
-        return configDataImpl.getLogLevelBar();
-    }
-
-    public static File getLocationFile(String locationName) {
+    /**
+     * Check that a location exists and return a file object for that location.
+     *
+     * @param locationName the name of the location in the config data
+     * @return The file for that location.
+     * @throws ResourceFileNotFoundException if the file does not exist. ResourceNotFoundException if the location is not in the config data.
+     */
+    public static File getLocationAsFile(String locationName) {
         File f = new File(getLocation(locationName));
         if (f.exists()) {
             return f;
         }
-        throw new ResourceNotFoundException("Path to - LOCATION: " + locationName);
+        throw new ResourceFileNotFoundException("Location: " + locationName);
     }
 
+    /**
+     * <pre>
+     * Return a file at a location.
+     *    If location does not exist the throw ResourceNotFoundException.
+     *    If location path does not exist the throw ResourceFileNotFoundException.
+     *    DO NOT Check if the file exists. That is for the calling program to do!
+     *    If you want to check it exists use getUserLocationFile(null, loc, null, fileName)
+     * </pre>
+     * @param locationName the name of the location in the config data
+     * @param fileName The name of the file at that location
+     * @return A file.
+     */
+    public static File getFileAtLocation(String locationName, String fileName) {
+        File locFile = getLocationAsFile(locationName);
+        return new File(locFile.getAbsolutePath() + FS + fileName);
+    }
+
+
     public static File getUserLocationFile(String user, String locationName) {
-        return getUserLocationFile(user, locationName, null);
+        return getUserLocationFile(user, locationName, null, null);
     }
 
     public static File getUserLocationFile(String user, String locationName, String path) {
         return getUserLocationFile(user, locationName, path, null);
     }
 
-    private static String resolveLocation(String loc) {
-        if (loc.startsWith(FS)) {
-            return loc;
+    /**
+     * <pre>
+     * Get a file at a location given an additional path and a file name.
+     *   [serverRoot] [user.location] [path] [fileName]
+     *   location can be a resource.user.location or a resource.location
+     *
+     *   Can return a path or a file. It MUST Exist.
+     * </pre>
+     *
+     * @param user The user id from the config file (if null uses locations instead)
+     * @param locationName The location within that user
+     * @param path an optional additional path
+     * @param fileName an optional file nam e
+     * @return A file if it exists.
+     */
+    public static File getUserLocationFile(String user, String locationName, String path, String fileName) {
+        if ((locationName == null) || (locationName.trim().length()==0)) {
+            throw new ResourceNotFoundException("location=null");
         }
-        return (serverRoot == null ? loc : serverRoot + FS + loc);
-    }
-
-    public static File getFileAtLocation(String location, String file) {
-        String loc = getLocations().get(location);
-        if (loc == null) {
-            return new File(file);
-        }
-        loc = resolveLocation(loc);
-        return new File(loc + File.separator + file);
-    }
-
-    public static File getUserLocationFile(String user, String locationName, String path, String name) {
         String loc;
         if (user == null) {
+            /*
+            If user is null Location comes from resources.locations in config file
+             */
             loc = getLocation(locationName);
         } else {
+            /*
+            Location comes from resources.users.[user].[locationName] in config file
+             */
             Map<String, String> map = getUser(user);
             loc = map.get(locationName);
-            if (loc == null) {
-                throw new ResourceNotFoundException(user + "." + locationName + (path == null ? "" : "." + path));
-            }
-            loc = resolveLocation(loc);
         }
+        /*
+        If no location was found we cannot continue
+         */
+        if (loc == null) {
+            throw new ResourceNotFoundException((user==null? "": user + ".") + locationName);
+        }
+        /*
+        Clean up location
+         */
+        loc = resolveLocation(loc);
+
         File f;
         if (path == null) {
-            if (name == null) {
+            if (fileName == null) {
                 f = new File((new File(loc)).getAbsolutePath());
             } else {
-                f = new File((new File(loc + FS + name)).getAbsolutePath());
+                f = new File((new File(loc + FS + fileName)).getAbsolutePath());
             }
         } else {
-            if (name == null) {
+            if (fileName == null) {
                 f = new File((new File(loc + FS + path)).getAbsolutePath());
             } else {
-                f = new File((new File(loc + FS + path + FS + name)).getAbsolutePath());
+                f = new File((new File(loc + FS + path + FS + fileName)).getAbsolutePath());
             }
         }
         if (f.exists()) {
             return f;
         }
-        throw new ResourceNotFoundException("Path to - USER:" + user + " LOCATION:" + locationName + " PATH:" + path + " NAME:" + name);
+        throw new ResourceFileNotFoundException("Path to - USER:" + user + " LOCATION:" + locationName + " PATH:" + path + " NAME:" + fileName);
     }
 
     public static Map<String, String> getParameters(Map<String, String> localParameters) {
@@ -371,6 +415,27 @@ public class ConfigDataManager {
             }
         }
         return false;
+    }
+
+    /**
+     * If a location is absolute then return it. Else prefix it with the server root (if there is one!)
+     *
+     * @param location
+     * @return
+     */
+    private static String resolveLocation(String location) {
+        if (location.startsWith(FS)) {
+            return location;
+        }
+        return (serverRoot == null ? location : serverRoot + FS + location);
+    }
+
+    public static String alias(String name) {
+        return configDataImpl.getResources().getAlias().get(name);
+    }
+
+    public static int getLogLevelBar() {
+        return configDataImpl.getLogLevelBar();
     }
 
 }

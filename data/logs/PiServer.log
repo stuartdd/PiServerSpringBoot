@@ -1,68 +1,37 @@
-2019-04-24 20:20:42.128 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-04-24 20:20:42.147 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-04-24 20:20:42.153 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-24 20:20:42.187 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-04-24 20:20:42.192 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[TestLog.log] encName:[VGVzdExvZy5sb2c=]
-2019-04-24 20:20:42.199 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:20:42.199 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-24 20:20:42.254 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:20:42.254 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-24 20:20:42.298 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:20:42.298 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-24 20:20:42.345 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-24 20:20:42.347 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-24 20:20:42.351 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-24 20:20:42.353 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-04-24 20:20:42.376 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-04-24 20:20:42.491 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-24 20:20:42.495 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
-2019-04-24 20:20:42.495 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
-2019-04-24 20:20:42.495 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
-2019-04-24 20:20:42.495 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
-2019-04-24 20:20:42.495 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
-2019-04-24 20:20:42.556 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-04-24 20:20:42.557 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
-2019-04-24 20:20:42.558 INFO  Server: CMD:EXIT: Code=0
-2019-04-24 20:20:42.563 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-24 20:20:42.569 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-24 20:20:42.571 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q0:./returnCode.sh
-2019-04-24 20:20:42.571 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q1:9
-2019-04-24 20:20:42.571 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q2:
-2019-04-24 20:20:42.571 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q3:
-2019-04-24 20:20:42.572 INFO  Server: CMD:OUT:./returnCode.sh 9 --> {start}
-2019-04-24 20:20:42.572 INFO  Server: CMD:EXIT: Code=9
-2019-04-24 20:20:42.576 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-04-24 20:20:42.580 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Script ID'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Script ID'notImplemented'. Method 'notImplemented' is not implemented
-2019-04-24 20:20:42.591 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-24 20:20:42.600 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-24 20:22:03.387 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-04-24 20:22:04.710 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-04-24 20:22:04.722 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:22:04.722 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[thumbs] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_54_45_22082006011.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81NF80NV8yMjA4MjAwNjAxMS5qcGcuanBn]
-2019-04-24 20:22:06.368 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:22:06.368 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-24 20:22:07.973 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:22:07.973 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-24 20:22:07.975 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-24 20:22:07.979 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q0:./rotateImage.sh
-2019-04-24 20:22:07.979 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q1:/home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg
-2019-04-24 20:22:07.979 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q2:/home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg
-2019-04-24 20:22:07.979 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q3:22082006010.jpg
-2019-04-24 20:22:07.979 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q4:90
-2019-04-24 20:22:07.979 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> {start}
-2019-04-24 20:22:08.024 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> CopyFile: Parent directories created.
-2019-04-24 20:22:08.027 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> CopyFile: Destination file created.
-2019-04-24 20:22:08.029 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Rotate Image 22082006010.jpg 90 degrees. Option is only currently supported on RaspberryPi.
-2019-04-24 20:22:08.029 INFO  Server: CMD:EXIT: Code=0
-2019-04-24 20:22:30.307 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-04-24 20:22:30.307 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-04-24 20:22:30.307 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
-2019-04-24 20:22:30.308 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q0:./rotateImage.sh
-2019-04-24 20:22:30.308 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q1:/home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg
-2019-04-24 20:22:30.308 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q2:/home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg
-2019-04-24 20:22:30.308 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q3:22082006010.jpg
-2019-04-24 20:22:30.308 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Q4:90
-2019-04-24 20:22:30.308 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> {start}
-2019-04-24 20:22:30.359 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> CopyFile: File already exists.
-2019-04-24 20:22:30.360 INFO  Server: CMD:OUT:./rotateImage.sh /home/stuart/git/java/PiServerSpringBoot/data/images/stuart/lg 001/22082006010.jpg /home/stuart/git/java/PiServerSpringBoot/data/backup/stuart/lg 001/22082006010.jpg 22082006010.jpg 90 --> Rotate Image 22082006010.jpg 90 degrees. Option is only currently supported on RaspberryPi.
-2019-04-24 20:22:30.362 INFO  Server: CMD:EXIT: Code=0
+2019-04-27 12:13:57.008 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-04-27 12:13:57.030 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-04-27 12:13:57.036 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-27 12:13:57.072 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-04-27 12:13:57.078 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[TestLog.log] encName:[VGVzdExvZy5sb2c=]
+2019-04-27 12:13:57.085 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-27 12:13:57.086 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-27 12:13:57.145 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-27 12:13:57.145 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-27 12:13:57.194 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-04-27 12:13:57.194 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-04-27 12:13:57.245 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-27 12:13:57.248 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-27 12:13:57.255 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-04-27 12:13:57.258 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-04-27 12:13:57.287 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-04-27 12:13:57.436 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-27 12:13:57.441 INFO  Server: CMD:OUT:./diskStatus.sh --> Q0:./diskStatus.sh
+2019-04-27 12:13:57.441 INFO  Server: CMD:OUT:./diskStatus.sh --> Q1:
+2019-04-27 12:13:57.441 INFO  Server: CMD:OUT:./diskStatus.sh --> Q2:
+2019-04-27 12:13:57.441 INFO  Server: CMD:OUT:./diskStatus.sh --> Q3:
+2019-04-27 12:13:57.441 INFO  Server: CMD:OUT:./diskStatus.sh --> {start}
+2019-04-27 12:13:57.492 INFO  Server: CMD:OUT:./diskStatus.sh --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-04-27 12:13:57.493 INFO  Server: CMD:OUT:./diskStatus.sh --> {end}
+2019-04-27 12:13:57.494 INFO  Server: CMD:EXIT: Code=0
+2019-04-27 12:13:57.498 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-27 12:13:57.504 INFO  Server: CMD:SCRIPT DIR: /home/stuart/git/java/PiServerSpringBoot/data/scripts
+2019-04-27 12:13:57.505 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q0:./returnCode.sh
+2019-04-27 12:13:57.505 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q1:9
+2019-04-27 12:13:57.505 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q2:
+2019-04-27 12:13:57.505 INFO  Server: CMD:OUT:./returnCode.sh 9 --> Q3:
+2019-04-27 12:13:57.505 INFO  Server: CMD:OUT:./returnCode.sh 9 --> {start}
+2019-04-27 12:13:57.505 INFO  Server: CMD:EXIT: Code=9
+2019-04-27 12:13:57.509 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-04-27 12:13:57.513 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Script ID'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Script ID'notImplemented'. Method 'notImplemented' is not implemented
+2019-04-27 12:13:57.524 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-04-27 12:13:57.533 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]

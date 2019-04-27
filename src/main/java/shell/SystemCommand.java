@@ -33,7 +33,7 @@ public class SystemCommand {
         ProcessBuilder builder;
         builder = new ProcessBuilder(commands);
         if (path == null) {
-            builder.directory(ConfigDataManager.getLocationFile("scripts"));
+            builder.directory(ConfigDataManager.getLocationAsFile("scripts"));
         } else {
             builder.directory(new File(path));
         }

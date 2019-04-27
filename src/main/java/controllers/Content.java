@@ -41,12 +41,14 @@ import tools.Template;
  */
 @RestController("static")
 public class Content extends ControllerErrorHandlerBase {
+    private static final String FS = File.separator;
+
 
     @RequestMapping(value = "static/**", method = RequestMethod.GET)
     public ResponseEntity<byte[]> content(@RequestParam Map<String, String> queryParameters, HttpServletRequest request) {
         Map<String, String> fullMap = ConfigDataManager.getParameters(queryParameters);
         String finalName = request.getRequestURI();
-        if (finalName.startsWith("/")) {
+        if (finalName.startsWith(FS)) {
             finalName = finalName.substring(1);
         }
         finalName = finalName.substring("static".length());
