@@ -97,7 +97,7 @@ public class FileService {
     private static FileListIo userListFiles(String user, String loc, String dir, FileFilter filter) {
         File root = ConfigDataManager.getUserLocationFile(user, loc, dir);
         FileListIo fileListOut = new FileListIo(user, loc, dir);
-        File[] fileList = null;
+        File[] fileList;
         if (filter == null) {
             fileList = root.listFiles();
         } else {

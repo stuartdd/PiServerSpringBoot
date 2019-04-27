@@ -14,7 +14,7 @@ then
         exit $retVal
     fi
     echo "Rotate Image $3 $4 degrees. Option is only currently supported on RaspberryPi".
-exit $retValelse
+else
 	echo "Image File: $3 does not exist"
 fi
 echo {end}

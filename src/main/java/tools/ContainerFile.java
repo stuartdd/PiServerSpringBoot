@@ -19,7 +19,6 @@ package tools;
 /**
  * Utility class used by FileUtils for files in a Jar or Zip
  * 
- * @author - Stuart Davies
  */
 public class ContainerFile {
 

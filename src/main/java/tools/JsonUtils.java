@@ -31,10 +31,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- *
- * @author Stuartdd
- */
 public class JsonUtils {
 
     private final static ObjectMapper OBJECT_MAPPER = createMapper(false, false);

@@ -6,6 +6,7 @@
 package services;
 
 import exceptions.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 import services.dto.FunctionResponseDto;
 import shell.SystemCommand;
 import shell.SystemCommandQuietException;
@@ -19,7 +20,7 @@ import java.util.Map;
 import config.ConfigDataManager;
 import tools.FileUtils;
 import tools.OsUtils;
-import tools.StringUtils;
+import tools.StringTools;
 import tools.Template;
 
 /**
@@ -97,7 +98,7 @@ public class FunctionService {
     }
 
     public String scriptBetween(Map<String, String> map, String desc) {
-        return StringUtils.readStartToEnd(scriptAll(map, desc));
+        return readStartToEnd(scriptAll(map, desc));
     }
 
     private Object[] substituteAndSplit(Map<String, String> mapIn, String desc) {
@@ -117,7 +118,7 @@ public class FunctionService {
         }
         List<String> l = new ArrayList<>();
         for (int i=1; i<split.length; i++) {
-            if ((split[i] != null) && (split[i].trim().length()>0)) {
+            if (StringUtils.isNotBlank(split[i])) {
                 l.add(split[i]);
             }
         }
@@ -126,6 +127,24 @@ public class FunctionService {
         res[1] = l;
         return res;
     }
-    
+
+    private String readStartToEnd(String resp) {
+        if (resp.length() > 13) {
+            int st = resp.indexOf("{start}");
+            if (st < 0) {
+                st = 0;
+            } else {
+                st = st + 7;
+            }
+            int en = resp.indexOf("{end}");
+            if (en < 0) {
+                en = resp.length();
+            }
+            return resp.substring(st, en).trim();
+        } else {
+            return resp;
+        }
+    }
+
 
 }

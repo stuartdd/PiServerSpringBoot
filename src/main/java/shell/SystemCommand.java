@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import config.ConfigDataManager;
-import tools.StringUtils;
+import tools.StringTools;
 
 /**
  *
@@ -44,26 +44,26 @@ public class SystemCommand {
         try {
             p = builder.start();
         } catch (IOException ex) {
-            throw new SystemCommandException("Failed command :" + StringUtils.listToString(commands," "), ex);
+            throw new SystemCommandException("Failed command :" + StringTools.listToString(commands," "), ex);
         }
         try {
             BufferedReader bufferedReaderOut = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = bufferedReaderOut.readLine()) != null) {
                 if (echoScriptOutput) {
-                    LogProvider.log("CMD:OUT:" + StringUtils.listToString(commands," ") + " --> " + line, 0);
+                    LogProvider.log("CMD:OUT:" + StringTools.listToString(commands," ") + " --> " + line, 0);
                 }
                 outputStream.append(line).append(NL);
             }
             BufferedReader bufferedReaderErr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
             while ((line = bufferedReaderErr.readLine()) != null) {
                 if (echoScriptOutput) {
-                    LogProvider.logErr("CMD:ERR:"  + StringUtils.listToString(commands," ") + " --> " + line);
+                    LogProvider.logErr("CMD:ERR:"  + StringTools.listToString(commands," ") + " --> " + line);
                 }
                 errorStream.append(line).append(NL);
             }
         } catch (IOException ex) {
-            throw new SystemCommandException("Failed (IOException) command :"  + StringUtils.listToString(commands," "), ex);
+            throw new SystemCommandException("Failed (IOException) command :"  + StringTools.listToString(commands," "), ex);
         }
 
         try {

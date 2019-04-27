@@ -21,7 +21,14 @@ import exceptions.ServerRestException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import tools.MediaTypeInfAndName;
+import tools.StringTools;
 
 /**
  *
@@ -82,6 +89,21 @@ public class ControllerErrorHandlerBase {
         } catch (IOException io) {
             io.printStackTrace();
         }
+    }
+
+    protected ResponseEntity<byte[]> byteResponseEntity(byte[] bytes, MediaTypeInfAndName mediaTypeInf) {
+        if (mediaTypeInf.isPlainText()) {
+            bytes = StringTools.encodePlainText(bytes);
+        }
+        return byteResponseEntity(bytes, mediaTypeInf.getMediaType());
+    }
+
+    protected ResponseEntity<byte[]> byteResponseEntity(byte[] bytes, String contentType) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+        headers.add("Content-Type", contentType);
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
+        return responseEntity;
     }
 
 }

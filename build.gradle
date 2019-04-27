@@ -22,7 +22,7 @@ dependencies {
     compile('com.googlecode.soundlibs:tritonus-share:0.3.7.4')
     compile('com.googlecode.soundlibs:mp3spi:1.9.5.4')
     compile('com.googlecode.soundlibs:vorbisspi:1.0.3.3')
-   
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     testCompile('org.springframework.boot:spring-boot-starter-test:2.1.3.RELEASE')
     testCompile('junit:junit:4.10')
 }
@@ -44,12 +44,12 @@ task copyEndpointLib(type: Copy) {
     include "*.class"
 }
 
-//task dart() {
-//    doLast {
-//        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/main.dart.js" ] }
-//    }
-//}
-//
-//compileJava.dependsOn dart
+task dart() {
+    doLast {
+        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/main.dart.js" ] }
+    }
+}
+
+compileJava.dependsOn dart
 
 build.dependsOn copyEndpointLib

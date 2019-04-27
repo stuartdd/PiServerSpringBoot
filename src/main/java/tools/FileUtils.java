@@ -16,6 +16,8 @@
  */
 package tools;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
@@ -26,21 +28,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-import java.nio.charset.Charset;
-import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * Utility to manage the file system
@@ -239,7 +235,7 @@ public class FileUtils {
      * @throws IOException If the file cannot be read
      */
     public static List<String> loadFileAsLines(File fil) throws IOException {
-        return Files.readAllLines(fil.toPath(), StringUtils.DEFAULT_CHARSET);
+        return Files.readAllLines(fil.toPath(), StringTools.DEFAULT_CHARSET);
     }
 
     /**
@@ -338,52 +334,16 @@ public class FileUtils {
     }
 
     /**
-     * Strip a string down to a proper file name.
-     *
-     * @param name The file name
-     * @return The proper file name
-     */
-    public static String formatAsFileName(String name) {
-        StringBuilder sb = new StringBuilder();
-        String n = name.trim();
-        if (n.length() == 0) {
-            return "ANY";
-        }
-        for (char c : n.toCharArray()) {
-            if (c <= ' ') {
-                sb.append('_');
-            } else {
-                if (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || ((c >= '0') && (c <= '9')) || (c == '-') || (c == '_')) {
-                    sb.append(c);
-                } else {
-                    sb.append("-");
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-    /**
      * Does the file with this name exist!
      *
      * @param fileName The name of the file as a string
      * @return To exist or not to exist!
      */
     public static boolean exists(String fileName) {
-        if ((fileName == null) || (fileName.trim().length() == 0)) {
+        if (StringUtils.isBlank(fileName)) {
             return false;
         }
-        return exists(newFile(fileName));
-    }
-
-    /**
-     * Does the file exist! (not a lot of point to this!)
-     *
-     * @param fileName The file
-     * @return To exist or not to exist!
-     */
-    public static boolean exists(File f) {
-        return f.exists();
+        return newFile(fileName).exists();
     }
 
     /**

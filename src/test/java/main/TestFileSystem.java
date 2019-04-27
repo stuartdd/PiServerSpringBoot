@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import tools.EncodeDecode;
 import tools.JsonUtils;
 import tools.OsUtils;
-import tools.StringUtils;
+import tools.StringTools;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
@@ -204,8 +204,8 @@ public class TestFileSystem {
         MvcResult mvcResult = mvc.perform(get("/paths/user/test/loc/src")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         PathsIO paths = (PathsIO) JsonUtils.beanFromJson(PathsIO.class, resp);
-        String str = StringUtils.listToString(paths.getPaths(), "|");
-        str = StringUtils.replaceAll(str, '\\', '/');
+        String str = StringTools.listToString(paths.getPaths(), "|");
+        str = StringTools.replaceAll(str, '\\', '/');
         assertTrue(str.contains("main/java/main|"));
         assertTrue(str.contains("main/java/services|"));
         assertTrue(str.contains("test/java/main|"));

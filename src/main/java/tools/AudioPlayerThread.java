@@ -63,10 +63,10 @@ public class AudioPlayerThread extends Thread {
         this.currentVolumePercent = currentVolumePercent;
         this.positionWhenPaused = -1;
         this.volumeIsSetup = false;
-        this.file = new File((new File(fileName)).getAbsolutePath());
+        this.file = FileUtils.newFile(fileName);
         if (!this.file.exists()) {
             this.threadStatus = ThreadStatus.ERROR;
-            throw new AudioSetupException("Could not find audio file:" + this.file.getName() + ".");
+            throw new AudioSetupException("Could not find audio file:" + fileName + ".");
         }
         this.durationSeconds = size(this.file);
         try {

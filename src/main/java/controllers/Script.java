@@ -18,6 +18,7 @@ package controllers;
 
 import config.ConfigDataManager;
 import config.LogProvider;
+import exceptions.ResourceFileNotFoundException;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.util.Map;
@@ -36,7 +37,7 @@ import services.FunctionService;
 import services.dto.FunctionResponseDto;
 import tools.EncodeDecode;
 import tools.MediaTypeInfAndName;
-import tools.StringUtils;
+import tools.StringTools;
 
 /**
  *
@@ -57,7 +58,7 @@ public class Script extends ControllerErrorHandlerBase {
         LogProvider.log("scriptUserLocationBase: function:[" + function + "] user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
-            finalName = StringUtils.parseThumbnailFileName(mediaTypeInf.getFileName());
+            finalName = StringTools.parseThumbnailFileName(mediaTypeInf.getFileName());
             LogProvider.log("scriptUserLocationBase: function:[" + function + "] finalName:[" + finalName + "]", 2);
         }
 
@@ -67,8 +68,8 @@ public class Script extends ControllerErrorHandlerBase {
             if (file.getParent() != null) {
                 queryParameters.put("parentPath", file.getParent());
             }
-        } catch (ResourceNotFoundException ex) {
-            queryParameters.put("fullName", ex.getMessage());
+        } catch (ResourceFileNotFoundException ex) {
+
         }
         queryParameters.put("filePath", finalPath);
         queryParameters.put("fileName", finalName);
@@ -79,18 +80,12 @@ public class Script extends ControllerErrorHandlerBase {
             queryParameters.putAll(ConfigDataManager.getLocations());
         }
         FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
-        byte[] bytes = functionResponseDto.getResponse().getBytes(StringUtils.DEFAULT_CHARSET);
+        byte[] bytes = functionResponseDto.getResponse().getBytes(StringTools.DEFAULT_CHARSET);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+        return byteResponseEntity(bytes, mediaTypeInf);
 
-        if (mediaTypeInf.isPlainText()) {
-            bytes = StringUtils.encodePlainText(bytes);
-        }
-        headers.add("Content-Type", mediaTypeInf.getMediaType());
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
-        return responseEntity;
     }
+
 
     @RequestMapping(value = "/script/{function}/user/{user}/loc/{loc}/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> scriptUserLocation(@PathVariable String function, @PathVariable String user, @PathVariable String loc, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
@@ -108,12 +103,8 @@ public class Script extends ControllerErrorHandlerBase {
     }
 
     @RequestMapping(value = "script/{function}", method = RequestMethod.GET)
-    public ResponseEntity<String> script(@PathVariable String function, @RequestParam Map<String, String> queryParameters) {
+    public ResponseEntity<byte[]> script(@PathVariable String function, @RequestParam Map<String, String> queryParameters) {
         FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        headers.add("Content-Type", functionResponseDto.getMap().get("Content-Type"));
-        ResponseEntity<String> responseEntity = new ResponseEntity<>(functionResponseDto.getResponse(), headers, HttpStatus.OK);
-        return responseEntity;
+        return byteResponseEntity(functionResponseDto.getBytes(), functionResponseDto.getContentType());
     }
 }

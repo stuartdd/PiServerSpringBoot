@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
 import tools.EncodeDecode;
 import tools.MediaTypeInfAndName;
-import tools.StringUtils;
+import tools.StringTools;
 
 @RestController("files")
 public class FileSystem extends ControllerErrorHandlerBase {
@@ -92,21 +92,12 @@ public class FileSystem extends ControllerErrorHandlerBase {
         LogProvider.log("fileReadUserLocationBase: user:[" + user + "] loc:[" + loc + "] path:[" + finalPath + "] encPath:[" + path + "] name:[" + finalName + "] encName:[" + name + "]", 1);
         String subStringExpression = queryParameters.get("thumbnail");
         if ((subStringExpression != null) && (subStringExpression.equalsIgnoreCase("true"))) {
-            finalName = StringUtils.parseThumbnailFileName(mediaTypeInf.getFileName());
+            finalName = StringTools.parseThumbnailFileName(mediaTypeInf.getFileName());
             LogProvider.log("fileReadUserLocationBase: finalName:[" + finalName + "]", 2);
         }
 
         byte[] bytes = FileService.userReadFiles(user, loc, finalPath, finalName);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-
-        if (mediaTypeInf.isPlainText()) {
-            bytes = StringUtils.encodePlainText(bytes);
-        }
-        headers.add("Content-Type", mediaTypeInf.getMediaType());
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
-        return responseEntity;
+        return byteResponseEntity(bytes, mediaTypeInf);
     }
 
     /**
@@ -116,7 +107,6 @@ public class FileSystem extends ControllerErrorHandlerBase {
      *
      * @param user User name from resources.users
      * @param loc location for resources.users.{location}
-     * @param path a sub directory within parent resources.users.{location}
      * @param name the name of the file of a thumbnail
      * @param queryParameters the query parameters.
      * @return HttpStatus.CREATED
@@ -133,7 +123,6 @@ public class FileSystem extends ControllerErrorHandlerBase {
      *
      * @param loc The name from resources.locations
      * @param path a sub directory within parent resources.locations
-     * @param fileName the name of the file
      * @return the content of the log file.
      */
     @RequestMapping(value = "/files/loc/{loc}/path/{path}/name/{name}", method = RequestMethod.GET, produces = "text/plain")

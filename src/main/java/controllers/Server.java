@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tools.StringUtils;
+import tools.StringTools;
 
 /**
  *
@@ -62,7 +62,7 @@ public class Server extends ControllerErrorHandlerBase {
 
     @RequestMapping(value = "server/users", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String users() {
-        return StringUtils.cleanJsonString(ServerService.jsonUsers());
+        return StringTools.cleanJsonString(ServerService.jsonUsers());
     }
     
     @RequestMapping(value = "server/status", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")

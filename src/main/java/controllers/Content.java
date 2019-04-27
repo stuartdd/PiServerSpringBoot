@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tools.FileUtils;
 import tools.MediaTypeInfAndName;
-import tools.StringUtils;
+import tools.StringTools;
 import tools.Template;
 
 /**
@@ -57,7 +57,7 @@ public class Content extends ControllerErrorHandlerBase {
             File f = ConfigDataManager.getFileAtLocation("templates", finalName);
             if (f.exists() && mediaTypeInf.isPlainText()) {
                 if (mediaTypeInf.isPlainText()) {
-                    bytes = Template.parse(FileUtils.loadFile(f), fullMap).getBytes(StringUtils.DEFAULT_CHARSET);
+                    bytes = Template.parse(FileUtils.loadFile(f), fullMap).getBytes(StringTools.DEFAULT_CHARSET);
                 } else {
                     throw new ServerRestException(finalName, HttpStatus.BAD_REQUEST, "Cannot template binary files types " + mediaTypeInf.getMediaType());
                 }
@@ -68,7 +68,7 @@ public class Content extends ControllerErrorHandlerBase {
                 } else {
                     if (FileUtils.resourceExists("/templates/" + finalName, this.getClass())) {
                         if (mediaTypeInf.isPlainText()) {
-                            bytes = Template.parse(FileUtils.getResource("/templates/" + finalName, this.getClass()), fullMap).getBytes(StringUtils.DEFAULT_CHARSET);
+                            bytes = Template.parse(FileUtils.getResource("/templates/" + finalName, this.getClass()), fullMap).getBytes(StringTools.DEFAULT_CHARSET);
                         } else {
                             throw new ServerRestException(finalName, HttpStatus.BAD_REQUEST, "Cannot template binary resource types " + mediaTypeInf.getMediaType());
                         }

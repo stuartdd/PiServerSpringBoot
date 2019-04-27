@@ -16,11 +16,6 @@
  */
 package tools;
 
-/**
- * A line of text including it's line number
- *
- * @author - Stuart Davies
- */
 public class LineWithNumber {
 
     private int number;

@@ -16,34 +16,17 @@
  */
 package config;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Resources {
 
-    @JsonIgnore
-    private String fullScriptFiles;
-    @JsonIgnore
-    private String fullStaticFiles;
 
     private String serverRoot;
-    private String staticFiles;
-    private String scriptFiles;
 
     private Map<String, Map<String, String>> users = new HashMap<>();
     private Map<String, String> locations = new HashMap<>();
     private Map<String, String> alias = new HashMap<>();
-
-    @JsonIgnore
-    public String getFullScriptFiles() {
-        return fullScriptFiles;
-    }
-
-    @JsonIgnore
-    public String getFullStaticFiles() {
-        return fullStaticFiles;
-    }
 
     public String getServerRoot() {
         return serverRoot;
@@ -51,22 +34,6 @@ public class Resources {
 
     public void setServerRoot(String serverRoot) {
         this.serverRoot = serverRoot;
-    }
-
-    public String getStaticFiles() {
-        return staticFiles;
-    }
-
-    public void setStaticFiles(String staticFiles) {
-        this.staticFiles = staticFiles;
-    }
-
-    public String getScriptFiles() {
-        return scriptFiles;
-    }
-
-    public void setScriptFiles(String scriptFiles) {
-        this.scriptFiles = scriptFiles;
     }
 
     public Map<String, Map<String, String>> getUsers() {

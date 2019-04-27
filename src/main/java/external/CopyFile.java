@@ -49,8 +49,6 @@ public class CopyFile {
                     if (!destPath.mkdirs()) {
                         System.out.println("CopyFile: Args["+sb+"] Failed to create parent directories.");
                         System.exit(1);
-                    } else {
-                        System.out.println("CopyFile: Parent directories created.");
                     }
                 }
             }
@@ -75,6 +73,5 @@ public class CopyFile {
             System.out.println("CopyFile: Args["+args+"] Destination File was not created.");
             System.exit(1);
         }
-        System.out.println("CopyFile: Destination file created.");
     }
 }

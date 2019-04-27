@@ -63,7 +63,8 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('imageBack', querySelector('#imageBackButton'), (id) {pageManager.back();}),
   MyButton('imageHome', querySelector('#imageHomeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
   MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
-   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
+  MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
+  MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
   MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
   MyButton('logUp', querySelector('#scrollLogUpButton'), (id) {scrollToTop();}),
@@ -116,7 +117,7 @@ ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs
 ServerRequest rotateImageRequest = ServerRequest('GET', '/script/rotate/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
   processError('D', resp.body);
 });
-ServerRequest restoreImageRequest = ServerRequest('GET', '/script/restore/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
+ServerRequest restoreImageRequest = ServerRequest('GET', '/script/restore/user/{1}/loc/backup/path/{2}/name/{3}?thumbnail=true', 'Restore Image!', processError, (resp) {
   processError('D', resp.body);
 });
 ServerRequest restartServerRequest = ServerRequest('GET', '/server/restart', 'Restart the Server thumbnails', processError, (resp) {
@@ -162,7 +163,13 @@ void main() {
 }
 
 void rotateOriginal(int degrees) {
+  window.console.debug("rotateOriginal");
   rotateImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName, '90']);
+}
+
+void restoreOriginal() {
+  window.console.debug("restoreOriginal");
+  restoreImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName]);
 }
 
 void selectLogFile(String name, String base64)  {

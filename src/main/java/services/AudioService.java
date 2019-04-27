@@ -20,6 +20,7 @@ import exceptions.AudioSetupException;
 import io.AudioStatusIO;
 import java.io.File;
 import config.ConfigDataManager;
+import org.apache.commons.lang3.StringUtils;
 import tools.AudioPlayerThread;
 
 /**
@@ -108,7 +109,7 @@ public class AudioService {
     }
 
     private static int readVolumeString(String vol) {
-        if ((vol != null) && (vol.trim().length() != 0)) {
+        if (StringUtils.isNotBlank(vol)) {
             try {
                 int i = Integer.parseInt(vol);
                 if ((i < 0) || (i > 99)) {
