@@ -7,7 +7,7 @@ echo Q4:$4
 echo {start}
 if [ -f "$1" ];
 then
-    java -cp ../../build/classes/java/main/ external.CopyFile "$1" "$2" replace
+    java external.CopyFile "$1" "$2" replace
     retVal=$?
     if [ $retVal -ne 0 ]; then
         echo "echo external.CopyFile returned with an error."
