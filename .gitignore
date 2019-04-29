@@ -4,6 +4,11 @@
 # BlueJ files
 *.ctxt
 
+# Dart files
+*.dart.js
+*.dart.js.deps
+*.dart.js.map
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

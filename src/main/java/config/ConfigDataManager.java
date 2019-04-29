@@ -28,7 +28,6 @@ import tools.StringTools;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -38,7 +37,7 @@ import java.util.TreeMap;
  */
 public class ConfigDataManager {
 
-    private static final String FS = File.separator;
+    private static final String FS = System.getProperty("file.separator");
     private static String configDataName;
     private static Map<String, String> parameterMap;
     /*

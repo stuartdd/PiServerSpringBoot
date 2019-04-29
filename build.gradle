@@ -44,12 +44,16 @@ task copyEndpointLib(type: Copy) {
     include "*.class"
 }
 
-//task dart() {
-//    doLast {
-//        exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/main.dart.js" ] }
-//    }
-//}
-//
-//compileJava.dependsOn dart
+task dart() {
+    doLast {
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            exec { executable = 'dart2js.bat'; args = [ "web/static/dart/main.dart", "-o", "web/static/dart/main.dart.js" ] }            
+        } else {
+            exec { executable = 'dart2js'; args = [ "web/static/dart/main.dart", "-o", "web/static/dart/main.dart.js" ] }
+        }
+    }
+}
+
+compileJava.dependsOn dart
 
 build.dependsOn copyEndpointLib
