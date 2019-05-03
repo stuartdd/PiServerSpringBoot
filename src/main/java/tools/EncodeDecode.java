@@ -16,6 +16,7 @@
  */
 package tools;
 
+import config.LogProvider;
 import java.util.Base64;
 
 /**
@@ -30,8 +31,13 @@ public class EncodeDecode {
     public static String encode(String s) {
         return new String(ENCODER.encode(s.getBytes(StringTools.DEFAULT_CHARSET)));
     }
-    
+
     public static String decode(String s) {
-        return new String(DECODER.decode(s), StringTools.DEFAULT_CHARSET);
-    } 
+        try {
+            return new String(DECODER.decode(s), StringTools.DEFAULT_CHARSET);
+        } catch (Exception e) {
+            LogProvider.logErr("Base64.Decoder: Value["+s+"] Message:" + e.getMessage());
+            return s;
+        }
+    }
 }

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import services.AudioService;
+import tools.MediaTypeInfAndName;
 
 /**
  *
@@ -46,10 +47,12 @@ public class Audio extends ControllerErrorHandlerBase {
         return AudioService.stop();
     }
 
-    @RequestMapping(value = "audio/play/{file}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "audio/play/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public @ResponseBody
-    AudioStatusIO play(@PathVariable String file, @RequestParam Map<String, String> queryParameters) {
-        return AudioService.play(file, queryParameters.get("vol"));
+    AudioStatusIO play(@PathVariable String name, @RequestParam Map<String, String> queryParameters) {
+        MediaTypeInfAndName mediaTypeInf = MediaTypeInfAndName.getMediaTypeForFile(name);
+        String finalName = mediaTypeInf.getFileName();
+        return AudioService.play(finalName, queryParameters.get("vol"));
     }
 
     @RequestMapping(value = "audio/pause", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")

@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:async';
 import 'classes.dart';
 
 const String USER_NAME_ROW_ID_PREFIX = 'userNameRow-';
@@ -13,6 +14,7 @@ const String PAGE_THUMBNAILS = 'thumbnails';
 const String PAGE_ORIGINAL = 'original';
 const String PAGE_STATUS = 'status';
 const String PAGE_DISPLAY_LOG = 'displayLog';
+const String PAGE_AUDIO = 'audio';
 
 
 const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
@@ -39,6 +41,9 @@ final Element originalImage = querySelector('#originalImage');
 final Element userFileSizes = querySelector('#userFileSizes');
 final Element diskStatus = querySelector('#diskStatus');
 final Element logFileList = querySelector('#logFileList');
+final Element audioFileList = querySelector('#audioFileList');
+final Element audioStatus = querySelector('#audioStatus');
+final Element audioStatusDisplay = querySelector('#audioStatusDisplay');
 final Element displayLog = querySelector('#displayLog');
 final Element logFileName = querySelector('#logFileName');
 final Element serverStatusDataList = querySelector('#serverStatusDataList');
@@ -52,6 +57,7 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_THUMBNAILS,  querySelector('#page_thumbnails'), initThumbNailPage),
   PageDiv(PAGE_ORIGINAL,  querySelector('#page_original'), initOriginalImagePage),
   PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage),
+  PageDiv(PAGE_AUDIO,  querySelector('#page_audio'), initAnyPage),
   PageDiv(PAGE_DISPLAY_LOG,  querySelector('#page_displayLog'), initAnyPage)
 ]);
 /**
@@ -64,6 +70,7 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('imageHome', querySelector('#imageHomeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
   MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
   MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
+  MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
   MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
@@ -77,6 +84,21 @@ final MyButtonManager buttonManager = new MyButtonManager([
 /**
  * Define the get time request and response procedure.
  */
+ServerRequest fetchAudioFileList = ServerRequest('GET', '/files/loc/audio', 'Reading list of audio files', processError, (resp) {
+  audioFileListData = resp.map;
+  populateAudioFileList();
+});
+
+ServerRequest actionAudioPlayFile = ServerRequest('GET', '/audio/play/{1}', 'Play audio files', processError, (resp) {
+  audioStatusData = resp.map;
+  populateAudioDisplay();
+});
+
+ServerRequest actionAudioStatus = ServerRequest('GET', '/audio/status', 'Audio Status', processError, (resp) {
+  audioStatusData = resp.map;
+  populateAudioDisplay();
+});
+
 ServerRequest fetchUserList = ServerRequest('GET', '/server/users', 'Reading user data from server', processError, (resp) {
   userList = resp.map['users'];
   populateUserTable();
@@ -104,6 +126,7 @@ ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time
 ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json', 'Reading user state from server', processError, (resp) {
   userDataMap = resp.map;
 });
+
 ServerRequest saveUserList = ServerRequest('POST', '/files/user/{1}/loc/data/name/state.json', 'Writing user data to server', processError, null);
 
 ServerRequest fetchThumbNailDirPaths = ServerRequest('GET', '/paths/user/{1}/loc/thumbs', 'Reading thumbnail dir list', processError, (resp) {
@@ -138,11 +161,15 @@ Map selectedDirectoryHistory = {};
 List userFileSizesData = [];
 List diskStatusData = [];
 Map logFileListData = {};
+Map audioFileListData = {};
+Map audioStatusData = null;
 String logFileText = null;
 String currentLogFileName = null;
 String currentLogFileBase64 = null;
 String currentImageEncName = null;
 String currentImageEncPath = null;
+
+Timer audioUpdateTimer = null;
 
 /**
  * Program entry point
@@ -180,8 +207,17 @@ void selectLogFile(String name, String base64)  {
   pageManager.display(PAGE_DISPLAY_LOG);
 }
 
+void selectAudioFile(String name, String base64)  {
+  actionAudioPlayFile.send([base64],null,null);
+}
+
 void reSelectLogFile()  {
   fetchLogFileText.send([currentLogFileBase64],null,null);
+}
+
+void selectAudioPage() {
+  fetchAudioFileList.send([currentUserId], null, null);
+  pageManager.display(PAGE_AUDIO);  
 }
 
 void selectStatusPage() {
@@ -258,6 +294,37 @@ void onClickOriginalImage(int x, int y, Element e) {
   }
 }
 
+void populateAudioDisplay() {
+  if ((audioStatusData == null) || (audioStatusData['status'] == 'STOPPED')){
+    audioStatusData = null;
+    audioStatusDisplay.hidden = true;
+    if (audioUpdateTimer != null) {
+      audioUpdateTimer.cancel();
+      audioUpdateTimer = null;
+    }
+  } else {
+    audioStatusDisplay.hidden = false;
+    String htmlStr = '<table width=\"100%\">';
+    htmlStr += '<tr><td colspan="2">Playing: ${audioStatusData['message']}</td></tr>';
+    htmlStr += '<tr><td width="50%">Volume:${audioStatusData['volume']}</td><td colspan="2">Duration:${audioStatusData['duration']}</td></tr>';
+    htmlStr += '<tr><td colspan="2"><progress class="Progress" value="${audioStatusData['position']}" max="${audioStatusData['duration']}"></progress></td></tr>';
+    htmlStr += '</table><br>';
+    audioStatus.innerHtml = htmlStr;
+    if (audioUpdateTimer == null) {
+       audioUpdateTimer = Timer(new Duration(seconds:1), updateAudioDisplay);
+    } 
+  }
+}
+
+
+void updateAudioDisplay() {
+  if (audioUpdateTimer != null) {
+    audioUpdateTimer.cancel();
+    audioUpdateTimer = null;
+  }
+  actionAudioStatus.send([currentUserId], null, null);
+}
+
 void populateServerStatusData(Map map) {
   String htmlStr = '<table width=\"100%\">';
   map['status'].forEach((k,v) {
@@ -285,6 +352,24 @@ void populateDiskStatus() {
   });
   htmlStr += '</table>';
   diskStatus.innerHtml = htmlStr;
+}
+
+void populateAudioFileList() {
+  String htmlStr = '<table width=\"100%\">';
+  int index = 0;
+  audioFileListData['files'].forEach((audioFile) {
+    htmlStr += '<tr><td width=\"25%\">${audioFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\">${audioFile['name']['name']}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
+    index++;
+  });
+  htmlStr += '</table>';
+  audioFileList.innerHtml = htmlStr;
+  index = 0;
+  audioFileListData['files'].forEach((audioFile) {
+    querySelector('#${LOG_FILE_ROW_ID_PREFIX}${index}').onClick.listen((e) {
+      selectAudioFile(audioFile['name']['name'], audioFile['name']['encName']);
+    });
+    index++;
+  });  
 }
 
 void populateLogFileList() {
@@ -415,6 +500,7 @@ void saveUsersState() {
 void initWelcomePage(PageDiv old, PageDiv to) {
   clearError();
   navButtons.hidden = true;
+  audioStatusDisplay.hidden = true;
   headerUserName.text = "Welcome - Who Are You?";
 }
 
