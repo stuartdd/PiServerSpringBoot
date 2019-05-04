@@ -28,16 +28,10 @@ import tools.OsUtils;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class TestScripts {
+public class TestScripts extends TestBaseClass {
 
     @Autowired
     private MockMvc mvc;
-
-    @BeforeClass
-    public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
-        FunctionService.init(ConfigDataManager.getFunctions());
-    }
 
     @Test
     public void getDiskStatus() throws Exception {

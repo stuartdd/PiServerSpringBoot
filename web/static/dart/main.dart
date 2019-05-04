@@ -47,6 +47,7 @@ final Element audioStatusDisplay = querySelector('#audioStatusDisplay');
 final Element displayLog = querySelector('#displayLog');
 final Element logFileName = querySelector('#logFileName');
 final Element serverStatusDataList = querySelector('#serverStatusDataList');
+final Element volumeText = querySelector('#volumeText');
 
 /**
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
@@ -71,6 +72,8 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
   MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
   MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
+  MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(10);}),
+  MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-10);}),
   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
   MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
@@ -90,13 +93,15 @@ ServerRequest fetchAudioFileList = ServerRequest('GET', '/files/loc/audio', 'Rea
 });
 
 ServerRequest actionAudioPlayFile = ServerRequest('GET', '/audio/play/{1}', 'Play audio files', processError, (resp) {
-  audioStatusData = resp.map;
-  populateAudioDisplay();
+  populateAudioDisplay(resp.map);
 });
 
-ServerRequest actionAudioStatus = ServerRequest('GET', '/audio/status', 'Audio Status', processError, (resp) {
-  audioStatusData = resp.map;
-  populateAudioDisplay();
+ServerRequest actionAudioSetVolume = ServerRequest('GET', '/audio/volume/{1}', 'Set audio volume', processError, (resp) {
+  populateAudioDisplay(resp.map);
+});
+
+ServerRequest fetchAudioStatus = ServerRequest('GET', '/audio/status', 'Audio Status', processError, (resp) {
+  populateAudioDisplay(resp.map);
 });
 
 ServerRequest fetchUserList = ServerRequest('GET', '/server/users', 'Reading user data from server', processError, (resp) {
@@ -163,6 +168,7 @@ List diskStatusData = [];
 Map logFileListData = {};
 Map audioFileListData = {};
 Map audioStatusData = null;
+int audioVolume;
 String logFileText = null;
 String currentLogFileName = null;
 String currentLogFileBase64 = null;
@@ -180,6 +186,7 @@ void main() {
   buttonManager.init();
   fetchTimeData.send();
   fetchUserList.send();
+
   pageManager.display(PAGE_NAME_WELCOME);
   header.onClick.listen((e) {
       pageManager.back();
@@ -216,7 +223,8 @@ void reSelectLogFile()  {
 }
 
 void selectAudioPage() {
-  fetchAudioFileList.send([currentUserId], null, null);
+  fetchAudioFileList.send();
+  fetchAudioStatus.send();
   pageManager.display(PAGE_AUDIO);  
 }
 
@@ -294,35 +302,58 @@ void onClickOriginalImage(int x, int y, Element e) {
   }
 }
 
-void populateAudioDisplay() {
-  if ((audioStatusData == null) || (audioStatusData['status'] == 'STOPPED')){
+void setVolumeValue(int increment) {
+  if (audioVolume != null) {
+    audioVolume += increment;
+    if (audioVolume > 99) {
+      audioVolume = 99;
+    }
+    if (audioVolume < 0) {
+      audioVolume = 0;
+    }
+    actionAudioSetVolume.send([(audioVolume).toString()]);      
+  }
+}
+
+void populateAudioDisplay(Map map) {
+  audioStatusData = map;
+  if (audioStatusData == null) {
+    clearAudioDisplay();
+  } else {
+    audioVolume = audioStatusData['volume'];
+    volumeText.text = 'Audio Volume ${audioVolume + 1}%';
+    if (audioStatusData['status'] == 'STOPPED') {
+        clearAudioDisplay();
+      } else {
+      audioStatusDisplay.hidden = false;
+      String htmlStr = '<table width=\"100%\">';
+      htmlStr += '<tr><td colspan="2">Playing: ${audioStatusData['message']}</td></tr>';
+      htmlStr += '<tr><td width="50%">Volume:${audioStatusData['volume']}</td><td colspan="2">Duration:${audioStatusData['duration']}</td></tr>';
+      htmlStr += '<tr><td colspan="2"><progress class="Progress" value="${audioStatusData['position']}" max="${audioStatusData['duration']}"></progress></td></tr>';
+      htmlStr += '</table><br>';
+      audioStatus.innerHtml = htmlStr;
+      if (audioUpdateTimer == null) {
+        audioUpdateTimer = Timer(new Duration(seconds:1), updateAudioDisplay);
+      } 
+    }
+  }
+}
+
+void clearAudioDisplay() {
     audioStatusData = null;
     audioStatusDisplay.hidden = true;
     if (audioUpdateTimer != null) {
       audioUpdateTimer.cancel();
       audioUpdateTimer = null;
-    }
-  } else {
-    audioStatusDisplay.hidden = false;
-    String htmlStr = '<table width=\"100%\">';
-    htmlStr += '<tr><td colspan="2">Playing: ${audioStatusData['message']}</td></tr>';
-    htmlStr += '<tr><td width="50%">Volume:${audioStatusData['volume']}</td><td colspan="2">Duration:${audioStatusData['duration']}</td></tr>';
-    htmlStr += '<tr><td colspan="2"><progress class="Progress" value="${audioStatusData['position']}" max="${audioStatusData['duration']}"></progress></td></tr>';
-    htmlStr += '</table><br>';
-    audioStatus.innerHtml = htmlStr;
-    if (audioUpdateTimer == null) {
-       audioUpdateTimer = Timer(new Duration(seconds:1), updateAudioDisplay);
-    } 
-  }
+    }  
 }
-
 
 void updateAudioDisplay() {
   if (audioUpdateTimer != null) {
     audioUpdateTimer.cancel();
     audioUpdateTimer = null;
   }
-  actionAudioStatus.send([currentUserId], null, null);
+  fetchAudioStatus.send();
 }
 
 void populateServerStatusData(Map map) {

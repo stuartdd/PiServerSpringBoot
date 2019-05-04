@@ -41,17 +41,12 @@ import tools.OsUtils;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class TestAudio {
+public class TestAudio extends TestBaseClass {
 
     @Autowired
     private MockMvc mvc;
 
     private static final String JSON = "{\"action\":\"query\",\"status\":\"PLAYING\",\"message\":\"dog.mp3\",\"duration\":14.24,\"position\":5.03}";
-
-    @BeforeClass
-    public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
-    }
 
     @Test
     @Ignore

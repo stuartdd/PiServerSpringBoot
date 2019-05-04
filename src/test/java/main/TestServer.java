@@ -38,15 +38,10 @@ import tools.OsUtils;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class TestServer {
+public class TestServer extends TestBaseClass {
 
     @Autowired
     private MockMvc mvc;
-
-    @BeforeClass
-    public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
-    }
 
     @Test
     public void getServerTime() throws Exception {

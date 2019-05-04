@@ -8,7 +8,7 @@
         "css.hilight.background": "#e8f560",
         "css.button.border": "black"
     },
-    "logPath": "data\\logs",
+    "logPath": "\\logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,

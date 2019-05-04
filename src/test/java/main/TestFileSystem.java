@@ -18,15 +18,12 @@
  */
 package main;
 
-import config.ConfigDataManager;
 import io.FileListIo;
 import io.FileSpecIo;
 import io.PathsIO;
-import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +37,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import tools.EncodeDecode;
 import tools.JsonUtils;
-import tools.OsUtils;
 import tools.StringTools;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class TestFileSystem {
+public class TestFileSystem extends TestBaseClass {
 
     @Autowired
     private MockMvc mvc;
@@ -62,23 +58,6 @@ public class TestFileSystem {
             + "		\"encName\": \"/200608\"\n"
             + "	}]\n"
             + "}";
-
-    @BeforeClass
-    public static void beforeClass() {
-        ConfigDataManager.init(new String[]{"configTestData" + OsUtils.resolveOS().name().toUpperCase() + ".json"});
-        String lName = ConfigDataManager.getLogName().toLowerCase();
-        File f = new File(ConfigDataManager.getLogPath());
-        File[] l = f.listFiles();
-        for (File fil : l) {
-            String n = fil.getName();
-            if (!n.contains("Test")) {
-                if ((n.toLowerCase().contains(lName)) && (n.toLowerCase().endsWith(".log"))) {
-                    System.out.println("DELETED:"+fil.getAbsolutePath());
-                    fil.delete();
-                }
-            }
-        }
-    }
 
     @Test
     public void testInOrder() throws Exception {
