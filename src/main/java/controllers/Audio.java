@@ -35,16 +35,10 @@ import tools.MediaTypeInfAndName;
 @RestController("audio")
 public class Audio extends ControllerErrorHandlerBase {
 
-    @RequestMapping(value = "audio/status", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "audio/volume/{volume}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public @ResponseBody
-    AudioStatusIO status(@RequestParam Map<String, String> queryParameters) {
-        return AudioService.queryStatus();
-    }
-
-    @RequestMapping(value = "audio/stop", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    public @ResponseBody
-    AudioStatusIO stop(@RequestParam Map<String, String> queryParameters) {
-        return AudioService.stop();
+    AudioStatusIO setVolume(@PathVariable String volume) {
+        return AudioService.setCurrentVolume(volume);
     }
 
     @RequestMapping(value = "audio/play/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
@@ -61,10 +55,16 @@ public class Audio extends ControllerErrorHandlerBase {
         return AudioService.pause();
     }
 
-    @RequestMapping(value = "audio/volume/{volume}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "audio/status", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public @ResponseBody
-    AudioStatusIO pause(@PathVariable String volume) {
-        return AudioService.setCurrentVolume(volume);
+    AudioStatusIO status(@RequestParam Map<String, String> queryParameters) {
+        return AudioService.queryStatus();
+    }
+
+    @RequestMapping(value = "audio/stop", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public @ResponseBody
+    AudioStatusIO stop(@RequestParam Map<String, String> queryParameters) {
+        return AudioService.stop();
     }
 
 }

@@ -31,7 +31,7 @@ public class AudioService {
 
     private static AudioPlayerThread audioThread = null;
     private static String currentFileName = null;
-    private static int currentVolume = 99;
+    private static int currentVolume = 100;
     private static final int WAIT_TIME = 5000;
 
     public static AudioStatusIO queryStatus() {
