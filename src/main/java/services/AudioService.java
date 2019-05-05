@@ -112,8 +112,8 @@ public class AudioService {
         if (StringUtils.isNotBlank(vol)) {
             try {
                 int i = Integer.parseInt(vol);
-                if ((i < 0) || (i > 99)) {
-                    throw new AudioSetupException("Value for volume 'vol=" + vol + " must be from 0 to 99");
+                if ((i < 0) || (i > 100)) {
+                    throw new AudioSetupException("Value for volume 'vol=" + vol + " must be from 0 to 100");
                 }
                 return i;
             } catch (NumberFormatException nfe) {

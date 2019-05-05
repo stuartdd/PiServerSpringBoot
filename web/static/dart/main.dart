@@ -72,8 +72,12 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
   MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
   MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
+  MyButton('audioStopButton', querySelector('#audioStopButton'), (id) {audioStop('stop');}),
+  MyButton('audioPauseButton', querySelector('#audioPauseButton'), (id) {audioStop('pause');}),
   MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(10);}),
   MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-10);}),
+  MyButton('volumeMinButton', querySelector('#volumeMinButton'), (id) {setVolumeValue(0);}),
+  MyButton('volumeMaxButton', querySelector('#volumeMaxButton'), (id) {setVolumeValue(100);}),
   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
   MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
   MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
@@ -100,7 +104,7 @@ ServerRequest actionAudioSetVolume = ServerRequest('GET', '/audio/volume/{1}', '
   populateAudioDisplay(resp.map);
 });
 
-ServerRequest fetchAudioStatus = ServerRequest('GET', '/audio/status', 'Audio Status', processError, (resp) {
+ServerRequest actionAudioControl = ServerRequest('GET', '/audio/{1}', 'Audio Status|Pause|Stop', processError, (resp) {
   populateAudioDisplay(resp.map);
 });
 
@@ -168,7 +172,7 @@ List diskStatusData = [];
 Map logFileListData = {};
 Map audioFileListData = {};
 Map audioStatusData = null;
-int audioVolume;
+int audioVolume = 0;
 String logFileText = null;
 String currentLogFileName = null;
 String currentLogFileBase64 = null;
@@ -224,7 +228,7 @@ void reSelectLogFile()  {
 
 void selectAudioPage() {
   fetchAudioFileList.send();
-  fetchAudioStatus.send();
+  updateAudioDisplay();
   pageManager.display(PAGE_AUDIO);  
 }
 
@@ -303,16 +307,26 @@ void onClickOriginalImage(int x, int y, Element e) {
 }
 
 void setVolumeValue(int increment) {
-  if (audioVolume != null) {
-    audioVolume += increment;
-    if (audioVolume > 99) {
-      audioVolume = 99;
-    }
-    if (audioVolume < 0) {
+  if (increment ==0) {
       audioVolume = 0;
+  } else {
+    if (increment==100) {
+      audioVolume = 100;
+    } else {
+      audioVolume += increment;
+      if (audioVolume > 100) {
+        audioVolume = 100;
+      }
+      if (audioVolume < 0) {
+        audioVolume = 0;
+      }
     }
-    actionAudioSetVolume.send([(audioVolume).toString()]);      
   }
+  actionAudioSetVolume.send([(audioVolume).toString()]);      
+}
+
+void audioStop(String action) {
+
 }
 
 void populateAudioDisplay(Map map) {
@@ -321,15 +335,15 @@ void populateAudioDisplay(Map map) {
     clearAudioDisplay();
   } else {
     audioVolume = audioStatusData['volume'];
-    volumeText.text = 'Audio Volume ${audioVolume + 1}%';
+    volumeText.text = 'Audio Volume ${audioVolume}%';
     if (audioStatusData['status'] == 'STOPPED') {
         clearAudioDisplay();
       } else {
       audioStatusDisplay.hidden = false;
       String htmlStr = '<table width=\"100%\">';
-      htmlStr += '<tr><td colspan="2">Playing: ${audioStatusData['message']}</td></tr>';
-      htmlStr += '<tr><td width="50%">Volume:${audioStatusData['volume']}</td><td colspan="2">Duration:${audioStatusData['duration']}</td></tr>';
-      htmlStr += '<tr><td colspan="2"><progress class="Progress" value="${audioStatusData['position']}" max="${audioStatusData['duration']}"></progress></td></tr>';
+      htmlStr += '<tr><td>Playing: ${audioStatusData['message']}</td></tr>';
+      htmlStr += '<tr><td>Duration:${audioStatusData['duration']}</td></tr>';
+      htmlStr += '<tr><td><progress class="Progress" value="${audioStatusData['position']}" max="${audioStatusData['duration']}"></progress></td></tr>';
       htmlStr += '</table><br>';
       audioStatus.innerHtml = htmlStr;
       if (audioUpdateTimer == null) {
@@ -353,7 +367,7 @@ void updateAudioDisplay() {
     audioUpdateTimer.cancel();
     audioUpdateTimer = null;
   }
-  fetchAudioStatus.send();
+  actionAudioControl.send(['status']);
 }
 
 void populateServerStatusData(Map map) {
