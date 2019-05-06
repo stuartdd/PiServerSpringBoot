@@ -72,8 +72,8 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
   MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
   MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
-  MyButton('audioStopButton', querySelector('#audioStopButton'), (id) {audioStop('stop');}),
-  MyButton('audioPauseButton', querySelector('#audioPauseButton'), (id) {audioStop('pause');}),
+  MyButton('audioStopButton', querySelector('#audioStopButton'), (id) {audioAction('stop');}),
+  MyButton('audioPauseButton', querySelector('#audioPauseButton'), (id) {audioAction('pause');}),
   MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(10);}),
   MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-10);}),
   MyButton('volumeMinButton', querySelector('#volumeMinButton'), (id) {setVolumeValue(0);}),
@@ -325,8 +325,8 @@ void setVolumeValue(int increment) {
   actionAudioSetVolume.send([(audioVolume).toString()]);      
 }
 
-void audioStop(String action) {
-
+void audioAction(String action) {
+  actionAudioControl.send([action], null,null);
 }
 
 void populateAudioDisplay(Map map) {
@@ -367,7 +367,7 @@ void updateAudioDisplay() {
     audioUpdateTimer.cancel();
     audioUpdateTimer = null;
   }
-  actionAudioControl.send(['status']);
+  audioAction('status');
 }
 
 void populateServerStatusData(Map map) {
