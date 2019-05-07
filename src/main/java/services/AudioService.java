@@ -42,12 +42,15 @@ public class AudioService {
         return currentVolume;
     }
 
-    public static AudioStatusIO setCurrentVolume(String currentVolume) {
-        return setCurrentVolume(readVolumeString(currentVolume));
+    public static AudioStatusIO setCurrentVolume(String newVolume) {
+        return setCurrentVolume(readVolumeString(newVolume));
     }
 
-    public static AudioStatusIO setCurrentVolume(int currentVolume) {
-        AudioService.currentVolume = currentVolume;
+    public static AudioStatusIO setCurrentVolume(int newVolume) {
+        currentVolume = newVolume;
+        if (audioThread != null) {
+            audioThread.setVolume(newVolume);
+        }
         return buildAudioStatus("setVol");
     }
 

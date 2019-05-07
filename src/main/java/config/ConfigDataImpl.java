@@ -23,6 +23,7 @@ public class ConfigDataImpl {
 
     private Resources resources;
     private Functions functions;
+    private Audio audio;
     private String formatTimeStamp;
     private Map<String, String> system;
     private boolean allowServerStopCtrl = true;
@@ -75,6 +76,14 @@ public class ConfigDataImpl {
 
     public void setFunctions(Functions functions) {
         this.functions = functions;
+    }
+
+    public Audio getAudio() {
+        return audio;
+    }
+
+    public void setAudio(Audio audio) {
+        this.audio = audio;
     }
 
     public Map<String, String> getSystem() {
