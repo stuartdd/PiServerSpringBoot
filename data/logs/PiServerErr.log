@@ -1,11 +1,11 @@
-2019-05-07 16:40:20.037 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-05-07 16:40:20.045 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-05-07 16:40:20.526 ERROR ServerError: CMD:ERR:cmd.exe /c notScript.bat  ../ --> 'notScript.bat' is not recognized as an internal or external command,
-2019-05-07 16:40:20.526 ERROR ServerError: CMD:ERR:cmd.exe /c notScript.bat  ../ --> operable program or batch file.
-2019-05-07 16:40:20.527 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
-2019-05-07 16:40:20.578 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-05-07 16:40:20.584 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Script ID'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Script ID'notImplemented'. Method 'notImplemented' is not implemented
-2019-05-07 16:40:20.706 ERROR ServerError: {"Status":404, "Msg":"Static file Not Found", "Entity":"/template1"} EXCEPTION:
+2019-05-10 13:12:16.461 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
+2019-05-10 13:12:16.467 ERROR ServerError: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
+2019-05-10 13:12:16.916 ERROR ServerError: CMD:ERR:cmd.exe /c notScript.bat  ../ --> 'notScript.bat' is not recognized as an internal or external command,
+2019-05-10 13:12:16.916 ERROR ServerError: CMD:ERR:cmd.exe /c notScript.bat  ../ --> operable program or batch file.
+2019-05-10 13:12:16.916 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-05-10 13:12:16.963 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-05-10 13:12:16.967 ERROR ServerError: {"Status":424, "Msg":"Failed Dependency", "Entity":"Script ID'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Script ID'notImplemented'. Method 'notImplemented' is not implemented
+2019-05-10 13:12:17.071 ERROR ServerError: {"Status":404, "Msg":"Static file Not Found", "Entity":"/template1"} EXCEPTION:
 exceptions.ServerRestException: /template1
 	at controllers.Content.content(Content.java:83) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_161]
@@ -99,7 +99,7 @@ exceptions.ServerRestException: /template1
 Caused by: exceptions.ServerRestException: /template1
 	at controllers.Content.content(Content.java:77) ~[main/:?]
 	... 88 more
-2019-05-07 16:40:20.749 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/jpeg", "Entity":"/template.jpg"} EXCEPTION:
+2019-05-10 13:12:17.098 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/jpeg", "Entity":"/template.jpg"} EXCEPTION:
 exceptions.ServerRestException: /template.jpg
 	at controllers.Content.content(Content.java:83) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_161]
@@ -193,7 +193,7 @@ exceptions.ServerRestException: /template.jpg
 Caused by: exceptions.ServerRestException: /template.jpg
 	at controllers.Content.content(Content.java:71) ~[main/:?]
 	... 88 more
-2019-05-07 16:40:20.759 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/png", "Entity":"/template.png"} EXCEPTION:
+2019-05-10 13:12:17.105 ERROR ServerError: {"Status":400, "Msg":"Cannot template binary resource types image/png", "Entity":"/template.png"} EXCEPTION:
 exceptions.ServerRestException: /template.png
 	at controllers.Content.content(Content.java:83) ~[main/:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_161]

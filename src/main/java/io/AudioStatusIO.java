@@ -24,22 +24,24 @@ public class AudioStatusIO {
     private double duration;
     private double position;
     private int volume;
+    private int volumeStep;
 
     public AudioStatusIO() {
-        this(null, null, null, 0.0, 0.0, 0);
+        this(null, null, null, 0.0, 0.0, 0, 1);
     }
 
     public AudioStatusIO(String action, String status, String message, int volume) {
-        this(action, status, message, 0.0, 0.0, volume);
+        this(action, status, message, 0.0, 0.0, volume, 1);
     }
 
-    public AudioStatusIO(String action, String status, String message, double duration, double position, int volume) {
+    public AudioStatusIO(String action, String status, String message, double duration, double position, int volume, int volumeStep) {
         this.action = action;
         this.status = status;
         this.message = message;
         this.duration = duration;
         this.position = position;
         this.volume = volume;
+        this.volumeStep = volumeStep;
     }
 
     public String getAction() {
@@ -88,6 +90,14 @@ public class AudioStatusIO {
 
     public void setVolume(int volume) {
         this.volume = volume;
+    }
+
+    public int getVolumeStep() {
+        return volumeStep;
+    }
+
+    public void setVolumeStep(int volumeStep) {
+        this.volumeStep = volumeStep;
     }
 
 }
