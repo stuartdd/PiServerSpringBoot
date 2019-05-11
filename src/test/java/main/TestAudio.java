@@ -16,10 +16,8 @@
  */
 package main;
 
-import config.ConfigDataManager;
 import io.AudioStatusIO;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +30,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import tools.JsonUtils;
-import tools.OsUtils;
 
 /**
  *
@@ -156,7 +153,7 @@ public class TestAudio extends TestBaseClass {
         assertEquals("STOPPED", audioStatus.getStatus());
         assertEquals(0.0, audioStatus.getDuration(), 0.0);
         assertEquals(0.0, audioStatus.getPosition(), 0.0);
-        assertEquals(99, audioStatus.getVolume());
+        assertEquals(100, audioStatus.getVolume());
     }
 
 }

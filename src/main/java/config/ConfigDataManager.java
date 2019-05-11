@@ -26,7 +26,6 @@ import tools.JsonUtils;
 import tools.OsUtils;
 import tools.StringTools;
 
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,6 +158,34 @@ public class ConfigDataManager {
             throw new ConfigDataException(configErrorPrefix + "System resource error " + e.getMessage(), e);
         }
 
+        if (configDataImpl.getAudio() == null) {
+            configDataImpl.setAudio(new Audio());
+        }
+
+        Audio audioData = configDataImpl.getAudio();
+        if (configDataImpl.getResources().getLocations().get(audioData.getLocationName()) == null) {
+            throw new ConfigDataException(configErrorPrefix + "Audio locationName '"+audioData.getLocationName()+"' cannot be found in resources.locations");
+        }
+        if (audioData.getVolumeMinValue() >= audioData.getVolumeMaxValue()) {
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeMinValue ["+audioData.getVolumeMinValue()+"] cannot above volumeMaxValue ["+audioData.getVolumeMaxValue()+"]");            
+        }
+        if (audioData.getVolumeInitial() > audioData.getVolumeMaxValue()) {
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeInitial ["+audioData.getVolumeInitial()+"] cannot above volumeMaxValue ["+audioData.getVolumeMaxValue()+"]");            
+        }
+        if (audioData.getVolumeInitial() < audioData.getVolumeMinValue()) {
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeInitial ["+audioData.getVolumeInitial()+"] cannot below volumeMinValue ["+audioData.getVolumeMinValue()+"]");            
+        }
+        int diff = audioData.getVolumeMaxValue() - audioData.getVolumeMinValue();
+        if (audioData.getVolumeSteps() < 1) {
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeSteps ["+audioData.getVolumeSteps()+"] cannot below 1");            
+        }
+        if (diff < 2) {
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeMaxValue ["+audioData.getVolumeMaxValue()+"] must be at least volumeMinValue + 3 ["+(audioData.getVolumeMinValue()+3)+"]");                       
+        }
+        if (audioData.getVolumeSteps() < 1) {
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeSteps ["+audioData.getVolumeSteps()+"] cannot below 1");                       
+        }
+        
         /*
         Copy all properties in the System section of the configuration file to the System properties.
          */
@@ -194,6 +221,13 @@ public class ConfigDataManager {
         parameterMap.put("server.started", (new DateTime()).toString("yyyy/MM/dd HH:mm:ss"));
         parameterMap.put("server.config", configDataName);
         parameterMap.put("server.os", OsUtils.resolveOS().name());
+    }
+
+    public Audio getAudio() {
+        if (configDataImpl.getAudio() == null) {
+            return new Audio();
+        }
+        return configDataImpl.getAudio();
     }
 
     public static String getSubstitutionData() {
@@ -233,7 +267,8 @@ public class ConfigDataManager {
      *
      * @param locationName The name of the location in the config data
      * @return The value of the location from the config file
-     * @throws ResourceNotFoundException if the location is not in the config data.
+     * @throws ResourceNotFoundException if the location is not in the config
+     * data.
      */
     public static String getLocation(String locationName) {
         String loc = getLocations().get(locationName);
@@ -248,7 +283,8 @@ public class ConfigDataManager {
      *
      * @param locationName the name of the location in the config data
      * @return The file for that location.
-     * @throws ResourceFileNotFoundException if the file does not exist. ResourceNotFoundException if the location is not in the config data.
+     * @throws ResourceFileNotFoundException if the file does not exist.
+     * ResourceNotFoundException if the location is not in the config data.
      */
     public static File getLocationAsFile(String locationName) {
         File f = new File(getLocation(locationName));
@@ -266,6 +302,7 @@ public class ConfigDataManager {
      *    DO NOT Check if the file exists. That is for the calling program to do!
      *    If you want to check it exists use getUserLocationFile(null, loc, null, fileName)
      * </pre>
+     *
      * @param locationName the name of the location in the config data
      * @param fileName The name of the file at that location
      * @return A file.
@@ -274,7 +311,6 @@ public class ConfigDataManager {
         File locFile = getLocationAsFile(locationName);
         return new File(locFile.getAbsolutePath() + FS + fileName);
     }
-
 
     public static File getUserLocationFile(String user, String locationName) {
         return getUserLocationFile(user, locationName, null, null);
@@ -293,7 +329,8 @@ public class ConfigDataManager {
      *   Can return a path or a file. It MUST Exist.
      * </pre>
      *
-     * @param user The user id from the config file (if null uses locations instead)
+     * @param user The user id from the config file (if null uses locations
+     * instead)
      * @param locationName The location within that user
      * @param path an optional additional path
      * @param fileName an optional file nam e
@@ -320,7 +357,7 @@ public class ConfigDataManager {
         If no location was found we cannot continue
          */
         if (StringUtils.isBlank(loc)) {
-            throw new ResourceNotFoundException((user==null? "": user + ".") + locationName);
+            throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName);
         }
         /*
         Clean up location
@@ -390,7 +427,6 @@ public class ConfigDataManager {
 //            throw new ResourceNotFoundException(resourceName);
 //        }
 //    }
-
     private static String getArgValue(String arg) {
         int pos = arg.indexOf('=');
         if (pos < 1) {
@@ -414,7 +450,8 @@ public class ConfigDataManager {
     }
 
     /**
-     * If a location is absolute then return it. Else prefix it with the server root (if there is one!)
+     * If a location is absolute then return it. Else prefix it with the server
+     * root (if there is one!)
      *
      * @param location
      * @return
