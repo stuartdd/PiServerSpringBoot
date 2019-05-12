@@ -172,7 +172,7 @@ public class AudioPlayerThread extends Thread {
             float vol = minVolume + (stepVolume * (float) volume);
             if (vol > maxVolume) {
                 vol = maxVolume;
-                currentVolumePercent = 99;
+                currentVolumePercent = 100;
             }
             if (vol < minVolume) {
                 vol = minVolume;

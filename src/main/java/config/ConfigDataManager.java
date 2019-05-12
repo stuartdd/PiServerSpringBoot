@@ -223,7 +223,7 @@ public class ConfigDataManager {
         parameterMap.put("server.os", OsUtils.resolveOS().name());
     }
 
-    public Audio getAudio() {
+    public static Audio getAudio() {
         if (configDataImpl.getAudio() == null) {
             return new Audio();
         }

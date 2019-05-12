@@ -107,7 +107,7 @@ public class AudioService {
             if (audioThread.isPaused()) {
                 state = "PAUSED";
             }
-            return new AudioStatusIO(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume());
+            return new AudioStatusIO(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume(), ConfigDataManager.getAudio().getVolumeSteps());
         }
     }
 
