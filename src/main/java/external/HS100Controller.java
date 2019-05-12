@@ -225,17 +225,17 @@ public class HS100Controller {
      * @param message The error message.
      */
     private static void errorExit(String message) {
-        System.err.println("Error:" + message);
+        System.err.println("Error: " + message);
         System.err.println("Parameters:\n"
-                + "Port: -p1234 Will use port 1234. Default value is 9999.\n"
-                + "Action: ON, OFF or STATUS. Default is STATUS.\n"
-                + "Address: 192.168.1.1 IP Address of the switch. Required.\n"
+                + "  Port: -p1234 Will use port 1234. Default value is 9999.\n"
+                + "  Action: ON, OFF or STATUS. Default is STATUS.\n"
+                + "  Address: 192.168.1.1 IP Address of the switch. Required.\n"
                 + "Ordering of parameters is not important. All are case insensitive.\n"
                 + "Examples:\n"
-                + "192.168.1.9\n"
-                + "192.168.1.9 OFF\n"
-                + "On 192.168.1.9 -p9999\n"
-                + "192.168.1.9 status\n"
+                + "  192.168.1.9\n"
+                + "  192.168.1.9 OFF\n"
+                + "  On 192.168.1.9 -p9999\n"
+                + "  192.168.1.9 status\n"
                 + "-------------------------------------------------------------------");
         System.exit(1);
     }
