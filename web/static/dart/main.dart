@@ -453,7 +453,7 @@ void populateThumbnails() {
   int columns = userDataMap['imagesPerRow'];
   double imageWidth = 100;
 
-  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"><hr></td></tr><tr>';
+  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"></td></tr><tr>';
   int index = 1;
   thumbNailList['files'].forEach((fileData) {
     htmlStr += '<td><img width=\"${imageWidth}%\" id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
@@ -480,7 +480,7 @@ void populateThumbNailDirList() {
   }
   var i=0;
   var disp;
-  var htmlStr = '<table width=\"100%\"><tr><td><hr></td></tr>';
+  var htmlStr = '<table width=\"100%\"><tr></tr>';
   // Create the HTML
   thumbNailDirList['paths'].forEach((dirData) {
     disp = dirData['name'];
