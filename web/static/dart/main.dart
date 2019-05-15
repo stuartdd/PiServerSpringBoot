@@ -205,12 +205,10 @@ void main() {
 }
 
 void rotateOriginal(int degrees) {
-  window.console.debug("rotateOriginal");
   rotateImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName, '90']);
 }
 
 void restoreOriginal() {
-  window.console.debug("restoreOriginal");
   restoreImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName]);
 }
 

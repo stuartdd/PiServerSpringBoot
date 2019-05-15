@@ -58,8 +58,8 @@
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
-                "P2":"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P1":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
                 "P3":"%{fileName}",
                 "P4":"%{degrees}"
             },
@@ -67,9 +67,9 @@
                 "methodName": "scriptBetween",
                 "scriptName": "restoreImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
-                "P2":"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
-                "P3":"%{fileName}"
+                "P1":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P3":"\"%{fileName}\""
             }
         }
     }
