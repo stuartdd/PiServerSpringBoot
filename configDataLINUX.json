@@ -8,6 +8,13 @@
         "css.hilight.background": "#e8f560",
         "css.button.border": "black"
     },
+    "audio" : {
+        "locationName":"audio",
+        "volumeInitial" : 100,
+        "volumeMinValue" :80,
+        "volumeMaxValue" : 100,
+        "volumeSteps" : 2
+    },
     "logPath": "/logs",
     "logName": "PiServer",
     "logLevelBar": 9,

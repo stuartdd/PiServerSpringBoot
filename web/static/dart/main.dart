@@ -23,7 +23,7 @@ const List<String> ADD_SUB_BUTTON_IDS = ['addCol', 'subCol'];
 const String iconSize = '80';
 const String iconSizePlus = '100';
 
-/**
+/*
  * Define locations (from id's) in the html
  */
 final Element errorMessageText = querySelector('#errorMessageText');
@@ -49,7 +49,7 @@ final Element logFileName = querySelector('#logFileName');
 final Element serverStatusDataList = querySelector('#serverStatusDataList');
 final Element volumeText = querySelector('#volumeText');
 
-/**
+/*
  * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
  */
 final PageDivManager pageManager = new PageDivManager([
@@ -61,7 +61,7 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_AUDIO,  querySelector('#page_audio'), initAnyPage),
   PageDiv(PAGE_DISPLAY_LOG,  querySelector('#page_displayLog'), initAnyPage)
 ]);
-/**
+/*
  * Define all the buttons and their actions. Each button is added to the MyButtonManager
  */
 final MyButtonManager buttonManager = new MyButtonManager([
@@ -74,8 +74,8 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
   MyButton('audioStopButton', querySelector('#audioStopButton'), (id) {audioAction('stop');}),
   MyButton('audioPauseButton', querySelector('#audioPauseButton'), (id) {audioAction('pause');}),
-  MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(10);}),
-  MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-10);}),
+  MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(1);}),
+  MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-1);}),
   MyButton('volumeMinButton', querySelector('#volumeMinButton'), (id) {setVolumeValue(0);}),
   MyButton('volumeMaxButton', querySelector('#volumeMaxButton'), (id) {setVolumeValue(100);}),
   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
@@ -88,7 +88,7 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('svrRestart', querySelector('#restartServerButton'), (id) {restartServerConfirm();})
 ]);
 
-/**
+/*
  * Define the get time request and response procedure.
  */
 ServerRequest fetchAudioFileList = ServerRequest('GET', '/files/loc/audio', 'Reading list of audio files', processError, (resp) {
@@ -173,6 +173,10 @@ Map logFileListData = {};
 Map audioFileListData = {};
 Map audioStatusData = null;
 int audioVolume = 0;
+int audioVolumeStep = 1;
+int audioVolumeMin = 0;
+int audioVolumeMax = 100;
+
 String logFileText = null;
 String currentLogFileName = null;
 String currentLogFileBase64 = null;
@@ -181,7 +185,7 @@ String currentImageEncPath = null;
 
 Timer audioUpdateTimer = null;
 
-/**
+/*
  * Program entry point
  * Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
  */
@@ -228,7 +232,7 @@ void reSelectLogFile()  {
 
 void selectAudioPage() {
   fetchAudioFileList.send();
-  updateAudioDisplay();
+  audioAction("status");
   pageManager.display(PAGE_AUDIO);  
 }
 
@@ -307,22 +311,25 @@ void onClickOriginalImage(int x, int y, Element e) {
 }
 
 void setVolumeValue(int increment) {
+  int currentAv = audioVolume;
   if (increment ==0) {
-      audioVolume = 0;
+      audioVolume = audioVolumeMin;
   } else {
     if (increment==100) {
-      audioVolume = 100;
+      audioVolume = audioVolumeMax;
     } else {
-      audioVolume += increment;
-      if (audioVolume > 100) {
-        audioVolume = 100;
+      audioVolume +=  (audioVolumeStep * increment);
+      if (audioVolume > audioVolumeMax) {
+        audioVolume = audioVolumeMax;
       }
-      if (audioVolume < 0) {
-        audioVolume = 0;
+      if (audioVolume < audioVolumeMin) {
+        audioVolume = audioVolumeMin;
       }
     }
   }
-  actionAudioSetVolume.send([(audioVolume).toString()]);      
+  if (currentAv != audioVolume) {
+    actionAudioSetVolume.send([(audioVolume).toString()]);      
+  }
 }
 
 void audioAction(String action) {
@@ -335,7 +342,13 @@ void populateAudioDisplay(Map map) {
     clearAudioDisplay();
   } else {
     audioVolume = audioStatusData['volume'];
-    volumeText.text = 'Audio Volume ${audioVolume}%';
+    audioVolumeStep = audioStatusData['volumeStep'];
+    audioVolumeMin = audioStatusData['volumeMin'];
+    audioVolumeMax = audioStatusData['volumeMax'];
+
+    double offsetPc = (audioVolume - audioVolumeMin) / ((audioVolumeMax - audioVolumeMin) / 100) ;
+    
+    volumeText.text = 'Audio Volume ${offsetPc}%';
     if (audioStatusData['status'] == 'STOPPED') {
         clearAudioDisplay();
       } else {
@@ -378,9 +391,7 @@ void populateServerStatusData(Map map) {
   htmlStr += '</table>';
   serverStatusDataList.innerHtml = htmlStr;
 }
-/**
- * [{"Size":"162215134","Name":"shared"},{"Size":"35722111","Name":"stuart"},{"Size":"36979282","Name":"julie"},{"Size":"36854954","Name":"owain"},{"Size":"10696354","Name":"huw"}]
- */
+
 void populateUserFileSizes() {
   String htmlStr = '<table width=\"100%\">';
   userFileSizesData.forEach((ufsData) {
@@ -494,7 +505,7 @@ void populateThumbNailDirList() {
   });
 }
 
-/**
+/*
  * Create a table of user icons and user
  * {"users": [{"id":"stuart","name":"Stuart"},{"id":"shared"},{"id":"nonuser"},{"id":"test","src":"src"}]}
  */

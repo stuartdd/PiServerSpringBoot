@@ -67,7 +67,7 @@ class PageDivManager {
     window.console.info('PageDivManager:Init:');
   }
 
-  /**
+  /*
    * Page back. remove the page from the stack.
    * Call display with stack false so we dont add the current page to the stack.
    */
@@ -81,7 +81,7 @@ class PageDivManager {
 
   void display(String name, [bool stack = true]) {
     bool pageNotShown = true;
-    /**
+    /*
      * If we have a current page.
      */
     if (currentPage != null) {
@@ -92,7 +92,7 @@ class PageDivManager {
         pageNameHistory.addLast(currentPage.name);
       }
     }
-    /**
+    /*
      * Cycle through all pages and hide pages not named. Only show paga named
      */
     pages.forEach((newPage) {
@@ -107,10 +107,9 @@ class PageDivManager {
         newPage.hide();
       }
     });
-    /**
+    /*
      * If no page was shown fall back to the defaultPage
      */
-
     if (pageNotShown) {
       PageDiv defaultPage = pages[defaultPageIndex];
       window.console.debug('PageDivManager:display:Page \'${name}\' not found. Default page \'${defaultPage.name}\' was shown.');
@@ -187,7 +186,7 @@ class ServerRequest {
     return s;
   }
 
-  /**
+  /*
    * Request Response for the server
    */
   Future<void> sendObject([List<String> urlParameters = null, Map<String, String> queryParameters = null, Object body = null]) async {
