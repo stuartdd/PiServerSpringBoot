@@ -55,6 +55,9 @@ public class FileService {
             }
         });
         for (String s : fileNames) {
+            if (s.startsWith(FS)) {
+                s = s.substring(FS.length());
+            }
             resp.addPath(s);
         }
         return resp;

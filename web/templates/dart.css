@@ -38,7 +38,7 @@ section {
 }
 
 hr {
-    color: #17663f;
+    color:black;
     margin: 2px;
 }
 
@@ -91,7 +91,7 @@ hr {
     outline: none;
     cursor: pointer;
     padding: 10px;
-    font-size: 14px;
+    font-size: 18px;
     border: 2px solid %{css.button.border};
 }
 
@@ -102,7 +102,7 @@ hr {
     outline: none;
     cursor: pointer;
     padding: 10px;
-    font-size: 14px;
+    font-size: 18px;
     border: 2px solid %{css.button.border};
     background-color: %{css.button.hover};
 }

@@ -432,7 +432,7 @@ void populateLogFileList() {
   String htmlStr = '<table width=\"100%\">';
   int index = 0;
   logFileListData['files'].forEach((logFile) {
-    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\">${logFile['name']['name']}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
+    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\" >${logFile['name']['name']}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
     index++;
   });
   htmlStr += '</table>';
@@ -447,22 +447,24 @@ void populateLogFileList() {
 }
 
 void populateThumbnails() {
-  selectedDirectoryHistory[thumbNailList['path']['encName']]=true;
   String user = thumbNailList['user'];
   String encPath = thumbNailList['path']['encName'];
+  
+  selectedDirectoryHistory[encPath]=true;
   int columns = userDataMap['imagesPerRow'];
   double imageWidth = 100;
 
   String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"></td></tr><tr>';
   int index = 1;
   thumbNailList['files'].forEach((fileData) {
-    htmlStr += '<td><img width=\"${imageWidth}%\" id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
+    htmlStr += '<td ><img id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" width=\"${imageWidth}%\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
     if ((index % columns) == 0) {
       htmlStr += '</tr><tr><td colspan=\"${columns}\"><hr></td></tr><tr>';
     }
     index++;
   });
   htmlStr += '</tr></table>';
+  window.console.debug('X:'+htmlStr);
   userThumbnails.innerHtml = htmlStr;
   pageManager.display(PAGE_THUMBNAILS);
   index = 1;
@@ -485,10 +487,11 @@ void populateThumbNailDirList() {
   thumbNailDirList['paths'].forEach((dirData) {
     disp = dirData['name'];
     String hilight = "";
+
     if (selectedDirectoryHistory[dirData['encName']] != null) {
       hilight='class=\"Hilight\"';
     }
-    htmlStr += '<tr ${hilight} ><td width=\"100%\"><a id=\"${THN_DIR_ROW_ID_PREFIX}${i}\" title=\"${disp}\">${disp}</td></tr><tr><td><hr></td></tr>';
+    htmlStr += '<tr id=\"${THN_DIR_ROW_ID_PREFIX}${i}\" ${hilight} ><td width=\"100%\"><a  title=\"${disp}\">${disp}</td></tr><tr><td><hr></td></tr>';
     i++;
   });
   htmlStr += '</table>';
