@@ -17,6 +17,8 @@ const String PAGE_DISPLAY_LOG = 'displayLog';
 const String PAGE_AUDIO = 'audio';
 const String DISPLAY_OPTION_MAP = 'displayOptions';
 const String DISPLAY_OPTION_MAP_SHOW_RESP = 'displayOptionShowResponse';
+const String DISPLAY_OPTION_MAP_CONSOLE = 'displayOptionConsole';
+const String DISPLAY_OPTION_UPDATE_TIME = 'displayOptionUpdateTime';
 
 
 const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
@@ -91,6 +93,9 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('logDown', querySelector('#scrollLogDownButton'), (id) {scrollToBottom();}),
   MyButton('logFollow', querySelector('#scrollLogFollow'), (id) {reSelectLogFile(); scrollToBottom();}),
   MyButton('logLoad', querySelector('#reloadLogButton'), (id) {reSelectLogFile();}),
+  MyButton(DISPLAY_OPTION_MAP_SHOW_RESP, querySelector('#'+DISPLAY_OPTION_MAP_SHOW_RESP), (id) {invertDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP);}),
+  MyButton(DISPLAY_OPTION_MAP_CONSOLE, querySelector('#'+DISPLAY_OPTION_MAP_CONSOLE), (id) {invertDisplayOption(DISPLAY_OPTION_MAP_CONSOLE);}),
+  MyButton(DISPLAY_OPTION_UPDATE_TIME, querySelector('#'+DISPLAY_OPTION_UPDATE_TIME), (id) {invertDisplayOption(DISPLAY_OPTION_UPDATE_TIME);}),
   MyButton('svrRestart', querySelector('#restartServerButton'), (id) {restartServerConfirm();})
 ]);
 
@@ -131,12 +136,12 @@ ServerRequest fetchDiskStatus = ServerRequest('GET', '/script/ds', 'Reading Disk
 });
 
 ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time from server', processError, (resp) {
-  timeText.text = resp.map['time']['time3'];
-  dateText.text = resp.map['time']['monthDay'];
+  populateDateTime(resp.map);
 });
+
 ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json', 'Reading user state from server', processError, (resp) {
   userDataMap = resp.map;
-  initDisplayOptions();
+  populateDisplayOptions();
 });
 
 ServerRequest saveUserList = ServerRequest('POST', '/files/user/{1}/loc/data/name/state.json', 'Writing user data to server', processError, null);
@@ -193,10 +198,8 @@ Timer audioUpdateTimer = null;
  * Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
  */
 void main() {
-  initDisplayOptions();
   pageManager.init();
   buttonManager.init();
-  fetchTimeData.send();
   fetchUserList.send();
   appTitleText.text=DEFAULT_FOOTER_TEXT;
   pageManager.display(PAGE_NAME_WELCOME);
@@ -206,16 +209,49 @@ void main() {
   footer.onClick.listen((e) {
       pageManager.back();
     });
-}
+  populateDisplayOptions();
+  refreshDateTime();
+ }
 
-void initDisplayOptions() {
+void populateDisplayOptions() {
   if (userDataMap != null) {
     displayOptionsMap = userDataMap[DISPLAY_OPTION_MAP];
   }
-if (displayOptionsMap == null) {
+  if (displayOptionsMap == null) {
     displayOptionsMap = {};
-    displayOptionsMap[DISPLAY_OPTION_MAP_SHOW_RESP] = true;
   }
+  setDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP, getDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP));
+  setDisplayOption(DISPLAY_OPTION_MAP_CONSOLE, getDisplayOption(DISPLAY_OPTION_MAP_CONSOLE));
+  setDisplayOption(DISPLAY_OPTION_UPDATE_TIME, getDisplayOption(DISPLAY_OPTION_UPDATE_TIME));
+}
+
+void invertDisplayOption(String optionName) {
+  setDisplayOption(optionName, !getDisplayOption(optionName));
+}
+
+bool getDisplayOption(String optionName) {
+  if (displayOptionsMap == null) {
+    return false;
+  }
+  bool value = displayOptionsMap[optionName];
+  if (value == null) {
+    value = false;
+  }
+  return value;
+}
+
+void setDisplayOption(String optionName, bool value) {
+  if (displayOptionsMap == null) {
+    return;
+  }
+  displayOptionsMap[optionName] = value;
+  MyButton button = buttonManager.findButton(optionName);
+  if (value) {
+    button.setText('ON');
+  } else {
+    button.setText('OFF');
+  }
+  saveUsersState();
 }
 
 void rotateOriginal(int degrees) {
@@ -348,6 +384,18 @@ void audioAction(String action) {
   actionAudioControl.send([action], null,null);
 }
 
+void populateDateTime(Map map) {
+  timeText.text = map['time']['time3'];
+  dateText.text = map['time']['monthDay'];
+}
+
+void refreshDateTime() {
+  if (getDisplayOption(DISPLAY_OPTION_UPDATE_TIME)) {
+    fetchTimeData.send();
+  }
+  Timer(new Duration(seconds:1), refreshDateTime);
+}
+
 void populateAudioDisplay(Map map) {
   audioStatusData = map;
   if (audioStatusData == null) {
@@ -465,9 +513,13 @@ void populateLogFileList(Map map) {
 void populateThumbnails() {
   String user = thumbNailList['user'];
   String encPath = thumbNailList['path']['encName'];
+  int columns = 2;
+  if (userDataMap != null) {
+    columns = userDataMap['imagesPerRow'];
+  }
   
   selectedDirectoryHistory[encPath]=true;
-  int columns = userDataMap['imagesPerRow'];
+  
   double imageWidth = 100;
 
   String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"></td></tr><tr>';
@@ -555,22 +607,26 @@ void populateUserTable(List list) {
 }
 
 void updateThumbNailsPerRow(int amount) {
-  int count = userDataMap['imagesPerRow'];
-  count = count + amount;
-  if (count > 20) {
-    count = 20;
+  if (userDataMap != null) {
+    int count = userDataMap['imagesPerRow'];
+    count = count + amount;
+    if (count > 20) {
+      count = 20;
+    }
+    if (count < 1) {
+      count = 1;
+    }
+    userDataMap['imagesPerRow'] = count;
+    saveUsersState();
+    populateThumbnails();
   }
-  if (count < 1) {
-    count = 1;
-  }
-  userDataMap['imagesPerRow'] = count;
-  saveUsersState();
-  populateThumbnails();
 }
 
 void saveUsersState() {
-  userDataMap[DISPLAY_OPTION_MAP] = displayOptionsMap;
-  saveUserList.sendObject([currentUserId],null,userDataMap);
+  if (userDataMap != null) {
+    userDataMap[DISPLAY_OPTION_MAP] = displayOptionsMap;
+    saveUserList.sendObject([currentUserId],null,userDataMap);
+  }
 }
 
 void initWelcomePage(PageDiv old, PageDiv to) {
@@ -621,11 +677,14 @@ void scrollToTop() {
   window.document.scrollingElement.scrollTop = 0;
 }
 
-void processError(String message) {
-  if (displayOptionsMap[DISPLAY_OPTION_MAP_SHOW_RESP] == true) {
+void consoleOut(String message) {
+  if (displayOptionsMap[DISPLAY_OPTION_MAP_CONSOLE] == true) {
     window.console.debug(message);
   }
+}
+void processError(String message) {
   clearError();
+  consoleOut(message);
   if (message.startsWith('R:')) {
     if (displayOptionsMap[DISPLAY_OPTION_MAP_SHOW_RESP] == true) {
       errorDiv.hidden = false;

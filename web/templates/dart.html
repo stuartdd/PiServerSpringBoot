@@ -93,12 +93,19 @@
             </tr></table>
             <article class="TitleLine" >Options:</article>
             <table class="OptionText" width="100%"><tr>
-                <td width="50%">Enable response logging</td>
-                <td><button class="nav_button" id="option">LOG</button></td>
-            </tr></table>
+                <td width="10%"><button class="nav_button" style="width: 100%;" id="displayOptionShowResponse">LOG</button></td>
+                <td>Log each response in the footer diagnostic area</td>
+            </tr><tr>
+                <td width="10%"><button class="nav_button" style="width: 100%;" id="displayOptionConsole">LOG</button></td>
+                <td>Log data in the browser's console</td>
+            </tr><tr>
+                <td width="10%"><button class="nav_button" style="width: 100%;" id="displayOptionUpdateTime">LOG</button></td>
+                <td>Keep reading the time from the server. Once every second</td>
+            </tr>
+            </table>
         </div>
         <div id="errorDiv">
-            <p class="Diagnostic" id="errorMessageText"></p>  
+            <p class="Diagnostic" id="errorMessageText"></p> 
             <pre class="Diagnostic" id="diagnosticText"></pre>          
         </div>
         <footer id="footer">

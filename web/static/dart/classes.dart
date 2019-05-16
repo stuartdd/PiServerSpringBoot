@@ -19,6 +19,14 @@ class MyButtonManager {
     });
   }
 
+  MyButton findButton(String id) {
+    for(var i = 0;i<buttons.length;i++){
+      if (buttons[i].getId() == id) {
+        return buttons[i];
+      }
+    }
+  }
+
   void init() {
     window.console.info('MyButtonManager:Init:');
   }
@@ -41,6 +49,14 @@ class MyButton {
       this.onPressFunc(e);
     });
   }
+
+  String getId() {
+    return id;
+  } 
+
+  String setText(String text) {
+    return element.text = text;
+  } 
 
   void hidden(bool hide) {
     this.element.hidden = hide;
