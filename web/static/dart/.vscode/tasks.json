@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version":"2.0.0",
+    "tasks": [
+        {
+            "label": "Build Dart",
+            "type": "shell",
+            "windows": {
+                "command": "dart2js.bat --minify main.dart -omain.dart.js"
+            },
+            "linux": {
+                "command": "dart2js --minify main.dart -omain.dart.js"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

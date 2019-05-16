@@ -25,16 +25,10 @@ public class AudioStatusIO {
     private double position;
     private int volume;
     private int volumeStep;
+    private int volumeMin;
+    private int volumeMax;
 
-    public AudioStatusIO() {
-        this(null, null, null, 0.0, 0.0, 0, 1);
-    }
-
-    public AudioStatusIO(String action, String status, String message, int volume) {
-        this(action, status, message, 0.0, 0.0, volume, 1);
-    }
-
-    public AudioStatusIO(String action, String status, String message, double duration, double position, int volume, int volumeStep) {
+    public AudioStatusIO(String action, String status, String message, double duration, double position, int volume, int volumeStep, int volumeMin, int volumeMax) {
         this.action = action;
         this.status = status;
         this.message = message;
@@ -42,6 +36,8 @@ public class AudioStatusIO {
         this.position = position;
         this.volume = volume;
         this.volumeStep = volumeStep;
+        this.volumeMin = volumeMin;
+        this.volumeMax = volumeMax;
     }
 
     public String getAction() {
@@ -98,6 +94,22 @@ public class AudioStatusIO {
 
     public void setVolumeStep(int volumeStep) {
         this.volumeStep = volumeStep;
+    }
+
+    public int getVolumeMin() {
+        return volumeMin;
+    }
+
+    public void setVolumeMin(int volumeMin) {
+        this.volumeMin = volumeMin;
+    }
+
+    public int getVolumeMax() {
+        return volumeMax;
+    }
+
+    public void setVolumeMax(int volumeMax) {
+        this.volumeMax = volumeMax;
     }
 
 }

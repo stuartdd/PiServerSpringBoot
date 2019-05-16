@@ -7,7 +7,7 @@ const String THN_DIR_ROW_ID_PREFIX = 'thumbNail-';
 const String THN_IMAG_ROW_ID_PREFIX = 'thumbNailImage-';
 const String LOG_FILE_ROW_ID_PREFIX = 'logFile-';
 
-const String DEFAULT_ERROR_TEXT = 'TOPBOX';
+const String DEFAULT_FOOTER_TEXT = 'TOPBOX';
 const String PAGE_NAME_WELCOME = 'welcome';
 const String PAGE_NAME_MAIN = 'main';
 const String PAGE_THUMBNAILS = 'thumbnails';
@@ -20,10 +20,11 @@ const String PAGE_AUDIO = 'audio';
 const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
 const List<String> ADD_SUB_BUTTON_IDS = ['addCol', 'subCol'];
 
-const String iconSize = '80';
-const String iconSizePlus = '100';
+const String ICON_SIZE = '80';
+const String ICON_SIZE_PLUS = '100';
+const int DEFAULT_PAGE_INDEX = 0;
 
-/**
+/*
  * Define locations (from id's) in the html
  */
 final Element errorMessageText = querySelector('#errorMessageText');
@@ -48,9 +49,12 @@ final Element displayLog = querySelector('#displayLog');
 final Element logFileName = querySelector('#logFileName');
 final Element serverStatusDataList = querySelector('#serverStatusDataList');
 final Element volumeText = querySelector('#volumeText');
+final Element errorDiv = querySelector('#errorDiv');
+final Element appTitleText = querySelector('#appTitleText');
 
-/**
- * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
+/*
+ * Define all the pages (div's). Each is added to the page Manager. 
+ * A fallback page is also defined as DEFAULT_PAGE_INDEX.
  */
 final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_NAME_WELCOME, querySelector('#page_welcome'), initWelcomePage),
@@ -60,8 +64,8 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage),
   PageDiv(PAGE_AUDIO,  querySelector('#page_audio'), initAnyPage),
   PageDiv(PAGE_DISPLAY_LOG,  querySelector('#page_displayLog'), initAnyPage)
-]);
-/**
+], DEFAULT_PAGE_INDEX);
+/*
  * Define all the buttons and their actions. Each button is added to the MyButtonManager
  */
 final MyButtonManager buttonManager = new MyButtonManager([
@@ -74,8 +78,8 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
   MyButton('audioStopButton', querySelector('#audioStopButton'), (id) {audioAction('stop');}),
   MyButton('audioPauseButton', querySelector('#audioPauseButton'), (id) {audioAction('pause');}),
-  MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(10);}),
-  MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-10);}),
+  MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(1);}),
+  MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-1);}),
   MyButton('volumeMinButton', querySelector('#volumeMinButton'), (id) {setVolumeValue(0);}),
   MyButton('volumeMaxButton', querySelector('#volumeMaxButton'), (id) {setVolumeValue(100);}),
   MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
@@ -88,12 +92,11 @@ final MyButtonManager buttonManager = new MyButtonManager([
   MyButton('svrRestart', querySelector('#restartServerButton'), (id) {restartServerConfirm();})
 ]);
 
-/**
+/*
  * Define the get time request and response procedure.
  */
 ServerRequest fetchAudioFileList = ServerRequest('GET', '/files/loc/audio', 'Reading list of audio files', processError, (resp) {
-  audioFileListData = resp.map;
-  populateAudioFileList();
+  populateAudioFileList(resp.map);
 });
 
 ServerRequest actionAudioPlayFile = ServerRequest('GET', '/audio/play/{1}', 'Play audio files', processError, (resp) {
@@ -109,25 +112,22 @@ ServerRequest actionAudioControl = ServerRequest('GET', '/audio/{1}', 'Audio Sta
 });
 
 ServerRequest fetchUserList = ServerRequest('GET', '/server/users', 'Reading user data from server', processError, (resp) {
-  userList = resp.map['users'];
-  populateUserTable();
+  populateUserTable(resp.map['users']);
 });
 ServerRequest fetchUserFileSizes = ServerRequest('GET', '/files/loc/cache/name/ufs', 'Reading user file sizes', processError, (resp) {
-  userFileSizesData = resp.list;
-  populateUserFileSizes();
+  populateUserFileSizes(resp.list);
 });
 ServerRequest fetchLogFileList = ServerRequest('GET', '/files/loc/logs?ext=log', 'Reading list of log files', processError, (resp) {
-  logFileListData = resp.map;
-  populateLogFileList();
+  populateLogFileList(resp.map);
 });
 ServerRequest fetchLogFileText = ServerRequest('GET', '/files/loc/logs/name/{1}', 'Reading log file', processError, (resp) {
   logFileText = resp.body;
   displayLog.text = logFileText;
 });
 ServerRequest fetchDiskStatus = ServerRequest('GET', '/script/ds', 'Reading Disk Status', processError, (resp) {
-  diskStatusData = resp.list;
-  populateDiskStatus();
+  populateDiskStatus(resp.list);
 });
+
 ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time from server', processError, (resp) {
   timeText.text = resp.map['time']['time3'];
   dateText.text = resp.map['time']['monthDay'];
@@ -147,10 +147,10 @@ ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs
   populateThumbnails();
 });
 ServerRequest rotateImageRequest = ServerRequest('GET', '/script/rotate/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
-  processError('D', resp.body);
+  processError("I:ROTATE:"+resp.toString());
 });
 ServerRequest restoreImageRequest = ServerRequest('GET', '/script/restore/user/{1}/loc/backup/path/{2}/name/{3}?thumbnail=true', 'Restore Image!', processError, (resp) {
-  processError('D', resp.body);
+  processError("I:RESTORE"+resp.toString());
 });
 ServerRequest restartServerRequest = ServerRequest('GET', '/server/restart', 'Restart the Server thumbnails', processError, (resp) {
   restartServerAck(resp.map);
@@ -159,7 +159,7 @@ ServerRequest fetchServerStatusData = ServerRequest('GET', '/server/status', 'Se
   populateServerStatusData(resp.map);
 });
 
-
+bool displayResponses = false;
 List userList = [];
 String currentUserId = null;
 String currentUserName = null;
@@ -173,6 +173,10 @@ Map logFileListData = {};
 Map audioFileListData = {};
 Map audioStatusData = null;
 int audioVolume = 0;
+int audioVolumeStep = 1;
+int audioVolumeMin = 0;
+int audioVolumeMax = 100;
+
 String logFileText = null;
 String currentLogFileName = null;
 String currentLogFileBase64 = null;
@@ -181,7 +185,7 @@ String currentImageEncPath = null;
 
 Timer audioUpdateTimer = null;
 
-/**
+/*
  * Program entry point
  * Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
  */
@@ -190,7 +194,7 @@ void main() {
   buttonManager.init();
   fetchTimeData.send();
   fetchUserList.send();
-
+  appTitleText.text=DEFAULT_FOOTER_TEXT;
   pageManager.display(PAGE_NAME_WELCOME);
   header.onClick.listen((e) {
       pageManager.back();
@@ -201,12 +205,10 @@ void main() {
 }
 
 void rotateOriginal(int degrees) {
-  window.console.debug("rotateOriginal");
   rotateImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName, '90']);
 }
 
 void restoreOriginal() {
-  window.console.debug("restoreOriginal");
   restoreImageRequest.send([currentUserId, currentImageEncPath, currentImageEncName]);
 }
 
@@ -228,7 +230,7 @@ void reSelectLogFile()  {
 
 void selectAudioPage() {
   fetchAudioFileList.send();
-  updateAudioDisplay();
+  audioAction("status");
   pageManager.display(PAGE_AUDIO);  
 }
 
@@ -307,22 +309,25 @@ void onClickOriginalImage(int x, int y, Element e) {
 }
 
 void setVolumeValue(int increment) {
+  int currentAv = audioVolume;
   if (increment ==0) {
-      audioVolume = 0;
+      audioVolume = audioVolumeMin;
   } else {
     if (increment==100) {
-      audioVolume = 100;
+      audioVolume = audioVolumeMax;
     } else {
-      audioVolume += increment;
-      if (audioVolume > 100) {
-        audioVolume = 100;
+      audioVolume +=  (audioVolumeStep * increment);
+      if (audioVolume > audioVolumeMax) {
+        audioVolume = audioVolumeMax;
       }
-      if (audioVolume < 0) {
-        audioVolume = 0;
+      if (audioVolume < audioVolumeMin) {
+        audioVolume = audioVolumeMin;
       }
     }
   }
-  actionAudioSetVolume.send([(audioVolume).toString()]);      
+  if (currentAv != audioVolume) {
+    actionAudioSetVolume.send([(audioVolume).toString()]);      
+  }
 }
 
 void audioAction(String action) {
@@ -335,7 +340,13 @@ void populateAudioDisplay(Map map) {
     clearAudioDisplay();
   } else {
     audioVolume = audioStatusData['volume'];
-    volumeText.text = 'Audio Volume ${audioVolume}%';
+    audioVolumeStep = audioStatusData['volumeStep'];
+    audioVolumeMin = audioStatusData['volumeMin'];
+    audioVolumeMax = audioStatusData['volumeMax'];
+
+    double offsetPc = (audioVolume - audioVolumeMin) / ((audioVolumeMax - audioVolumeMin) / 100) ;
+    
+    volumeText.text = 'Audio Volume ${offsetPc}%';
     if (audioStatusData['status'] == 'STOPPED') {
         clearAudioDisplay();
       } else {
@@ -378,10 +389,9 @@ void populateServerStatusData(Map map) {
   htmlStr += '</table>';
   serverStatusDataList.innerHtml = htmlStr;
 }
-/**
- * [{"Size":"162215134","Name":"shared"},{"Size":"35722111","Name":"stuart"},{"Size":"36979282","Name":"julie"},{"Size":"36854954","Name":"owain"},{"Size":"10696354","Name":"huw"}]
- */
-void populateUserFileSizes() {
+
+void populateUserFileSizes(List list) {
+  userFileSizesData = list;
   String htmlStr = '<table width=\"100%\">';
   userFileSizesData.forEach((ufsData) {
     htmlStr += '<tr><td width=\"25%\">${ufsData['Name']}</td><td>${ufsData['Size']} K.</td></tr>';
@@ -390,7 +400,8 @@ void populateUserFileSizes() {
   userFileSizes.innerHtml = htmlStr;
 }
 
-void populateDiskStatus() {
+void populateDiskStatus(List list) {
+  diskStatusData = list;
   String htmlStr = '<table width=\"100%\">';
   diskStatusData.forEach((statusData) {
     htmlStr += '<tr><td width=\"25%\">${statusData['name']}</td><td>${statusData['state']}</td></tr>';
@@ -399,7 +410,8 @@ void populateDiskStatus() {
   diskStatus.innerHtml = htmlStr;
 }
 
-void populateAudioFileList() {
+void populateAudioFileList(Map map) {
+  audioFileListData = map;
   String htmlStr = '<table width=\"100%\">';
   int index = 0;
   audioFileListData['files'].forEach((audioFile) {
@@ -417,11 +429,12 @@ void populateAudioFileList() {
   });  
 }
 
-void populateLogFileList() {
+void populateLogFileList(Map map) {
+  logFileListData = map;
   String htmlStr = '<table width=\"100%\">';
   int index = 0;
   logFileListData['files'].forEach((logFile) {
-    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\">${logFile['name']['name']}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
+    htmlStr += '<tr><td width=\"25%\">${logFile['size']}</td><td id=\"${LOG_FILE_ROW_ID_PREFIX}${index}\" >${logFile['name']['name']}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
     index++;
   });
   htmlStr += '</table>';
@@ -436,16 +449,17 @@ void populateLogFileList() {
 }
 
 void populateThumbnails() {
-  selectedDirectoryHistory[thumbNailList['path']['encName']]=true;
   String user = thumbNailList['user'];
   String encPath = thumbNailList['path']['encName'];
+  
+  selectedDirectoryHistory[encPath]=true;
   int columns = userDataMap['imagesPerRow'];
   double imageWidth = 100;
 
-  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"><hr></td></tr><tr>';
+  String htmlStr = '<table width=\"100%\"><tr><tr><td colspan=\"${columns}\"></td></tr><tr>';
   int index = 1;
   thumbNailList['files'].forEach((fileData) {
-    htmlStr += '<td><img width=\"${imageWidth}%\" id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
+    htmlStr += '<td ><img id=\"${THN_IMAG_ROW_ID_PREFIX}${index}\" width=\"${imageWidth}%\" title=\"${fileData['name']['name']}\" src=\"/files/user/${user}/loc/thumbs/path/${encPath}/name/${fileData['name']['encName']}\"></td>';
     if ((index % columns) == 0) {
       htmlStr += '</tr><tr><td colspan=\"${columns}\"><hr></td></tr><tr>';
     }
@@ -469,15 +483,16 @@ void populateThumbNailDirList() {
   }
   var i=0;
   var disp;
-  var htmlStr = '<table width=\"100%\"><tr><td><hr></td></tr>';
+  var htmlStr = '<table width=\"100%\"><tr></tr>';
   // Create the HTML
   thumbNailDirList['paths'].forEach((dirData) {
     disp = dirData['name'];
     String hilight = "";
+
     if (selectedDirectoryHistory[dirData['encName']] != null) {
       hilight='class=\"Hilight\"';
     }
-    htmlStr += '<tr ${hilight} ><td width=\"100%\"><a id=\"${THN_DIR_ROW_ID_PREFIX}${i}\" title=\"${disp}\">${disp}</td></tr><tr><td><hr></td></tr>';
+    htmlStr += '<tr id=\"${THN_DIR_ROW_ID_PREFIX}${i}\" ${hilight} ><td width=\"100%\"><a  title=\"${disp}\">${disp}</td></tr><tr><td><hr></td></tr>';
     i++;
   });
   htmlStr += '</table>';
@@ -494,11 +509,12 @@ void populateThumbNailDirList() {
   });
 }
 
-/**
+/*
  * Create a table of user icons and user
  * {"users": [{"id":"stuart","name":"Stuart"},{"id":"shared"},{"id":"nonuser"},{"id":"test","src":"src"}]}
  */
-void populateUserTable() {
+void populateUserTable(List list) {
+  userList = list;
   var htmlStr = '<table width=\"100%\"><tr><td colspan=\"2\"><hr></td></tr>';
   // Create the HTML
   userList.forEach((user) {
@@ -507,7 +523,7 @@ void populateUserTable() {
        if (name == null) {
       name = id.toUpperCase();
     }
-    htmlStr += '<tr><td width=\"${iconSizePlus}px\">&nbsp;<img  id=\"${USER_NAME_ROW_ID_PREFIX}${id}\" src=\"${id}.png\" alt=\"${id}.png\" height=\"${iconSize}\" width=\"${iconSize}\"> </td><td>&nbsp;&nbsp;${name}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
+    htmlStr += '<tr><td width=\"${ICON_SIZE_PLUS}px\">&nbsp;<img  id=\"${USER_NAME_ROW_ID_PREFIX}${id}\" src=\"${id}.png\" alt=\"${id}.png\" height=\"${ICON_SIZE}\" width=\"${ICON_SIZE}\"> </td><td>&nbsp;&nbsp;${name}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
   });
   htmlStr += '</table>';
   userNameList.innerHtml = htmlStr;
@@ -590,18 +606,33 @@ void scrollToTop() {
   window.document.scrollingElement.scrollTop = 0;
 }
 
-void clearError() {
-  errorMessageText.text = DEFAULT_ERROR_TEXT;
-  diagnosticText.hidden = false;
-  diagnosticText.text = '';
+void processError(String message) {
+  if (displayResponses) {
+    window.console.debug(message);
+  }
+  clearError();
+  if (message.startsWith('R:')) {
+    if (displayResponses) {
+      errorDiv.hidden = false;
+      diagnosticText.hidden = false;
+      diagnosticText.text = 'RESPONSE: ' + message.substring(2);
+    }
+  }
+  if (message.startsWith('I:')) {
+    errorDiv.hidden = false;
+    diagnosticText.hidden = false;
+    diagnosticText.text = 'INFO: ' + message.substring(2);
+  }
+  if (message.startsWith('E:')) {
+      errorDiv.hidden = false;
+      errorMessageText.hidden = false;
+      errorMessageText.text = 'ERROR: ' + message.substring(2);
+  }
 }
 
-void processError(String key, String message) {
-  if (key == 'E') {
-    errorMessageText.text = 'ERROR: ' + message;
-  }
-  if (key == 'D') {
-    diagnosticText.hidden = false;
-    diagnosticText.text = 'DATA: ' + message;
-  }
+void clearError() {
+  errorDiv.hidden = true;
+  diagnosticText.hidden = true;
+  errorMessageText.hidden = true;
 }
+

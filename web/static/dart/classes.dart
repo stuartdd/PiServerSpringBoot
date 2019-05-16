@@ -67,7 +67,7 @@ class PageDivManager {
     window.console.info('PageDivManager:Init:');
   }
 
-  /**
+  /*
    * Page back. remove the page from the stack.
    * Call display with stack false so we dont add the current page to the stack.
    */
@@ -81,7 +81,7 @@ class PageDivManager {
 
   void display(String name, [bool stack = true]) {
     bool pageNotShown = true;
-    /**
+    /*
      * If we have a current page.
      */
     if (currentPage != null) {
@@ -92,7 +92,7 @@ class PageDivManager {
         pageNameHistory.addLast(currentPage.name);
       }
     }
-    /**
+    /*
      * Cycle through all pages and hide pages not named. Only show paga named
      */
     pages.forEach((newPage) {
@@ -107,10 +107,9 @@ class PageDivManager {
         newPage.hide();
       }
     });
-    /**
+    /*
      * If no page was shown fall back to the defaultPage
      */
-
     if (pageNotShown) {
       PageDiv defaultPage = pages[defaultPageIndex];
       window.console.debug('PageDivManager:display:Page \'${name}\' not found. Default page \'${defaultPage.name}\' was shown.');
@@ -127,8 +126,6 @@ class PageDiv {
   String name;
   Element element;
   Function onShow;
-  bool hidden;
-  bool firstShow = true;
 
   PageDiv(String name, Element element, Function onShow) {
     if (element == null) {
@@ -137,18 +134,14 @@ class PageDiv {
     this.name = name;
     this.element = element;
     this.onShow = onShow;
-    this.hidden = false;
   }
 
   void show() {
     element.hidden = false;
-    hidden = false;
-    firstShow = false;
   }
 
   void hide() {
     element.hidden = true;
-    hidden = true;
   }
 }
 
@@ -187,7 +180,7 @@ class ServerRequest {
     return s;
   }
 
-  /**
+  /*
    * Request Response for the server
    */
   Future<void> sendObject([List<String> urlParameters = null, Map<String, String> queryParameters = null, Object body = null]) async {
@@ -208,37 +201,39 @@ class ServerRequest {
             if (httpRequest.responseHeaders['content-type'].toLowerCase().contains('json')) {
               Object o = jsonDecode(resp.body);
               if (o is List) {
-                Function.apply(this.error, ['D', 'LIST: contentType: ${contentType} URL: ${url} Resp: ${resp.body}']);
+                logMessage('R:LIST: Desc: ${desc}\ncontentType: ${contentType}\nURL: ${url}\nResp: ${resp.body}');
                 resp.setList(o);
               } else {
                 if (o is Map) {
-                  Function.apply(this.error, ['D', 'MAP: contentType: ${contentType} URL: ${url} Resp: ${resp.body}']);
+                  logMessage('R:MAP: Desc: ${desc}\ncontentType: ${contentType}\nURL: ${url}\nResp: ${resp.body}');
                   resp.setMap(o);
                 } else {
-                  Function.apply(this.error, ['E', 'Response is not a Map or a List' + ':' + this.desc]);
+                  logMessage('R:JSON: Desc: ${desc}\ncontentType: ${contentType}\nURL: ${url}\nResp: ${resp.body}');
                 }
               }
             }
           } else {
-            if (this.error != null) {
-              Function.apply(this.error, ['D', 'URL: ${url} Resp: NULL']);
-            }
+            logMessage('R:TEXT: Desc: ${desc}\ncontentType: ${contentType}\nURL: ${url}\nResp: ${resp.body}');
           }
           if (this.func != null) {
             Function.apply(this.func, [resp]);
           }
         } else {
-          if (this.error != null) {
-            String body = httpRequest.responseText;
-            if ((body == null) || (body.trim().length == 0)) {
-              Function.apply(this.error, ['E', status.toString() + ':' + url + ':' + this.desc]);              
-            } else {
-              Function.apply(this.error, ['E', status.toString() + ': ' + url + ': ' + this.desc + ': ' + body]);                            
-            }
+          String body = httpRequest.responseText;
+          if ((body == null) || (body.trim().length == 0)) {
+            logMessage('E:DESC: ${desc} - STATUS: ${status} URL: ${url} BODY: ${body}');
+          } else {
+            logMessage('E:DESC: ${desc} - STATUS: ${status} URL: ${url} BODY: EMPTY');
           }
         }
       })
       ..send(body);
+  }
+
+  void logMessage(String message) {
+    if (this.error != null) {
+      Function.apply(this.error, [message]);
+    }
   }
 }
 
