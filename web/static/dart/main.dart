@@ -15,6 +15,8 @@ const String PAGE_ORIGINAL = 'original';
 const String PAGE_STATUS = 'status';
 const String PAGE_DISPLAY_LOG = 'displayLog';
 const String PAGE_AUDIO = 'audio';
+const String DISPLAY_OPTION_MAP = 'displayOptions';
+const String DISPLAY_OPTION_MAP_SHOW_RESP = 'displayOptionShowResponse';
 
 
 const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
@@ -134,6 +136,7 @@ ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time
 });
 ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json', 'Reading user state from server', processError, (resp) {
   userDataMap = resp.map;
+  initDisplayOptions();
 });
 
 ServerRequest saveUserList = ServerRequest('POST', '/files/user/{1}/loc/data/name/state.json', 'Writing user data to server', processError, null);
@@ -159,11 +162,11 @@ ServerRequest fetchServerStatusData = ServerRequest('GET', '/server/status', 'Se
   populateServerStatusData(resp.map);
 });
 
-bool displayResponses = false;
+Map userDataMap = null;
+Map displayOptionsMap = null;
 List userList = [];
 String currentUserId = null;
 String currentUserName = null;
-Map userDataMap = null;
 Map thumbNailDirList = null;
 Map thumbNailList = null;
 Map selectedDirectoryHistory = {};
@@ -190,6 +193,7 @@ Timer audioUpdateTimer = null;
  * Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
  */
 void main() {
+  initDisplayOptions();
   pageManager.init();
   buttonManager.init();
   fetchTimeData.send();
@@ -202,6 +206,16 @@ void main() {
   footer.onClick.listen((e) {
       pageManager.back();
     });
+}
+
+void initDisplayOptions() {
+  if (userDataMap != null) {
+    displayOptionsMap = userDataMap[DISPLAY_OPTION_MAP];
+  }
+if (displayOptionsMap == null) {
+    displayOptionsMap = {};
+    displayOptionsMap[DISPLAY_OPTION_MAP_SHOW_RESP] = true;
+  }
 }
 
 void rotateOriginal(int degrees) {
@@ -555,6 +569,7 @@ void updateThumbNailsPerRow(int amount) {
 }
 
 void saveUsersState() {
+  userDataMap[DISPLAY_OPTION_MAP] = displayOptionsMap;
   saveUserList.sendObject([currentUserId],null,userDataMap);
 }
 
@@ -607,12 +622,12 @@ void scrollToTop() {
 }
 
 void processError(String message) {
-  if (displayResponses) {
+  if (displayOptionsMap[DISPLAY_OPTION_MAP_SHOW_RESP] == true) {
     window.console.debug(message);
   }
   clearError();
   if (message.startsWith('R:')) {
-    if (displayResponses) {
+    if (displayOptionsMap[DISPLAY_OPTION_MAP_SHOW_RESP] == true) {
       errorDiv.hidden = false;
       diagnosticText.hidden = false;
       diagnosticText.text = 'RESPONSE: ' + message.substring(2);

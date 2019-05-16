@@ -28,6 +28,9 @@ public class AudioStatusIO {
     private int volumeMin;
     private int volumeMax;
 
+    public AudioStatusIO() {
+    }
+
     public AudioStatusIO(String action, String status, String message, double duration, double position, int volume, int volumeStep, int volumeMin, int volumeMax) {
         this.action = action;
         this.status = status;
