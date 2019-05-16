@@ -7,7 +7,7 @@ const String THN_DIR_ROW_ID_PREFIX = 'thumbNail-';
 const String THN_IMAG_ROW_ID_PREFIX = 'thumbNailImage-';
 const String LOG_FILE_ROW_ID_PREFIX = 'logFile-';
 
-const String DEFAULT_ERROR_TEXT = 'TOPBOX';
+const String DEFAULT_FOOTER_TEXT = 'TOPBOX';
 const String PAGE_NAME_WELCOME = 'welcome';
 const String PAGE_NAME_MAIN = 'main';
 const String PAGE_THUMBNAILS = 'thumbnails';
@@ -20,8 +20,9 @@ const String PAGE_AUDIO = 'audio';
 const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
 const List<String> ADD_SUB_BUTTON_IDS = ['addCol', 'subCol'];
 
-const String iconSize = '80';
-const String iconSizePlus = '100';
+const String ICON_SIZE = '80';
+const String ICON_SIZE_PLUS = '100';
+const int DEFAULT_PAGE_INDEX = 0;
 
 /*
  * Define locations (from id's) in the html
@@ -48,9 +49,12 @@ final Element displayLog = querySelector('#displayLog');
 final Element logFileName = querySelector('#logFileName');
 final Element serverStatusDataList = querySelector('#serverStatusDataList');
 final Element volumeText = querySelector('#volumeText');
+final Element errorDiv = querySelector('#errorDiv');
+final Element appTitleText = querySelector('#appTitleText');
 
 /*
- * Define all the pages. Each is added to the page Manager. A fallback page is also defined.
+ * Define all the pages (div's). Each is added to the page Manager. 
+ * A fallback page is also defined as DEFAULT_PAGE_INDEX.
  */
 final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_NAME_WELCOME, querySelector('#page_welcome'), initWelcomePage),
@@ -60,7 +64,7 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage),
   PageDiv(PAGE_AUDIO,  querySelector('#page_audio'), initAnyPage),
   PageDiv(PAGE_DISPLAY_LOG,  querySelector('#page_displayLog'), initAnyPage)
-]);
+], DEFAULT_PAGE_INDEX);
 /*
  * Define all the buttons and their actions. Each button is added to the MyButtonManager
  */
@@ -92,8 +96,7 @@ final MyButtonManager buttonManager = new MyButtonManager([
  * Define the get time request and response procedure.
  */
 ServerRequest fetchAudioFileList = ServerRequest('GET', '/files/loc/audio', 'Reading list of audio files', processError, (resp) {
-  audioFileListData = resp.map;
-  populateAudioFileList();
+  populateAudioFileList(resp.map);
 });
 
 ServerRequest actionAudioPlayFile = ServerRequest('GET', '/audio/play/{1}', 'Play audio files', processError, (resp) {
@@ -109,25 +112,22 @@ ServerRequest actionAudioControl = ServerRequest('GET', '/audio/{1}', 'Audio Sta
 });
 
 ServerRequest fetchUserList = ServerRequest('GET', '/server/users', 'Reading user data from server', processError, (resp) {
-  userList = resp.map['users'];
-  populateUserTable();
+  populateUserTable(resp.map['users']);
 });
 ServerRequest fetchUserFileSizes = ServerRequest('GET', '/files/loc/cache/name/ufs', 'Reading user file sizes', processError, (resp) {
-  userFileSizesData = resp.list;
-  populateUserFileSizes();
+  populateUserFileSizes(resp.list);
 });
 ServerRequest fetchLogFileList = ServerRequest('GET', '/files/loc/logs?ext=log', 'Reading list of log files', processError, (resp) {
-  logFileListData = resp.map;
-  populateLogFileList();
+  populateLogFileList(resp.map);
 });
 ServerRequest fetchLogFileText = ServerRequest('GET', '/files/loc/logs/name/{1}', 'Reading log file', processError, (resp) {
   logFileText = resp.body;
   displayLog.text = logFileText;
 });
 ServerRequest fetchDiskStatus = ServerRequest('GET', '/script/ds', 'Reading Disk Status', processError, (resp) {
-  diskStatusData = resp.list;
-  populateDiskStatus();
+  populateDiskStatus(resp.list);
 });
+
 ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time from server', processError, (resp) {
   timeText.text = resp.map['time']['time3'];
   dateText.text = resp.map['time']['monthDay'];
@@ -147,10 +147,10 @@ ServerRequest fetchThumbNails = ServerRequest('GET', '/files/user/{1}/loc/thumbs
   populateThumbnails();
 });
 ServerRequest rotateImageRequest = ServerRequest('GET', '/script/rotate/user/{1}/loc/original/path/{2}/name/{3}?thumbnail=true&degrees={4}', 'Rotate Image!', processError, (resp) {
-  processError('D', resp.body);
+  processError("I:ROTATE:"+resp.toString());
 });
 ServerRequest restoreImageRequest = ServerRequest('GET', '/script/restore/user/{1}/loc/backup/path/{2}/name/{3}?thumbnail=true', 'Restore Image!', processError, (resp) {
-  processError('D', resp.body);
+  processError("I:RESTORE"+resp.toString());
 });
 ServerRequest restartServerRequest = ServerRequest('GET', '/server/restart', 'Restart the Server thumbnails', processError, (resp) {
   restartServerAck(resp.map);
@@ -159,7 +159,7 @@ ServerRequest fetchServerStatusData = ServerRequest('GET', '/server/status', 'Se
   populateServerStatusData(resp.map);
 });
 
-
+bool displayResponses = false;
 List userList = [];
 String currentUserId = null;
 String currentUserName = null;
@@ -194,7 +194,7 @@ void main() {
   buttonManager.init();
   fetchTimeData.send();
   fetchUserList.send();
-
+  appTitleText.text=DEFAULT_FOOTER_TEXT;
   pageManager.display(PAGE_NAME_WELCOME);
   header.onClick.listen((e) {
       pageManager.back();
@@ -390,7 +390,8 @@ void populateServerStatusData(Map map) {
   serverStatusDataList.innerHtml = htmlStr;
 }
 
-void populateUserFileSizes() {
+void populateUserFileSizes(List list) {
+  userFileSizesData = list;
   String htmlStr = '<table width=\"100%\">';
   userFileSizesData.forEach((ufsData) {
     htmlStr += '<tr><td width=\"25%\">${ufsData['Name']}</td><td>${ufsData['Size']} K.</td></tr>';
@@ -399,7 +400,8 @@ void populateUserFileSizes() {
   userFileSizes.innerHtml = htmlStr;
 }
 
-void populateDiskStatus() {
+void populateDiskStatus(List list) {
+  diskStatusData = list;
   String htmlStr = '<table width=\"100%\">';
   diskStatusData.forEach((statusData) {
     htmlStr += '<tr><td width=\"25%\">${statusData['name']}</td><td>${statusData['state']}</td></tr>';
@@ -408,7 +410,8 @@ void populateDiskStatus() {
   diskStatus.innerHtml = htmlStr;
 }
 
-void populateAudioFileList() {
+void populateAudioFileList(Map map) {
+  audioFileListData = map;
   String htmlStr = '<table width=\"100%\">';
   int index = 0;
   audioFileListData['files'].forEach((audioFile) {
@@ -426,7 +429,8 @@ void populateAudioFileList() {
   });  
 }
 
-void populateLogFileList() {
+void populateLogFileList(Map map) {
+  logFileListData = map;
   String htmlStr = '<table width=\"100%\">';
   int index = 0;
   logFileListData['files'].forEach((logFile) {
@@ -462,7 +466,6 @@ void populateThumbnails() {
     index++;
   });
   htmlStr += '</tr></table>';
-  window.console.debug('X:'+htmlStr);
   userThumbnails.innerHtml = htmlStr;
   pageManager.display(PAGE_THUMBNAILS);
   index = 1;
@@ -510,7 +513,8 @@ void populateThumbNailDirList() {
  * Create a table of user icons and user
  * {"users": [{"id":"stuart","name":"Stuart"},{"id":"shared"},{"id":"nonuser"},{"id":"test","src":"src"}]}
  */
-void populateUserTable() {
+void populateUserTable(List list) {
+  userList = list;
   var htmlStr = '<table width=\"100%\"><tr><td colspan=\"2\"><hr></td></tr>';
   // Create the HTML
   userList.forEach((user) {
@@ -519,7 +523,7 @@ void populateUserTable() {
        if (name == null) {
       name = id.toUpperCase();
     }
-    htmlStr += '<tr><td width=\"${iconSizePlus}px\">&nbsp;<img  id=\"${USER_NAME_ROW_ID_PREFIX}${id}\" src=\"${id}.png\" alt=\"${id}.png\" height=\"${iconSize}\" width=\"${iconSize}\"> </td><td>&nbsp;&nbsp;${name}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
+    htmlStr += '<tr><td width=\"${ICON_SIZE_PLUS}px\">&nbsp;<img  id=\"${USER_NAME_ROW_ID_PREFIX}${id}\" src=\"${id}.png\" alt=\"${id}.png\" height=\"${ICON_SIZE}\" width=\"${ICON_SIZE}\"> </td><td>&nbsp;&nbsp;${name}</td></tr><tr><td colspan=\"2\"><hr></td></tr>';
   });
   htmlStr += '</table>';
   userNameList.innerHtml = htmlStr;
@@ -602,18 +606,33 @@ void scrollToTop() {
   window.document.scrollingElement.scrollTop = 0;
 }
 
-void clearError() {
-  errorMessageText.text = DEFAULT_ERROR_TEXT;
-  diagnosticText.hidden = false;
-  diagnosticText.text = '';
+void processError(String message) {
+  if (displayResponses) {
+    window.console.debug(message);
+  }
+  clearError();
+  if (message.startsWith('R:')) {
+    if (displayResponses) {
+      errorDiv.hidden = false;
+      diagnosticText.hidden = false;
+      diagnosticText.text = 'RESPONSE: ' + message.substring(2);
+    }
+  }
+  if (message.startsWith('I:')) {
+    errorDiv.hidden = false;
+    diagnosticText.hidden = false;
+    diagnosticText.text = 'INFO: ' + message.substring(2);
+  }
+  if (message.startsWith('E:')) {
+      errorDiv.hidden = false;
+      errorMessageText.hidden = false;
+      errorMessageText.text = 'ERROR: ' + message.substring(2);
+  }
 }
 
-void processError(String key, String message) {
-  if (key == 'E') {
-    errorMessageText.text = 'ERROR: ' + message;
-  }
-  if (key == 'D') {
-    diagnosticText.hidden = false;
-    diagnosticText.text = 'DATA: ' + message;
-  }
+void clearError() {
+  errorDiv.hidden = true;
+  diagnosticText.hidden = true;
+  errorMessageText.hidden = true;
 }
+

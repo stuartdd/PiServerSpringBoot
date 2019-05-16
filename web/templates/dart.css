@@ -52,7 +52,14 @@ hr {
     background-color: %{css.main.background};  
 }
 
-.TitleLine{
+.OptionText {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    background-color: %{css.main.background};
+}
+
+.TitleLine {
     width: 100%;
     color: black;
     padding: 10px;
@@ -67,6 +74,15 @@ hr {
     text-align: center;
     font-size: 17px;
     background-color: %{css.main.background};
+}
+
+
+.Diagnostic {
+    font-family: 'Courier New',serif;
+    font-size: 10px;
+    float: left;
+    padding: 1px;
+    width: 100%;
 }
 
 .Left {
@@ -106,6 +122,7 @@ hr {
     border: 2px solid %{css.button.border};
     background-color: %{css.button.hover};
 }
+
 .full_button {
     background-color: #ff7584;
     border-radius: 8px;
