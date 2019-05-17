@@ -13,7 +13,7 @@
         <script defer src="dart/main.dart.js"></script>
     </head>
 
-    <body>
+    <body id="pageBody">
         <header id='header'>
             <h1 id="headerUserName"></h1>
         </header>
@@ -21,7 +21,7 @@
             <button class="nav_button" id="backButton">Back</button>
             <button class="nav_button" id="homeButton">Home</button>
             <button class="nav_button" id="audioButton">Audio</button>
-            <button class="nav_button" id="statusButton">Status</button>
+            <button class="nav_button" id="adminButton">Admin</button>
             <button class="nav_button" id="addColButton">More</button>
             <button class="nav_button" id="subColButton">Less</button>
         </div>
@@ -76,7 +76,7 @@
             <article class="TitleLine" >Audio Files:</article>
             <div class="InfoLine Left" id="audioFileList"></div>
         </div>
-        <div id="page_status">
+        <div id="page_admin">
             <article class="TitleLine" >User File Sizes:</article>
             <div class="InfoLine Left" id="userFileSizes">HI</div>
             <article class="TitleLine" >Current Disk Status:</article>
@@ -91,16 +91,16 @@
                 <td width="60%"><button class="full_button" id="restartServerButton">Click Here to Restart The Server</button></td>
                 <td width="20%"></td>
             </tr></table>
-            <article class="TitleLine" >Options:</article>
+            <article class="TitleLine" >Options: Saved for each user</article>
             <table class="OptionText" width="100%"><tr>
-                <td width="10%"><button class="nav_button" style="width: 100%;" id="displayOptionShowResponse">LOG</button></td>
-                <td>Log each response in the footer diagnostic area</td>
+                <td width="10%"><button class="nav_button" style="width: 100%;" id="optionShowResponse">LOG</button></td>
+                <td>Log last response in footer diagnostic area</td>
             </tr><tr>
-                <td width="10%"><button class="nav_button" style="width: 100%;" id="displayOptionConsole">LOG</button></td>
+                <td width="10%"><button class="nav_button" style="width: 100%;" id="optionConsole">LOG</button></td>
                 <td>Log data in the browser's console</td>
             </tr><tr>
-                <td width="10%"><button class="nav_button" style="width: 100%;" id="displayOptionUpdateTime">LOG</button></td>
-                <td>Keep reading the time from the server. Once every second</td>
+                <td width="10%"><button class="nav_button" style="width: 100%;" id="optionSuppressTime">LOG</button></td>
+                <td>Stop reading the time from the server.</td>
             </tr>
             </table>
         </div>

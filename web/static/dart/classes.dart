@@ -25,6 +25,7 @@ class MyButtonManager {
         return buttons[i];
       }
     }
+    return null;
   }
 
   void init() {
@@ -54,9 +55,9 @@ class MyButton {
     return id;
   } 
 
-  String setText(String text) {
-    return element.text = text;
-  } 
+  Element getElement() {
+    return element;
+  }
 
   void hidden(bool hide) {
     this.element.hidden = hide;

@@ -12,50 +12,96 @@ const String PAGE_NAME_WELCOME = 'welcome';
 const String PAGE_NAME_MAIN = 'main';
 const String PAGE_THUMBNAILS = 'thumbnails';
 const String PAGE_ORIGINAL = 'original';
-const String PAGE_STATUS = 'status';
+const String PAGE_ADMIN = 'admin';
 const String PAGE_DISPLAY_LOG = 'displayLog';
 const String PAGE_AUDIO = 'audio';
 const String DISPLAY_OPTION_MAP = 'displayOptions';
-const String DISPLAY_OPTION_MAP_SHOW_RESP = 'displayOptionShowResponse';
-const String DISPLAY_OPTION_MAP_CONSOLE = 'displayOptionConsole';
-const String DISPLAY_OPTION_UPDATE_TIME = 'displayOptionUpdateTime';
 
-
-const List<String> NAV_BUTTON_IDS = ['back', 'home', 'status'];
 const List<String> ADD_SUB_BUTTON_IDS = ['addCol', 'subCol'];
 
 const String ICON_SIZE = '80';
 const String ICON_SIZE_PLUS = '100';
 const int DEFAULT_PAGE_INDEX = 0;
+/*
+* These are the names of the option buttons. The id of each button and the 
+* name of the property in the user data need to be the same.
+*/
+const String DISPLAY_OPTION_MAP_SHOW_RESP = 'optionShowResponse';
+const String DISPLAY_OPTION_MAP_CONSOLE = 'optionConsole';
+const String DISPLAY_OPTION_SUPPRESS_TIME = 'optionSuppressTime';
 
 /*
  * Define locations (from id's) in the html
  */
-final Element errorMessageText = querySelector('#errorMessageText');
+final Element pageBody = querySelector('#pageBody');
+
+final Element header = querySelector('#header');
+final Element headerUserName = querySelector('#headerUserName');
+
+final Element footer = querySelector('#footer');
 final Element timeText = querySelector('#timeText');
 final Element dateText = querySelector('#dateText');
+
+final Element errorDiv = querySelector('#errorDiv');
+final Element errorMessageText = querySelector('#errorMessageText');
 final Element diagnosticText = querySelector('#diagnosticText');
+
+final Element navButtons = querySelector('#navButtons');
+
 final Element userNameList = querySelector('#userNameList');
-final Element header = querySelector('#header');
-final Element footer = querySelector('#footer');
-final Element headerUserName = querySelector('#headerUserName');
 final Element userThumbnailDirList = querySelector('#userThumbnailDirList');
 final Element userThumbnails = querySelector('#userThumbnails');
-final Element navButtons = querySelector('#navButtons');
 final Element originalImage = querySelector('#originalImage');
-final Element userFileSizes = querySelector('#userFileSizes');
-final Element diskStatus = querySelector('#diskStatus');
-final Element logFileList = querySelector('#logFileList');
+
 final Element audioFileList = querySelector('#audioFileList');
 final Element audioStatus = querySelector('#audioStatus');
 final Element audioStatusDisplay = querySelector('#audioStatusDisplay');
+final Element volumeText = querySelector('#volumeText');
+
 final Element displayLog = querySelector('#displayLog');
+final Element userFileSizes = querySelector('#userFileSizes');
+final Element diskStatus = querySelector('#diskStatus');
+final Element logFileList = querySelector('#logFileList');
 final Element logFileName = querySelector('#logFileName');
 final Element serverStatusDataList = querySelector('#serverStatusDataList');
-final Element volumeText = querySelector('#volumeText');
-final Element errorDiv = querySelector('#errorDiv');
 final Element appTitleText = querySelector('#appTitleText');
 
+/*
+ * Define all the buttons and their actions. Each button is added to the MyButtonManager.
+ * MyButtonManager sets the action for the button.
+ * The rest is set in the html.
+ */
+final MyButtonManager buttonManager = new MyButtonManager([
+  MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}),
+  MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
+  MyButton('admin', querySelector('#adminButton'), (id) {selectAdminPage();}),
+  MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
+  
+  MyButton('imageBack', querySelector('#imageBackButton'), (id) {pageManager.back();}),
+  MyButton('imageHome', querySelector('#imageHomeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
+  MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
+  MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
+  MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
+  MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
+
+  MyButton('audioStop', querySelector('#audioStopButton'), (id) {audioAction('stop');}),
+  MyButton('audioPause', querySelector('#audioPauseButton'), (id) {audioAction('pause');}),
+  MyButton('volumeUp', querySelector('#volumeUpButton'), (id) {setVolumeValue(1);}),
+  MyButton('volumeDown', querySelector('#volumeDownButton'), (id) {setVolumeValue(-1);}),
+  MyButton('volumeMin', querySelector('#volumeMinButton'), (id) {setVolumeValue(0);}),
+  MyButton('volumeMax', querySelector('#volumeMaxButton'), (id) {setVolumeValue(100);}),
+
+  MyButton('logUp', querySelector('#scrollLogUpButton'), (id) {scrollToTop();}),
+  MyButton('logDown', querySelector('#scrollLogDownButton'), (id) {scrollToBottom();}),
+  MyButton('logFollow', querySelector('#scrollLogFollow'), (id) {reSelectLogFile(); scrollToBottom();}),
+  MyButton('logLoad', querySelector('#reloadLogButton'), (id) {reSelectLogFile();}),
+
+  MyButton(DISPLAY_OPTION_MAP_SHOW_RESP, querySelector('#'+DISPLAY_OPTION_MAP_SHOW_RESP), (id) {invertDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP);}),
+  MyButton(DISPLAY_OPTION_MAP_CONSOLE, querySelector('#'+DISPLAY_OPTION_MAP_CONSOLE), (id) {invertDisplayOption(DISPLAY_OPTION_MAP_CONSOLE);}),
+  MyButton(DISPLAY_OPTION_SUPPRESS_TIME, querySelector('#'+DISPLAY_OPTION_SUPPRESS_TIME), (id) {invertDisplayOption(DISPLAY_OPTION_SUPPRESS_TIME);}),
+
+  MyButton('svrRestart', querySelector('#restartServerButton'), (id) {restartServerConfirm();})
+]);
 /*
  * Define all the pages (div's). Each is added to the page Manager. 
  * A fallback page is also defined as DEFAULT_PAGE_INDEX.
@@ -65,39 +111,10 @@ final PageDivManager pageManager = new PageDivManager([
   PageDiv(PAGE_NAME_MAIN,  querySelector('#page_main'), initMainPage),
   PageDiv(PAGE_THUMBNAILS,  querySelector('#page_thumbnails'), initThumbNailPage),
   PageDiv(PAGE_ORIGINAL,  querySelector('#page_original'), initOriginalImagePage),
-  PageDiv(PAGE_STATUS,  querySelector('#page_status'), initAnyPage),
+  PageDiv(PAGE_ADMIN,  querySelector('#page_admin'), initAnyPage),
   PageDiv(PAGE_AUDIO,  querySelector('#page_audio'), initAnyPage),
   PageDiv(PAGE_DISPLAY_LOG,  querySelector('#page_displayLog'), initAnyPage)
 ], DEFAULT_PAGE_INDEX);
-/*
- * Define all the buttons and their actions. Each button is added to the MyButtonManager
- */
-final MyButtonManager buttonManager = new MyButtonManager([
-  MyButton('back', querySelector('#backButton'), (id) {pageManager.back();}),
-  MyButton('home', querySelector('#homeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
-  MyButton('imageBack', querySelector('#imageBackButton'), (id) {pageManager.back();}),
-  MyButton('imageHome', querySelector('#imageHomeButton'), (id) {pageManager.display(PAGE_NAME_MAIN);}),
-  MyButton('imageRotate', querySelector('#imageRotateButton'), (id) {rotateOriginal(90);}),
-  MyButton('imageRestore', querySelector('#imageRestoreButton'), (id) {restoreOriginal();}),
-  MyButton('audio', querySelector('#audioButton'), (id) {selectAudioPage();}),
-  MyButton('audioStopButton', querySelector('#audioStopButton'), (id) {audioAction('stop');}),
-  MyButton('audioPauseButton', querySelector('#audioPauseButton'), (id) {audioAction('pause');}),
-  MyButton('volumeUpButton', querySelector('#volumeUpButton'), (id) {setVolumeValue(1);}),
-  MyButton('volumeDownButton', querySelector('#volumeDownButton'), (id) {setVolumeValue(-1);}),
-  MyButton('volumeMinButton', querySelector('#volumeMinButton'), (id) {setVolumeValue(0);}),
-  MyButton('volumeMaxButton', querySelector('#volumeMaxButton'), (id) {setVolumeValue(100);}),
-  MyButton('status', querySelector('#statusButton'), (id) {selectStatusPage();}),
-  MyButton('addCol', querySelector('#addColButton'), (id) {updateThumbNailsPerRow(1);}),
-  MyButton('subCol', querySelector('#subColButton'), (id) {updateThumbNailsPerRow(-1);}),
-  MyButton('logUp', querySelector('#scrollLogUpButton'), (id) {scrollToTop();}),
-  MyButton('logDown', querySelector('#scrollLogDownButton'), (id) {scrollToBottom();}),
-  MyButton('logFollow', querySelector('#scrollLogFollow'), (id) {reSelectLogFile(); scrollToBottom();}),
-  MyButton('logLoad', querySelector('#reloadLogButton'), (id) {reSelectLogFile();}),
-  MyButton(DISPLAY_OPTION_MAP_SHOW_RESP, querySelector('#'+DISPLAY_OPTION_MAP_SHOW_RESP), (id) {invertDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP);}),
-  MyButton(DISPLAY_OPTION_MAP_CONSOLE, querySelector('#'+DISPLAY_OPTION_MAP_CONSOLE), (id) {invertDisplayOption(DISPLAY_OPTION_MAP_CONSOLE);}),
-  MyButton(DISPLAY_OPTION_UPDATE_TIME, querySelector('#'+DISPLAY_OPTION_UPDATE_TIME), (id) {invertDisplayOption(DISPLAY_OPTION_UPDATE_TIME);}),
-  MyButton('svrRestart', querySelector('#restartServerButton'), (id) {restartServerConfirm();})
-]);
 
 /*
  * Define the get time request and response procedure.
@@ -136,7 +153,8 @@ ServerRequest fetchDiskStatus = ServerRequest('GET', '/script/ds', 'Reading Disk
 });
 
 ServerRequest fetchTimeData = ServerRequest('GET', '/server/time', 'Reading time from server', processError, (resp) {
-  populateDateTime(resp.map);
+  timeText.text = resp.map['time']['time3'];
+  dateText.text = resp.map['time']['monthDay'];
 });
 
 ServerRequest fetchUserData = ServerRequest('GET', '/files/user/{1}/loc/data/name/state.json', 'Reading user state from server', processError, (resp) {
@@ -222,7 +240,7 @@ void populateDisplayOptions() {
   }
   setDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP, getDisplayOption(DISPLAY_OPTION_MAP_SHOW_RESP));
   setDisplayOption(DISPLAY_OPTION_MAP_CONSOLE, getDisplayOption(DISPLAY_OPTION_MAP_CONSOLE));
-  setDisplayOption(DISPLAY_OPTION_UPDATE_TIME, getDisplayOption(DISPLAY_OPTION_UPDATE_TIME));
+  setDisplayOption(DISPLAY_OPTION_SUPPRESS_TIME, getDisplayOption(DISPLAY_OPTION_SUPPRESS_TIME));
 }
 
 void invertDisplayOption(String optionName) {
@@ -245,11 +263,13 @@ void setDisplayOption(String optionName, bool value) {
     return;
   }
   displayOptionsMap[optionName] = value;
-  MyButton button = buttonManager.findButton(optionName);
+  Element button = buttonManager.findButton(optionName).getElement();
   if (value) {
-    button.setText('ON');
+    button.text = 'ON';
+    button.style.backgroundColor = 'pink';
   } else {
-    button.setText('OFF');
+    button.text = 'OFF';
+    button.style.backgroundColor = pageBody.style.backgroundColor;
   }
   saveUsersState();
 }
@@ -284,12 +304,12 @@ void selectAudioPage() {
   pageManager.display(PAGE_AUDIO);  
 }
 
-void selectStatusPage() {
+void selectAdminPage() {
   fetchUserFileSizes.send();
   fetchDiskStatus.send();
   fetchLogFileList.send();
   fetchServerStatusData.send();
-  pageManager.display(PAGE_STATUS);
+  pageManager.display(PAGE_ADMIN);
 }
 
 void selectThumbnailDir(String name, String base64) {
@@ -384,13 +404,8 @@ void audioAction(String action) {
   actionAudioControl.send([action], null,null);
 }
 
-void populateDateTime(Map map) {
-  timeText.text = map['time']['time3'];
-  dateText.text = map['time']['monthDay'];
-}
-
 void refreshDateTime() {
-  if (getDisplayOption(DISPLAY_OPTION_UPDATE_TIME)) {
+  if (!getDisplayOption(DISPLAY_OPTION_SUPPRESS_TIME)) {
     fetchTimeData.send();
   }
   Timer(new Duration(seconds:1), refreshDateTime);
