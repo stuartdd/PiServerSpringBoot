@@ -7,10 +7,10 @@
             "label": "Build Dart",
             "type": "shell",
             "windows": {
-                "command": "dart2js.bat --minify main.dart -omain.dart.js"
+                "command": "dart2js.bat -m main.dart -o main.dart.js"
             },
             "linux": {
-                "command": "dart2js --minify main.dart -omain.dart.js"
+                "command": "dart2js -m main.dart -o main.dart.js"
             },
             "group": {
                 "kind": "build",
