@@ -23,7 +23,7 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validatePathsOnStartUp": ["thumbs","original","backup","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
-        "serverRoot": "C:\\Users\\stuar\\git\\PiServerSpringBoot",
+        "serverRoot": "C:\\Users\\stuar\\git\\PiServerWeb",
         "users": {
             "stuart": {"name":"Stuart","thumbs":"data\\thumb\\stuart","original":"data\\images\\stuart", "data":"data\\stuart", "backup":"data\\backup\\stuart"},
             "shared": {"name":"Something for everyone","thumbs":"data\\thumb\\shared","original":"data\\images\\shared", "data":"data\\shared", "backup":"data\\backup\\shared"}

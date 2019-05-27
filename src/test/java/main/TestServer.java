@@ -16,9 +16,7 @@
  */
 package main;
 
-import config.ConfigDataManager;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import tools.OsUtils;
 
 /**
  *
@@ -59,9 +56,9 @@ public class TestServer extends TestBaseClass {
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
         Assert.assertTrue(s.contains("\"Name\":\"shared\""));
-        Assert.assertTrue(s.contains("\"Name\":\"stuart\""));
-        Assert.assertTrue(s.contains("\"Name\":\"julie\""));
-        Assert.assertTrue(s.contains("\"Name\":\"huw\""));
+        Assert.assertTrue(s.contains("\"Name\":\"fred\""));
+        Assert.assertTrue(s.contains("\"Name\":\"sally\""));
+        Assert.assertTrue(s.contains("\"Name\":\"tom\""));
     }
     @Test
     public void getUsers() throws Exception {

@@ -29,7 +29,7 @@
             "scripts": "data/scripts",
             "templates" : "data/templates",
             "static" : "data/static",
-            "audio": "audio"
+            "audio": "data/audio"
         },
         "alias" : {"ufs":"userFileSizes.json"}
     },

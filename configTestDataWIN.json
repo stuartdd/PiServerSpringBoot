@@ -27,7 +27,7 @@
             "logs": "data/logs",
             "cache": "data/cache",
             "scripts": "data/scripts",
-            "audio": "audio",
+            "audio": "data/audio",
             "templates" : "data/templates",
             "static" : "data/static"
         },
