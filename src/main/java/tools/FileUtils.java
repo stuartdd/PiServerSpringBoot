@@ -45,6 +45,19 @@ import java.util.zip.ZipFile;
  */
 public class FileUtils {
 
+    private static final String FS = System.getProperty("file.separator");
+
+    public static boolean isRootPath(String path) {
+        if (StringUtils.isBlank(path)) {
+            return false;
+        }
+        int pos = path.indexOf(':');
+        if ((pos > 0) && (pos < 3)) {
+            path = path.substring(pos+1);
+        }
+        return (path.startsWith(FS));
+    }
+
     public static void tree(File f, List<String> l, int pathLen, final String[] extensions) {
         File[] fList = f.listFiles(new FileFilter() {
             @Override

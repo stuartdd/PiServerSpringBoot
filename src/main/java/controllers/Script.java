@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
 import services.FunctionService;
+import services.dto.FileResource;
 import services.dto.FunctionResponseDto;
 import tools.EncodeDecode;
 import tools.MediaTypeInfAndName;
@@ -63,7 +64,7 @@ public class Script extends ControllerErrorHandlerBase {
         }
 
         try {
-            File file = ConfigDataManager.getUserLocationFile(user, loc, finalPath, finalName);
+            File file = FileResource.withUserLocation(user, loc).andPath(finalPath).andName(finalName).file();
             queryParameters.put("fullName", file.getAbsolutePath());
             if (file.getParent() != null) {
                 queryParameters.put("parentPath", file.getParent());
