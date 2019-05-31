@@ -19,13 +19,9 @@ package controllers;
 import config.ConfigDataManager;
 import config.LogProvider;
 import exceptions.ResourceFileNotFoundException;
-import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.util.Map;
 
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

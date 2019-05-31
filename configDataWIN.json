@@ -23,7 +23,7 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validatePathsOnStartUp": ["thumbs","original","backup","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
-        "serverRoot": ["C:\\Users\\stuar\\git\\PiServerWeb"],
+        "serverRoot": ["C:\\Users\\stuar\\git\\PiServerWeb","C:\\Users\\stuar\\git\\PiServerSpringBoot"],
         "users": {
             "stuart": {"name":"Stuart","thumbs":"data\\thumb\\stuart","original":"data\\images\\stuart", "data":"data\\stuart", "backup":"data\\backup\\stuart"},
             "shared": {"name":"Something for everyone","thumbs":"data\\thumb\\shared","original":"data\\images\\shared", "data":"data\\shared", "backup":"data\\backup\\shared"}
@@ -58,8 +58,8 @@
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
-                "P2":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P1":"\"%{serverRoot[0]}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2":"\"%{serverRoot[0]}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
                 "P3":"\"%{fileName}\"",
                 "P4":"%{degrees}"
             },
@@ -67,8 +67,8 @@
                 "methodName": "scriptBetween",
                 "scriptName": "restoreImage",
                 "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
-                "P2":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P1":"\"%{serverRoot[0]}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2":"\"%{serverRoot[0]}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
                 "P3":"\"%{fileName}\""
             }
         }

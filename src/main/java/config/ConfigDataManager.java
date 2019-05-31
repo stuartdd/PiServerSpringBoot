@@ -17,7 +17,6 @@
 package config;
 
 import exceptions.ConfigDataException;
-import exceptions.ResourceFileNotFoundException;
 import exceptions.ResourceNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -72,6 +71,8 @@ public class ConfigDataManager {
             configDataName = "ConfigData" + OsUtils.resolveOS().name() + ".json";
         }
 
+        configErrorPrefix = "Config data file:" + configDataName + ": ";
+        
         configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
         if (configDataImpl.getResources() == null) {
             throw new ConfigDataException(configErrorPrefix + "Resources data not found or is empty");
@@ -113,7 +114,7 @@ public class ConfigDataManager {
             If empty then it should be null.
              */
             if (!StringUtils.isBlank(serverRootPath)) {
-                if (!serverRootPath.startsWith(FS)) {
+                if (!FileUtils.isRootPath(serverRootPath)) {
                     throw new ConfigDataException(configErrorPrefix + "ServerRoot " + serverRootPath + " must be an absolute path. Start with '" + FS + "'");
                 }
                 if (!FileUtils.exists(serverRootPath)) {
@@ -207,12 +208,10 @@ public class ConfigDataManager {
         }
         parameterMap.put("userList", sb.toString());
         parameterMap.remove("user");
-        if (!serverRoots.isEmpty()) {
-            parameterMap.put("serverRoot", serverRoots.get(0));
-        }
         int index = 0;
         for (String root : serverRoots) {
             parameterMap.put("serverRoot[" + index + "]", root);
+            index++;
         }
         parameterMap.put("server.started", (new DateTime()).toString("yyyy/MM/dd HH:mm:ss"));
         parameterMap.put("server.config", configDataName);
@@ -274,108 +273,6 @@ public class ConfigDataManager {
         return loc;
     }
 
-    /**
-     * Check that a location exists and return a file object for that location.
-     *
-     * @param locationName the name of the location in the config data
-     * @return The file for that location.
-     * @throws ResourceFileNotFoundException if the file does not exist.
-     * ResourceNotFoundException if the location is not in the config data.
-     */
-//    public static File getLocationAsFile(String locationName) {
-//        File f = new File(getLocation(locationName));
-//        if (f.exists()) {
-//            return f;
-//        }
-//        throw new ResourceFileNotFoundException("Location: " + locationName);
-//    }
-    /**
-     * <pre>
-     * Return a file at a location.
-     *    If location does not exist the throw ResourceNotFoundException.
-     *    If location path does not exist the throw ResourceFileNotFoundException.
-     *    DO NOT Check if the file exists. That is for the calling program to do!
-     *    If you want to check it exists use getUserLocationFile(null, loc, null, fileName)
-     * </pre>
-     *
-     * @param locationName the name of the location in the config data
-     * @param fileName The name of the file at that location
-     * @return A file.
-     */
-//    public static File getFileAtLocation(String locationName, String fileName) {
-//        File locFile = getLocationAsFile(locationName);
-//        return new File(locFile.getAbsolutePath() + FS + fileName);
-//    }
-//
-//    public static File getUserLocationFile(String user, String locationName) {
-//        return getUserLocationFile(user, locationName, null, null);
-//    }
-//    public static File getUserLocationFile(String user, String locationName, String path) {
-//        return getUserLocationFile(user, locationName, path, null);
-//    }
-    /**
-     * <pre>
-     * Get a file at a location given an additional path and a file name.
-     *   [serverRoot] [user.location] [path] [fileName]
-     *   location can be a resource.user.location or a resource.location
-     *
-     *   Can return a path or a file. It MUST Exist.
-     * </pre>
-     *
-     * @param user The user id from the config file (if null uses locations
-     * instead)
-     * @param locationName The location within that user
-     * @param path an optional additional path
-     * @param fileName an optional file nam e
-     * @return A file if it exists.
-     */
-//    public static File getUserLocationFile(String user, String locationName, String path, String fileName) {
-//        if (StringUtils.isBlank(locationName)) {
-//            throw new ResourceNotFoundException("location=isBlank");
-//        }
-//        String loc;
-//        if (StringUtils.isBlank(user)) {
-//            /*
-//            If user is null Location comes from resources.locations in config file
-//             */
-//            loc = getLocation(locationName);
-//        } else {
-//            /*
-//            Location comes from resources.users.[user].[locationName] in config file
-//             */
-//            Map<String, String> map = getUser(user);
-//            loc = map.get(locationName);
-//        }
-//        /*
-//        If no location was found we cannot continue
-//         */
-//        if (StringUtils.isBlank(loc)) {
-//            throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName);
-//        }
-//        /*
-//        Clean up location
-//         */
-//        loc = resolveLocation(loc);
-//
-//        File f;
-//        if (StringUtils.isBlank(path)) {
-//            if (StringUtils.isBlank(fileName)) {
-//                f = new File((new File(loc)).getAbsolutePath());
-//            } else {
-//                f = new File((new File(loc + FS + fileName)).getAbsolutePath());
-//            }
-//        } else {
-//            if (StringUtils.isBlank(fileName)) {
-//                f = new File((new File(loc + FS + path)).getAbsolutePath());
-//            } else {
-//                f = new File((new File(loc + FS + path + FS + fileName)).getAbsolutePath());
-//            }
-//        }
-//        if (f.exists()) {
-//            return f;
-//        }
-//        throw new ResourceFileNotFoundException("Path to - USER:" + user + " LOCATION:" + locationName + " PATH:" + path + " NAME:" + fileName);
-//    }
     public static Map<String, String> getParameters(Map<String, String> localParameters) {
         Map<String, String> p = new HashMap<>();
         p.putAll(parameterMap);
