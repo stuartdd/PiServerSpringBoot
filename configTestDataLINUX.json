@@ -16,7 +16,7 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
-        "serverRoot": "",
+        "serverRoot": [],
         "users": {
             "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
             "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},

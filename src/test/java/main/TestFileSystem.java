@@ -194,12 +194,12 @@ public class TestFileSystem extends TestBaseClass {
     private void testGetPathsUserNotFound() throws Exception {
         mvc.perform(get("/paths/user/tony/loc/fred"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"tony\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"User: tony\"}"));
     }
 
     private void testGetPathsLocNotFound() throws Exception {
         mvc.perform(get("/paths/user/stuart/loc/fred"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"stuart.fred\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"Location:fred for user:stuart\"}"));
     }
 }

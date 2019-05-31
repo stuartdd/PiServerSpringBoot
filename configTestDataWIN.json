@@ -16,19 +16,19 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
     "resources": {
-        "serverRoot": "",
+        "serverRoot": [],
         "users": {
-            "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
-            "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
-            "nonuser": {"thumbs":"data/thumb/nonuser","original":"data/images/nonuser", "data":"data/nonuser"},
+            "stuart": {"name":"Stuart","thumbs":"data\\thumb\\stuart","original":"data\\images\\stuart", "data":"data\\stuart"},
+            "shared": {"name":"Something for everyone","thumbs":"data\\thumb\\shared","original":"data\\images\\shared", "data":"data\\shared"},
+            "nonuser": {"thumbs":"data\\thumb\\nonuser","original":"data\\images\\nonuser", "data":"data\\nonuser"},
             "test": {"src":"src"}
         },
         "locations": {
-            "logs": "data/logs",
-            "cache": "data/cache",
-            "scripts": "data/scripts",
-            "audio": "data/audio",
-            "templates" : "data/templates",
+            "logs": "data\\logs",
+            "cache": "data\\cache",
+            "scripts": "data\\scripts",
+            "audio": "data\\audio",
+            "templates" : "data\\templates",
             "static" : "data/static"
         },
         "alias" : {"ufs":"userFileSizes.json"}

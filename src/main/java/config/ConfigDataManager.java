@@ -69,7 +69,7 @@ public class ConfigDataManager {
         }
 
         if (configDataName == null) {
-            throw new ConfigDataException("Configuration data file name was not provided");
+            configDataName = "ConfigData" + OsUtils.resolveOS().name() + ".json";
         }
 
         configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
@@ -82,7 +82,7 @@ public class ConfigDataManager {
             serverRoots = new ArrayList<>();
         }
         serverRoots.add(0, serverRootOverride);
-        
+
         if ((configDataImpl.getResources().getLocations() == null) || (configDataImpl.getResources().getLocations().size() == 0)) {
             throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
         }
@@ -107,21 +107,22 @@ public class ConfigDataManager {
         /*
         Validate root path. Null if locations are relative
          */
+        List<String> serverRootsList = new ArrayList<>();
         for (String serverRootPath : serverRoots) {
             /*
             If empty then it should be null.
              */
-            if (serverRootPath.trim().length() == 0) {
-                throw new ConfigDataException(configErrorPrefix + "One of the ServerRoot paths is empty");
-            } else {
+            if (!StringUtils.isBlank(serverRootPath)) {
                 if (!serverRootPath.startsWith(FS)) {
                     throw new ConfigDataException(configErrorPrefix + "ServerRoot " + serverRootPath + " must be an absolute path. Start with '" + FS + "'");
                 }
                 if (!FileUtils.exists(serverRootPath)) {
                     throw new ConfigDataException(configErrorPrefix + "ServerRoot " + serverRootPath + " does not exist: ");
                 }
+                serverRootsList.add(serverRootPath);
             }
         }
+        serverRoots = serverRootsList;
 
         if (!FileUtils.exists(getLogPath())) {
             throw new ConfigDataException(configErrorPrefix + "LogPath does not exist: " + getLogPath());

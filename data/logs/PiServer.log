@@ -1,42 +1,42 @@
-2019-05-27 23:41:04.567 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"tony"} CAUSE: tony
-2019-05-27 23:41:04.632 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"stuart.fred"} CAUSE: stuart.fred
-2019-05-27 23:41:04.642 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-05-27 23:41:04.664 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
-2019-05-27 23:41:04.680 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[TestLog.log] encName:[VGVzdExvZy5sb2c=]
-2019-05-27 23:41:04.724 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-05-27 23:41:04.726 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-05-27 23:41:04.786 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-05-27 23:41:04.787 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-05-27 23:41:04.806 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
-2019-05-27 23:41:04.806 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
-2019-05-27 23:41:04.829 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-05-27 23:41:04.835 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-05-27 23:41:04.843 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
-2019-05-27 23:41:04.850 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
-2019-05-27 23:41:04.954 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-05-27 23:41:05.008 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> Q0:diskStatus.bat
-2019-05-27 23:41:05.008 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> Q1:data/cache 
-2019-05-27 23:41:05.008 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> Q2: 
-2019-05-27 23:41:05.009 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> Q3:
-2019-05-27 23:41:05.011 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> C:\Users\stuar\AppData\Local\Temp\DiskStatus27487.txt
-2019-05-27 23:41:05.051 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> {start}
-2019-05-27 23:41:05.183 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
-2019-05-27 23:41:05.206 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data/cache --> {end}
-2019-05-27 23:41:05.212 INFO  Server: CMD:EXIT: Code=0
-2019-05-27 23:41:05.220 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-05-27 23:41:05.281 ERROR Server: CMD:ERR:cmd.exe /c notScript.bat  ../ --> 'notScript.bat' is not recognized as an internal or external command,
-2019-05-27 23:41:05.281 ERROR Server: CMD:ERR:cmd.exe /c notScript.bat  ../ --> operable program or batch file.
-2019-05-27 23:41:05.282 INFO  Server: CMD:EXIT: Code=1
-2019-05-27 23:41:05.283 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
-2019-05-27 23:41:05.292 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
-2019-05-27 23:41:05.348 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q0:returnCode.bat
-2019-05-27 23:41:05.350 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q1:9 
-2019-05-27 23:41:05.351 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q2: 
-2019-05-27 23:41:05.373 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q3:
-2019-05-27 23:41:05.381 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> {start}
-2019-05-27 23:41:05.389 INFO  Server: CMD:EXIT: Code=9
-2019-05-27 23:41:05.397 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
-2019-05-27 23:41:05.404 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Script ID'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Script ID'notImplemented'. Method 'notImplemented' is not implemented
-2019-05-27 23:41:05.503 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
-2019-05-27 23:41:06.569 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
-2019-05-27 23:41:06.792 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-05-31 16:37:58.540 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"User: tony"} CAUSE: User: tony
+2019-05-31 16:37:58.559 ERROR Server: {"Status":404, "Msg":"Not Found", "Entity":"Location:fred for user:stuart"} CAUSE: Location:fred for user:stuart
+2019-05-31 16:37:58.567 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-05-31 16:37:58.588 INFO  Server: listFilesBase: user:null loc: logs path:null encPath:null
+2019-05-31 16:37:58.598 INFO  Server: fileReadUserLocationBase: user:[null] loc:[logs] path:[null] encPath:[null] name:[TestLog.log] encName:[VGVzdExvZy5sb2c=]
+2019-05-31 16:37:58.606 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-05-31 16:37:58.608 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-05-31 16:37:58.642 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-05-31 16:37:58.642 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-05-31 16:37:58.656 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[original] path:[lg 001] encPath:[bGcgMDAx] name:[2006_08_22_15_53_15_22082006010.jpg.jpg] encName:[MjAwNl8wOF8yMl8xNV81M18xNV8yMjA4MjAwNjAxMC5qcGcuanBn]
+2019-05-31 16:37:58.656 INFO  Server: fileReadUserLocationBase: finalName:[22082006010.jpg]
+2019-05-31 16:37:58.678 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-05-31 16:37:58.682 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-05-31 16:37:58.687 INFO  Server: listFilesBase: user:stuart loc: thumbs path:lg 001 encPath:bGcgMDAx
+2019-05-31 16:37:58.690 INFO  Server: listFilesBase: user:stuart loc: original path:lg 001 encPath:bGcgMDAx
+2019-05-31 16:37:58.740 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-05-31 16:37:58.779 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> Q0:diskStatus.bat
+2019-05-31 16:37:58.779 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> Q1:data\cache 
+2019-05-31 16:37:58.779 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> Q2: 
+2019-05-31 16:37:58.779 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> Q3:
+2019-05-31 16:37:58.781 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> C:\Users\stuar\AppData\Local\Temp\DiskStatus24595.txt
+2019-05-31 16:37:58.803 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> {start}
+2019-05-31 16:37:58.900 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> [{"name":"/dev/sda:","state":"standby"},{"name":"/dev/sdb:","state":"active/idle"}]
+2019-05-31 16:37:58.910 INFO  Server: CMD:OUT:cmd.exe /c diskStatus.bat data\cache --> {end}
+2019-05-31 16:37:58.913 INFO  Server: CMD:EXIT: Code=0
+2019-05-31 16:37:58.920 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-05-31 16:37:58.947 ERROR Server: CMD:ERR:cmd.exe /c notScript.bat  ../ --> 'notScript.bat' is not recognized as an internal or external command,
+2019-05-31 16:37:58.948 ERROR Server: CMD:ERR:cmd.exe /c notScript.bat  ../ --> operable program or batch file.
+2019-05-31 16:37:58.948 INFO  Server: CMD:EXIT: Code=1
+2019-05-31 16:37:58.949 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'notScript' returned code 1. Min value is 0"} CAUSE: Function 'notScript' returned code 1. Min value is 0
+2019-05-31 16:37:58.955 INFO  Server: CMD:SCRIPT DIR: C:\Users\stuar\git\PiServerSpringBoot\data\scripts
+2019-05-31 16:37:58.988 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q0:returnCode.bat
+2019-05-31 16:37:58.988 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q1:9 
+2019-05-31 16:37:58.988 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q2: 
+2019-05-31 16:37:58.989 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> Q3:
+2019-05-31 16:37:58.989 INFO  Server: CMD:OUT:cmd.exe /c returnCode.bat 9 --> {start}
+2019-05-31 16:37:58.991 INFO  Server: CMD:EXIT: Code=9
+2019-05-31 16:37:58.996 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Function 'xxx' is not defined"} CAUSE: Function 'xxx' is not defined
+2019-05-31 16:37:59.001 ERROR Server: {"Status":424, "Msg":"Failed Dependency", "Entity":"Script ID'notImplemented'. Method 'notImplemented' is not implemented"} CAUSE: Script ID'notImplemented'. Method 'notImplemented' is not implemented
+2019-05-31 16:37:59.028 INFO  Server: fileReadUserLocationBase: user:[null] loc:[cache] path:[null] encPath:[null] name:[userFileSizes.json] encName:[ufs]
+2019-05-31 16:37:59.273 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]
+2019-05-31 16:37:59.291 INFO  Server: fileReadUserLocationBase: user:[stuart] loc:[data] path:[null] encPath:[null] name:[state.json] encName:[state.json]

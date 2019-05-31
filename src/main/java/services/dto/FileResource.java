@@ -47,11 +47,21 @@ public class FileResource {
     }
 
     public static FileResource withUserLocation(String user, String location) {
+        if (StringUtils.isBlank(user)) {
+            return new FileResource(location);
+        }
         return new FileResource(user, location);
     }
 
     public FileResource withPath(String path) {
-        this.path = path;
+       if (StringUtils.isBlank(path)) {
+           return this;
+       }
+       if (path.startsWith(FS)) {
+            this.path = path.substring(FS.length());
+        } else {
+            this.path = path;
+        }
         return this;
     }
 
@@ -60,7 +70,14 @@ public class FileResource {
     }
 
     public FileResource withName(String name) {
-        this.name = name;
+       if (StringUtils.isBlank(name)) {
+           return this;
+       }
+        if (!FileUtils.isRootPath(name)) {
+            this.name = name;
+        } else {
+            this.name = name.substring(FS.length());
+        }
         return this;
     }
 
