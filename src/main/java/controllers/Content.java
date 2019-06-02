@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import services.dto.FileResource;
 import tools.FileUtils;
 import tools.MediaTypeInfAndName;
 import tools.StringTools;
@@ -52,16 +53,16 @@ public class Content extends ControllerErrorHandlerBase {
         MediaTypeInfAndName mediaTypeInf = MediaTypeInfAndName.getMediaTypeForFile(finalName);
         byte[] bytes;
         try {
-            File f = ConfigDataManager.getFileAtLocation("templates", finalName);
-            if (f.exists() && mediaTypeInf.isPlainText()) {
+            File f = FileResource.withLocation("templates").andName(finalName).fileOrNull();
+            if ((f != null) && mediaTypeInf.isPlainText()) {
                 if (mediaTypeInf.isPlainText()) {
                     bytes = Template.parse(FileUtils.loadFile(f), fullMap).getBytes(StringTools.DEFAULT_CHARSET);
                 } else {
                     throw new ServerRestException(finalName, HttpStatus.BAD_REQUEST, "Cannot template binary files types " + mediaTypeInf.getMediaType());
                 }
             } else {
-                f = ConfigDataManager.getFileAtLocation("static", finalName);
-                if (f.exists()) {
+                f = FileResource.withLocation("static").andName(finalName).fileOrNull();
+                if (f != null) {
                     bytes = FileUtils.loadBinaryFile(f);
                 } else {
                     if (FileUtils.resourceExists("/templates/" + finalName, this.getClass())) {

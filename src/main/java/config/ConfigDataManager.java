@@ -17,7 +17,6 @@
 package config;
 
 import exceptions.ConfigDataException;
-import exceptions.ResourceFileNotFoundException;
 import exceptions.ResourceNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -27,9 +26,12 @@ import tools.OsUtils;
 import tools.StringTools;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import services.dto.FileResource;
 
 /**
  * @author stuart
@@ -46,18 +48,18 @@ public class ConfigDataManager {
     /*
     These values can be overriden with app args so once setup should NOT be read from configDataImpl.
      */
-    private static String serverRoot;
+    private static List<String> serverRoots;
     private static String cacheOverride;
 
     public static void init(String[] args) {
-
+        String serverRootOverride = null;
         for (String arg : args) {
             if (arg != null) {
                 String argLc = arg.toLowerCase();
                 if (argLc.startsWith("-cache=")) {
                     cacheOverride = getArgValue(arg);
                 } else if (argLc.startsWith("-root=")) {
-                    serverRoot = getArgValue(arg);
+                    serverRootOverride = getArgValue(arg);
                 } else {
                     configDataName = arg;
                 }
@@ -65,25 +67,31 @@ public class ConfigDataManager {
         }
 
         if (configDataName == null) {
-            throw new ConfigDataException("Configuration data file name was not provided");
+            configDataName = "ConfigData" + OsUtils.resolveOS().name() + ".json";
         }
 
         String configErrorPrefix = "Config data file:" + configDataName + ": ";
-        configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
 
+        configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
         if (configDataImpl.getResources() == null) {
             throw new ConfigDataException(configErrorPrefix + "Resources data not found or is empty");
         }
 
-        if ((configDataImpl.getResources().getLocations() == null) || (configDataImpl.getResources().getLocations().size() == 0)) {
+        serverRoots = configDataImpl.getResources().getServerRoot();
+        if (serverRoots == null) {
+            serverRoots = new ArrayList<>();
+        }
+        serverRoots.add(0, serverRootOverride);
+
+        if ((configDataImpl.getResources().getLocations() == null) || (configDataImpl.getResources().getLocations().isEmpty())) {
             throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
         }
 
-        if ((configDataImpl.getResources().getUsers() == null) || (configDataImpl.getResources().getUsers().size() == 0)) {
+        if ((configDataImpl.getResources().getUsers() == null) || (configDataImpl.getResources().getUsers().isEmpty())) {
             throw new ConfigDataException(configErrorPrefix + "User data 'resources-->users' not found or is empty");
         }
 
-        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getShellCommands() == null) || (configDataImpl.getFunctions().getShellCommands().size() == 0)) {
+        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getShellCommands() == null) || (configDataImpl.getFunctions().getShellCommands().isEmpty())) {
             throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->getShellCommands' not found or is empty");
         }
 
@@ -96,40 +104,25 @@ public class ConfigDataManager {
             configDataImpl.getResources().getLocations().put("cache", cacheOverride);
         }
 
-        if (serverRoot != null) {
-            LogProvider.log("SERVER ROOT override provided:" + serverRoot, 0);
-        } else {
-            serverRoot = configDataImpl.getResources().getServerRoot();
-        }
-
         /*
         Validate root path. Null if locations are relative
          */
-        if (serverRoot != null) {
+        List<String> serverRootsList = new ArrayList<>();
+        for (String serverRootPath : serverRoots) {
             /*
             If empty then it should be null.
              */
-            if (serverRoot.trim().length() == 0) {
-                serverRoot = null;
-            } else {
-                if (!FileUtils.exists(serverRoot)) {
-                    throw new ConfigDataException(configErrorPrefix + "ServerRoot does not exist: " + serverRoot);
+            if (!StringUtils.isBlank(serverRootPath)) {
+                if (!FileUtils.isRootPath(serverRootPath)) {
+                    throw new ConfigDataException(configErrorPrefix + "ServerRoot " + serverRootPath + " must be an absolute path. Start with '" + FS + "'");
                 }
-                /*
-                If it the current path
-                 */
-                if (serverRoot.equals(".")) {
-                    serverRoot = null;
-                } else {
-                    /*
-                    Check it is a root path. If not make it one.
-                     */
-                    if (!serverRoot.startsWith(FS)) {
-                        serverRoot = FS + serverRoot;
-                    }
+                if (!FileUtils.exists(serverRootPath)) {
+                    throw new ConfigDataException(configErrorPrefix + "ServerRoot " + serverRootPath + " does not exist: ");
                 }
+                serverRootsList.add(serverRootPath);
             }
         }
+        serverRoots = serverRootsList;
 
         if (!FileUtils.exists(getLogPath())) {
             throw new ConfigDataException(configErrorPrefix + "LogPath does not exist: " + getLogPath());
@@ -140,7 +133,7 @@ public class ConfigDataManager {
                 if (usr.getValue() != null) {
                     for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
                         if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
-                            getUserLocationFile(usr.getKey(), loc.getKey());
+                            FileResource.withUserLocation(usr.getKey(), loc.getKey()).file();
                         }
                     }
                 }
@@ -148,7 +141,7 @@ public class ConfigDataManager {
 
             for (Map.Entry<String, String> loc : getLocations().entrySet()) {
                 if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
-                    getLocationAsFile(loc.getKey());
+                    FileResource.withLocation(loc.getKey()).file();
                 }
             }
 
@@ -164,28 +157,28 @@ public class ConfigDataManager {
 
         Audio audioData = configDataImpl.getAudio();
         if (configDataImpl.getResources().getLocations().get(audioData.getLocationName()) == null) {
-            throw new ConfigDataException(configErrorPrefix + "Audio locationName '"+audioData.getLocationName()+"' cannot be found in resources.locations");
+            throw new ConfigDataException(configErrorPrefix + "Audio locationName '" + audioData.getLocationName() + "' cannot be found in resources.locations");
         }
         if (audioData.getVolumeMinValue() >= audioData.getVolumeMaxValue()) {
-            throw new ConfigDataException(configErrorPrefix + "Audio volumeMinValue ["+audioData.getVolumeMinValue()+"] cannot above volumeMaxValue ["+audioData.getVolumeMaxValue()+"]");            
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeMinValue [" + audioData.getVolumeMinValue() + "] cannot above volumeMaxValue [" + audioData.getVolumeMaxValue() + "]");
         }
         if (audioData.getVolumeInitial() > audioData.getVolumeMaxValue()) {
-            throw new ConfigDataException(configErrorPrefix + "Audio volumeInitial ["+audioData.getVolumeInitial()+"] cannot above volumeMaxValue ["+audioData.getVolumeMaxValue()+"]");            
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeInitial [" + audioData.getVolumeInitial() + "] cannot above volumeMaxValue [" + audioData.getVolumeMaxValue() + "]");
         }
         if (audioData.getVolumeInitial() < audioData.getVolumeMinValue()) {
-            throw new ConfigDataException(configErrorPrefix + "Audio volumeInitial ["+audioData.getVolumeInitial()+"] cannot below volumeMinValue ["+audioData.getVolumeMinValue()+"]");            
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeInitial [" + audioData.getVolumeInitial() + "] cannot below volumeMinValue [" + audioData.getVolumeMinValue() + "]");
         }
         int diff = audioData.getVolumeMaxValue() - audioData.getVolumeMinValue();
         if (audioData.getVolumeSteps() < 1) {
-            throw new ConfigDataException(configErrorPrefix + "Audio volumeSteps ["+audioData.getVolumeSteps()+"] cannot below 1");            
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeSteps [" + audioData.getVolumeSteps() + "] cannot below 1");
         }
         if (diff < 2) {
-            throw new ConfigDataException(configErrorPrefix + "Audio volumeMaxValue ["+audioData.getVolumeMaxValue()+"] must be at least volumeMinValue + 3 ["+(audioData.getVolumeMinValue()+3)+"]");                       
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeMaxValue [" + audioData.getVolumeMaxValue() + "] must be at least volumeMinValue + 3 [" + (audioData.getVolumeMinValue() + 3) + "]");
         }
         if (audioData.getVolumeSteps() < 1) {
-            throw new ConfigDataException(configErrorPrefix + "Audio volumeSteps ["+audioData.getVolumeSteps()+"] cannot below 1");                       
+            throw new ConfigDataException(configErrorPrefix + "Audio volumeSteps [" + audioData.getVolumeSteps() + "] cannot below 1");
         }
-        
+
         /*
         Copy all properties in the System section of the configuration file to the System properties.
          */
@@ -214,9 +207,10 @@ public class ConfigDataManager {
         }
         parameterMap.put("userList", sb.toString());
         parameterMap.remove("user");
-        String root = configDataImpl.getResources().getServerRoot();
-        if (StringUtils.isNotBlank(root)) {
-            parameterMap.put("serverRoot", root);
+        int index = 0;
+        for (String root : serverRoots) {
+            parameterMap.put("serverRoot[" + index + "]", root);
+            index++;
         }
         parameterMap.put("server.started", (new DateTime()).toString("yyyy/MM/dd HH:mm:ss"));
         parameterMap.put("server.config", configDataName);
@@ -245,20 +239,20 @@ public class ConfigDataManager {
         sb.append("}}");
         return StringTools.cleanJsonString(sb.toString());
     }
-
-    public static Map<String, Map<String, String>> getUsers() {
+   
+    public final static Map<String, Map<String, String>> getUsers() {
         return configDataImpl.getResources().getUsers();
     }
 
-    public static Map<String, String> getUser(String user) {
+    public final static Map<String, String> getUser(String user) {
         Map<String, String> map = getUsers().get(user);
         if (map == null) {
-            throw new ResourceNotFoundException(user);
+            throw new ResourceNotFoundException("User: " + user);
         }
         return map;
     }
 
-    public static Map<String, String> getLocations() {
+    public final static Map<String, String> getLocations() {
         return configDataImpl.getResources().getLocations();
     }
 
@@ -270,132 +264,30 @@ public class ConfigDataManager {
      * @throws ResourceNotFoundException if the location is not in the config
      * data.
      */
-    public static String getLocation(String locationName) {
+    public final static String getLocation(String locationName) {
         String loc = getLocations().get(locationName);
         if (loc == null) {
-            throw new ResourceNotFoundException(locationName);
+            throw new ResourceNotFoundException("Location: " + locationName);
         }
-        return resolveLocation(loc);
+        return loc;
     }
 
-    /**
-     * Check that a location exists and return a file object for that location.
-     *
-     * @param locationName the name of the location in the config data
-     * @return The file for that location.
-     * @throws ResourceFileNotFoundException if the file does not exist.
-     * ResourceNotFoundException if the location is not in the config data.
-     */
-    public static File getLocationAsFile(String locationName) {
-        File f = new File(getLocation(locationName));
-        if (f.exists()) {
-            return f;
-        }
-        throw new ResourceFileNotFoundException("Location: " + locationName);
-    }
-
-    /**
-     * <pre>
-     * Return a file at a location.
-     *    If location does not exist the throw ResourceNotFoundException.
-     *    If location path does not exist the throw ResourceFileNotFoundException.
-     *    DO NOT Check if the file exists. That is for the calling program to do!
-     *    If you want to check it exists use getUserLocationFile(null, loc, null, fileName)
-     * </pre>
-     *
-     * @param locationName the name of the location in the config data
-     * @param fileName The name of the file at that location
-     * @return A file.
-     */
-    public static File getFileAtLocation(String locationName, String fileName) {
-        File locFile = getLocationAsFile(locationName);
-        return new File(locFile.getAbsolutePath() + FS + fileName);
-    }
-
-    public static File getUserLocationFile(String user, String locationName) {
-        return getUserLocationFile(user, locationName, null, null);
-    }
-
-    public static File getUserLocationFile(String user, String locationName, String path) {
-        return getUserLocationFile(user, locationName, path, null);
-    }
-
-    /**
-     * <pre>
-     * Get a file at a location given an additional path and a file name.
-     *   [serverRoot] [user.location] [path] [fileName]
-     *   location can be a resource.user.location or a resource.location
-     *
-     *   Can return a path or a file. It MUST Exist.
-     * </pre>
-     *
-     * @param user The user id from the config file (if null uses locations
-     * instead)
-     * @param locationName The location within that user
-     * @param path an optional additional path
-     * @param fileName an optional file nam e
-     * @return A file if it exists.
-     */
-    public static File getUserLocationFile(String user, String locationName, String path, String fileName) {
-        if (StringUtils.isBlank(locationName)) {
-            throw new ResourceNotFoundException("location=isBlank");
-        }
-        String loc;
-        if (StringUtils.isBlank(user)) {
-            /*
-            If user is null Location comes from resources.locations in config file
-             */
-            loc = getLocation(locationName);
-        } else {
-            /*
-            Location comes from resources.users.[user].[locationName] in config file
-             */
-            Map<String, String> map = getUser(user);
-            loc = map.get(locationName);
-        }
-        /*
-        If no location was found we cannot continue
-         */
-        if (StringUtils.isBlank(loc)) {
-            throw new ResourceNotFoundException((user == null ? "" : user + ".") + locationName);
-        }
-        /*
-        Clean up location
-         */
-        loc = resolveLocation(loc);
-
-        File f;
-        if (StringUtils.isBlank(path)) {
-            if (StringUtils.isBlank(fileName)) {
-                f = new File((new File(loc)).getAbsolutePath());
-            } else {
-                f = new File((new File(loc + FS + fileName)).getAbsolutePath());
-            }
-        } else {
-            if (StringUtils.isBlank(fileName)) {
-                f = new File((new File(loc + FS + path)).getAbsolutePath());
-            } else {
-                f = new File((new File(loc + FS + path + FS + fileName)).getAbsolutePath());
-            }
-        }
-        if (f.exists()) {
-            return f;
-        }
-        throw new ResourceFileNotFoundException("Path to - USER:" + user + " LOCATION:" + locationName + " PATH:" + path + " NAME:" + fileName);
-    }
-
-    public static Map<String, String> getParameters(Map<String, String> localParameters) {
+    public final static Map<String, String> getParameters(Map<String, String> localParameters) {
         Map<String, String> p = new HashMap<>();
         p.putAll(parameterMap);
         p.putAll(localParameters);
         return p;
     }
 
-    public static boolean isEchoScriptOutput() {
+    public final static List<String> getServerRoots() {
+        return serverRoots;
+    }
+
+    public final static boolean isEchoScriptOutput() {
         return configDataImpl.getFunctions().isEchoScriptOutput();
     }
 
-    public static boolean isAllowServerStopCtrl() {
+    public final static boolean isAllowServerStopCtrl() {
         return configDataImpl.isAllowServerStopCtrl();
     }
 
@@ -416,17 +308,6 @@ public class ConfigDataManager {
         return now.toString(configDataImpl.getFormatTimeStamp());
     }
 
-//    public static String readCache(String fileName, String resourceName) {
-//        File f = new File(getLocation("cache") + FS + fileName);
-//        if (!f.exists()) {
-//            throw new ResourceNotFoundException(resourceName);
-//        }
-//        try {
-//            return FileUtils.loadFile(f);
-//        } catch (IOException ex) {
-//            throw new ResourceNotFoundException(resourceName);
-//        }
-//    }
     private static String getArgValue(String arg) {
         int pos = arg.indexOf('=');
         if (pos < 1) {
@@ -447,20 +328,6 @@ public class ConfigDataManager {
             }
         }
         return false;
-    }
-
-    /**
-     * If a location is absolute then return it. Else prefix it with the server
-     * root (if there is one!)
-     *
-     * @param location
-     * @return
-     */
-    private static String resolveLocation(String location) {
-        if (location.startsWith(FS)) {
-            return location;
-        }
-        return (serverRoot == null ? location : serverRoot + FS + location);
     }
 
     public static String alias(String name) {

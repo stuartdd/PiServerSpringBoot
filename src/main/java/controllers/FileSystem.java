@@ -143,7 +143,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
     public ResponseEntity<byte[]> fileReadLocation(@PathVariable String loc, @PathVariable String name, @RequestParam Map<String, String> queryParameters) {
         return fileReadUserLocationBase((String) null, loc, (String) null, name, queryParameters);
     }
-
+    
     /**
      * List files for a user location and path
      *
@@ -175,6 +175,15 @@ public class FileSystem extends ControllerErrorHandlerBase {
     @RequestMapping(value = "/files/loc/{loc}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public FileListIo listFiles(@PathVariable String loc, @RequestParam Map<String, String> queryParameters) {
         return listFilesBase((String) null, loc, (String) null, queryParameters);
+    }
+    /**
+     * List of files at a resources.{location}
+     *
+     * @return list of files with encoded and un-encoded names
+     */
+    @RequestMapping(value = "/files/user/{user}/loc/{loc}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public FileListIo listFiles(@PathVariable String user, @PathVariable String loc, @RequestParam Map<String, String> queryParameters) {
+        return listFilesBase(user, loc, (String) null, queryParameters);
     }
 
     /**

@@ -1,7 +1,7 @@
 {
     "system": {
-        "poleForTime":200000 ,
-        "historyMaxLen":20,
+        "poleForTime": 200000,
+        "historyMaxLen": 20,
         "css.body.background": "#b2f1b7",
         "css.header.background": "#17663f",
         "css.main.background": "#5df191",
@@ -14,24 +14,42 @@
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validatePathsOnStartUp": ["thumbs","original","data","logs","cache","scripts","templates","static","audio"],
+    "validatePathsOnStartUp": ["thumbs", "original", "data", "logs", "cache", "scripts", "templates", "static", "audio"],
     "resources": {
-        "serverRoot": "",
+        "serverRoot": [],
         "users": {
-            "stuart": {"name":"Stuart","thumbs":"data/thumb/stuart","original":"data/images/stuart", "data":"data/stuart"},
-            "shared": {"name":"Something for everyone","thumbs":"data/thumb/shared","original":"data/images/shared", "data":"data/shared"},
-            "nonuser": {"thumbs":"data/thumb/nonuser","original":"data/images/nonuser", "data":"data/nonuser"},
-            "test": {"src":"src"}
+            "stuart": {
+                "name": "Stuart",
+                "thumbs": "data\\thumb\\stuart",
+                "original": "data\\images\\stuart",
+                "data": "data\\stuart",
+                "logs": "data\\logs"
+            },
+            "shared": {
+                "name": "Something for everyone",
+                "thumbs": "data\\thumb\\shared",
+                "original": "data\\images\\shared",
+                "data": "data\\shared"
+            },
+            "nonuser": {
+                "thumbs": "data\\thumb\\nonuser",
+                "original": "data\\images\\nonuser",
+                "data": "data\\nonuser"
+            },
+            "test": {
+                "src": "src"
+            }
         },
         "locations": {
-            "logs": "data/logs",
-            "cache": "data/cache",
-            "scripts": "data/scripts",
-            "audio": "data/audio",
-            "templates" : "data/templates",
-            "static" : "data/static"
+            "cache": "data\\cache",
+            "scripts": "data\\scripts",
+            "audio": "data\\audio",
+            "templates": "data\\templates",
+            "static": "data/static"
         },
-        "alias" : {"ufs":"userFileSizes.json"}
+        "alias": {
+            "ufs": "userFileSizes.json"
+        }
     },
 
     "functions": {
@@ -47,12 +65,12 @@
             "ds": {
                 "methodName": "scriptBetween",
                 "scriptName": "diskStatus",
-                "P0" : "%{cache}"
+                "P0": "%{cache}"
             },
             "rot": {
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
-                "Content-Type" : "text/plain; charset=UTF-8"
+                "Content-Type": "text/plain; charset=UTF-8"
             },
             "notImplemented": {
                 "methodName": "notImplemented"

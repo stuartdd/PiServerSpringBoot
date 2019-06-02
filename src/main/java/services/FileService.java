@@ -31,6 +31,7 @@ import config.ConfigDataManager;
 import java.util.Arrays;
 import java.util.Comparator;
 import org.springframework.http.HttpStatus;
+import services.dto.FileResource;
 import tools.FileExtFilter;
 import tools.FileUtils;
 
@@ -43,7 +44,7 @@ public class FileService {
     private static final String FS = File.separator;
 
     public static PathsIO paths(String user, String loc) {
-        File root = ConfigDataManager.getUserLocationFile(user, loc);
+        File root = FileResource.withUserLocation(user, loc).file();
         int prefix = root.getAbsolutePath().length();
         List<String> fileNames = new ArrayList<>();
         FileUtils.tree(root, fileNames, prefix, new String[]{".java", ".jpg"});
@@ -70,12 +71,12 @@ public class FileService {
         if ((body == null) || (body.isEmpty())) {
             throw new ServerRestException("Missing content. Nothing to save!", HttpStatus.BAD_REQUEST, "BAD REQUEST");
         }
-        File root = ConfigDataManager.getUserLocationFile(user, loc, path);
+        File root = FileResource.withUserLocation(user, loc).andPath(path).file();
         FileUtils.writeFileOverwrite(body, new File(root.getAbsolutePath() + FS + name));
     }
 
     public static byte[] userReadFiles(String user, String loc, String dir, String name) {
-        File root = ConfigDataManager.getUserLocationFile(user, loc, dir, name);
+        File root = FileResource.withUserLocation(user, loc).andPath(dir).andName(name).file();
         if (root.isFile()) {
             try {
                 return FileUtils.loadBinaryFile(root);
@@ -98,7 +99,7 @@ public class FileService {
     }
 
     private static FileListIo userListFiles(String user, String loc, String dir, FileFilter filter) {
-        File root = ConfigDataManager.getUserLocationFile(user, loc, dir);
+        File root = FileResource.withUserLocation(user, loc).andPath(dir).file();
         FileListIo fileListOut = new FileListIo(user, loc, dir);
         File[] fileList;
         if (filter == null) {

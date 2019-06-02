@@ -17,22 +17,23 @@
 package config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Resources {
 
 
-    private String serverRoot;
+    private List<String> serverRoot;
 
     private Map<String, Map<String, String>> users = new HashMap<>();
     private Map<String, String> locations = new HashMap<>();
     private Map<String, String> alias = new HashMap<>();
 
-    public String getServerRoot() {
+    public List<String> getServerRoot() {
         return serverRoot;
     }
 
-    public void setServerRoot(String serverRoot) {
+    public void setServerRoot(List<String> serverRoot) {
         this.serverRoot = serverRoot;
     }
 

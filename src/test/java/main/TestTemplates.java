@@ -20,8 +20,10 @@ package main;
  *
  * @author stuart
  */
+import config.ConfigDataManager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +36,20 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import tools.OsUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 public class TestTemplates {
 
-   @Autowired
+    @Autowired
     private MockMvc mvc;
+    
+    @Before
+    public void before() {
+        ConfigDataManager.init(new String[] {"configTestData"+OsUtils.resolveOS().name()+".json"});
+    }
 
     @Test
     public void getTemplateNotFound() throws Exception {
@@ -57,7 +65,7 @@ public class TestTemplates {
         assertEquals("image/png", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsByteArray().length > 100);
     }
-    
+
     @Test
     public void getStaticNestedJS() throws Exception {
         MvcResult res = mvc.perform(get("/static/dart/someScript.js"))
@@ -65,7 +73,7 @@ public class TestTemplates {
         assertEquals("text/javascript", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsString().length() > 20);
     }
-    
+
     @Test
     public void getStaticSvg() throws Exception {
         MvcResult res = mvc.perform(get("/static/static.svg"))
@@ -118,7 +126,6 @@ public class TestTemplates {
         assertTrue(res.getResponse().getContentAsString().contains("index001-templates"));
     }
 
- 
     /**
      * <pre>
      * There are two styles.css files. One in the resources directory
@@ -157,7 +164,7 @@ public class TestTemplates {
         /*
         Ensure it is NOT templated because it is in the static directory
         Note urls are the same apart from the file name!
-        */
+         */
         assertTrue(resp.contains("height:%{height}%"));
     }
 
@@ -174,14 +181,14 @@ public class TestTemplates {
         assertTrue(resp.contains("height:999%"));
     }
 
-   @Test
+    @Test
     public void getTemplateJs() throws Exception {
         MvcResult res = mvc.perform(get("/static/template.js"))
                 .andExpect(status().isOk()).andReturn();
         assertEquals("text/javascript", res.getResponse().getHeader("Content-Type"));
         assertTrue(res.getResponse().getContentAsString().length() > 100);
     }
-    
+
     @Test
     public void getTemplatePng() throws Exception {
         MvcResult res = mvc.perform(get("/static/template.png"))

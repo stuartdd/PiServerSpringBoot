@@ -1,7 +1,7 @@
 {
     "system": {
-        "poleForTime":200000 ,
-        "historyMaxLen":20,
+        "poleForTime": 200000,
+        "historyMaxLen": 20,
         "css.body.background": "#b2f1b7",
         "css.header.background": "#17663f",
         "css.main.background": "#5df191",
@@ -9,34 +9,48 @@
         "css.button.hover": "goldenrod",
         "css.button.border": "black"
     },
-    "audio" : {
-        "locationName":"audio",
-        "volumeInitial" : 100,
-        "volumeMinValue" :80,
-        "volumeMaxValue" : 100,
-        "volumeSteps" : 2
+    "audio": {
+        "locationName": "audio",
+        "volumeInitial": 100,
+        "volumeMinValue": 80,
+        "volumeMaxValue": 100,
+        "volumeSteps": 2
     },
     "logPath": "\\logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
-    "validatePathsOnStartUp": ["thumbs","original","backup","data","logs","cache","scripts","templates","static","audio"],
+    "validatePathsOnStartUp": ["thumbs", "original", "backup", "data", "logs", "cache", "scripts", "templates", "static", "audio"],
     "resources": {
-        "serverRoot": "\\Development\\PiServerWeb",
+        "serverRoot": ["\\Development\\PiServerWeb"],
         "users": {
-            "stuart": {"name":"Stuart","thumbs":"data\\thumb\\stuart","original":"data\\images\\stuart", "data":"data\\stuart", "backup":"data\\backup\\stuart"},
-            "shared": {"name":"Something for everyone","thumbs":"data\\thumb\\shared","original":"data\\images\\shared", "data":"data\\shared", "backup":"data\\backup\\shared"}
+            "stuart": {
+                "name": "Stuart",
+                "thumbs": "data\\thumb\\stuart",
+                "original": "data\\images\\stuart",
+                "data": "data\\stuart",
+                "logs": "data\\logs",
+                "backup": "data\\backup\\stuart"
+            },
+            "shared": {
+                "name": "Something for everyone",
+                "thumbs": "data\\thumb\\shared",
+                "original": "data\\images\\shared",
+                "data": "data\\shared",
+                "backup": "data\\backup\\shared"
+            }
         },
         "locations": {
-            "logs": "data\\logs",
             "cache": "data\\cache",
             "scripts": "data\\scripts",
-            "templates" : "web\\templates",
-            "static" : "web\\static",
+            "templates": "web\\templates",
+            "static": "web\\static",
             "audio": "audio"
         },
-        "alias" : {"ufs":"userFileSizes.json"}
+        "alias": {
+            "ufs": "userFileSizes.json"
+        }
     },
 
     "functions": {
@@ -49,27 +63,27 @@
             "unknown": "unknown-OS"
         },
         "shellCommands": {
-             "ds": {
-                 "methodName": "scriptBetween",
-                 "scriptName": "diskStatus",
-                 "Content-Type" : "application/json; charset=UTF-8"
+            "ds": {
+                "methodName": "scriptBetween",
+                "scriptName": "diskStatus",
+                "Content-Type": "application/json; charset=UTF-8"
             },
             "rotate": {
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
-                "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
-                "P2":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
-                "P3":"%{fileName}",
-                "P4":"%{degrees}"
+                "Content-Type": "text/plain; charset=UTF-8",
+                "P1": "\"%{serverRoot[0]}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2": "\"%{serverRoot[0]}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P3": "%{fileName}",
+                "P4": "%{degrees}"
             },
             "restore": {
                 "methodName": "scriptBetween",
                 "scriptName": "restoreImage",
-                "Content-Type" : "text/plain; charset=UTF-8",
-                "P1":"\"%{serverRoot}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
-                "P2":"\"%{serverRoot}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
-                "P3":"\"%{fileName}\""
+                "Content-Type": "text/plain; charset=UTF-8",
+                "P1": "\"%{serverRoot[0]}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P2": "\"%{serverRoot[0]}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}\"",
+                "P3": "\"%{fileName}\""
             }
         }
     }

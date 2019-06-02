@@ -96,7 +96,7 @@ public class TestFileSystem extends TestBaseClass {
     }
 
     private void testReadLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/loc/logs/name/" + EncodeDecode.encode("TestLog.log"))).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/logs/name/" + EncodeDecode.encode("TestLog.log"))).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         assertTrue(resp.length() > 100);
         assertTrue(resp.contains("main.TestFileSystem"));
@@ -105,7 +105,7 @@ public class TestFileSystem extends TestBaseClass {
     }
 
     private void testLogs() throws Exception {
-        MvcResult mvcResult = mvc.perform(get("/files/loc/logs?ext=log")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mvc.perform(get("/files/user/stuart/loc/logs?ext=log")).andExpect(status().isOk()).andReturn();
         String resp = mvcResult.getResponse().getContentAsString();
         FileListIo fileList = (FileListIo) JsonUtils.beanFromJson(FileListIo.class, resp);
         assertTrue(fileList.getFiles().size() > 2);
@@ -194,12 +194,12 @@ public class TestFileSystem extends TestBaseClass {
     private void testGetPathsUserNotFound() throws Exception {
         mvc.perform(get("/paths/user/tony/loc/fred"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"tony\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"User: tony\"}"));
     }
 
     private void testGetPathsLocNotFound() throws Exception {
         mvc.perform(get("/paths/user/stuart/loc/fred"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"stuart.fred\"}"));
+                .andExpect(content().string("{\"Status\":404, \"Msg\":\"Not Found\", \"Entity\":\"Location:fred for user:stuart\"}"));
     }
 }
