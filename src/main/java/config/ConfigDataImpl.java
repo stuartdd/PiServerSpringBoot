@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigDataImpl {
-
     private Resources resources;
     private Functions functions;
     private Audio audio;
@@ -31,7 +30,7 @@ public class ConfigDataImpl {
     private String logName;
     private String logPath;
     private int logLevelBar = 1;
-    
+
     public String getLogPath() {
         return logPath;
     }

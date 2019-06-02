@@ -53,7 +53,6 @@ public class ConfigDataManager {
 
     public static void init(String[] args) {
         String serverRootOverride = null;
-        String configErrorPrefix = "Config data file:" + configDataName + ": ";
         for (String arg : args) {
             if (arg != null) {
                 String argLc = arg.toLowerCase();
@@ -71,8 +70,8 @@ public class ConfigDataManager {
             configDataName = "ConfigData" + OsUtils.resolveOS().name() + ".json";
         }
 
-        configErrorPrefix = "Config data file:" + configDataName + ": ";
-        
+        String configErrorPrefix = "Config data file:" + configDataName + ": ";
+
         configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
         if (configDataImpl.getResources() == null) {
             throw new ConfigDataException(configErrorPrefix + "Resources data not found or is empty");
@@ -84,15 +83,15 @@ public class ConfigDataManager {
         }
         serverRoots.add(0, serverRootOverride);
 
-        if ((configDataImpl.getResources().getLocations() == null) || (configDataImpl.getResources().getLocations().size() == 0)) {
+        if ((configDataImpl.getResources().getLocations() == null) || (configDataImpl.getResources().getLocations().isEmpty())) {
             throw new ConfigDataException(configErrorPrefix + "Location data 'resources-->locations' not found or is empty");
         }
 
-        if ((configDataImpl.getResources().getUsers() == null) || (configDataImpl.getResources().getUsers().size() == 0)) {
+        if ((configDataImpl.getResources().getUsers() == null) || (configDataImpl.getResources().getUsers().isEmpty())) {
             throw new ConfigDataException(configErrorPrefix + "User data 'resources-->users' not found or is empty");
         }
 
-        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getShellCommands() == null) || (configDataImpl.getFunctions().getShellCommands().size() == 0)) {
+        if ((configDataImpl.getFunctions() == null) || (configDataImpl.getFunctions().getShellCommands() == null) || (configDataImpl.getFunctions().getShellCommands().isEmpty())) {
             throw new ConfigDataException(configErrorPrefix + "Config data 'functions-->getShellCommands' not found or is empty");
         }
 
@@ -240,12 +239,12 @@ public class ConfigDataManager {
         sb.append("}}");
         return StringTools.cleanJsonString(sb.toString());
     }
-
-    public static Map<String, Map<String, String>> getUsers() {
+   
+    public final static Map<String, Map<String, String>> getUsers() {
         return configDataImpl.getResources().getUsers();
     }
 
-    public static Map<String, String> getUser(String user) {
+    public final static Map<String, String> getUser(String user) {
         Map<String, String> map = getUsers().get(user);
         if (map == null) {
             throw new ResourceNotFoundException("User: " + user);
@@ -253,7 +252,7 @@ public class ConfigDataManager {
         return map;
     }
 
-    public static Map<String, String> getLocations() {
+    public final static Map<String, String> getLocations() {
         return configDataImpl.getResources().getLocations();
     }
 
@@ -265,7 +264,7 @@ public class ConfigDataManager {
      * @throws ResourceNotFoundException if the location is not in the config
      * data.
      */
-    public static String getLocation(String locationName) {
+    public final static String getLocation(String locationName) {
         String loc = getLocations().get(locationName);
         if (loc == null) {
             throw new ResourceNotFoundException("Location: " + locationName);
@@ -273,22 +272,22 @@ public class ConfigDataManager {
         return loc;
     }
 
-    public static Map<String, String> getParameters(Map<String, String> localParameters) {
+    public final static Map<String, String> getParameters(Map<String, String> localParameters) {
         Map<String, String> p = new HashMap<>();
         p.putAll(parameterMap);
         p.putAll(localParameters);
         return p;
     }
 
-    public static List<String> getServerRoots() {
+    public final static List<String> getServerRoots() {
         return serverRoots;
     }
 
-    public static boolean isEchoScriptOutput() {
+    public final static boolean isEchoScriptOutput() {
         return configDataImpl.getFunctions().isEchoScriptOutput();
     }
 
-    public static boolean isAllowServerStopCtrl() {
+    public final static boolean isAllowServerStopCtrl() {
         return configDataImpl.isAllowServerStopCtrl();
     }
 

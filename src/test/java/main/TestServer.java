@@ -16,6 +16,8 @@
  */
 package main;
 
+import java.util.List;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import tools.JsonUtils;
 
 /**
  *
@@ -65,9 +68,14 @@ public class TestServer extends TestBaseClass {
         MvcResult mvcResult = mvc.perform(get("/server/users"))
                 .andExpect(status().isOk()).andReturn();
         String s = mvcResult.getResponse().getContentAsString();
+        Map map = (Map)JsonUtils.beanFromJson(Map.class, s);
+        List users = (List) map.get("users");
+        Assert.assertTrue(map.containsKey("users"));
+        Map stuart = (Map) users.get(0);
+        Assert.assertEquals("Stuart", stuart.get("name"));
+        Assert.assertEquals("stuart", stuart.get("id"));
         Assert.assertTrue(s.contains("\"shared\""));
-        Assert.assertTrue(s.contains("\"stuart\""));
-        Assert.assertTrue(s.contains("\"nonuser\""));
+        Assert.assertTrue(s.contains("\"id\":\"nonuser\""));
         Assert.assertTrue(s.contains("\"test\""));
         Assert.assertTrue(s.contains("\"name\":\"Stuart\""));
     }
