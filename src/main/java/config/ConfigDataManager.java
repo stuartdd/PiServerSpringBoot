@@ -67,10 +67,12 @@ public class ConfigDataManager {
         }
 
         if (configDataName == null) {
-            configDataName = "ConfigData" + OsUtils.resolveOS().name() + ".json";
+            configDataName = "configData" + OsUtils.resolveOS().name() + ".json";
         }
 
         String configErrorPrefix = "Config data file:" + configDataName + ": ";
+        
+        System.out.println(configErrorPrefix);
 
         configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
         if (configDataImpl.getResources() == null) {

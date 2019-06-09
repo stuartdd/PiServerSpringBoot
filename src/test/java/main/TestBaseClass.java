@@ -38,7 +38,6 @@ public class TestBaseClass {
 
     @AfterClass
     public static void afterClass() {
-        cleanLogs();
     }
 
     private static void cleanLogs() {

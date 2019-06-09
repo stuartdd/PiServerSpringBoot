@@ -9,7 +9,7 @@
         "css.button.hover": "goldenrod",
         "css.button.border": "black"
     },
-    "logPath": "data/logs",
+    "logPath": ".logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
@@ -23,7 +23,7 @@
                 "thumbs": "data\\thumb\\stuart",
                 "original": "data\\images\\stuart",
                 "data": "data\\stuart",
-                "logs": "data\\logs"
+                "logs": ".logs"
             },
             "shared": {
                 "name": "Something for everyone",
@@ -45,7 +45,7 @@
             "scripts": "data\\scripts",
             "audio": "data\\audio",
             "templates": "data\\templates",
-            "static": "data/static"
+            "static": "data\\static"
         },
         "alias": {
             "ufs": "userFileSizes.json"

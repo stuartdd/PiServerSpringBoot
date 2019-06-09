@@ -40,7 +40,7 @@ bootJar {
 task copyEndpointLib(type: Copy) {
     println 'copy external class files to scripts/external directories'
     from 'build/classes/java/main/external'
-    into 'scripts/external'
+    into 'build/libs'
     include "*.class"
 }
 

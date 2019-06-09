@@ -16,14 +16,14 @@
         "volumeMaxValue": 100,
         "volumeSteps": 2
     },
-    "logPath": "/logs",
+    "logPath": ".logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validatePathsOnStartUp": ["thumbs", "original", "backup", "data", "logs", "cache", "scripts", "templates", "static", "audio"],
     "resources": {
-        "serverRoot": ["/home/stuart/git/java/PiServerWeb"],
+        "serverRoot": ["/home/stuart/git/java/PiServerWeb","/home/stuart/git/java/PiServerSpringBoot"],
         "users": {
             "stuart": {
                 "name": "Stuart",
@@ -31,7 +31,7 @@
                 "original": "data/images/stuart",
                 "data": "data/stuart",
                 "backup": "data/backup/stuart",
-                "logs": "data\\logs"
+                "logs": ".logs"
             },
             "shared": {
                 "name": "Something for everyone",

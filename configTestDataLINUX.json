@@ -9,7 +9,7 @@
         "css.button.hover": "goldenrod",
         "css.button.border": "black"
     },
-    "logPath": "data/logs",
+    "logPath": ".logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
@@ -22,6 +22,7 @@
                 "name": "Stuart",
                 "thumbs": "data/thumb/stuart",
                 "original": "data/images/stuart",
+                "logs": "data/logs",
                 "data": "data/stuart"
             },
             "shared": {
@@ -40,7 +41,6 @@
             }
         },
         "locations": {
-            "logs": "data/logs",
             "cache": "data/cache",
             "scripts": "data/scripts",
             "templates": "data/templates",
