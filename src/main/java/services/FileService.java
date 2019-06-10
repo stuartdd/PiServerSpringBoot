@@ -31,7 +31,7 @@ import config.ConfigDataManager;
 import java.util.Arrays;
 import java.util.Comparator;
 import org.springframework.http.HttpStatus;
-import services.dto.FileResource;
+import tools.FileResource;
 import tools.FileExtFilter;
 import tools.FileUtils;
 

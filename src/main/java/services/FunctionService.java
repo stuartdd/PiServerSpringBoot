@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import config.ConfigDataManager;
+import java.io.File;
+import tools.FileResource;
 import tools.FileUtils;
 import tools.OsUtils;
 import tools.Template;
@@ -101,7 +103,7 @@ public class FunctionService {
     }
 
     private Object[] substituteAndSplit(Map<String, String> mapIn, String desc) {
-        Map<String,String> mapSub = ConfigDataManager.getParameters(ConfigDataManager.getLocations());
+        Map<String,String> mapSub = ConfigDataManager.getParameters(ConfigDataManager.getResolvedLocations());
         for (Map.Entry<String, String> key:mapIn.entrySet()) {
             mapSub.put(key.getKey(), Template.parse(key.getValue(), mapSub, Template.URESOLVED_ACTION.IGNORE));
         }

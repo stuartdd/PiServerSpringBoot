@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import services.dto.FileResource;
+import tools.FileResource;
 
 /**
  * @author stuart
@@ -41,6 +41,7 @@ public class ConfigDataManager {
     private static final String FS = System.getProperty("file.separator");
     private static String configDataName;
     private static Map<String, String> parameterMap;
+    private static Map<String, String> resolvedLocations;
     /*
     Do not give direct access to configDataImpl. It should always remain wrapped
      */
@@ -71,7 +72,7 @@ public class ConfigDataManager {
         }
 
         String configErrorPrefix = "Config data file:" + configDataName + ": ";
-        
+
         System.out.println(configErrorPrefix);
 
         configDataImpl = (ConfigDataImpl) JsonUtils.beanFromJson(ConfigDataImpl.class, new File(configDataName));
@@ -140,10 +141,14 @@ public class ConfigDataManager {
                     }
                 }
             }
-
+            
+            resolvedLocations = new HashMap<>();
             for (Map.Entry<String, String> loc : getLocations().entrySet()) {
                 if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
-                    FileResource.withLocation(loc.getKey()).file();
+                    File f = FileResource.withLocation(loc.getKey()).file();
+                    if (f != null) {
+                        resolvedLocations.put(loc.getKey(), f.getAbsolutePath());
+                    }
                 }
             }
 
@@ -241,7 +246,7 @@ public class ConfigDataManager {
         sb.append("}}");
         return StringTools.cleanJsonString(sb.toString());
     }
-   
+
     public final static Map<String, Map<String, String>> getUsers() {
         return configDataImpl.getResources().getUsers();
     }
@@ -256,6 +261,10 @@ public class ConfigDataManager {
 
     public final static Map<String, String> getLocations() {
         return configDataImpl.getResources().getLocations();
+    }
+    
+    public final static Map<String, String> getResolvedLocations() {
+        return resolvedLocations;
     }
 
     /**

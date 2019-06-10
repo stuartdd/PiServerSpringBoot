@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
 import services.FunctionService;
-import services.dto.FileResource;
+import tools.FileResource;
 import services.dto.FunctionResponseDto;
 import tools.EncodeDecode;
 import tools.MediaTypeInfAndName;

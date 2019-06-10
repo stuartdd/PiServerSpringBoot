@@ -23,6 +23,7 @@ import config.ConfigDataManager;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import tools.FileResource;
 import tools.FileUtils;
 
 /**
@@ -72,9 +73,9 @@ public class ShutDownService {
     }
 
     public static void setExitFlag(int n) {
-        String fileName = ConfigDataManager.getLocation("cache") + File.separator + "RC_DATA.txt";
-        FileUtils.writeFileOverwrite("" + n, new File(fileName));
-        LogProvider.log("EXIT FLAG " + fileName + " SET:" + n, 0);
+        File f = FileResource.withLocation("cache").andName("RC_DATA.txt").file();
+        FileUtils.writeFileOverwrite("" + n, f);
+        LogProvider.log("EXIT FLAG " + f.getName() + " SET:" + n, 0);
     }
 
     private static void sleeper(long delay) {

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import config.ConfigDataManager;
-import services.dto.FileResource;
+import tools.FileResource;
 import tools.StringTools;
 
 /**
