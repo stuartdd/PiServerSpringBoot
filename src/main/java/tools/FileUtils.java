@@ -47,41 +47,60 @@ public class FileUtils {
 
     private static final String FS = System.getProperty("file.separator");
 
+    /**
+     * Check if a path is a root path or not. Should work on any OS!
+     *
+     * @param path The path to check
+     * @return True is it is a root path.
+     */
     public static boolean isRootPath(String path) {
         if (StringUtils.isBlank(path)) {
             return false;
         }
         int pos = path.indexOf(':');
         if ((pos > 0) && (pos < 3)) {
-            path = path.substring(pos+1);
+            path = path.substring(pos + 1);
         }
         return (path.startsWith(FS));
     }
 
-    public static void tree(File f, List<String> l, int pathLen, final String[] extensions) {
-        File[] fList = f.listFiles(new FileFilter() {
+    /**
+     * Return a list of child paths for a given path.
+     * Only paths that contain 1 or more files that have the extensions listed in 'extensions' will be returned.
+     *
+     * @param path The path we want a list of child paths for
+     * @param childPaths The child paths are added to this list
+     * @param pathLen The length of the path so the child can exclude the path
+     * @param extensions extensions. For ex .gif or .jpg
+     */
+    public static void tree(File path, List<String> childPaths, int pathLen, final String[] extensions) {
+        File[] fList = path.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return pathname.isDirectory();
             }
         });
+        /*
+        Create the file name filter.
+        */
+        FilenameFilter fnf = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                for (String ext : extensions) {
+                    if (name.toLowerCase().endsWith(ext)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
         for (File fil : fList) {
             if (fil.isDirectory()) {
-                String[] count = fil.list(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        for (String ext : extensions) {
-                            if (name.toLowerCase().endsWith(ext)) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
-                });
+                String[] count = fil.list(fnf);
                 if (count.length > 0) {
-                    l.add(fil.getAbsolutePath().substring(pathLen));
+                    childPaths.add(fil.getAbsolutePath().substring(pathLen));
                 }
-                tree(fil, l, pathLen, extensions);
+                tree(fil, childPaths, pathLen, extensions);
             }
         }
     }
@@ -89,27 +108,28 @@ public class FileUtils {
     /**
      * Recursive directory crawler
      *
-     * @param f Start in this directory
+     * @param startPath Start in this directory
      * @param infileTypes Filter the files returned (eg .java)
      * @param recursive To recurse or not to recurse?
      * @return List of files
      */
-    public static List<File> getFileList(File f, List<String> infileTypes, boolean recursive) {
+
+    public static List<File> getFileList(File startPath, List<String> infileTypes, boolean recursive) {
         List<File> files = new ArrayList<>();
         if ((infileTypes == null) || (infileTypes.isEmpty())) {
-            listFilesRecursive(f, files, null, recursive);
+            listFilesRecursive(startPath, files, null, recursive);
         } else {
-            listFilesRecursive(f, files, new FileExtFilter(infileTypes), recursive);
+            listFilesRecursive(startPath, files, new FileExtFilter(infileTypes), recursive);
         }
         return files;
     }
 
-    private static void listFilesRecursive(File f, List<File> list, FileExtFilter filter, boolean recursive) {
+    private static void listFilesRecursive(File startPath, List<File> list, FileExtFilter filter, boolean recursive) {
         File[] files;
         if (filter == null) {
-            files = f.listFiles();
+            files = startPath.listFiles();
         } else {
-            files = f.listFiles(filter);
+            files = startPath.listFiles(filter);
         }
         for (File fil : files) {
             if (fil.isDirectory()) {
@@ -356,20 +376,7 @@ public class FileUtils {
         if (StringUtils.isBlank(fileName)) {
             return false;
         }
-        return newFile(fileName).exists();
-    }
-
-    /**
-     * Create a file. If you create a file with a file name such as 'a.txt' then
-     * the file name returned is 'a.txt'. Doing this will always return the full
-     * path of the file
-     *
-     * @param fileName The file name as a string
-     * @return
-     */
-    public static File newFile(String fileName) {
-        File f = new File(fileName);
-        return new File(f.getAbsolutePath());
+        return (new File(fileName)).exists();
     }
 
     private static List<LineWithNumber> filter(List<String> lines, List<String> filter) {

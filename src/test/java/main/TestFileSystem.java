@@ -61,10 +61,10 @@ public class TestFileSystem extends TestBaseClass {
 
     @Test
     public void testInOrder() throws Exception {
+        testLogs();
         testGetPathsUserNotFound();
         testGetPathsLocNotFound();
         testFilesAll();
-        testLogs();
         testReadLogs();
         testFileLoadJpg();
         testFileLoadJpgJpg();

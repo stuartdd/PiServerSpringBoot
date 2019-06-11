@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import services.FileService;
 import services.FunctionService;
-import tools.FileResource;
+import config.FileResource;
 import services.dto.FunctionResponseDto;
 import tools.EncodeDecode;
 import tools.MediaTypeInfAndName;
@@ -72,10 +72,8 @@ public class Script extends ControllerErrorHandlerBase {
         queryParameters.put("fileName", finalName);
         if (user != null) {
             queryParameters.put("user", user);
-            queryParameters.putAll(ConfigDataManager.getUser(user));
-        } else {
-            queryParameters.putAll(ConfigDataManager.getLocations());
-        }
+            queryParameters.putAll(ConfigDataManager.getResolvedUserLocations(user));
+        } 
         FunctionResponseDto functionResponseDto = FunctionService.func(function, queryParameters);
         byte[] bytes = functionResponseDto.getResponse().getBytes(StringTools.DEFAULT_CHARSET);
 

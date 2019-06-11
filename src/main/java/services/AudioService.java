@@ -19,10 +19,10 @@ package services;
 import config.Audio;
 import exceptions.AudioSetupException;
 import io.AudioStatusIO;
-import java.io.File;
 import config.ConfigDataManager;
 import org.apache.commons.lang3.StringUtils;
 import tools.AudioPlayerThread;
+import config.FileResource;
 
 /**
  *
@@ -64,7 +64,7 @@ public class AudioService {
             audioThread.close();
             audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STOPPED, WAIT_TIME);
         }
-        audioThread = new AudioPlayerThread(ConfigDataManager.getLocation("audio") + File.separator + file, readVolumeString(vol));
+        audioThread = new AudioPlayerThread(FileResource.withLocation("audio").andName(file).file().getAbsolutePath(), readVolumeString(vol));
         audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.STARTING, WAIT_TIME);
         audioThread.start();
         audioThread.waitForStatus(AudioPlayerThread.ThreadStatus.RUNNING, WAIT_TIME);

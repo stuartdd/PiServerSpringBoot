@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tools;
+package config;
 
 import config.ConfigDataManager;
 import exceptions.ResourceFileNotFoundException;
@@ -11,6 +11,7 @@ import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import tools.FileUtils;
 import tools.FileUtils;
 
 /**

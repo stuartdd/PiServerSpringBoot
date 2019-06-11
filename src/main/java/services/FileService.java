@@ -31,7 +31,7 @@ import config.ConfigDataManager;
 import java.util.Arrays;
 import java.util.Comparator;
 import org.springframework.http.HttpStatus;
-import tools.FileResource;
+import config.FileResource;
 import tools.FileExtFilter;
 import tools.FileUtils;
 
@@ -46,22 +46,22 @@ public class FileService {
     public static PathsIO paths(String user, String loc) {
         File root = FileResource.withUserLocation(user, loc).file();
         int prefix = root.getAbsolutePath().length();
-        List<String> fileNames = new ArrayList<>();
-        FileUtils.tree(root, fileNames, prefix, new String[]{".java", ".jpg"});
-        PathsIO resp = new PathsIO(user, loc);
-        fileNames.sort(new Comparator<String>() {
+        List<String> pathNames = new ArrayList<>();
+        FileUtils.tree(root, pathNames, prefix, new String[]{".java", ".jpg"});
+        PathsIO pathIO = new PathsIO(user, loc);
+        pathNames.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 return o1.compareTo(o2);
             }
         });
-        for (String s : fileNames) {
+        for (String s : pathNames) {
             if (s.startsWith(FS)) {
                 s = s.substring(FS.length());
             }
-            resp.addPath(s);
+            pathIO.addPath(s);
         }
-        return resp;
+        return pathIO;
     }
 
     public static void saveFile(String user, String loc, String path, String name, String body) {

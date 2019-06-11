@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import tools.FileResource;
 
 /**
  * @author stuart
@@ -42,6 +41,7 @@ public class ConfigDataManager {
     private static String configDataName;
     private static Map<String, String> parameterMap;
     private static Map<String, String> resolvedLocations;
+    private static Map<String, Map<String, String>> resolvedUserLocations;
     /*
     Do not give direct access to configDataImpl. It should always remain wrapped
      */
@@ -132,16 +132,25 @@ public class ConfigDataManager {
         }
 
         try {
+            resolvedUserLocations = new HashMap<>();
             for (Map.Entry<String, Map<String, String>> usr : getUsers().entrySet()) {
                 if (usr.getValue() != null) {
                     for (Map.Entry<String, String> loc : usr.getValue().entrySet()) {
                         if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
-                            FileResource.withUserLocation(usr.getKey(), loc.getKey()).file();
+                            File f = FileResource.withUserLocation(usr.getKey(), loc.getKey()).file();
+                            if (f != null) {
+                                Map<String, String> userMap = resolvedUserLocations.get(usr.getKey());
+                                if (userMap == null) {
+                                    userMap = new HashMap<>();
+                                }
+                                resolvedUserLocations.put(usr.getKey(), userMap);
+                                userMap.put(loc.getKey(), f.getAbsolutePath());
+                            }
                         }
                     }
                 }
             }
-            
+
             resolvedLocations = new HashMap<>();
             for (Map.Entry<String, String> loc : getLocations().entrySet()) {
                 if (ConfigDataManager.shouldValidateLocation(loc.getKey())) {
@@ -234,7 +243,11 @@ public class ConfigDataManager {
     public static String getSubstitutionData() {
         StringBuilder sb = new StringBuilder();
         Map<String, String> sorted = new TreeMap<>();
-        sorted.putAll(parameterMap);
+        for (Map.Entry<String, String> ent : parameterMap.entrySet()) {
+            if (!ent.getKey().startsWith("serverRoot")) {
+                sorted.put(ent.getKey(), ent.getValue());
+            }
+        }
         sb.append("{\"status\":{");
         int mark = sb.length();
         for (Map.Entry<String, String> s : sorted.entrySet()) {
@@ -259,12 +272,16 @@ public class ConfigDataManager {
         return map;
     }
 
-    public final static Map<String, String> getLocations() {
-        return configDataImpl.getResources().getLocations();
-    }
-    
     public final static Map<String, String> getResolvedLocations() {
         return resolvedLocations;
+    }
+
+    public final static Map<String, String> getResolvedUserLocations(String user) {
+        Map<String, String> map = resolvedUserLocations.get(user);
+        if (map == null) {
+            throw new ResourceNotFoundException("User: " + user);
+        }
+        return map;
     }
 
     /**
@@ -275,7 +292,7 @@ public class ConfigDataManager {
      * @throws ResourceNotFoundException if the location is not in the config
      * data.
      */
-    public final static String getLocation(String locationName) {
+    protected final static String getLocation(String locationName) {
         String loc = getLocations().get(locationName);
         if (loc == null) {
             throw new ResourceNotFoundException("Location: " + locationName);
@@ -283,6 +300,13 @@ public class ConfigDataManager {
         return loc;
     }
 
+    /**
+     * Return a new map instance that contains the parameter map and the
+     * contents of the map being passed in.
+     *
+     * @param localParameters
+     * @return
+     */
     public final static Map<String, String> getParameters(Map<String, String> localParameters) {
         Map<String, String> p = new HashMap<>();
         p.putAll(parameterMap);
@@ -347,6 +371,10 @@ public class ConfigDataManager {
 
     public static int getLogLevelBar() {
         return configDataImpl.getLogLevelBar();
+    }
+
+    private final static Map<String, String> getLocations() {
+        return configDataImpl.getResources().getLocations();
     }
 
 }

@@ -164,7 +164,7 @@ public class FileSystem extends ControllerErrorHandlerBase {
         if ((filter == null) || (filter.isEmpty())) {
             return FileService.userListFiles(user, loc, finalPath);
         }
-        return FileService.userListFiles(user, loc, finalPath, filter.split("\\,"));
+        return FileService.userListFiles(user, loc, finalPath, StringTools.splice(filter,','));
     }
 
     /**

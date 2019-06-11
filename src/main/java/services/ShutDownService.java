@@ -23,7 +23,7 @@ import config.ConfigDataManager;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
-import tools.FileResource;
+import config.FileResource;
 import tools.FileUtils;
 
 /**

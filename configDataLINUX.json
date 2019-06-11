@@ -46,7 +46,7 @@
             "scripts": "data/scripts",
             "templates": "web/templates",
             "static": "web/static",
-            "audio": "audio"
+            "audio": "data/audio"
         },
         "alias": {
             "ufs": "userFileSizes.json"
@@ -72,8 +72,8 @@
                 "methodName": "scriptBetween",
                 "scriptName": "rotateImage",
                 "Content-Type": "text/plain; charset=UTF-8",
-                "P1": "%{serverRoot[0]}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
-                "P2": "%{serverRoot[0]}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P1": "%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P2": "%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
                 "P3": "%{fileName}",
                 "P4": "%{degrees}"
             },
@@ -81,8 +81,8 @@
                 "methodName": "scriptBetween",
                 "scriptName": "restoreImage",
                 "Content-Type": "text/plain; charset=UTF-8",
-                "P1": "%{serverRoot[0]}%{file.separator}%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
-                "P2": "%{serverRoot[0]}%{file.separator}%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P1": "%{backup}%{file.separator}%{filePath}%{file.separator}%{fileName}",
+                "P2": "%{original}%{file.separator}%{filePath}%{file.separator}%{fileName}",
                 "P3": "%{fileName}"
             }
         }

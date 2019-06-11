@@ -6,8 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import config.ConfigDataManager;
-import tools.FileResource;
+import config.FileResource;
 import tools.StringTools;
 
 /**
@@ -22,8 +21,7 @@ public class SystemCommand {
     private int exitValue;
     private List<String> commands;
 
-    public int run(List<String> commandIn, String path) {
-        boolean echoScriptOutput = ConfigDataManager.isEchoScriptOutput();
+    public int run(List<String> commandIn, String path, boolean echoScriptOutput) {
         if (commandIn == null) {
             throw new SystemCommandException("Failed commandIn is NULL");
         }

@@ -19,9 +19,10 @@ import java.util.List;
 import java.util.Map;
 import config.ConfigDataManager;
 import java.io.File;
-import tools.FileResource;
+import config.FileResource;
 import tools.FileUtils;
 import tools.OsUtils;
+import tools.StringTools;
 import tools.Template;
 
 /**
@@ -90,7 +91,7 @@ public class FunctionService {
             throw new ConfigDataException(desc + " Path to scripts does not exist'");
         }
         SystemCommand sc = new SystemCommand();
-        sc.run((List<String>) script[1], (String) script[0]);
+        sc.run((List<String>) script[1], (String) script[0], ConfigDataManager.isEchoScriptOutput());
         int rc = sc.getExitValue();
         if (rc <= minRcValue) {
             return sc.getOutput();
@@ -111,9 +112,9 @@ public class FunctionService {
             mapSub.put(key.getKey(), Template.parse(key.getValue(), mapSub, Template.URESOLVED_ACTION.IGNORE));
         }
         String t1 = Template.parse(osTemplate, mapSub, Template.URESOLVED_ACTION.IGNORE);
-        t1 = Template.parse(t1, ConfigDataManager.getLocations(), Template.URESOLVED_ACTION.BLANK);
+        t1 = Template.parse(t1, mapSub, Template.URESOLVED_ACTION.BLANK);
         t1 = t1.trim();
-        String[] split = t1.split("\\|");
+        String[] split = StringTools.splice(t1, '|');
         if (split.length < 2) {
             throw new ConfigDataException(desc + " Invalid number arguments in osTemplates. Min is two. E.g. %{scripts}|%{script}");
         }
