@@ -3,32 +3,14 @@ lcd build/libs
 put PiServerSpringBoot-1.0.jar
 chmod 775 PiServerSpringBoot-1.0.jar
 
+cd /home/pi/server/scripts/external
+mput *.class
+
 cd /home/pi/server
 lcd ../../
-put configDataPI.json
+
 put runWebAppPI.sh
 chmod 775 runWebAppPI.sh
-
-cd /home/pi/server/scripts
-lcd scripts
-mput *.*
-chmod 775 *.sh
-
-cd /home/pi/server/scripts/external
-lcd external
-mput *.*
-
-cd /home/pi/server/audio
-lcd ../../audio
-mput *.*
-
-cd /home/pi/server/web/static
-lcd ../web/static
-mput *.*
-
-cd /home/pi/server/web/templates
-lcd ../templates
-mput *.*
 
 quit
 
