@@ -20,6 +20,7 @@ import java.util.Map;
 import config.ConfigDataManager;
 import java.io.File;
 import config.FileResource;
+import config.LogProvider;
 import tools.FileUtils;
 import tools.OsUtils;
 import tools.StringTools;
@@ -88,6 +89,7 @@ public class FunctionService {
         }
         Object[] script = substituteAndSplit(map, desc);
         if (!FileUtils.exists((String)script[0])) {
+            LogProvider.log(String.format("[9] Path [%s] could not be found."), 8);
             throw new ConfigDataException(desc + " Path to scripts does not exist'");
         }
         SystemCommand sc = new SystemCommand();

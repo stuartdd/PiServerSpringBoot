@@ -1,16 +1,10 @@
-cd /home/pi/server
+cd /home/pi/server/control/lib
 lcd build/libs
 put PiServerSpringBoot-1.0.jar
 chmod 775 PiServerSpringBoot-1.0.jar
 
 cd /home/pi/server/scripts/external
 mput *.class
-
-cd /home/pi/server
-lcd ../../
-
-put runWebAppPI.sh
-chmod 775 runWebAppPI.sh
 
 quit
 
