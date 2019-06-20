@@ -17,6 +17,7 @@
 package services;
 
 import config.Audio;
+import config.LogProvider;
 import exceptions.AudioSetupException;
 import io.AudioStatusIO;
 import config.ConfigDataManager;
@@ -104,15 +105,20 @@ public class AudioService {
         Audio audio = ConfigDataManager.getAudio();
         
         if ((audioThread == null || ((audioThread != null) && (!audioThread.isRunning())))) {
-            return new AudioStatusIO(action, "STOPPED", "Nothing is playing", 0.0, 0.0, currentVolume,audio.getVolumeSteps(), audio.getVolumeMinValue() ,audio.getVolumeMaxValue());
+            return logAndReturn(new AudioStatusIO(action, "STOPPED", "Nothing is playing", 0.0, 0.0, currentVolume,audio.getVolumeSteps(), audio.getVolumeMinValue() ,audio.getVolumeMaxValue()));
         } else {
             String state = "PLAYING";
             if (audioThread.isPaused()) {
                 state = "PAUSED";
             }
-            return new AudioStatusIO(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume(), 
-                    audio.getVolumeSteps(), audio.getVolumeMinValue() ,audio.getVolumeMaxValue());
+            return logAndReturn(new AudioStatusIO(action, state, currentFileName, audioThread.getDurationSeconds(), audioThread.getEllapsedSeconds(), audioThread.getVolume(),
+                    audio.getVolumeSteps(), audio.getVolumeMinValue() ,audio.getVolumeMaxValue()));
         }
+    }
+
+    private static AudioStatusIO logAndReturn(AudioStatusIO audioStatusIO) {
+        LogProvider.log(audioStatusIO.toString(),8);
+        return audioStatusIO;
     }
 
     private static int readVolumeString(String vol) {

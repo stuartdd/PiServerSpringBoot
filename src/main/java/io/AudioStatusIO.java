@@ -115,4 +115,18 @@ public class AudioStatusIO {
         this.volumeMax = volumeMax;
     }
 
+    @Override
+    public String toString() {
+        return "AudioStatusIO{" +
+                "action='" + action + '\'' +
+                ", status='" + status + '\'' +
+                ", message='" + message + '\'' +
+                ", duration=" + duration +
+                ", position=" + position +
+                ", volume=" + volume +
+                ", volumeStep=" + volumeStep +
+                ", volumeMin=" + volumeMin +
+                ", volumeMax=" + volumeMax +
+                '}';
+    }
 }

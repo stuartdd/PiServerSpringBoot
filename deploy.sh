@@ -13,7 +13,3 @@ set -e
 # Copy resources to the pi
 #
 sftp -b depolyServer.script pi@topbox
-#
-# Restart the server
-#
-curl -X GET http://topbox:8080/server/restart
