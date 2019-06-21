@@ -22,12 +22,15 @@ import services.ShutDownService;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import config.ConfigDataManager;
+import config.LogProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tools.StringTools;
 
@@ -51,8 +54,8 @@ public class Server extends ControllerErrorHandlerBase {
         if (ConfigDataManager.isAllowServerStopCtrl()) {
             return ShutDownService.shutDownLater(appContext, 1, 2, "SHUTTING DOWN");
         } else {
-            throw new ServerRestException("Stop command is disabled",HttpStatus.FORBIDDEN,"Forbidden");
-        } 
+            throw new ServerRestException("Stop command is disabled", HttpStatus.FORBIDDEN, "Forbidden");
+        }
     }
 
     @RequestMapping(value = "server/restart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
@@ -64,10 +67,31 @@ public class Server extends ControllerErrorHandlerBase {
     public String users() {
         return StringTools.cleanJsonString(ServerService.jsonUsers());
     }
-    
+
     @RequestMapping(value = "server/status", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String status() {
         return ConfigDataManager.getSubstitutionData();
+    }
+
+    @RequestMapping(value = "server/log/**", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String logGet(HttpServletRequest req) {
+        return log(req, null);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "server/log/**", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public String logPost(@RequestBody String body, HttpServletRequest req) {
+        return log(req, body);
+    }
+
+    private String log(HttpServletRequest req, String body) {
+        if (body == null) {
+            LogProvider.log(String.format("LOG:%s/%s", req.getRequestURI().substring("/server/log/".length()), req.getQueryString()), 0);
+            return String.format("{\"ts\":%d}", System.currentTimeMillis());
+        } else {
+            LogProvider.log(String.format("LOG:%s", StringTools.clean(body)), 0);
+        }
+        return "";
     }
 
 }

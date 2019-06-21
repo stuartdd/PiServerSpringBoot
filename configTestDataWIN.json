@@ -23,7 +23,7 @@
                 "thumbs": "data\\thumb\\stuart",
                 "original": "data\\images\\stuart",
                 "data": "data\\stuart",
-                "logs": ".logs"
+                "logs": "data\\logs"
             },
             "shared": {
                 "name": "Something for everyone",

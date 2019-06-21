@@ -28,6 +28,17 @@ public class StringTools {
 
     public static Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
+    public static String clean(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (c >= ' ') {
+                sb.append(c);
+            } else {
+                sb.append(' ');
+            }
+        }
+        return sb.toString();
+    }
 
     public static String listToString(List list, String delim) {
         StringBuilder sb = new StringBuilder();
@@ -63,7 +74,6 @@ public class StringTools {
         }
         return list.toArray(new String[list.size()]);
     }
-
 
     public static String replaceAll(String s, char c1, char c2) {
         StringBuilder sb = new StringBuilder();

@@ -23,7 +23,7 @@
     "formatTimeStamp": "dd-MM-yyyy'T'HH:mm:ss.SZ",
     "validatePathsOnStartUp": ["thumbs", "original", "backup", "data", "logs", "cache", "scripts", "templates", "static", "audio"],
     "resources": {
-        "serverRoot": ["C:\\Users\\stuar\\git\\PiServerWeb", "C:\\Users\\stuar\\git\\PiServerSpringBoot"],
+        "serverRoot": ["E:\\Development\\PiServerWeb", "E:\\Development\\PiServerSpringBoot"],
         "users": {
             "stuart": {
                 "name": "Stuart",
@@ -46,7 +46,7 @@
             "scripts": "data\\scripts",
             "templates": "web\\templates",
             "static": "web\\static",
-            "audio": "audio"
+            "audio": "data\\audio"
         },
         "alias": {
             "ufs": "userFileSizes.json"

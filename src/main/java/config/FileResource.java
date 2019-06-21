@@ -5,13 +5,11 @@
  */
 package config;
 
-import config.ConfigDataManager;
 import exceptions.ResourceFileNotFoundException;
 import exceptions.ResourceNotFoundException;
 import java.io.File;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
-import tools.FileUtils;
 import tools.FileUtils;
 
 /**
@@ -55,10 +53,10 @@ public class FileResource {
     }
 
     public FileResource withPath(String path) {
-       if (StringUtils.isBlank(path)) {
-           return this;
-       }
-       if (path.startsWith(FS)) {
+        if (StringUtils.isBlank(path)) {
+            return this;
+        }
+        if (path.startsWith(FS)) {
             this.path = path.substring(FS.length());
         } else {
             this.path = path;
@@ -71,9 +69,9 @@ public class FileResource {
     }
 
     public FileResource withName(String name) {
-       if (StringUtils.isBlank(name)) {
-           return this;
-       }
+        if (StringUtils.isBlank(name)) {
+            return this;
+        }
         if (!FileUtils.isRootPath(name)) {
             this.name = name;
         } else {
@@ -93,7 +91,7 @@ public class FileResource {
     public File file() {
         File f = findFirstFromRootPaths();
         if (f == null) {
-            throw new ResourceFileNotFoundException(loc + (StringUtils.isBlank(path) ? "" : "." + path) + (StringUtils.isBlank(name) ? "" : "." + name));
+            throw new ResourceFileNotFoundException("(loc:"+loc +")"+ (StringUtils.isBlank(path) ? "" : ".(path:" + path + ")") + (StringUtils.isBlank(user) ? "" : ".(user:" + user + ")") + (StringUtils.isBlank(name) ? "" : ".(name:" + name + ")"));
         }
         return f;
     }
