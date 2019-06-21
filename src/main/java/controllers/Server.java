@@ -83,6 +83,17 @@ public class Server extends ControllerErrorHandlerBase {
     public String logPost(@RequestBody String body, HttpServletRequest req) {
         return log(req, body);
     }
+    
+    @RequestMapping(value = "server/err/**", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String logErr(HttpServletRequest req) {
+        return log(req, null);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "server/err/**", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public String logErrPost(@RequestBody String body, HttpServletRequest req) {
+        return logErr(req, body);
+    }
 
     private String log(HttpServletRequest req, String body) {
         if (body == null) {
@@ -90,6 +101,16 @@ public class Server extends ControllerErrorHandlerBase {
             return String.format("{\"ts\":%d}", System.currentTimeMillis());
         } else {
             LogProvider.log(String.format("LOG:%s", StringTools.clean(body)), 0);
+        }
+        return "";
+    }
+
+    private String logErr(HttpServletRequest req, String body) {
+        if (body == null) {
+            LogProvider.logErr(String.format("ERROR:%s/%s", req.getRequestURI().substring("/server/log/".length()), req.getQueryString()));
+            return String.format("{\"ts\":%d}", System.currentTimeMillis());
+        } else {
+            LogProvider.logErr(String.format("ERROR:%s", StringTools.clean(body)));
         }
         return "";
     }
