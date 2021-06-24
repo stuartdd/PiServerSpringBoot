@@ -11,8 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
-
 /**
  *
  * @author stuart
@@ -27,6 +25,11 @@ public class JsonFormatterPipe {
             + "         -l8 - All lines are 8 words long\n"
             + "  -in<inFile> - Read the input stream from this file. Use System.in otherwise\n"
             + "  -ou<outFile> - Write the output stream from this file. Use System.out otherwise\n"
+            + "  -io<c1><c2> - Define the Intro and Outtro characters for the JSON\n"
+            + "     Intro <c1> is the first char in the JSON (default '[')\n"
+            + "     Outtro <c2> is the last char in the JSON (default ']')\n"
+            + "     <c1> and <c2> can be any char. A '?' means DON'T include the char\n"
+            + "     This enables the concatenation of JSON from separate calls to JsonFormatterPipe.\n"
             + "  -de<delim-ascii-decimal-csv> - List of comma separated ascii codes to use as delimiters\n"
             + "     eg. -de32,47 will split up the input using ' ' and '/'\n"
             + "         default value is 32 ' '.";
