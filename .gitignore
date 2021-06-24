@@ -18,7 +18,12 @@
 # Gradle
 .gradle
 build/
+bin/
 .nb-gradle*
+.classpath
+.project
+.settings
+.vscode
 .
 
 # Package Files #

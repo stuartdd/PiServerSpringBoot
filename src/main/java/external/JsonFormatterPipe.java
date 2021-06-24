@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
+
 /**
  *
  * @author stuart
@@ -33,6 +35,7 @@ public class JsonFormatterPipe {
     private static int[] linePos = new int[]{};
     private static int[] lineLen = new int[]{};
     private static int[] delimeters = new int[]{32};
+    private static char[] jsonInOut = new char[]{'[',']'};
     private static File file;
     private static String outFileName;
 
@@ -112,6 +115,9 @@ public class JsonFormatterPipe {
             if (a.startsWith("-de")) {
                 delimeters = readInts(a.substring(3), "-de");
             }
+            if (a.startsWith("-io")) {
+                jsonInOut = readChars(a.substring(3), "-io");
+            }
             if (a.startsWith("-n")) {
                 names = readStrings(a.substring(2), "-n");
             }
@@ -158,6 +164,16 @@ public class JsonFormatterPipe {
             exitCode(context + " does not have any values. Use " + context + "value1,value2 etc.");
         }
         return csv.split("\\,");
+    }    
+    
+    private static char[] readChars(String param, String context) {
+        if (param.isEmpty()) {
+            exitCode(context + " does not have any values. Use " + context + "[]");
+        }
+        if (param.length() != 2) {
+            exitCode(context + " Must have 2 character values. E.G. " + context + "[] or" + context + "?] or" + context + ",]");
+        }
+        return param.toCharArray();
     }
 
     private static int[] readInts(String csv, String context) {
@@ -213,7 +229,9 @@ public class JsonFormatterPipe {
         JsonFormatterPipe sc = new JsonFormatterPipe(in);
         sc.skipSpace();
         StringBuilder sb = new StringBuilder();
-        sb.append('[');
+        if (jsonInOut[0] != '?') {
+            sb.append(jsonInOut[0]);
+        }
         int mark01 = 0;
         int mark02 = 0;
         int tokenOnLine = 0;
@@ -253,7 +271,9 @@ public class JsonFormatterPipe {
             }
         }
         sb.setLength(mark02);
-        sb.append(']');
+        if (jsonInOut[1] != '?') {
+            sb.append(jsonInOut[1]);
+        }
         return sb.toString();
     }
 

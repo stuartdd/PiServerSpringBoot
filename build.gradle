@@ -5,7 +5,7 @@ plugins {
 }
 
 version = '1.0'
-sourceCompatibility = '11'
+sourceCompatibility = '8'
 mainClassName = 'main.Main'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
