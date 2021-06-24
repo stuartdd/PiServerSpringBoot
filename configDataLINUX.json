@@ -16,7 +16,7 @@
         "volumeMaxValue": 100,
         "volumeSteps": 2
     },
-    "logPath": ".logs",
+    "logPath": "logs",
     "logName": "PiServer",
     "logLevelBar": 9,
     "allowServerStopCtrl": true,
